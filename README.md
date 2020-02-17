@@ -6,4 +6,6 @@ Segundo cuatrimestre de cuarto (DGIIM)
 
 ## Links útiles:
 
-- Configurar `MathJax` en Anki [link](https://niklaskorz.de/2017/06/studying-mathematics-with-anki-and-mathjax.html).
+### Servidores web de altas prestaciones (SWAP):
+
+- Inicir Virtual Box desde un script [link](https://www.techrepublic.com/article/how-to-create-a-bash-script-for-starting-virtualbox-vms/).
