@@ -1,0 +1,274 @@
+\documentclass[12pt]{article}
+ 
+\usepackage[margin=1in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{tikz-cd}
+\usepackage{amsmath}
+\usepackage[shortlabels]{enumitem}
+
+% cosas entre comillas 
+\usepackage{csquotes}
+\usepackage{hyperref}
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+
+\newcommand\restr[2]{{% we make the whole thing an ordinary symbol
+  \left.\kern-\nulldelimiterspace % automatically resize the bar with \right
+  #1 % the function
+  \vphantom{\big|} % pretend it's a little taller at normal size
+  \right|_{#2} % this is the delimiter
+  }}
+ 
+% lo de section sirve en los numeros de las cosas aparezca el numero de la seccion y un punto y luego el otro numero
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}[theorem]{Lema}
+\newtheorem{prop}[theorem]{Proposición}
+\newtheorem{coro}[theorem]{Corolario}
+\newtheorem{conj}[theorem]{Conjetura}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definición}
+\newtheorem{example}[theorem]{Ejemplo}
+\newtheorem{xca}[theorem]{Ejercicio}
+
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Nota}
+
+\newtheorem{notacion}[theorem]{Notación}
+
+\newcommand{\continuas}[1][]{C^{ #1 }[x_0,x_1]}
+\newcommand{\continuasabierto}[1][]{C^{ #1 }(x_0,x_1)}
+\newcommand{\soportecompacto}{\mathcal{D}(x_0,x_1)}
+\newcommand{\derivada}[2]{\frac{\partial #1 }{\partial #2 }}
+\newcommand{\integral}[3]{\displaystyle\int_{ #1 }^{ #2 } #3 }
+\DeclareMathOperator\supp{soporte}
+% comandos chorra
+\newcommand{\xcero}{(x_0,x_1)}
+\newcommand{\xcerocerrado}{[x_0,x_1]}
+\newcommand{\fvariaciones}{F(x,y(x),y'(x))}
+\newcommand{\espacio}{\;\;\;}
+\begin{document}
+
+\title{Modelos Matemáticos II}
+\author{Antonio Gámiz Delgado\\ Universidad de Granada} 
+ 
+\maketitle
+
+\section{Cálculo de variaciones}
+
+\subsection{Herramientas previas}
+
+\begin{definition}
+\label{funcionestest}
+Dado $I$ intervalo, se llama \textit{espacio de funciones test} al conjunto:
+
+\[
+\mathcal{D} = \{\phi\in C^{\infty}(a,b): \; \exists J\subset(a,b) \text{ compacto: } \phi(x)=0 \text{ si } x \in J\}
+\]
+\end{definition}
+
+\begin{lemma}
+\label{existanciaphi}
+Dado $x_0\in(a,b)$ y $\varepsilon>0$ tal que $[x_0-\varepsilon, x_0+\varepsilon]\subset(a,b)$, existe $\phi\in\mathcal{D}(a,b)$ tal que $\phi(x)>0$ si $x\in(x_0-\varepsilon,x_0+\varepsilon)$ y $\phi(x)=0$ en otro caso.
+\end{lemma}
+
+\begin{theorem}
+\label{theorem:1.3}
+Sea $f\in \continuas$ tal que
+
+\[
+\int f(x)\phi(x)dx=0 \hspace{1cm} \forall \phi \in \soportecompacto
+\]
+
+Entonces $f(x)=0 \;$  $\forall x\in [x_0,x_1]$.
+
+\end{theorem}
+
+\begin{proof}
+
+Sea $\bar{x}\in \xcero$ y supongamos por reducción al absurdo que $f(\bar{x})\neq 0$. Podemos suponer $f(\bar{x})>0$. Aplicando el teorema de conservación del signo, obtenemos $\varepsilon>0 \; f(x)>0 \text{ si } \; (\bar{x}-\varepsilon,\bar{x}+\varepsilon)$.
+
+Por el lema \ref{existanciaphi}, existe una función test $\phi$ tal que $\phi(x)>0$ si $x\in(\bar{x}-\varepsilon, \bar{x}+\varepsilon)$ y $0$ en otro caso. Luego:
+
+\[
+0=\int_{x_0}^{x_1}f(x)\phi(x)dx=\int_{\bar{x}-\varepsilon}^{\bar{x}+\varepsilon}f(x)\phi(x)dx>0 \Rightarrow f(\bar{x})=0
+\]
+
+Como $\bar{x}$ era arbitrario, tenemos que $f(\bar{x})=0 \; \forall \bar{x}\in\xcero$, y por la continuidad de $f$ podemos extenderlo a los extremos también, es decir, $f(x_0)=f(x_1)=0$.
+
+\end{proof}
+
+\subsection{Problema general del cálculo de variaciones}
+
+Sea $\Omega\subset\R^3$, definamos $F:\Omega \longrightarrow \R$ tal que $(x,y,p)\longmapsto F(x,y,p)$. Supongamos que $F\in C^1(\Omega)$  respecto de las dos últimas variables, es decir, existen $\derivada{F}{y}$ y $\derivada{F}{p}$, continuas. 
+
+Usando la función anterior, podemos definir el siguiente funcional:
+
+\begin{equation}\label{funcional}
+L(y) = \int_{x_0}^{x_1}\fvariaciones dx 
+\end{equation}
+
+
+Nuestro objetivo en este apartado será encontrar \textit{extremales} de ese funcional, es decir, máximos o mínimos.
+
+\begin{notacion}
+Normalmente, a las derivadas parciales las denotaremos por:
+
+\[
+\derivada{F}{x}=F_x
+\]
+
+\end{notacion} 
+
+Los \textit{extremales} los buscaremos entre los elementos de un conjunto de funciones cumpliendo ciertas propiedades:
+
+\begin{definition} 
+
+Sea $\Omega\subset\R^3$ y $F:\Omega\longrightarrow \R$ funcional en las condiciones anteriores. Definimos entonces el siguiente conjunto:
+
+\begin{equation}\label{espaciofunciones}
+D=\{y\in\continuasabierto\cap\continuas[1]: \text{ se cumplen (a),(b) y (c)}\}
+\end{equation}
+
+\begin{enumerate}[(a)]
+
+\item $(x,y(x),y'(x))\in\Omega \espacio \forall x\in\xcero$
+\item $y(x_0)=y_0$ e $y(x_1)=y_1$ (\textit{Condición de contorno})
+\item $\displaystyle\int_{x_0}^x\fvariaciones dx<+\infty \espacio \forall x\in \xcero$ 
+\end{enumerate}
+
+\end{definition}
+
+El siguiente teorema nos proporcionará una condición sobre las derivadas parciales de $F$, que nos ayudará a buscar \textit{extremales}. Para su demostración necesitaremos el siguiente lema:
+
+\begin{lemma}
+\label{lemmatecnico}
+Sea $\{s_n\}\longrightarrow 0$ una sucesión de números reales, existe $n_0\in\N$ tal que si $y\in D$, entonces $y+s_n\phi\in D \espacio \forall n\geq n_0$.
+\end{lemma}
+
+Lo que nos asegura este lema es que podamos sumar una perturbación \textit{pequeña} a nuestro extremal sin \textit{salirnos} de $D$.
+
+\begin{theorem}
+\label{theorem:1.7}
+Si $\bar{y}\in D$ es un extremal, entonces:
+\[
+\integral{x_0}{x_1}{F_y(x,\bar{y}(x), \bar{y}'(x))}\phi(x)dx+\integral{x_0}{x_1}{F_p(x,\bar{y}(x), \bar{y}'(x))}\phi'(x)dx=0 \espacio \forall \phi\in \soportecompacto
+\]
+
+A $\bar{y}$ se le suele llamar función crítica.
+\end{theorem}
+
+\begin{proof}
+Sean $\bar{y}\in D$ extremal y $\phi\in\soportecompacto$. Definimos el funcional $g:\R\longrightarrow\R$ tal que $g(s)=L(\bar{y}+s\phi)$.
+
+Por el lema anterior, existe $\varepsilon>0$ tal que $g$ está bien definida en $(-\varepsilon,\varepsilon)$.
+
+Ahora queremos derivar $g$ respecto de $s$, pero necesitamos que esté definida en un intervalo cerrado (por el teorema de derivación). Para ello, tomamos un intervalo cerrado $J$ de forma que $\supp (\phi)\subset J$. \textbf{(AQUI TENGO DUDAS MIRAR NOTAS CLASE)}
+
+Derivamos $g$ respecto de $s$:
+
+\[
+g'(s)=\left(
+\integral{\xcerocerrado\backslash J}{}{F(x,\bar{y},\bar{y}')dx}+
+\integral{J}{}{F(x,\bar{y}+s\phi(x),\bar{y}'+s\phi'(x))dx}
+\right)'=
+\]
+\[
+= \integral{J}{}{\left(F_y(x,\bar{y}+s\phi(x),\bar{y}'+s\phi'(x))\phi(x)+F_p(x,\bar{y}+s\phi(x),\bar{y}'+s\phi'(x))\phi'(x)\right)dx}=
+\]
+\[
+\integral{\xcerocerrado}{}{\left(F_y(x,\bar{y}+s\phi(x),\bar{y}'+s\phi'(x))\phi(x)+F_p(x,\bar{y}+s\phi(x),\bar{y}'+s\phi'(x))\phi'(x)\right)dx}
+\]
+
+Si evaluamos ahora $g'$ en 0, tenemos:
+
+\[
+g'(0)=\integral{x_0}{x_1}{\left(F_y(x,\bar{y},\bar{y}')\phi+F_p(x,\bar{y},\bar{y}')\phi'\right)dx}=0 \espacio(\bar{y}\text{ extremal})
+\]
+
+\end{proof}
+
+El teorema anterior da pie a la siguiente definición:
+
+\begin{definition}
+\label{gateaux}
+
+Sea $\Omega\subset X$ un abierto de un espacio de Banach, $X$. Sean $L:\Omega\longrightarrow\R$, $y\in \Omega$, $\phi\in X$, se define la \textit{derivada de Gateaux} como:
+
+\[
+Dg(L(\bar{y}))(\phi)=\frac{d}{ds}\Big|_{s=0}L(\bar{y}+s\phi)
+\]
+
+\end{definition}
+
+\subsubsection{Ecuación de Euler}
+
+Usando el teorema anterior vamos a llegar a una ecuación diferencial de segundo orden que nos ayudará a resolver este problema. Supongamos que tenemos $y\in C^2$, función crítica y $F\in C^2(\Omega)$, definimos $Z(x)=F_p(x,y(x),y'(x))\in C^1(x_0,x_1)$. Para continuar necesitamos un lema previo:
+
+\begin{lemma}
+Sea $Z\in C^1(x_0,x_1)$, entonces:
+
+\[
+\integral{x_0}{x_1}{Z(x)\phi'(x)dx}=-\integral{x_0}{x_1}{Z'(x)\phi(x)dx} \espacio \forall \phi\in\soportecompacto
+\]
+\end{lemma}
+
+Este lema nos permite \enquote{intercambiar la derivada de sitio}.
+
+Usando ahora el Teorema \ref{theorem:1.7} (podemos usarlo porque $y$ es función crítica) y el lema anterior, tenemos:
+
+\[
+0=\integral{x_0}{x_1}{F_y(x,y, y')}\phi(x)dx+\integral{x_0}{x_1}{F_p(x,y,y')}\phi'(x)dx= 
+\]
+\[
+=\integral{x_0}{x_1}{F_y(x,y, y')}\phi(x)dx+\integral{x_0}{x_1}{Z(x)}\phi'(x)dx=
+\]
+\[
+=\integral{x_0}{x_1}{F_y(x,y, y')}\phi(x)dx-\integral{x_0}{x_1}{Z'(x)}\phi(x)dx=
+\]
+\[
+=\integral{x_0}{x_1}{\Big(F_y(x,y, y')-Z'(x)\Big)}\phi(x)dx=0 \espacio \forall\phi\in\soportecompacto
+\]
+
+Y usando ahora el Teorema \ref{theorem:1.3} nos queda:
+
+\[
+F_y(x,y,y')-Z'(x)=0 \espacio \forall x \in\xcero
+\]
+
+Que denoteramos por:
+
+\[
+\frac{d}{dx}F_p-F_y(x,y,y')=0 \espacio \textbf{(Ecuación de Euler)}
+\]
+
+Las condiciones sobre $F$ se pueden rebajar con el siguiente teorema:
+
+\begin{theorem} 
+
+Si $F\in C^1_{yp}$, $y'\in C^1$, función crítica, entonces:
+\[
+Z(x)=F_p(x,y(x),y'(x))\in C^1
+\]
+\end{theorem}
+
+\textbf{AHORA CREO QUE QUEREMOS RESOLVER LA ECUACION NO¿?¿?¿?}
+
+
+\begin{lemma}
+Sea $\phi\in\mathcal{D}(a,b)$, entonces:
+\[
+\phi \text{ admite primitiva } \Longleftrightarrow \integral{a}{b}{\phi(x)dx}=0
+\]
+\end{lemma}
+
+\begin{lemma}
+Sea $f\in C(a,b)$ tal que $\integral{}{}{f\phi'(x)dx=0}\espacio\forall\phi\in\mathcal{D}(a,b)\Longrightarrow f \text{ es constante.}$
+\end{lemma}
+
+\end{document}
