@@ -1,0 +1,128 @@
+\documentclass[12pt]{article}
+ 
+\usepackage[margin=1in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{tikz-cd}
+\usepackage{amsmath}
+\usepackage[shortlabels]{enumitem}
+
+% cosas entre comillas 
+\usepackage{csquotes}
+\usepackage{hyperref}
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+
+\newcommand\restr[2]{{% we make the whole thing an ordinary symbol
+  \left.\kern-\nulldelimiterspace % automatically resize the bar with \right
+  #1 % the function
+  \vphantom{\big|} % pretend it's a little taller at normal size
+  \right|_{#2} % this is the delimiter
+  }}
+ 
+% lo de section sirve en los numeros de las cosas aparezca el numero de la seccion y un punto y luego el otro numero
+\newtheorem{theorem}{Teorema}
+\newtheorem{lemma}[theorem]{Lema}
+\newtheorem{prop}[theorem]{Proposición}
+\newtheorem{coro}[theorem]{Corolario}
+\newtheorem{conj}[theorem]{Conjetura}
+\newtheorem{ejercicio}[theorem]{Ejercicio}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definición}
+\newtheorem{example}[theorem]{Ejemplo}
+\newtheorem{xca}[theorem]{Ejercicio}
+
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Nota}
+
+\newtheorem{notacion}[theorem]{Notación}
+
+\newcommand{\continuas}[1][]{C^{ #1 }[x_0,x_1]}
+\newcommand{\continuasabierto}[1][]{C^{ #1 }(x_0,x_1)}
+\newcommand{\soportecompacto}{\mathcal{D}(x_0,x_1)}
+\newcommand{\derivada}[2]{\frac{\partial #1 }{\partial #2 }}
+\newcommand{\integral}[3]{\displaystyle\int_{ #1 }^{ #2 } #3 }
+\DeclareMathOperator\supp{soporte}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+% comandos chorra
+\newcommand{\xcero}{(x_0,x_1)}
+\newcommand{\xcerocerrado}{[x_0,x_1]}
+\newcommand{\fvariaciones}{F(x,y(x),y'(x))}
+\newcommand{\espacio}{\;\;\;}
+\newcommand{\tilda}[1]{\overset{\sim}{ #1 }}
+\newcommand{\funcion}[3]{ #1 : #2 \longrightarrow #3}
+\begin{document}
+
+\title{Curvas y Superficies}
+\author{Antonio Gámiz Delgado\\ Universidad de Granada} 
+ 
+\maketitle
+
+\begin{ejercicio}
+Sean $\alpha:I\longrightarrow \R^2$ una curva regular en el plano euclídeo $\R^2$, $F:\R^2\longrightarrow\R^2$ un movimiento rígido directo y $\bar{\alpha}:=F\circ\alpha$. Prueba que las curvaturas $K$ y $\overset{\sim}{K}$ correspondientes a $\alpha$ y $\bar{\alpha}$ cumplen 
+
+\[
+K(t)=\overset{\sim}{K}(t) \espacio \forall t \in I
+\]
+\end{ejercicio}
+
+\begin{proof}
+
+Sea $\funcion{F}{\R^2}{\R^2}$ tal que $F(x)=Ax+b$, con $A\in O(2)$ y $|A|=1$. $F$ es una isometría, luego tiene que ser un giro ya que no hay más isometrías directas en $\R^2$. Podemos suponer que $\alpha$ está parametrizada por la longitud de arco. $\bar{\alpha}$ también lo está ya que las isometrías convervan módulos:
+
+\[
+|\bar{\alpha}'(t)|=|(F\circ\alpha)'(t)|=|\alpha'(t)|=1
+\]
+
+Usando que $a_{12}(t)=<e_1'(t),e_2(t)>$, una propiedad básica del producto escalar y que dos matrices de rotación conmutan si están centradas en el mismo punto, nos queda:
+
+\[
+\tilda{K}(t)=\tilda{a_{12}}(t)=<\tilda{e_1}'(t),\tilda{e_2}(t)>=<\tilda{e_1}'(t),J\tilda{e_1}(t)>=<A\alpha''(t),JA\alpha'(t)>=
+\]
+\[
+=<\alpha''(t),A^TAJ\alpha'(t)>=<\alpha''(t),J\alpha'(t)>=a_{12}(t)=K(t)
+\]
+
+\end{proof}
+
+\begin{ejercicio}
+Sean $\gamma:I\longrightarrow\R^2$ una curva regular en el plano euclídeo $\R^2$, $\phi:J\longrightarrow I$ un difeomorfismo con $\phi'>0$ y $\overset{\sim}{\gamma}:\gamma\circ\phi:J\longrightarrow\R^2$. Prueba que las curvaturas $K$, $\overset{\sim}{K}$ correspondientes a $\gamma$, $\overset{\sim}{\gamma}$ cumplen:
+
+\[
+K(\phi(s))=\overset{\sim}{K}(s) \espacio \forall s \in J
+\]
+
+\end{ejercicio}
+
+\begin{proof}
+
+Tenemos que $\tilda{\gamma}'(s)=\left(\gamma\circ\phi(s)\right)'=\gamma'(\phi(s))\phi'(s)$, luego $|\tilda{\gamma}'(s)|=|\gamma'(\phi(s))||\phi'(s)|$. Calculamos $\tilda{e_1}(s)$, que hay que normalizarlo ya que no sabemos si está parametrizado por la longitud de arco: 
+\[
+\tilda{e_1}(s)=\frac{\tilda{\gamma}'(s)}{|\tilda{\gamma}'(s)|}=\frac{\gamma'(\phi(s))\phi'(s)}{|\gamma'(\phi(s))||\phi'(s)|}=\frac{\gamma'(\phi(s))}{|\gamma'(\phi(s))|}=e_1(\phi(s))
+\]
+
+Como consecuencia: $\tilda{e_2}(s)=e_2(\phi(s))$. Calculamos ahora $\tilda{a_{12}}(s)$:
+
+\[
+\tilda{a_{12}}(t)=<\tilda{e_1}'(s),\tilda{e_2}(s)>=<e_1'(\phi(s))\phi'(s),e_2(\phi(s))>=\phi'(s)<e_1'(\phi(s)),e_2(\phi(s))>=\phi'(s)a_{12}(\phi(s))
+\]
+
+Por lo tanto:
+
+\[
+\tilda{K}(s)=\frac{\tilda{a_{12}}(s)}{|\tilda{\gamma}'(s)|}=\frac{a_{12}(\phi(s))\phi'(s)}{|\gamma'(\phi(s))||\phi'(s)|}=\frac{a_{12}(\phi(s))}{|\gamma'(\phi(s))|}=K(\phi(s)) \espacio \forall s\in J
+\]
+
+\end{proof}
+
+\begin{remark}
+En el primer ejercicio hemos modificado la imagen de la curva, mientras que en el segundo, hemos cambiado la parametrización. Ambos ejercicios tienen condiciones suficientes para que la curvatura no cambie de signo, que hemos usado en la resolución de los mismos ($|A|=1$ y $\phi'>0$).
+\end{remark}
+
+
+\end{document}
