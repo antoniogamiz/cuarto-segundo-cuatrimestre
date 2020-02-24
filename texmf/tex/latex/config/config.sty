@@ -1,0 +1,53 @@
+\ProvidesPackage{config}
+
+%------------------------------------------
+% Para poder hacer click en las referencias
+%------------------------------------------
+\usepackage{hyperref}
+
+%------------------------------------------
+% Letras caligraficas
+%------------------------------------------
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+
+%------------------------------------------
+% Entornor basicos matematicas
+%------------------------------------------
+
+\newtheorem{theorem}{Teorema}
+\newtheorem{lemma}[theorem]{Lema}
+\newtheorem{prop}[theorem]{Proposición}
+\newtheorem{coro}[theorem]{Corolario}
+\newtheorem{conj}[theorem]{Conjetura}
+\newtheorem{ejercicio}[theorem]{Ejercicio}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definición}
+\newtheorem{example}[theorem]{Ejemplo}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Nota}
+\newtheorem{notacion}[theorem]{Notación}
+
+%------------------------------------------
+% Comandos utiles
+%------------------------------------------
+
+\newcommand{\espacio}{\;\;\;}
+\newcommand{\tilda}[1]{\overset{\sim}{ #1 }}
+\newcommand{\funcion}[3]{ #1 : #2 \longrightarrow #3}
+\newcommand{\derivada}[2]{\frac{\partial #1 }{\partial #2 }}
+\newcommand{\integral}[3]{\displaystyle\int_{ #1 }^{ #2 } #3 }
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\limite}[3]{\lim_{ #1 \to #2 } #3 }
+\newcommand{\limitemasinfinito}[2]{\lim_{ #1 \to +\infty } #2 }
+\newcommand{\limitemenosinfinito}[2]{\lim_{ #1 \to -\infty } #2 }
+
+%------------------------------------------
+% Operadores
+%------------------------------------------
+
+\DeclareMathOperator\supp{soporte}
+
