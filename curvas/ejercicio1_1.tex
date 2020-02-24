@@ -7,55 +7,8 @@
 \usepackage{tikz-cd}
 \usepackage{amsmath}
 \usepackage[shortlabels]{enumitem}
+\usepackage{config}
 
-% cosas entre comillas 
-\usepackage{csquotes}
-\usepackage{hyperref}
-
-\newcommand{\N}{\mathbb{N}}
-\newcommand{\Z}{\mathbb{Z}}
-\newcommand{\R}{\mathbb{R}}
-\newcommand{\C}{\mathbb{C}}
-
-\newcommand\restr[2]{{% we make the whole thing an ordinary symbol
-  \left.\kern-\nulldelimiterspace % automatically resize the bar with \right
-  #1 % the function
-  \vphantom{\big|} % pretend it's a little taller at normal size
-  \right|_{#2} % this is the delimiter
-  }}
- 
-% lo de section sirve en los numeros de las cosas aparezca el numero de la seccion y un punto y luego el otro numero
-\newtheorem{theorem}{Teorema}
-\newtheorem{lemma}[theorem]{Lema}
-\newtheorem{prop}[theorem]{Proposición}
-\newtheorem{coro}[theorem]{Corolario}
-\newtheorem{conj}[theorem]{Conjetura}
-\newtheorem{ejercicio}[theorem]{Ejercicio}
-
-\theoremstyle{definition}
-\newtheorem{definition}[theorem]{Definición}
-\newtheorem{example}[theorem]{Ejemplo}
-\newtheorem{xca}[theorem]{Ejercicio}
-
-\theoremstyle{remark}
-\newtheorem{remark}[theorem]{Nota}
-
-\newtheorem{notacion}[theorem]{Notación}
-
-\newcommand{\continuas}[1][]{C^{ #1 }[x_0,x_1]}
-\newcommand{\continuasabierto}[1][]{C^{ #1 }(x_0,x_1)}
-\newcommand{\soportecompacto}{\mathcal{D}(x_0,x_1)}
-\newcommand{\derivada}[2]{\frac{\partial #1 }{\partial #2 }}
-\newcommand{\integral}[3]{\displaystyle\int_{ #1 }^{ #2 } #3 }
-\DeclareMathOperator\supp{soporte}
-\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
-% comandos chorra
-\newcommand{\xcero}{(x_0,x_1)}
-\newcommand{\xcerocerrado}{[x_0,x_1]}
-\newcommand{\fvariaciones}{F(x,y(x),y'(x))}
-\newcommand{\espacio}{\;\;\;}
-\newcommand{\tilda}[1]{\overset{\sim}{ #1 }}
-\newcommand{\funcion}[3]{ #1 : #2 \longrightarrow #3}
 \begin{document}
 
 \title{Curvas y Superficies}

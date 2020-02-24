@@ -10,48 +10,16 @@
 
 % cosas entre comillas 
 \usepackage{csquotes}
-\usepackage{hyperref}
 
-\newcommand{\N}{\mathbb{N}}
-\newcommand{\Z}{\mathbb{Z}}
-\newcommand{\R}{\mathbb{R}}
-\newcommand{\C}{\mathbb{C}}
+\usepackage{config}
 
-\newcommand\restr[2]{{% we make the whole thing an ordinary symbol
-  \left.\kern-\nulldelimiterspace % automatically resize the bar with \right
-  #1 % the function
-  \vphantom{\big|} % pretend it's a little taller at normal size
-  \right|_{#2} % this is the delimiter
-  }}
- 
-% lo de section sirve en los numeros de las cosas aparezca el numero de la seccion y un punto y luego el otro numero
-\newtheorem{theorem}{Teorema}[section]
-\newtheorem{lemma}[theorem]{Lema}
-\newtheorem{prop}[theorem]{Proposición}
-\newtheorem{coro}[theorem]{Corolario}
-\newtheorem{conj}[theorem]{Conjetura}
-
-\theoremstyle{definition}
-\newtheorem{definition}[theorem]{Definición}
-\newtheorem{example}[theorem]{Ejemplo}
-\newtheorem{xca}[theorem]{Ejercicio}
-
-\theoremstyle{remark}
-\newtheorem{remark}[theorem]{Nota}
-
-\newtheorem{notacion}[theorem]{Notación}
-
-\newcommand{\continuas}[1][]{C^{ #1 }[x_0,x_1]}
-\newcommand{\continuasabierto}[1][]{C^{ #1 }(x_0,x_1)}
-\newcommand{\soportecompacto}{\mathcal{D}(x_0,x_1)}
-\newcommand{\derivada}[2]{\frac{\partial #1 }{\partial #2 }}
-\newcommand{\integral}[3]{\displaystyle\int_{ #1 }^{ #2 } #3 }
-\DeclareMathOperator\supp{soporte}
-% comandos chorra
-\newcommand{\xcero}{(x_0,x_1)}
-\newcommand{\xcerocerrado}{[x_0,x_1]}
+\newcommand{\continuas}[1][]{C^{ #1 }[a,b]}
+\newcommand{\continuasabierto}[1][]{C^{ #1 }(a,b)}
+\newcommand{\soportecompacto}{\mathcal{D}(a,b)}
+\newcommand{\xcero}{(a,b)}
+\newcommand{\xcerocerrado}{[a,b]}
 \newcommand{\fvariaciones}{F(x,y(x),y'(x))}
-\newcommand{\espacio}{\;\;\;}
+
 \begin{document}
 
 \title{Modelos Matemáticos II}
@@ -61,7 +29,19 @@
 
 \section{Cálculo de variaciones}
 
-\subsection{Herramientas previas}
+\subsection{Herramientas previas y repaso}
+
+\begin{definition}
+\label{funciondiferenciable}
+
+Sea $\funcion{f}{X}{Y}$ con $X,Y$ espacios normados. Se dice que $f$ es \textbf{diferenciable} en un punto $a\in\overset{\circ}{A}$, si existe una aplicación lineal continua $\funcion{T}{X}{Y}$ verifiando:
+
+\[
+\limite{x}{a}{\frac{\norm{f(x)-f(a)-T(x-a)}}{\norm{x-a}}}
+\]
+
+$T$ se denota por $Df(a)$ y se llama \textit{diferencial de $f$}.
+\end{definition}
 
 \begin{definition}
 \label{funcionestest}
@@ -85,7 +65,7 @@ Sea $f\in \continuas$ tal que
 \int f(x)\phi(x)dx=0 \hspace{1cm} \forall \phi \in \soportecompacto
 \]
 
-Entonces $f(x)=0 \;$  $\forall x\in [x_0,x_1]$.
+Entonces $f(x)=0 \;$  $\forall x\in [a,b]$.
 
 \end{theorem}
 
@@ -99,7 +79,7 @@ Por el lema \ref{existanciaphi}, existe una función test $\phi$ tal que $\phi(x
 0=\int_{x_0}^{x_1}f(x)\phi(x)dx=\int_{\bar{x}-\varepsilon}^{\bar{x}+\varepsilon}f(x)\phi(x)dx>0 \Rightarrow f(\bar{x})=0
 \]
 
-Como $\bar{x}$ era arbitrario, tenemos que $f(\bar{x})=0 \; \forall \bar{x}\in\xcero$, y por la continuidad de $f$ podemos extenderlo a los extremos también, es decir, $f(x_0)=f(x_1)=0$.
+Como $\bar{x}$ era arbitrario, tenemos que $f(\bar{x})=0 \; \forall \bar{x}\in\xcero$, y por la continuidad de $f$ podemos extenderlo a los extremos también, es decir, $f(a)=f(b)=0$.
 
 \end{proof}
 
@@ -110,7 +90,7 @@ Sea $\Omega\subset\R^3$, definamos $F:\Omega \longrightarrow \R$ tal que $(x,y,p
 Usando la función anterior, podemos definir el siguiente funcional:
 
 \begin{equation}\label{funcional}
-L(y) = \int_{x_0}^{x_1}\fvariaciones dx 
+L(y) = \int_{a}^{b}\fvariaciones dx 
 \end{equation}
 
 
@@ -138,8 +118,8 @@ D=\{y\in\continuasabierto\cap\continuas[1]: \text{ se cumplen (a),(b) y (c)}\}
 \begin{enumerate}[(a)]
 
 \item $(x,y(x),y'(x))\in\Omega \espacio \forall x\in\xcero$
-\item $y(x_0)=y_0$ e $y(x_1)=y_1$ (\textit{Condición de contorno})
-\item $\displaystyle\int_{x_0}^x\fvariaciones dx<+\infty \espacio \forall x\in \xcero$ 
+\item $y(a)=b$ e $y(a)=b$ (\textit{Condición de contorno})
+\item $\displaystyle\int_{a}^x\fvariaciones dx<+\infty \espacio \forall x\in \xcero$ 
 \end{enumerate}
 
 \end{definition}
@@ -157,10 +137,10 @@ Lo que nos asegura este lema es que podamos sumar una perturbación \textit{pequ
 \label{theorem:1.7}
 Si $\bar{y}\in D$ es un extremal, entonces:
 \[
-\integral{x_0}{x_1}{F_y(x,\bar{y}(x), \bar{y}'(x))}\phi(x)dx+\integral{x_0}{x_1}{F_p(x,\bar{y}(x), \bar{y}'(x))}\phi'(x)dx=0 \espacio \forall \phi\in \soportecompacto
+\integral{a}{b}{F_y(x,\bar{y}(x), \bar{y}'(x))}\phi(x)dx+\integral{a}{b}{F_p(x,\bar{y}(x), \bar{y}'(x))}\phi'(x)dx=0 \espacio \forall \phi\in \soportecompacto
 \]
 
-A $\bar{y}$ se le suele llamar función crítica.
+A $\bar{y}$ se le suele llamar \textbf{función crítica}.
 \end{theorem}
 
 \begin{proof}
@@ -188,7 +168,7 @@ g'(s)=\left(
 Si evaluamos ahora $g'$ en 0, tenemos:
 
 \[
-g'(0)=\integral{x_0}{x_1}{\left(F_y(x,\bar{y},\bar{y}')\phi+F_p(x,\bar{y},\bar{y}')\phi'\right)dx}=0 \espacio(\bar{y}\text{ extremal})
+g'(0)=\integral{a}{b}{\left(F_y(x,\bar{y},\bar{y}')\phi+F_p(x,\bar{y},\bar{y}')\phi'\right)dx}=0 \espacio(\bar{y}\text{ extremal})
 \]
 
 \end{proof}
@@ -214,7 +194,7 @@ Usando el teorema anterior vamos a llegar a una ecuación diferencial de segundo
 Sea $Z\in C^1(x_0,x_1)$, entonces:
 
 \[
-\integral{x_0}{x_1}{Z(x)\phi'(x)dx}=-\integral{x_0}{x_1}{Z'(x)\phi(x)dx} \espacio \forall \phi\in\soportecompacto
+\integral{a}{b}{Z(x)\phi'(x)dx}=-\integral{a}{b}{Z'(x)\phi(x)dx} \espacio \forall \phi\in\soportecompacto
 \]
 \end{lemma}
 
@@ -223,16 +203,16 @@ Este lema nos permite \enquote{intercambiar la derivada de sitio}.
 Usando ahora el Teorema \ref{theorem:1.7} (podemos usarlo porque $y$ es función crítica) y el lema anterior, tenemos:
 
 \[
-0=\integral{x_0}{x_1}{F_y(x,y, y')}\phi(x)dx+\integral{x_0}{x_1}{F_p(x,y,y')}\phi'(x)dx= 
+0=\integral{a}{b}{F_y(x,y, y')}\phi(x)dx+\integral{a}{b}{F_p(x,y,y')}\phi'(x)dx= 
 \]
 \[
-=\integral{x_0}{x_1}{F_y(x,y, y')}\phi(x)dx+\integral{x_0}{x_1}{Z(x)}\phi'(x)dx=
+=\integral{a}{b}{F_y(x,y, y')}\phi(x)dx+\integral{a}{b}{Z(x)}\phi'(x)dx=
 \]
 \[
-=\integral{x_0}{x_1}{F_y(x,y, y')}\phi(x)dx-\integral{x_0}{x_1}{Z'(x)}\phi(x)dx=
+=\integral{a}{b}{F_y(x,y, y')}\phi(x)dx-\integral{a}{b}{Z'(x)}\phi(x)dx=
 \]
 \[
-=\integral{x_0}{x_1}{\Big(F_y(x,y, y')-Z'(x)\Big)}\phi(x)dx=0 \espacio \forall\phi\in\soportecompacto
+=\integral{a}{b}{\Big(F_y(x,y, y')-Z'(x)\Big)}\phi(x)dx=0 \espacio \forall\phi\in\soportecompacto
 \]
 
 Y usando ahora el Teorema \ref{theorem:1.3} nos queda:
