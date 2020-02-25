@@ -14,24 +14,6 @@
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\C}{\mathbb{C}}
 
-%------------------------------------------
-% Entornor basicos matematicas
-%------------------------------------------
-
-\newtheorem{theorem}{Teorema}
-\newtheorem{lemma}[theorem]{Lema}
-\newtheorem{prop}[theorem]{Proposición}
-\newtheorem{coro}[theorem]{Corolario}
-\newtheorem{conj}[theorem]{Conjetura}
-\newtheorem{ejercicio}[theorem]{Ejercicio}
-\theoremstyle{definition}
-\newtheorem{definition}[theorem]{Definición}
-\newtheorem{example}[theorem]{Ejemplo}
-\theoremstyle{remark}
-\newtheorem{remark}[theorem]{Nota}
-\newtheorem{notacion}[theorem]{Notación}
-
-%------------------------------------------
 % Comandos utiles
 %------------------------------------------
 
@@ -41,9 +23,9 @@
 \newcommand{\derivada}[2]{\frac{\partial #1 }{\partial #2 }}
 \newcommand{\integral}[3]{\displaystyle\int_{ #1 }^{ #2 } #3 }
 \newcommand{\norm}[1]{\left\lVert#1\right\rVert}
-\newcommand{\limite}[3]{\lim_{ #1 \to #2 } #3 }
-\newcommand{\limitemasinfinito}[2]{\lim_{ #1 \to +\infty } #2 }
-\newcommand{\limitemenosinfinito}[2]{\lim_{ #1 \to -\infty } #2 }
+\newcommand{\limite}[3]{\displaystyle\lim_{ #1 \to #2 } #3 }
+\newcommand{\limitemasinfinito}[2]{\limite{ #1 }{+\infty}{ #2 }}
+\newcommand{\limitemenosinfinito}[2]{\limite{ #1 }{-\infty}{ #2 }}
 
 %------------------------------------------
 % Operadores

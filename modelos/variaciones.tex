@@ -13,6 +13,19 @@
 
 \usepackage{config}
 
+\newtheorem{theorem}{Teorema}
+\newtheorem{lemma}[theorem]{Lema}
+\newtheorem{prop}[theorem]{Proposición}
+\newtheorem{coro}[theorem]{Corolario}
+\newtheorem{conj}[theorem]{Conjetura}
+\newtheorem{ejercicio}[theorem]{Ejercicio}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definición}
+\newtheorem{example}[theorem]{Ejemplo}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Nota}
+\newtheorem{notacion}[theorem]{Notación}
+
 \newcommand{\continuas}[1][]{C^{ #1 }[a,b]}
 \newcommand{\continuasabierto}[1][]{C^{ #1 }(a,b)}
 \newcommand{\soportecompacto}{\mathcal{D}(a,b)}
