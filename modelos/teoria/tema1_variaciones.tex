@@ -41,7 +41,7 @@ F'(t_0)=\displaystyle\int_X\derivada{f}{t}(t_0,x)dx
 
 \subsection{Problema general del cálculo de variaciones}
 
-Primeramente definimos un tipo de funciones llamadas \textit{funciones test} o \textit{funciones de la clase de Swartz}, junto con algunos resultados que usaremos bastante para trabajar con ellas.
+Primeramente definimos un tipo de funciones llamadas \textit{funciones test} o \textit{funciones de la clase de Schwartz}, junto con algunos resultados que usaremos bastante para trabajar con ellas.
 
 \begin{definition}
 \label{funcionestest}
@@ -389,17 +389,17 @@ Haciéndo esa elección de $\lambda$, $\phi-\lambda\Psi'$ tiene primitiva por el
 \end{proof}
 
 \begin{lemma}
-Sean $f$,$g$ funciones continuas en $(a,b)$ tales que:
+Sean $f$,$g$ funciones continuas en $(a,b)$, entonces es equivalente:
 
 \[
-\integral{}{}{g\phi}+\integral{}{}{f\phi'}=0 \espacio \forall\phi\in\soportecompacto
+\integral{a}{b}{g\phi}+\integral{a}{b}{f\phi'}=0 \espacio \forall\phi\in\soportecompacto \Longleftrightarrow f\in C^1(a,b), g=f'
 \]
 
-Entonces $f\in C^1(a,b)$ y $g=f'$.
 \end{lemma}
 
 \begin{proof}
-Tomamos $x_0\in(a,b)$ y definimos $\tilde{f}(x)=\integral{a}{x}{g(s)ds}\Rightarrow \tilde{f}\in C^1$.
+
+($\Rightarrow$)Tomamos $x_0\in(a,b)$ y definimos $\tilde{f}(x)=\integral{a}{x}{g(s)ds}\Rightarrow \tilde{f}\in C^1$.
 
 \[
 \integral{a}{b}{\tilde{f}(s)\phi'(s)+g(s)\phi(s)ds}=\integral{a}{b}{\tilde{f}(s)\phi'(s)+\tilde{f}'(s)\phi(s)ds}=\integral{a}{b}{(\tilde{f}\phi)}=\tilde{f}\phi\Big|_a^b=0
@@ -413,11 +413,16 @@ Restando la expresión de la hipótesis menos la anterior, obtenemos:
 
 Y usnado el lema \ref{lemma:14}, tenemos que $f-\tilde{f}$ es constante, luego $f\in C^1$ ya que $\tilde{f}$ también pertenece a $C^1$.
 
+($\Leftarrow$) 
+\[
+0=f\phi(x)\Big|_a^b=\integral{a}{b}{(f(x)\phi(x))'dx}=\integral{a}{b}{f(x)\phi'(x)dx+f'(x)\phi(x)dx}
+\]
+
 \end{proof}
 
 \subsection{Ejemplos}
 
-A continuación veremos un ejemplo teórico y algunos ejemplos más prácticas de la teoría anterior.
+A continuación veremos un ejemplo teórico y algunos ejemplos más prácticos de la teoría anterior.
 
 \subsubsection{Problema de Braquistocrona}
 

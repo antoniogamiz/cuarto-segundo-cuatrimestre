@@ -1,17 +1,105 @@
-\section{Cálculo de variaciones}
+\section{Derivadas débiles}
 
-\subsection{Herramientas previas y repaso}
-
-Necesitaremos recordar algunas nociones y teoremas básicos sobre derivabilidad:
-
-\begin{definition}
-\label{funciondiferenciable}
-
-Sea $\funcion{f}{X}{Y}$ con $X,Y$ espacios normados. Se dice que $f$ es \textbf{diferenciable} en un punto $a\in\overset{\circ}{A}$, si existe una aplicación lineal continua $\funcion{T}{X}{Y}$ verifiando:
+Recordemos el espacio $L^1(a,b)$ de las funciones $\funcion{f}{(a,b)}{\R}$ que son Lebesgue integrables. Ese espacio estaba formado por clases de equivalencia, que normalmente llamamos clases de funciones. Que sea Lebesgue integrable, no quiere decir que sea continua, como nos indica la \textit{función de Dirichlet}, que es Lebesgue integrable pero evidentemente no es continua.
 
 \[
-\limite{x}{a}{\frac{\norm{f(x)-f(a)-T(x-a)}}{\norm{x-a}}}
+f(x)=\left\{
+\begin{array}{cc}
+0 & x\notin\mathbb{Q} \\
+1 & x\in\mathbb{Q}
+\end{array}
+\right. 
 \]
 
-$T$ se denota por $Df(a)$ y se llama \textit{diferencial de $f$}.
+Toda función continua no es integrable, necesitamos que esté acotada. Eso nos dice que todas las funciones continuas no están en $L^1(a,b)$. Para evitar eso, definimos el \textit{espacio de funciones continuas localmente integrables}, que denotaremos por:
+
+\[
+L^1_{loc}(a,b)=\{\funcion{f}{(a,b)}{\R} \;|\; \forall J \text{ intervalo compacto},f_{|J}\text{ es integrable}\}
+\]
+
+Ese espacio soluciona el problema anterior ya que todas las funciones continuas sí son localmente integrables.
+
+\begin{definition}
+Sean $f,g\in\localmenteintegrable$, se dice que $g$ es la derivada débil de $f$ si se verifica que:
+
+\[
+\integral{a}{b}{f\phi'}+\integral{a}{b}{g\phi}=0 \espacio \forall\phi\in\soportecompacto
+\]
 \end{definition}
+
+Cabe resaltar, que la definición anterior implica que la derivada débil de una función no es única, es decir, una función $f$ puede admitir varias derivadas débiles. Sin embargo, como veremos en el siguiente corolario, serán iguales para casi todo punto.
+
+Usando el espacio definido anteriormente, podemos generalizar el lema fundamental del cálculo de variciones:
+
+\begin{lemma}
+Si $f\in\localmenteintegrable$ cumpliendo:
+
+\[
+\integral{a}{b}{f\phi}=0 \espacio\forall\phi\in\soportecompacto
+\]
+
+Entonces $f(x)=0$ $a.e$ $x\in(a,b)$.
+
+\end{lemma}
+
+Como consecuencia, tenemos:
+
+\begin{coro}
+Sea $f\in\localmenteintegrable$ y $g,\tilde{g}\in\localmenteintegrable$ dos derivadas débiles de $f$. Entonces $g(x)=\tilde{g}(x)$ $a.e$ $x\in(a,b)$.
+\end{coro}
+
+\begin{proof}
+Simplemente usando la definición y el lema generalizado tenemos:
+
+\[
+\left.
+\begin{array}{c}
+\integral{a}{b}{f\phi'}+\integral{a}{b}{g\phi}=0 \\
+\integral{a}{b}{f\phi'}+\integral{a}{b}{\tilde{g}\phi}=0
+\end{array}
+\right\} \Rightarrow \integral{a}{b}{(g-\tilde{g})\phi}=0 \Rightarrow g=\tilde{g} \; a.e
+\]
+\end{proof}
+
+Para la demostración del lema generalizado, necesitaremos algunas herramientos previas. Recordemos primeramente una propiedad de las funciones Lebesgue integrables:
+
+\begin{prop}
+Dado $f\in\localmenteintegrable$, existe una secuencia de funciones simples, $\{g_n\}$, tal que $\{g_n\}\longrightarrow f$.
+\end{prop}
+
+\begin{lemma}
+Sea $g$ una función simple, entonces existe una sucesión de funciones de soporte compacto $\phi_n\in\soportecompacto$ tal que $\{\phi_n\}\longrightarrow g \; a.e$ y además $|\phi_n(x)|\leq|g(x)|$.
+\end{lemma}
+
+Ahora ya sí podemos demostrar el lema generalizado:
+
+\begin{proof}
+Sea $g$ una función simple. Por el lema anterior, puedo tomar una sucesión $\phi_n$ de funciones de soporte compacto convergiendo a $g$.Usando el teorema de la convergencia dominada de Lebesgue, podemos intercambiar el límite en la siguiente integral:
+
+\[
+\limitemasinfinito{n}{\integral{}{}{\phi_n(x)f(x)dx}}=\integral{}{}{g(x)f(x)}dx
+\]
+
+Por la proposición anterior, nos podemos tomar una sucesión $g_n$ de funciones simples de forma que $\{g_n\}\longrightarrow f \; a.e$. De forma análoga:
+
+\[
+0=\limitemasinfinito{n}{\integral{}{}{g_n(x)f(x)dx}}=\integral{}{}{f(x)^2}dx \Rightarrow f\equiv 0 \; a.e
+\]
+
+\end{proof}
+
+La derivada débil tiene una propiedad parecida a la derivada clásica, ambas son conceptos locales, es decir:
+
+\begin{prop}
+Si $f$ es una función que admite derivada débil $f'=g$ en $(a,b)$, y tomamos $(a',b')\subset(a,b)$, entonces $f_{|(a',b')}$ admite derivada débil y vale $g_{|(a',b')}$.
+\end{prop}
+
+\begin{proof}
+Evidente usando el hecho de que $\mathcal{D}(a',b')\hookrightarrow\soportecompacto$.
+\end{proof}
+
+Toda función derivable no es derivable débil, como ilustra el siguiente ejemplo:
+
+\begin{example}
+La función $\funcion{f}{\R}{\R}$ definida por $f(x)=\sqrt{|x|}$, es derivable débil pero no derivable.
+\end{example}
