@@ -513,14 +513,14 @@ Esa ecuación diferencial, es de variables separadas, deberíamos resolverla con
 
 \subsubsection{Ejercicios prácticos}
 
-\begin{ejercicio}
+\begin{ejercicio*}
 Encontrar la curva en la que el siguiente funcional podría alcanzar su extremo:
 \[
 I(y)=\integral{1}{2}{\Big(y'(x)^2-2xy(x)\Big)dx}
 \]
 
 con condiciones de contorno $y(1)=0,y(2)=-1$.
-\end{ejercicio}
+\end{ejercicio*}
 
 \textbf{Solucion:}
 
@@ -539,12 +539,49 @@ Usando las condiciones de contorno, podemos calcular el valor de $C$ y $D$, obte
 y(x)=\frac{x-x^3}{6}
 \]
 
-\begin{ejercicio}[propuesto]
+\begin{ejercicio*}
 Encuentra las curvas que unen $(1,3)$ con $(2,5)$, que puedan ser extremos del funcional:
 
 \[
 I(y)=\integral{1}{2}{\Big(y'(x)+x^2y'(x)^2\Big)dx}
 \]
-\end{ejercicio}
+\end{ejercicio*}
 
 \textbf{Solución} $y(x)=-\frac{4}{x}+7$
+
+\subsection{Relación de ejercicios}
+
+\begin{ejercicio}
+Dado el funcional 
+\[
+\mathcal{F}(y(x))=\integral{a}{b}{\Phi(x,y(x),y'(x))dx}
+\]
+
+demuéstrese la equivalencia de las dos formas siguientes de Euler-Lagrange.
+
+\[
+\derivada{\Phi}{y}-\frac{d}{dx}\derivada{\Phi}{y'}=0 \espacio\espacio \derivada{\Phi}{x}-\frac{d}{dx}\left(\Phi-y'\derivada{\Phi}{y'}\right)=0
+\]
+\end{ejercicio}
+
+\begin{ejercicio}
+Obténgase la forma que adopta la ecuación de Euler-Lagrange en los siguientes casos particulares:
+
+\begin{enumerate}[a)]
+\item $\Phi$ sólo depende de $y'$.
+\item $\Phi$ no depende de $y$.
+\item $\Phi$ no depende explícitamente de $x$.
+\item $\Phi=G(x,y)\sqrt{1+y'^2}$.
+\end{enumerate}
+\end{ejercicio}
+
+\begin{ejercicio}
+Aplíquense los resultados anteriores a los ejemplos siguientes:
+\begin{enumerate}[a)]
+\item $\mathcal{F}(y(x))=\integral{}{}{y(2x-y)dx}$, $y(0)=0$, $y(\pi/2)=\pi/2$.
+\item $\mathcal{F}(y(x))=\integral{}{}{(y^2+2xyy')dx}$, $y(a)=A$, $y(b)=B$.
+\item $\mathcal{F}(y(x))=\integral{}{}{y'(1+x^2y')dx}$, $y(1)=3$, $y(2)=5$.
+
+\end{enumerate}
+\end{ejercicio}
+
