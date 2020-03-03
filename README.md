@@ -36,6 +36,8 @@ Si usas Anki, recomiendo escribir las tarjetas en un editor como `TexMaker` y lu
 
 - Iniciar Virtual Box desde un script [link](https://www.techrepublic.com/article/how-to-create-a-bash-script-for-starting-virtualbox-vms/).
 
+- Git submodules [link](https://gist.github.com/gitaarik/8735255)
+
 ### Transmisión de datos y redes de computadores (TDRC)
 
 ### Administración de bases de datos (ABD)
