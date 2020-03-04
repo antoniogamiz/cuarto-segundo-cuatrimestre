@@ -102,4 +102,43 @@ Toda función derivable no es derivable débil, como ilustra el siguiente ejempl
 
 \begin{example}
 La función $\funcion{f}{\R}{\R}$ definida por $f(x)=\sqrt{|x|}$, es derivable débil pero no derivable.
+
+Primero tenemos que ver que $g\in\localmenteintegrable$. Si el intervalo compacto $J$ escogido no contiene al 0, entonces podemos integral sin problema. En caso contrario, tenemos que ver qué pasa con la siguiente integral:
+\[
+\integral{-\varepsilon}{\varepsilon}{|g(x)|dx}\overset{g\; simetrica}{=}2\integral{0}{\varepsilon}{|g(x)|dx}=2\integral{0}{\varepsilon}{\frac{1}{2\sqrt{x}}}=2\sqrt{x}\Big|_0^\varepsilon=2\sqrt{\varepsilon}<+\infty
+\]
+
+Ahora tenemos que comprobar que $g$ es la derivada débil de $f$, es decir:
+
+\[
+\integral{\R}{}{f\phi'}+\integral{\R}{}{g\phi}=0 \espacio \forall\phi\in\soportecompacto
+\]
+
+\[
+\integral{\R}{}{f(x)\phi'(x)dx}=\integral{|x|>\varepsilon}{}{f(x)\phi'(x)dx}+\underbrace{\integral{|x|<\varepsilon}{}{f(x)\phi'(x)dx}}_{f\phi'\leq2\sqrt{\varepsilon}\max\phi'\to0}=\integral{|x|>\varepsilon}{}{f(x)\phi'(x)dx}=
+\]
+\[
+=\integral{-\infty}{-\varepsilon}{f(x)\phi'(x)dx}+\integral{\varepsilon}{+\infty}{f(x)\phi'(x)dx}=
+\]
+\[
+=\underbrace{f(x)\phi(x)\Big|_{-\infty}^{-\varepsilon}}_{=f(-\varepsilon)\phi(-\varepsilon)\to 0}-
+\integral{-\infty}{-\varepsilon}{g(x)\phi(x) dx}
+\underbrace{f\phi\Big|_{\varepsilon}^{+\infty}}_{{=f(\varepsilon)\phi(\varepsilon)\to 0}}-
+\integral{\varepsilon}{+\infty}{g(x)\phi(x) dx}=
+\]
+\[
+-\integral{\R}{}{g(x)\phi(x)dx}+\integral{|x|<\varepsilon}{}{g(x)\phi(x)dx}
+\]
+
 \end{example}
+
+Vamos a ver que la derivada de una integral de una derivada débil, es la propia función (como es de esperar). Para ello vamos a tener que desarrollar una serie de pasos previos.
+
+\begin{prop}
+Sea $g\in\localmenteintegrable$ y tomo $x_0\in(a,b)$. Defino $\funcion{f}{\R}{\R}$ como
+\[
+f(x)=\integral{x_0}{x}{g(x)ds}
+\]
+
+Entonces $f'=g$.
+\end{prop}
