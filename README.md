@@ -32,17 +32,14 @@ Si usas Anki, recomiendo escribir las tarjetas en un editor como `TexMaker` y lu
 
 ## Links útiles:
 
+- https://www.twilio.com/quest/download
+- https://dev.to/sosnowski/anatomy-of-aws-lambda-1i1e
+
 ### Servidores web de altas prestaciones (SWAP)
 
 - Iniciar Virtual Box desde un script [link](https://www.techrepublic.com/article/how-to-create-a-bash-script-for-starting-virtualbox-vms/).
 
 - Git submodules [link](https://gist.github.com/gitaarik/8735255)
-
-### Transmisión de datos y redes de computadores (TDRC)
-
-### Administración de bases de datos (ABD)
-
-### Ingeniería, empresa y sociedad
 
 ### Curvas y superficies
 
@@ -51,5 +48,3 @@ Si usas Anki, recomiendo escribir las tarjetas en un editor como `TexMaker` y lu
 ### Ecuaciones diferenciales II
 
 - Plataforma docente usada [link](http://vvv.ugr.es/)
-
-### Modelos Matemáticos II
