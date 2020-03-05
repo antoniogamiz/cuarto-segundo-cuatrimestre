@@ -34,7 +34,7 @@ Si usas Anki, recomiendo escribir las tarjetas en un editor como `TexMaker` y lu
 
 - https://www.twilio.com/quest/download
 - https://dev.to/sosnowski/anatomy-of-aws-lambda-1i1e
-
+- Latex en README.md: https://gist.github.com/a-rodin/fef3f543412d6e1ec5b6cf55bf197d7b
 ### Servidores web de altas prestaciones (SWAP)
 
 - Iniciar Virtual Box desde un script [link](https://www.techrepublic.com/article/how-to-create-a-bash-script-for-starting-virtualbox-vms/).
