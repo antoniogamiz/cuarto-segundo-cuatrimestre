@@ -122,12 +122,12 @@ Ahora tenemos que comprobar que $g$ es la derivada débil de $f$, es decir:
 \]
 \[
 =\underbrace{f(x)\phi(x)\Big|_{-\infty}^{-\varepsilon}}_{=f(-\varepsilon)\phi(-\varepsilon)\to 0}-
-\integral{-\infty}{-\varepsilon}{g(x)\phi(x) dx}
+\integral{-\infty}{-\varepsilon}{g(x)\phi(x) dx}+
 \underbrace{f\phi\Big|_{\varepsilon}^{+\infty}}_{{=f(\varepsilon)\phi(\varepsilon)\to 0}}-
 \integral{\varepsilon}{+\infty}{g(x)\phi(x) dx}=
 \]
 \[
--\integral{\R}{}{g(x)\phi(x)dx}+\integral{|x|<\varepsilon}{}{g(x)\phi(x)dx}
+-\integral{\R}{}{g(x)\phi(x)dx}+\underbrace{\integral{|x|<\varepsilon}{}{g(x)\phi(x)dx}}_{\to0}=-\integral{\R}{}{g(x)\phi(x)dx}
 \]
 
 \end{example}
@@ -135,10 +135,113 @@ Ahora tenemos que comprobar que $g$ es la derivada débil de $f$, es decir:
 Vamos a ver que la derivada de una integral de una derivada débil, es la propia función (como es de esperar). Para ello vamos a tener que desarrollar una serie de pasos previos.
 
 \begin{prop}
-Sea $g\in\localmenteintegrable$ y tomo $x_0\in(a,b)$. Defino $\funcion{f}{\R}{\R}$ como
+Sea $g\in\localmenteintegrable$ y tomo $x_0\in(a,b)$. Defino $\funcion{f}{(a,b)}{\R}$ como
 \[
 f(x)=\integral{x_0}{x}{g(x)ds}
 \]
 
-Entonces $f'=g$.
+Entonces $f'=g$ y $f\in C[a,b]$.
 \end{prop}
+
+\begin{proof}
+
+La integral en $f$ tiene sentido ya que $[x_0,x]\subset (a,b)$. Comprobemos que $f\in C(a,b)$. Tomamos $\{x_n\}$ sucesión de puntos de $(x_0,x)$ tal que $x_n\to \tilde{x}\in[x_0,x]$ (por ser compacto).
+
+\begin{center}
+
+\begin{tikzpicture}[scale=0.5]
+\draw (-1,0)-- (9,0); %Axis
+
+\draw (0,-.5) -- (0,.5);
+\draw (0,-0.5) node[anchor=north] {$a$};
+
+\draw [thick] (2.1,-.5) -- (2,-.5) -- (2,.5) -- (2.1,.5); 
+\draw (2,-.5) node [anchor=north] {$x_0$};
+
+\draw (3.5,-.5) -- (3.5,.5);
+\draw (3.5,-0.5) node[anchor=north] {$x_n$};
+
+\draw (4.5,-.5) -- (4.5,.5);
+\draw (4.5,-0.5) node[anchor=north] {$\tilde{x}$};
+
+\draw [thick] (6,-.5) -- (6.1,-.5) -- (6.1,.5) -- (6,.5); 
+\draw (6,-.5) node [anchor=north] {$x$};
+
+\draw (8,-.5) -- (8,.5);
+\draw (8,-0.5) node[anchor=north] {$b$};
+
+\end{tikzpicture}
+\end{center}
+
+\begin{enumerate}[-]
+\item Si $x\notin[x_0,\tilde{x}] \Rightarrow x\notin [x_0,x_n]$ para $n\geq n_0$.
+\item Si $x\in(x_0,\tilde{x}) \Rightarrow x\in [x_0,x_n]$ para $n\geq n_0$.
+\end{enumerate}
+
+Y ese es la clave que nos va a permitir ver que $f(x_n)\to f(\tilde{x})$. Sea $J$ un intervalo compacto de forma que $[x_0,x]\subset J\subset(a,b)$.
+
+\[
+\integral{x_0}{x_n}{g(x)dx}=\integral{J}{}{g(x)\chi_{[x_0,x_n]}}(x)dx
+\]
+
+Usando lo anterior obtenemos la convergencia puntual de la sucesión $g(x)\chi_{[x_0,x_n]}\overset{cp}{\longrightarrow}g(x)\chi_{(x_0,\tilde{x})}$. Lo que nos da la convergencia en integral también:
+
+\[
+f(x_n)=\integral{J}{}{g(x)\chi_{[x_0,x_n]}(x)dx}\overset{cp}{\longrightarrow}\integral{J}{}{g(x)\chi_{(x_0,\tilde{x})}(x)dx}=\integral{x_0}{\tilde{x}}{g(x)dx}=f(\tilde{x})
+\]
+
+Luego $f\in C(a,b) \Rightarrow f\in \localmenteintegrable$.
+
+Ahora nos queda ver $f'=g$. Para ello tenemos que comprobar que:
+
+\[
+\integral{a}{b}{f(x)\phi'(x)dx}+\integral{a}{b}{g(x)\phi(x)dx}=0 \espacio \forall \phi\in \soportecompacto
+\]
+
+Tenemos el problema de que $g$ no tiene por qué ser derivable (podría ser una función escalón, por ejemplo). Vamos a empezar suponiendo que $g\in L^1([a,b])$ (para que $f$ esté bien definida) y que $x_0=a$. Al final reduciremos esas hipótesis hasta llegar a que $g\in\localmenteintegrable$.
+
+\underline{Paso 1}: $g\in L^1([a,b])$ y $x_0=a$. Para ver que
+\[
+\integral{a}{b}{f(x)\phi'(x)dx}=-\integral{a}{b}{g(x)\phi(x)dx} 
+\]
+
+vamos a tener que usar el Teorema de Fubini-Tonelli.
+
+\[
+\integral{a}{b}{f(x)\phi'(x)dx}=
+\integral{a}{b}{\left(\integral{a}{x}{g(s)ds}\right)\phi'(x)dx}\overset{TªFT}{=}
+\integral{a}{b}{\left(\integral{s}{b}{g(s)\phi'(x)dx}\right)ds}=\]
+\[
+\integral{a}{b}{g(s)\left(\integral{s}{b}{\phi'(x)dx}\right)ds}
+=\integral{a}{b}{g(s)(\underbrace{\phi(b)}_{=0}-\phi(s))ds}=-\integral{a}{b}{g(s)\phi'(s)ds}
+\]
+
+\underline{Paso 2}: Reemplazamos la hipótesis $x_0=a$ por $x_0\in(a,b)$ y usamos el paso 1:
+
+\[
+\integral{a}{b}{g(x)\phi(x)dx}=-\integral{a}{b}{\left(\integral{a}{x}{g(s)ds}\right)\phi'(x)dx}
+\]
+
+Vemos que la integral del interior se puede expresar como una constante más una función:
+
+\[
+\integral{a}{x}{g(s)ds}=\underbrace{\integral{a}{x_0}{g(s)ds}}_{cte=C}+\underbrace{\integral{x_0}{x}{g(s)ds}}_{funcion}
+\]
+
+Luego:
+
+\[
+-\integral{a}{b}{\left(\integral{a}{x}{g(s)ds}\right)\phi'(x)dx}=
+-\underbrace{\integral{a}{b}{B\phi'(x)dx}}_{=B(\phi(b)-phi(a))=0}-\integral{a}{b}{\left(\integral{x_0}{x}{g(s)ds}\right)\phi'(x)dx}=
+-\integral{a}{b}{f(x)\phi(x)dx}
+\]
+
+\underline{Caso 3}: Ahora sustituimos la hipótesis $g\in L^1([a,b])$ por $g\in\localmenteintegrable$. Tomamos un subintervalo compacto $[a'.b']\subset(a,b)$ donde $g_{|[a'.b']}\in L^1([a',b'])$, de forma que $\supp\phi\subset[a',b']$. Sea $x_0\in[a',b']$ y $x\in(a,b)$.
+
+Ahora aplicamos el caso 2, usando que $\supp\phi\subset[a',b']$:
+
+\[
+\integral{a}{b}{g(x)\phi(x)dx}=\integral{a'}{b'}{g(x)\phi(x)dx}=-\integral{a'}{b'}{\left(\integral{x_0}{x}{g(s)ds}\right)\phi'(x)dx}=-\integral{a}{b}{f(x)\phi'(x)dx}
+\]
+
+\end{proof}
