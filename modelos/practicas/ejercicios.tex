@@ -117,4 +117,70 @@
   \end{proof}
 \end{ejercicio}
 
+\begin{ejercicio}
+
+  Obtengase la forma que adopta la ecuación de
+  Euler-Lagrange en los siguientes casos particulares.
+  \begin{enumerate}[a)]
+  \item
+    \begin{proof}
+      $\Phi$ solo depende de $y'$ Aplicamos el Ejercicio 1 para
+      resolver este apartado. Como $\Phi$ solo depende de $y'$ tenemos
+      que
+
+      \begin{align*}
+        \Phi & = \Phi(y')\\
+        \Phi_x & = 0
+      \end{align*}
+
+      Del primer ejercicio tenemos que
+
+      \[
+        \frac{d}{dx}\Phi = \Phi_p(y'(x))y''(x)
+      \]
+
+      y además
+
+      \begin{align*}
+        \Phi_x & = \Phi_x + \Phi_yy' + \Phi_py'' - y''z -y'z' \\
+               & = y''\Phi + y'\frac{d}{dx}\Phi_p
+      \end{align*}
+
+      igualando las dos expresiones obtenemos
+
+      \[
+        y'\frac{d}{dx}\Phi_p = 0 \implies \frac{d}{dx}\Phi_p = 0
+      \]
+
+      De donde deducimos que $\Phi_p(y'(x))$ es una constante.
+    \end{proof}
+  \end{enumerate}
+\end{ejercicio}
+
+\begin{ejercicio} [5]
+  Aplíquense los resultados anteriores a los ejemplos siguientes:
+
+  \begin{enumerate}[a)]
+  \item $\mathcal{F}[y(x)] = \int{y(2x-y)dx}, \quad y(0) = 0, \quad y(\pi/2) = \pi/2$
+
+    Definimos $F(x,y,p) = y(2x-y)$. Se cumple
+
+    \begin{align*}
+      F_p &= 0\\
+      z(x) &= 0\\
+      F_y(x,y(x)) &= 0
+    \end{align*}
+
+    De aquí obtenemos $2x-2y = 0 \implies y(x) = x$. Ahora tenemos que
+    comprobar que la solución cumple las condiciones de contorno.
+
+    \begin{align*}
+      y(0) = 0
+      y(\pi/2) = \pi/2
+    \end{align*}
+
+    Luego se cumplen ambas condiciones.
+  \end{enumerate}
+\end{ejercicio}
+
 \end{document}
