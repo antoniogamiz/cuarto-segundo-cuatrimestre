@@ -164,3 +164,55 @@ lo que se tarda en leerlo de forma ordenada, como tiene desbordamiento, (n+O)T.
 - reorganizacion de fichero
 
 leerlo entero, escribir los que quedan sin borrar, y reconstruir todos los indices, k*I. Los leemos ordenados. EL I hay que recalcularlo!! porque los indices son nuevos. k es el numero de indices.
+
+## Clase 05/03/2020
+
+- Archivo de acceso directo: AAD
+
+- Espacio de un registro
+
+r = P + sumV_i porque es de tamaño fijo. El P es la referencia a la zona de desbordamineto, sera un registo o una pagina.
+
+S_F 
+
+m numero de zonas de la zona hash primaria y c el tamaño del desbordamiento (en numero de registros) Luego es el tamaño del archivo.
+
+tambien hay que contar el espacio de un registro borrado!!.
+
+R 
+
+n tamaño total de registros. Cuando un registro es borrado, n baja y R sube. Luego idealmente un registro ocupa r, pero si vamos borrando cosas realmente el registro ocupa R.
+
+
+T_F
+
+recuperacion de registro
+
+C es una constante, tiempo que se tarda en aplicar la función hash. +
+T tiempo que se tarda en buscarlo+ y si no está, el tiempo que se tarda en buscar el registro en la zona de desbordamiento por una probabilidad
+p, que e sla probabilidad de que el valor esté en la cadena.
+
+T_I
+
+tiempo de insercion
+
+C + dos escrituras (en el peor caso, si la cubeta esta llena, en la cubeta hay un valor que esta ocupando la posicion que queremos)
+
+cada registro tiene una referencia a una cubeta (una cadena de valores por ejemplo). Si tenemos una colision (en el peor caso). Entonces escribimos el registro en otra posicoin 
+apuntando al principio de la cadena, y el valor con el que le colisiono le reescribimos el puntero apuntando hacia el registro nuevo insertado.
+
+T_U
+
+actualizar un registro. Lo que tardamos en buscarlo y escribirlo.
+
+T_X
+
+T_Y
+
+reorganizar un fichero
+
+leer el fichero entero y cargarlo en la segunda, es decir, insertar todos los olementos de nuevo con la nueva funcion.
+
+diapositiva 95
+
+si la D vale 70% ya es algo rojo.   
