@@ -15,7 +15,7 @@ Sea $\funcion{f}{X}{Y}$ con $X,Y$ espacios normados. Se dice que $f$ es \textbf{
 \limite{x}{a}{\frac{\norm{f(x)-f(a)-T(x-a)}}{\norm{x-a}}} = 0
 \]
 
-$T$ se denota por $Df(a)$ y se llama \textit{diferencial de $f$}.
+$T$ se denota por $Df(a)$ y se llama \textit{diferencial de $f$ en $a$}.
 \end{definition}
 
 \begin{theorem}[derivada de una integral respecto de un parámetro]
@@ -48,12 +48,12 @@ Primeramente definimos un tipo de funciones llamadas \textit{funciones test} o \
 Dado $I$ intervalo, se llama \textit{espacio de funciones test} al conjunto:
 
 \[
-\mathcal{D} = \{\phi\in C^{\infty}(a,b): \; \exists J\subset(a,b) \text{ compacto: } \phi(x)=0 \text{ si } x \in J\}
+\mathcal{D} = \mathcal{D}(a,b) = \{\phi\in C^{\infty}(a,b): \; \exists J\subset(a,b) \text{ compacto: } \phi(x)=0 \text{ si } x \notin J\}
 \]
 \end{definition}
 
 \begin{lemma}
-\label{existanciaphi}
+\label{existenciaphi}
 Dado $x_0\in(a,b)$ y $\varepsilon>0$ tal que $[x_0-\varepsilon, x_0+\varepsilon]\subset(a,b)$, existe $\phi\in\mathcal{D}(a,b)$ tal que $\phi(x)>0$ si $x\in(x_0-\varepsilon,x_0+\varepsilon)$ y $\phi(x)=0$ en otro caso.
 \end{lemma}
 
@@ -122,12 +122,12 @@ Entonces $f(x)=0 \;$  $\forall x\in [a,b]$.
 
 \begin{proof}
 
-Sea $\bar{x}\in \xcero$ y supongamos por reducción al absurdo que $f(\bar{x})\neq 0$. Podemos suponer $f(\bar{x})>0$. Aplicando el teorema de conservación del signo, obtenemos $\varepsilon>0 \; f(x)>0 \text{ si } \; (\bar{x}-\varepsilon,\bar{x}+\varepsilon)$.
+Sea $\bar{x}\in \xcero$ y supongamos por reducción al absurdo que $f(\bar{x})\neq 0$. Podemos suponer $f(\bar{x})>0$. Aplicando el teorema de conservación del signo, obtenemos $\varepsilon>0$ tal que $f(x)>0 \text{ si } x \in (\bar{x}-\varepsilon,\bar{x}+\varepsilon)$.
 
-Por el lema \ref{existanciaphi}, existe una función test $\phi$ tal que $\phi(x)>0$ si $x\in(\bar{x}-\varepsilon, \bar{x}+\varepsilon)$ y $0$ en otro caso. Luego:
+Por el lema \ref{existenciaphi}, existe una función test $\phi$ tal que $\phi(x)>0$ si $x\in(\bar{x}-\varepsilon, \bar{x}+\varepsilon)$ y $0$ en otro caso. Luego:
 
 \[
-0=\int_{x_0}^{x_1}f(x)\phi(x)dx=\int_{\bar{x}-\varepsilon}^{\bar{x}+\varepsilon}f(x)\phi(x)dx>0 \Rightarrow f(\bar{x})=0
+0=\int_{a}^{b}f(x)\phi(x)dx=\int_{\bar{x}-\varepsilon}^{\bar{x}+\varepsilon}f(x)\phi(x)dx>0 \Rightarrow f(\bar{x})=0
 \]
 
 Como $\bar{x}$ era arbitrario, tenemos que $f(\bar{x})=0 \; \forall \bar{x}\in\xcero$, y por la continuidad de $f$ podemos extenderlo a los extremos también, es decir, $f(a)=f(b)=0$.
@@ -170,8 +170,8 @@ D=\{y\in\continuasabierto\cap\continuas[1]: \text{ se cumplen (a),(b) y (c)}\}
 \begin{enumerate}[(a)]
 
 \item $(x,y(x),y'(x))\in\Omega \espacio \forall x\in\xcero$
-\item $y(a)=b$ e $y(a)=b$ (\textit{Condición de contorno})
-\item $\displaystyle\int_{a}^x\fvariaciones dx<+\infty \espacio \forall x\in \xcero$ 
+\item $y(a)=y_0$ e $y(b)=y_1$ (\textit{Condición de contorno})
+\item $\displaystyle\int_{a}^b\fvariaciones dx<+\infty$ 
 \end{enumerate}
 
 \end{definition}
@@ -187,13 +187,13 @@ Sea $\{s_n\}\longrightarrow 0$ una sucesión de números reales y $\phi\in \sopo
 Sea $\phi\in\soportecompacto$ y $K=\supp\phi$.Tenemos que comprobar que $y+s_n\phi$ cumple las condiciones de la definición \ref{espaciofuncionesbuenas}.
 
 \begin{enumerate}[(a)]
-\item Razonemos por reducción al absurdo. Supongamos que existe $x_n\in(a,b)$ tal que $(x_n,y(x_n)+s_n\phi(x_n),y'(x_n)+s_n\phi'(x_n))\notin \Omega \Rightarrow x_n\in\supp\phi$, ya que si no estuviera, tendríamos que $\phi(x_n)=0$, luego $(x_n,y(x_n),y'(x_n))\in \Omega$. Como el soporte es compacto, podemos suponer que $\{x_n\}\longrightarrow\bar{x}\in\supp\phi\in(a,b)$. Si tomamos límite:
+\item Razonemos por reducción al absurdo. Supongamos que hay infinitos valores de $n\in\mathbb{N}$ tales que $(x_n,y(x_n)+s_n\phi(x_n),y'(x_n)+s_n\phi'(x_n))\notin \Omega$ para algún $x_n\in(a,b)$. Tomando una parcial si es necesario, podemos suponer una sucesión $\{x_n\}$ tal que para cada $n\in\mathbb{N}$, $(x_n,y(x_n)+s_n\phi(x_n),y'(x_n)+s_n\phi'(x_n))\notin \Omega \Rightarrow x_n\in\supp\phi$, ya que si no estuviera, tendríamos que $\phi(x_n)=0$ y $(x_n,y(x_n),y'(x_n))\in \Omega$. Como el soporte es compacto, podemos suponer que $\{x_n\}\longrightarrow\bar{x}\in\supp\phi\in(a,b)$. Si tomamos límite:
 
 \[
-\limitemasinfinito{n}{(x_n,y(x_n)+s_n\phi(x_n),y'(x_n)+s_n\phi'(x_n))}=(x_n,y(x_n),y'(x_n))\notin\Omega 
+\limitemasinfinito{n}{(x_n,y(x_n)+s_n\phi(x_n),y'(x_n)+s_n\phi'(x_n))}=(\bar{x},y(\bar{x}),y'(\bar{x}))\notin\Omega 
 \]
 
-porque el complementario de $\Omega$ es cerrado, luego el límite se queda fuera.
+porque el complementario de $\Omega$ es cerrado y el límite se queda fuera, llegando así a un absurdo. Por tanto, debe existir un $n_0\in\mathbb{N}$ tal que $(x_n,y(x_n)+s_n\phi(x_n),y'(x_n)+s_n\phi'(x_n))\in \Omega\quad\forall n\geq n_0$.
 \item Evidente, ya que $\phi(a)=\phi(b)=0$.
 \item Tomando $n\geq n_0$, tenemos:
 
@@ -202,7 +202,7 @@ porque el complementario de $\Omega$ es cerrado, luego el límite se queda fuera
 =\integral{(a,b)\backslash K}{}{\Big|F(...)\Big|dx}+\integral{K}{}{\Big|F(...)\Big|dx} < +\infty
 \]
 
-El primer término es finito ya que $F(x_n,y_n,y_n')\in D(a,b)$ y el segundo término porque es la integal de una función continua en un compacto. 
+El primer término es finito ya que, fuera de $K$, $phi=0$ e $y\in D$ y el segundo término porque es la integal de una función continua en un compacto. 
 \end{enumerate}
 \end{proof}
 Lo que nos asegura este lema es que podamos sumar una perturbación \textit{pequeña} a nuestro extremal sin \textit{salirnos} de $D$.
@@ -222,18 +222,32 @@ Sean $\bar{y}\in D$ extremal y $\phi\in\soportecompacto$. Definimos el funcional
 
 Por el lema anterior, existe $\varepsilon>0$ tal que $g$ está bien definida en $(-\varepsilon,\varepsilon)$.
 
-Ahora queremos derivar $g$ respecto de $s$, pero necesitamos que esté definida en un intervalo cerrado (por el teorema \ref{derivadaparametro}). Para ello, tomamos un intervalo cerrado $J$ de forma que $(-\varepsilon,\varepsilon)\subset\supp (\phi)\subset J\subset [a,b]$. 
+Ahora queremos derivar $g$ respecto de $s$, pero necesitamos que esté definida en un intervalo cerrado (por el teorema \ref{derivadaparametro}). Para ello, tomamos un intervalo cerrado $J$ de forma que $\supp (\phi)\subset J\subset [a,b]$. 
 
 Derivamos $g$ respecto de $s$:
 
 \[
 g'(s)=\left(
-\integral{J\backslash [a,b]}{}{F(x,\bar{y},\bar{y}')dx}\phi(x)+
 \integral{[a,b]}{}{F(x,\bar{y}+s\phi(x),\bar{y}'+s\phi'(x))dx}
 \right)'=
 \]
 \[
-= \integral{[a,b]}{}{\Big(F_y(x,\bar{y}+s\phi(x),\bar{y}'+s\phi'(x))\phi(x)+F_p(x,\bar{y}+s\phi(x),\bar{y}'+s\phi'(x))\phi'(x)\Big)dx}=
+=\left(
+\integral{[a,b]\backslash J}{}{F(x,\bar{y}+s\phi(x),\bar{y}'+s\phi'(x))dx}+
+\integral{J}{}{F(x,\bar{y}+s\phi(x),\bar{y}'+s\phi'(x))dx}
+\right)'
+\]
+
+Usando que $\integral{[a,b]\backslash J}{}{F(x,\bar{y}+s\phi(x),\bar{y}'+s\phi'(x))dx}\phi(x)$ es una constante (por que $\bar{y}\in D$ y $\phi = 0$ en $[a,b]\backslash J$) cuya derivada es cero, obtenemos que:
+
+\[
+g'(s)= \integral{J}{}{\Big(F_y(x,\bar{y}+s\phi(x),\bar{y}'+s\phi'(x))\phi(x)+F_p(x,\bar{y}+s\phi(x),\bar{y}'+s\phi'(x))\phi'(x)\Big)dx}
+\]
+
+Como $\phi=0=\phi'$ fuera de $J$
+
+\[
+g'(s)= \integral{[a,b]}{}{\Big(F_y(x,\bar{y}+s\phi(x),\bar{y}'+s\phi'(x))\phi(x)+F_p(x,\bar{y}+s\phi(x),\bar{y}'+s\phi'(x))\phi'(x)\Big)dx}
 \]
 
 Si evaluamos ahora $g'$ en 0 y usamos que $\bar{y}$ es extremal, tenemos:
@@ -249,7 +263,7 @@ El teorema anterior da pie a la siguiente definición:
 \begin{definition}
 \label{gateaux}
 
-Sea $\Omega\subset X$ un abierto de un espacio de Banach, $X$. Sean $L:\Omega\longrightarrow\R$, $y\in \Omega$, $\phi\in X$, se define la \textit{derivada de Gateaux} como:
+Sea $\Omega\subset X$ un abierto de un espacio de Banach, $X$. Sean $L:\Omega\longrightarrow\R$, $\bar{y}\in \Omega$, $\phi\in X$, se define la \textit{derivada de Gateaux} como:
 
 \[
 Dg(L(\bar{y}))(\phi)=\frac{d}{ds}\Big|_{s=0}L(\bar{y}+s\phi)
@@ -330,7 +344,7 @@ Z'(x)=F_y(x,y(x),y'(x))
 
 \end{theorem}
 
-Ya tenemos la ecuación que queremos resolver. La demostración del teorema es consecuencia de los siguientes resultados.
+Ya tenemos la ecuación que queremos resolver. La demostración del teorema es consecuencia de los anteriores resultados.
 
 \begin{lemma}
 \label{lemma:13}
@@ -342,7 +356,7 @@ Sea $\phi\in\mathcal{D}(a,b)$, entonces:
 
 \begin{proof}
 \hfill\\
-$(\Rightarrow)$ Por hipótesis, supongamos que existe $\Psi$ tal que $\phi=\Psi'$. Ahora solo tenemos que integrarla y usar que $\phi$ vale 0 en los extremos por ser una función de soporte compacto:
+$(\Rightarrow)$ Por hipótesis, supongamos que existe $\Psi$ tal que $\phi=\Psi'$. Ahora solo tenemos que integrarla y usar que $\Psi$ vale 0 en los extremos por ser una función de soporte compacto:
 
 \[
 \integral{a}{b}{\phi(s)ds}=\integral{a}{b}{\Psi'(s)ds}=\Psi\Big|_a^b=0
@@ -353,7 +367,14 @@ $(\Leftarrow)$  Si $\integral{a}{b}{\phi(s)ds}=0$, entonces tenemos la siguiente
 \includegraphics[scale=0.4]{./img/testfuncion.png}
 \end{center}
 
-Definimos $\Psi(x)=\integral{a'}{x}{\phi(s)ds}$ y tenemos $\Psi'=\phi$.
+Definimos $\Psi(x)=\integral{a'}{x}{\phi(s)ds}$ y tenemos $\Psi'=\phi$. Falta probar que $\Psi\in\mathcal{D}(a,b)$.
+Si $x\leq a'$, claramente $\Psi(x)=0$ \big($\phi(x)=0\quad\forall x\in(a,a')$\big). Si $x\geq b'$,
+
+\[
+\int_{a'}^x\phi(s)ds=\int_{a'}^{b'}\phi(s)ds=\int_{a}^{b}\phi(s)ds=0
+\]
+
+Por tanto $\supp\Psi\subset[a',b']$.
 
 \end{proof}
 
@@ -363,7 +384,7 @@ Sea $f\in C(a,b)$ tal que $\integral{}{}{f\phi'(x)dx=0}\espacio\forall\phi\in\ma
 \end{lemma}
 
 \begin{proof}
-Sea $x_0\in(a,b)$, por el lema \ref{existanciaphi}, podemos tomar $\phi_{x_0}\in \soportecompacto$, de forma que $\integral{a}{b}{\phi_{x_0}(s)ds}=1$ (multiplicándola por cierta constante). 
+Sea $x_0\in(a,b)$, tomamos una función $\phi_{x_0}\in \soportecompacto$ cumpliendo la tesis del lema \ref{existanciaphi}. Podemos tomarla de forma que $\supp\phi $\integral{a}{b}{\phi_{x_0}(s)ds}=1$ (multiplicándola por cierta constante). 
 
 Definimos $\Psi(x)=\integral{a}{x}{\phi_{x_0}(s)ds}$ y tomamos $c$ de forma que:
 
