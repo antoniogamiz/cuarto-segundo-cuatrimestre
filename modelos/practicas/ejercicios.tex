@@ -1,0 +1,120 @@
+\documentclass[12pt]{article}
+ 
+\usepackage[margin=1in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{tikz-cd}
+\usepackage{amsmath}
+\usepackage[shortlabels]{enumitem}
+\usepackage{mathtools}
+
+% cosas entre comillas 
+\usepackage{csquotes}
+
+\usepackage{tikz}
+
+
+\usepackage{xcolor}
+
+%\usepackage{config}
+
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}[theorem]{Lema}
+\newtheorem{prop}[theorem]{Proposición}
+\newtheorem{coro}[theorem]{Corolario}
+\newtheorem{conj}[theorem]{Conjetura}
+\newtheorem{ejercicio}{Ejercicio}[section]
+\newtheorem*{ejercicio*}{Ejercicio}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definición}
+\newtheorem{example}[theorem]{Ejemplo}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Nota}
+\newtheorem{notacion}[theorem]{Notación}
+\newcommand{\continuas}[1][]{C^{ #1 }[a,b]}
+\newcommand{\continuasabierto}[1][]{C^{ #1 }(a,b)}
+\newcommand{\soportecompacto}{\mathcal{D}(a,b)}
+\newcommand{\xcero}{(a,b)}
+\newcommand{\xcerocerrado}{[a,b]}
+\newcommand{\fvariaciones}{F(x,y(x),y'(x))}
+
+\begin{document}
+
+\section{Ejercicios tema 1}
+
+\begin{ejercicio}
+  Sean $\Phi\in \mathcal{C}^1(\mathbb{R}^3), y(x)\in \mathcal{C}^2\xcero, y'(x) \neq 0$. Dado el funcional
+
+  \[
+    F[y] = \int_{a}^{b}{\Phi(x,y(x),y'(x))dx}
+  \]
+
+  demuéstrese la equivalencia de las dos formas siguientes de las
+  ecuaciones de Euler-Lagrange.
+
+  \begin{itemize}
+  \item $\frac{\partial\Phi}{\partial y}-\frac{d}{dx}\frac{\partial\Phi}{\partial p} = 0 $
+  \item $\frac{\partial\Phi}{\partial x} - \frac{d}{dx}(\Phi-y'\frac{\partial\Phi}{\partial p}) = 0$
+  \end{itemize}
+
+  \begin{proof}
+    Comenzamos viendo el caso $a) \implies b)$. Para ello en primer
+    lugar tenemos que comprobar que efectivamente podemos derivar
+    $\Phi$ respecto al tercer parámetro. Del apartado $a)$ sabemos que
+
+    \[
+      \frac{\partial\Phi}{\partial y} = \frac{d}{dx}\frac{\partial\Phi}{\partial p}
+    \]
+    
+    y del enunciado sabemos que $\Phi$ es de calse $\mathcal{C}^1$
+    luego $\frac{\partial\Phi}{\partial p}$ es de $\mathcal{C}^1$.
+
+    Cuando derivamos $\Phi(x,y(x),y'(x))$ obtenemos
+
+    \begin{align*}
+      \Phi(x,y(x),y'(x))' & = \frac{\partial\Phi}{\partial x}(x, y(x), y'(x)) \\
+                          & = \frac{\partial\Phi}{\partial y}(x, y(x), y'(x))y'(x) \\
+                          & = \frac{\partial\Phi}{\partial p}(x, y(x), y'(x))y''(x)
+    \end{align*}
+
+    Recordemos que $\frac{\partial\Phi}{\partial p}(x, y(x), y'(x)) = z(x)$ luego
+
+    \begin{align*}
+      \frac{d}{dx}(\Phi-y'\frac{\partial\Phi}{\partial p}) & = \Phi_x + \Phi_yy' + \Phi_py'' - y''z -y'z'
+    \end{align*}
+
+    Tenemos que el 3º y 4º termino son iguales t el 2º y 4º son
+    iguales entre ellos luego obtenemos
+
+        \begin{align*}
+      \frac{d}{dx}(\Phi-y'\frac{\partial\Phi}{\partial p}) = \Phi_x
+        \end{align*}
+
+        que es lo que queríamos.
+
+        $b)\implies a)$
+        
+        Todos los pasos que hemos dado son reversibles pero
+        necesitamos ver que
+        $\frac{\partial\Phi}{\partial p}(x, y(x), y'(x))$ es $\mathcal{C}^1$.
+
+        Llamando $H(x) = \Phi-y'(x)z(x)$, por hipótesis tenemos que
+        $H$ es derivable. Despejando tenemos que
+
+        \[
+          z = \frac{\Phi-H}{y'}
+        \]
+
+        luego se verifica cómo queríamos.
+
+        \begin{align*}
+          \Phi_x & = \Phi_x + \Phi_yy' + \Phi_py'' - y''z -y'z' \\
+                 & \implies y'(\Phi_Y-z') = 0
+        \end{align*}
+
+        e $y' \neq 0$ por hipótesis luego $\Phi_Y - z' = 0$.
+  \end{proof}
+\end{ejercicio}
+
+\end{document}
