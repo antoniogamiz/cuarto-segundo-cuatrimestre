@@ -5,6 +5,7 @@ Sólo uso este repositorio como backup para mis distintos ordenadores. Las prese
 ## Paquetes de Ubuntu
 
 - `tldr`: un versión simple de `man`.
+- `hub`: imprescindible.
 
 ## Vim
 
