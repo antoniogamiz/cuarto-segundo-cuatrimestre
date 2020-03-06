@@ -2,6 +2,10 @@
 
 Sólo uso este repositorio como backup para mis distintos ordenadores. Las presentaciones de clase, apuntes y material docente vario que se encuentre en este repositorio, que no lleve mi nombre, no es mío.
 
+## Paquetes de Ubuntu
+
+- `tldr`: un versión simple de `man`.
+
 ## Vim
 
 - Configuration file [link](https://stackoverflow.com/questions/10921441/where-is-my-vimrc-file)
