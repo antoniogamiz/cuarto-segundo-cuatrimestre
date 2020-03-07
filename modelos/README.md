@@ -4,8 +4,8 @@ Profesor: [Juan Campos](https://directorio.ugr.es/static/PersonalUGR/*/show/d217
 
 ### Apuntes:
 
-- [Tema 1](modelos/teoria/tema1.pdf)
-- [Tema 2](modelos/teoria/tema2.pdf)
-- [Todo](modelos/teoria/master.pdf)
+- [Tema 1](modelos/teoria/tema1.pdf): Cálculo de variaciones
+- [Tema 2](modelos/teoria/tema2.pdf): Derivada débil y espacios de Sobolev
+- [Todo](modelos/teoria/master.pdf).
 
 - [Apoyo](modelos/apoyo/apuntes-jjmnieto.pdf)
