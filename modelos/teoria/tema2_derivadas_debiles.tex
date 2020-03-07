@@ -1,7 +1,6 @@
 \section{Derivadas débiles}
 
 Recordemos el espacio $L^1(a,b)$ de las funciones $\funcion{f}{(a,b)}{\R}$ que son Lebesgue integrables. Ese espacio estaba formado por clases de equivalencia, que normalmente llamamos clases de funciones. Que sea Lebesgue integrable, no quiere decir que sea continua, como nos indica la \textit{función de Dirichlet}, que es Lebesgue integrable pero evidentemente no es continua.
-
 \[
 f(x)=\left\{
 \begin{array}{cc}
@@ -10,18 +9,14 @@ f(x)=\left\{
 \end{array}
 \right. 
 \]
-
 Toda función continua no es integrable, necesitamos que esté acotada. Eso nos dice que todas las funciones continuas no están en $L^1(a,b)$. Para evitar eso, definimos el \textit{espacio de funciones continuas localmente integrables}, que denotaremos por:
-
 \[
 L^1_{loc}(a,b)=\{\funcion{f}{(a,b)}{\R} \;|\; \forall J \text{ intervalo compacto},f_{|J}\text{ es integrable}\}
 \]
-
 Ese espacio soluciona el problema anterior ya que todas las funciones continuas sí son localmente integrables.
 
 \begin{definition}
 Sean $f,g\in\localmenteintegrable$, se dice que $g$ es la derivada débil de $f$ si se verifica que:
-
 \[
 \integral{a}{b}{f\phi'}+\integral{a}{b}{g\phi}=0 \espacio \forall\phi\in\soportecompacto
 \]
@@ -33,11 +28,9 @@ Usando el espacio definido anteriormente, podemos generalizar el lema fundamenta
 
 \begin{lemma}
 Si $f\in\localmenteintegrable$ cumpliendo:
-
 \[
 \integral{a}{b}{f\phi}=0 \espacio\forall\phi\in\soportecompacto
 \]
-
 Entonces $f(x)=0$ $a.e$ $x\in(a,b)$.
 
 \end{lemma}
@@ -50,7 +43,6 @@ Sea $f\in\localmenteintegrable$ y $g,\tilde{g}\in\localmenteintegrable$ dos deri
 
 \begin{proof}
 Simplemente usando la definición y el lema generalizado tenemos:
-
 \[
 \left.
 \begin{array}{c}
@@ -75,17 +67,13 @@ Ahora ya sí podemos demostrar el lema generalizado:
 
 \begin{proof}
 Sea $g$ una función simple. Por el lema anterior, puedo tomar una sucesión $\phi_n$ de funciones de soporte compacto convergiendo a $g$.Usando el teorema de la convergencia dominada de Lebesgue, podemos intercambiar el límite en la siguiente integral:
-
 \[
 \limitemasinfinito{n}{\integral{}{}{\phi_n(x)f(x)dx}}=\integral{}{}{g(x)f(x)}dx
 \]
-
 Por la proposición anterior, nos podemos tomar una sucesión $g_n$ de funciones simples de forma que $\{g_n\}\longrightarrow f \; a.e$. De forma análoga:
-
 \[
 0=\limitemasinfinito{n}{\integral{}{}{g_n(x)f(x)dx}}=\integral{}{}{f(x)^2}dx \Rightarrow f\equiv 0 \; a.e
 \]
-
 \end{proof}
 
 La derivada débil tiene una propiedad parecida a la derivada clásica, ambas son conceptos locales, es decir:
@@ -107,13 +95,10 @@ Primero tenemos que ver que $g\in\localmenteintegrable$. Si el intervalo compact
 \[
 \integral{-\varepsilon}{\varepsilon}{|g(x)|dx}\overset{g\; simetrica}{=}2\integral{0}{\varepsilon}{|g(x)|dx}=2\integral{0}{\varepsilon}{\frac{1}{2\sqrt{x}}}=2\sqrt{x}\Big|_0^\varepsilon=2\sqrt{\varepsilon}<+\infty
 \]
-
 Ahora tenemos que comprobar que $g$ es la derivada débil de $f$, es decir:
-
 \[
 \integral{\R}{}{f\phi'}+\integral{\R}{}{g\phi}=0 \espacio \forall\phi\in\soportecompacto
 \]
-
 \[
 \integral{\R}{}{f(x)\phi'(x)dx}=\integral{|x|>\varepsilon}{}{f(x)\phi'(x)dx}+\underbrace{\integral{|x|<\varepsilon}{}{f(x)\phi'(x)dx}}_{f\phi'\leq2\sqrt{\varepsilon}\max\phi'\to0}=\integral{|x|>\varepsilon}{}{f(x)\phi'(x)dx}=
 \]
@@ -129,7 +114,6 @@ Ahora tenemos que comprobar que $g$ es la derivada débil de $f$, es decir:
 \[
 -\integral{\R}{}{g(x)\phi(x)dx}+\underbrace{\integral{|x|<\varepsilon}{}{g(x)\phi(x)dx}}_{\to0}=-\integral{\R}{}{g(x)\phi(x)dx}
 \]
-
 \end{example}
 
 Vamos a ver que la derivada de una integral de una derivada débil, es la propia función (como es de esperar). Para ello vamos a tener que desarrollar una serie de pasos previos.
@@ -139,7 +123,6 @@ Sea $g\in\localmenteintegrable$ y tomo $x_0\in(a,b)$. Defino $\funcion{f}{(a,b)}
 \[
 f(x)=\integral{x_0}{x}{g(x)ds}
 \]
-
 Entonces $f'=g$ y $f\in C[a,b]$.
 \end{prop}
 
@@ -179,34 +162,24 @@ La integral en $f$ tiene sentido ya que $[x_0,x]\subset (a,b)$. Comprobemos que 
 \end{enumerate}
 
 Y ese es la clave que nos va a permitir ver que $f(x_n)\to f(\tilde{x})$. Sea $J$ un intervalo compacto de forma que $[x_0,x]\subset J\subset(a,b)$.
-
 \[
 \integral{x_0}{x_n}{g(x)dx}=\integral{J}{}{g(x)\chi_{[x_0,x_n]}}(x)dx
 \]
-
 Usando lo anterior obtenemos la convergencia puntual de la sucesión $g(x)\chi_{[x_0,x_n]}\overset{cp}{\longrightarrow}g(x)\chi_{(x_0,\tilde{x})}$. Lo que nos da la convergencia en integral también:
-
 \[
 f(x_n)=\integral{J}{}{g(x)\chi_{[x_0,x_n]}(x)dx}\overset{cp}{\longrightarrow}\integral{J}{}{g(x)\chi_{(x_0,\tilde{x})}(x)dx}=\integral{x_0}{\tilde{x}}{g(x)dx}=f(\tilde{x})
 \]
-
 Luego $f\in C(a,b) \Rightarrow f\in \localmenteintegrable$.
-
 Ahora nos queda ver $f'=g$. Para ello tenemos que comprobar que:
-
 \[
 \integral{a}{b}{f(x)\phi'(x)dx}+\integral{a}{b}{g(x)\phi(x)dx}=0 \espacio \forall \phi\in \soportecompacto
 \]
-
 Tenemos el problema de que $g$ no tiene por qué ser derivable (podría ser una función escalón, por ejemplo). Vamos a empezar suponiendo que $g\in L^1([a,b])$ (para que $f$ esté bien definida) y que $x_0=a$. Al final reduciremos esas hipótesis hasta llegar a que $g\in\localmenteintegrable$.
-
 \underline{Paso 1}: $g\in L^1([a,b])$ y $x_0=a$. Para ver que
 \[
 \integral{a}{b}{f(x)\phi'(x)dx}=-\integral{a}{b}{g(x)\phi(x)dx} 
 \]
-
 vamos a tener que usar el Teorema de Fubini-Tonelli.
-
 \[
 \integral{a}{b}{f(x)\phi'(x)dx}=
 \integral{a}{b}{\left(\integral{a}{x}{g(s)ds}\right)\phi'(x)dx}\overset{TªFT}{=}
@@ -215,33 +188,148 @@ vamos a tener que usar el Teorema de Fubini-Tonelli.
 \integral{a}{b}{g(s)\left(\integral{s}{b}{\phi'(x)dx}\right)ds}
 =\integral{a}{b}{g(s)(\underbrace{\phi(b)}_{=0}-\phi(s))ds}=-\integral{a}{b}{g(s)\phi'(s)ds}
 \]
-
 \underline{Paso 2}: Reemplazamos la hipótesis $x_0=a$ por $x_0\in(a,b)$ y usamos el paso 1:
-
 \[
 \integral{a}{b}{g(x)\phi(x)dx}=-\integral{a}{b}{\left(\integral{a}{x}{g(s)ds}\right)\phi'(x)dx}
 \]
-
 Vemos que la integral del interior se puede expresar como una constante más una función:
-
 \[
 \integral{a}{x}{g(s)ds}=\underbrace{\integral{a}{x_0}{g(s)ds}}_{cte=C}+\underbrace{\integral{x_0}{x}{g(s)ds}}_{funcion}
 \]
-
 Luego:
-
 \[
 -\integral{a}{b}{\left(\integral{a}{x}{g(s)ds}\right)\phi'(x)dx}=
--\underbrace{\integral{a}{b}{B\phi'(x)dx}}_{=B(\phi(b)-phi(a))=0}-\integral{a}{b}{\left(\integral{x_0}{x}{g(s)ds}\right)\phi'(x)dx}=
+-\underbrace{\integral{a}{b}{B\phi'(x)dx}}_{=B(\phi(b)-\phi(a))=0}-\integral{a}{b}{\left(\integral{x_0}{x}{g(s)ds}\right)\phi'(x)dx}=
 -\integral{a}{b}{f(x)\phi(x)dx}
 \]
-
-\underline{Caso 3}: Ahora sustituimos la hipótesis $g\in L^1([a,b])$ por $g\in\localmenteintegrable$. Tomamos un subintervalo compacto $[a'.b']\subset(a,b)$ donde $g_{|[a'.b']}\in L^1([a',b'])$, de forma que $\supp\phi\subset[a',b']$. Sea $x_0\in[a',b']$ y $x\in(a,b)$.
+\underline{Paso 3}: Ahora sustituimos la hipótesis $g\in L^1([a,b])$ por $g\in\localmenteintegrable$. Tomamos un subintervalo compacto $[a'.b']\subset(a,b)$ donde $g_{|[a'.b']}\in L^1([a',b'])$, de forma que $\supp\phi\subset[a',b']$. Sea $x_0\in[a',b']$ y $x\in(a,b)$.
 
 Ahora aplicamos el caso 2, usando que $\supp\phi\subset[a',b']$:
-
 \[
 \integral{a}{b}{g(x)\phi(x)dx}=\integral{a'}{b'}{g(x)\phi(x)dx}=-\integral{a'}{b'}{\left(\integral{x_0}{x}{g(s)ds}\right)\phi'(x)dx}=-\integral{a}{b}{f(x)\phi'(x)dx}
 \]
-
 \end{proof}
+
+Una vez obtenida una versión para derivadas débiles del Teorema Fundamental del Cálculo, vamos a ver más propiedades de este concepto.
+
+La siguiente proposición nos permitirá obtener un representante continuo a partir de una función que tenga derivada débil, pero no tengo por qué ser continua.
+
+\begin{prop}
+\label{representantecontinuo}
+Si $f\in\localmenteintegrable$ tiene derivada débil en $(a,b)$, entonces existe $\tilde{f}\in C(a,b)$ tal que $\tilde{f}(x)=f(x)$ $a.e$ $x\in(a,b)$.
+\end{prop}
+
+\begin{proof}
+Sea $f\in\localmenteintegrable$, $\funcion{g}{(a,b)}{\R}$ su derivda débil, es decir, $f'=g$ y $x_0\in(a,b)$. Definimos $\funcion{\tilde{f}}{(a,b)}{\R}$ por:
+\[
+\tilde{f}(x)=\integral{x_0}{x}{g(s)ds}
+\]
+El resultado anterior nos da que $\tilde{f}\in C(a,b)$ y $\tilde{f}'=g$. Solo nos falta ver que $\tilde{f}$ es igual casi por doquier a $f$, o lo que es lo mismo, comprobar que $f-\tilde{f}$ tiene derivada débil 0:
+\[
+\left.
+\begin{array}{cc}
+\integral{a}{b}{f(x)\phi'(x)dx}=-\integral{a}{b}{g(x)dx} \\
+\integral{a}{b}{\tilde{f}(x)\phi'(x)dx}=-\integral{a}{b}{g(x)dx}
+\end{array}
+\right\} \Rightarrow \integral{a}{b}{(f-\tilde{f})(x)\phi'(x)}=-\integral{a}{b}{0\phi(x)dx}
+\]
+\end{proof}
+
+\begin{prop}
+Si $f\in\localmenteintegrable$ y tiene derivada débil igual a 0, entonces $f$ es constante $\casipordoquier$.
+\end{prop}
+
+\begin{proof}
+La demostración de este es prácticamente igual a la demostración del Lema \ref{lemma:14}.
+\end{proof}
+
+\begin{example}[examen 18/19]
+Sea $\funcion{f}{\R\backslash\{1\}}{\R}$ definida por $f(x)=\frac{(x-1)(x+2)}{|x-1|}$. ¿Tiene derivada débil?
+
+Nos damos cuenta de que $f(x)=\frac{(x-1)(x+2)}{|x-1|}=\frac{x-1}{|x-1}(x+2)$, es decir, $f$ se expresa como producto de una función escalón (discontinua), por un polinomio (continuo), luego $f$ es discontinua.
+
+Como es discontinua, si tuviera derivada débil, por la proposición \ref{representantecontinuo} , debe existir $\tilde{f}$ función continua tal que $f(x)=\tilde{f}(x)\;\; a.e$. Veamos que esa función no puede existir. El conjunto $\{x:\;\; f(x)=\tilde{f}(x)\}$ tiene \textbf{medida llena} (complementario con medida nula), luego es denso. Tomamos $\{x_n\}\longrightarrow 1$ y vemos que:
+\[
+3=\limite{n}{1^+}{f(x_n)}=\limite{n}{1^+}{\tilde{f}(x_n)}
+\]
+\[
+-3=\limite{n}{1^-}{f(x_n)}=\limite{n}{1^-}{\tilde{f}(x_n)}
+\]
+Pero $\tilde{f}$ es continua, luego esos límites deberían coincidir: contradicción.
+
+\end{example}
+
+\begin{prop}
+Sea $f\in\localmenteintegrable$ $n$-veces derivable débil, entonces existe $\tilde{f}$ tal que $f(x)=\tilde{f}(x) \; \casipordoquier$ y además $\tilde{f}\in C^{n-1}(a,b)$.
+\end{prop}
+
+\begin{proof}
+\underline{Caso n=1}: Si $f$ tiene derivada débil, sabemos por la proposición \ref{representantecontinuo} que existe $\tilde{f}\in C(a,b)$ y $f(x)=\tilde{f}(x) \;\casipordoquier$.
+El caso $n$ se deduce fácilmente del siguiente hecho:
+\[
+\left.
+\begin{array}{r}
+\integral{a}{b}{\tilde{f}(x)\phi'(x)dx}+\integral{a}{b}{g(x)\phi(x)dx}=0 \\
+\tilde{f}, g \text{ continuas }
+\end{array}
+\right\} \Rightarrow \tilde{f}\in C^1(a,b), \;\tilde{f}'=g \text{ (en sentido clásico)}
+\]
+\underline{Caso n}: Suponemos que $f$ es $(n-1)$-veces derivable débil y que existe $\tilde{f}\in C^{n-2}(a,b)$ tal que $f(x)=\tilde{f}(x)\;\casipordoquier$.
+Si derivamos $(n-1)$-veces $f$, obtenemos $\tilde{f}^{n-1)}=f^{n-1)}=g$, que no sabemos si es continua, pero sabemos que podemos elegir un representante que si lo sea. Usando el hecho anterior, tenemos que $\tilde{f}\in C^{n-1}(a,b)$.
+\end{proof}
+
+\subsection{The Devil Staircase}
+
+Nuestro objetivo va a ser construir una función continua$\funcion{f}{\R}{\R}$ que no admita derivada débil.
+
+En $\R\backslash(0,1)$ será constante:
+\[
+f(x)=\left\{
+\begin{array}{cc}
+0 & x\leq 0\\
+1 & x\geq 1
+\end{array}
+\right.
+\]
+En $(0,1)$ nos va a costar un poco más construirla. Para ello, definimos primeramente \textit{el conjunto ternario de Cantor}, que se construye sobre el intervalo $[0,1]$, eliminando en cada paso el segmento abierto correspondiente al tercio central de cada intervalo.
+
+\begin{figure}[h]
+   \center
+  \includegraphics[scale=0.5]{img/cantor.jpeg}
+  \caption{Representación gráfica}
+\end{figure}
+
+Es fácil ver que la media del primer conjunto $C_0$ es $2/3$, el de $C_1$ $4/9$, y el de $C_n=(\frac{2}{3})^n$. Además, cada $C_n$ es compacto, luego si consideramos como conjunto $C$ a la intersección de todos, es decir, $C=\cap_{n\in\N} C_n$, obtenemos otro conjunto compacto. $C$ tiene media nula, ya que $\mu(C)=\left(\frac{2}{3}\right)^n\to0$.
+
+Vamos a construir nuestra $f$ sobre el complementario de ese conjunto, es decir, sobre $B=(0,1)\backslash C$.
+
+Nuestra función será constante en cada intervalo de $B$, es decir, en los intervalos que hemos sustraído al construir el conjunto ternario de Cantor. Para hacerla continua, necesitamos regularizar cada salto entre intervalos, definiendo $f$ en esa parte como una recta que conecte cada intervalo con el siguiente.
+
+\begin{figure}[H]
+   \center
+  \includegraphics[scale=0.6]{img/escalera.png}
+\end{figure}
+
+Denotamos por $f_n$ a la función resultante de realizar el paso anterior $n$ veces, consiguiéndo así una sucesión de funciones continuas. Esta sucesión cumple además una propiedad clave para nosotros: si $x\in B$, existe un $n_0\in\N$ tal que si $n\geq n_0$, entonces $x$, debe de estar en algún intervalo, $I_{n_0}$. Pero en esos intervalos, que son los eliminados por el conjunto de Cantor, nuestra función es constante, es decir, $f_n$ es constante en $I_{n_0}$.
+
+Una vez realiza esta construcción, podemos definir nuestra función $f$ como sigue:
+\[
+f(x)=\limitemasinfinito{n}{f_n(x)}
+\]
+Tenemos que ver que $f_n$ converge para que la definición de $f$ tenga sentido. Debido a la forma en la que hemos construido la sucesión $f_n$, tenemos que:
+
+\begin{figure}[H]
+   \center
+  \includegraphics[scale=0.6]{img/convergenciaescalera.png}
+\end{figure}
+\[
+\valorabsoluto{f_n(x)-f_{n+1}(x)}\leq\frac{1}{2^n} \Rightarrow \norm{f_n(x)-f_{n+1}}_{\infty}\leq \frac{1}{2^n}
+\]
+
+Expresando ahora $f_n$ usando la forma telescópica de una sucesión:
+\[
+f_n(x)=f_1(x)+f_2(x)-f_1(x)+...=f_1(x)+\sum_{n=1}^\infty\left(f_{n+1}(x)-f_n(x)\right) \Rightarrow \norm{f_n}_{\infty}\leq \frac{1}{2^n}
+\]
+Obteniendo así que $f_n$ converge uniformemente a $f$, y como $f_n$ es continua para todo $n\in\N$, $f$ también lo es. 
+
+Ya tenemos nuestra \textit{escalera continua} construida, falta ver que no tiene derivada débil. Supongamos que existe $g$ tal que $f'=g$. Como $f$ está definida como una función constante en cada componente conexa de $B$, su derivada vale 0, es decir, $g(x)=0\;$ si $x \in B$ o $x\leq 1$ o $x\leq 0$. Pero, como $B$ tiene medida llena, lo anterior implica que $g(x)=0 \; a.e \; x\in\R$, luego $f$ sería constante, lo cual es una evidente contradicción.
