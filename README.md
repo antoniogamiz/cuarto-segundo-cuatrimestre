@@ -31,7 +31,6 @@ cp -a ~/texmf ~/code/cuarto-segundo-cuatrimestre/
 Si usas Anki, recomiendo escribir las tarjetas en un editor como `TexMaker` y luego copiar el contenido. Para usarlo, ve a `Tools->Manage Note Types->Options` y añade el siguiente código antes de `\begin{document}`:
 
 ~~~latex
-\usepackage{amsmath,amsthm,amssymb}
 \usepackage{config}
 ~~~
 
@@ -41,10 +40,6 @@ Si usas Anki, recomiendo escribir las tarjetas en un editor como `TexMaker` y lu
 - https://dev.to/sosnowski/anatomy-of-aws-lambda-1i1e
 - Latex en README.md: https://gist.github.com/a-rodin/fef3f543412d6e1ec5b6cf55bf197d7b
 - Git submodules [link](https://gist.github.com/gitaarik/8735255)
-
-### Curvas y superficies
-
-- Material vario [link](http://mathshistory.st-andrews.ac.uk/)
 
 ### Ecuaciones diferenciales II
 
