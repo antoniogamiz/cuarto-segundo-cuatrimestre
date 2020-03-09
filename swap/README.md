@@ -19,10 +19,14 @@ Para hacer el setup del entorno de trabajo rápidamente:
 
 ### Kahoot 1
 
+---
+
 1. Una granja web es un conjunto de servidores dedicados a servir contenido web a usuarios finales:
 
 - [ ] Verdadero
 - [x] Falso
+
+---
 
 2. Los modelos de servicio básicos del concepto `cloud computing` son:
 
@@ -31,12 +35,16 @@ Para hacer el setup del entorno de trabajo rápidamente:
 - [ ] saas paas
 - [ ] daas saas caas iaas
 
+---
+
 3. ¿Qué es un `cold spare server`?
 
 - [ ] Servidor para pruebas software
 - [ ] Servidor de refrigseración
 - [ ] Servidor de repuesto
 - [x] Servidor replicado para uso en caso de que falle el principal
+
+---
 
 4. La arquitectura más adecuada para montar una granja web es:
 
@@ -45,12 +53,16 @@ Para hacer el setup del entorno de trabajo rápidamente:
 - [ ] Cliente-servidor
 - [x] Arquitectura n-capas
 
+---
+
 5. Con virtualización se puede:
 
 - [ ] Aumentar los recursos hardware
 - [x] Hacer uso eficiente de los recursos hardware
 - [ ] Reducir los tiempos de acceso y cómputo
 - [ ] Utilizar distintos hardware en la misma máquina
+
+---
 
 6. El modelo cloud proporciona:
 
@@ -59,24 +71,32 @@ Para hacer el setup del entorno de trabajo rápidamente:
 - [ ] Acceso privado a recursos informáticos
 - [ ] Software a través de Internet
 
+---
+
 7. El modelo cloud proporciona servicios de forma estática y robusta:
 
 - [ ] Verdadero
 - [x] Falso
 
-aspectos de las greenit para reduccion del consumo de un cpd son
+---
+
+8. Aspectos de las `GreenIT` para reducción del consumo de un cpd son:
 
 - [ ] Reducción de la capacidad de cómputo de los servidores
 - [ ] Utilización estática de recursos a baja potencia
 - [ ] Reducción de la temperatura de la sala de servidores
 - [x] Virtualización y utilización dinámica de recursos
 
-si el hardware y software comienzan a dar fallos tendremos un problema de
+---
+
+9. Si el hardware y software comienzan a dar fallos tendremos un problema de:
 
 - [x] Disponibilidad
 - [ ] Viabilidad
 - [ ] Carga del sistema
 - [ ] Escalabilidad
+
+---
 
 10. La escalabilidad es la capacidad de:
 
@@ -85,7 +105,11 @@ si el hardware y software comienzan a dar fallos tendremos un problema de
 - [ ] Procesar una petición web
 - [x] Dar soporte a un número creciente de usuarios
 
+---
+
 11.  La consolidación de servidores es la reestructuración de la infraestructura del cpd:
 
 - [x] Verdadero
 - [ ] Falso
+
+---
