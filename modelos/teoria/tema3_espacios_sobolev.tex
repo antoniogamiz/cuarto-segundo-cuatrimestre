@@ -331,7 +331,19 @@ f,g\in\sobolevcero[a,b]{1}, \espacio <f,g>=\integral{a}{b}{f'(x)g'(x)dx}+\integr
 \]
 con $K\in\lebesgue{2}$, $K(x)\geq 0$ $\forall x\in[a,b]$, es un espacio de Hilbert.
 \end{prop}
-\begin{proof}
 
+Antes de proceder a la demostración necesitamos algunas herramientas previas:
+
+\begin{prop}[Lema de Poincaré]
+\label{lemapoincare}
+Existe $\lambda\in\R^+$ constante tal que se verifica
+\[
+\sqrt{\integral{a}{b}{f(x)^2dx}}=\lambda\integral{a}{b}{f'(x)^2dx} \espacio \forall f\in\sobolevcero{1}
+\]
+\end{prop}
+
+\begin{proof}
+La aplicación $\funcion{i}{\sobolevcero{1}}{\sobolev{1}}$ es continua, es decir, si $f\in\sobolevcero{1} \Rightarrow \norm{i(f)}_{\sobolev{1}}\leq M \norm{f}_{\sobolevcero{1}}$ para cierta constante $M\in\R$. 
+\textbf{esta demostración no la tengo para nada clara} 
 \end{proof}
 
