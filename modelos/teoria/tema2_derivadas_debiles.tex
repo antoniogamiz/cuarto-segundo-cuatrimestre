@@ -120,13 +120,14 @@ Ahora tenemos que comprobar que $g$ es la derivada débil de $f$, es decir:
 
 Vamos a ver que la derivada de una integral de una derivada débil, es la propia función (como es de esperar). Para ello vamos a tener que desarrollar una serie de pasos previos.
 
-\begin{prop}
+\begin{theorem}
+\label{fundamentalcalculo}
 Sea $g\in\localmenteintegrable$ y tomo $x_0\in(a,b)$. Defino $\funcion{f}{(a,b)}{\R}$ como
 \[
 f(x)=\integral{x_0}{x}{g(x)ds}
 \]
 Entonces $f'=g$ y $f\in C[a,b]$.
-\end{prop}
+\end{theorem}
 
 \begin{proof}
 

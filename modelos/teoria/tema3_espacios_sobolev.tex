@@ -188,6 +188,8 @@ y(x)=\left\{
 \right.
 \end{equation}
 
+\textbf{ESTAS CUENTAS NO ESTAN ACTUALIZADAS, AUNQUE ESTAN MAL :D}
+
 \begin{figure}[h]
    \center
   \includegraphics[scale=0.6]{img/puenteflotante.png}
@@ -197,7 +199,9 @@ Que como vemos, floa, asi que algo hay mal :D.
 
 \subsection{Extremos fijos y densidad arbitraria}
 
-El planteamiento es igual al case más simple, pero ahora la función de densidad, $q(x)$, la consideraremos en $C^\infty$. Para evitar tener que explicitar las condiciones de contorno cada vez, es común definir el siguiente subespacio:
+El planteamiento es igual al caso más simple, pero ahora la función de densidad, $q(x)$, la consideraremos en $C^\infty$. Sin la expresión de la función $q(x)$, no podemos resolver el problema de forma explícita, pero sí podemos asegurar la existencia de solución. El siguiente procedimiento lo repetiremos varias veces: definimos un espacio en donde buscaremos nuestra solución ($\sobolevcero[0,1]{1}$), plantearemos el problema (condición de extremal), definiremos un producto escalar y demostraremos que el espacio definido con ese producto escalar es de Hilbert, para usar el Teorema de Riesz-Fréchet. 
+
+Comencemos definiendo nuestro espacio de soluciones:
 \[
 \sobolevcero[a,b]{1}=\conjunto{y\in\sobolev{1}: y(a)=y(b)=0}
 \]
@@ -209,7 +213,7 @@ El espacio vectorial $\sobolevcero{1}$, es cerrado.
 Sea una secuencia de funciones convergentes en $\sobolevcero{1}$, $f_n\longrightarrow f$. Usando la proposición \ref{inclusion continua} y $\sobolevcero{1}\subset\sobolev{1}$, tenemos que $f_n(a)\longrightarrow f(a)$ y $f_n(b)\longrightarrow f(b)$. Luego $f_n(a)=f_n(b)=0 \;\forall n\in\N \Rightarrow f(a)=f(b)=0 \Rightarrow f\in\sobolevcero{1}$.\\
 \end{proof}
 
-Una vez definido nuestro nuevo espacio, pasamos a resolver el modelo. Como de costumbre, suponemos que $\in\sobolevcero[0,1]{1}$ es extremal y usamos la teoría de Euler:
+Una vez definido nuestro nuevo espacio, pasamos a resolver el modelo. Como de costumbre, suponemos que $y\in\sobolevcero[0,1]{1}$ es extremal y usamos la teoría de Euler:
 \[
 L(y)=\frac{1}{2}\integral{0}{1}{y'(x)^2dx}+\integral{0}{1}{q(x)y(x)dx}
 \]
@@ -227,5 +231,61 @@ DL_y(\phi)=\integral{0}{1}{y'(x)\phi'(x)dx}+\integral{0}{1}{q(x)\phi(x)dx}=0 \es
 \]
 Si lo miramos como una derivada débil, vemos que si $Z(x)=y'(x) \Rightarrow Z'(x)=q(x) \Rightarrow y''(x)=q(x)$, en sentido débil.
 \begin{definition}
-$y\in\sobolevcero{1}$ es \textit{solución débil} de $y''(x)=q(x) \; \forall x \in [a,b]$
+\label{soluciondebil}
+$y\in\sobolevcero{1}$ es \textit{solución débil} de $y''(x)=q(x) \; \forall x 
+\in [a,b]$, si se verifica:
+\[
+\integral{0}{1}{y'(x)\phi'(x)dx}+\integral{0}{1}{q(x)\phi(x)dx}=0 \espacio \forall \phi\in\sobolevcero[0,1]{1}
+\]
 \end{definition}
+Cabe resaltar, el hecho de que en la anterior definición, $y$ está en $\sobolevcero[0,1]{1}$ y estamos resolviendo una EDO de segundo orden, es decir, no sabemos nada sobre la segunda derivada de $y$ (solo de la primera).
+
+Definimos un producto escalar en $\sobolevcero[a,b]{1}$ y veamos que es de Hilbert:
+\begin{prop}
+El espacio $\sobolevcero[a,b]{1}$ con el siguiente producto escalar:
+\[
+f,g\in\sobolevcero[a,b]{1}, \espacio <f,g>=\integral{a}{b}{f'(x)g'(x)dx}
+\]
+es un espacio de Hilbert.
+\end{prop}
+\begin{proof}
+Sea $f_n\in\sobolevcero{1} \;\forall n\in\N$ una sucesión de Cauchy, entonces:
+\[
+\forall \varepsilon>0 \; \exists n_0: \; n,m\geq n_0 \; \norm{f_n-f_m}_{\sobolevcero{1}}<\varepsilon
+\]
+Recordemos que si tenemos un producto escalar definido, podemos expresar la norma de un elemento del espaico como la raíz cuadrada del producto escalar de el elemento consigo mismo, es decir:
+\[
+\norm{f}_{\sobolevcero{1}}=\sqrt{<f,f>}
+\]
+Usando esa propiedad:
+\[
+\varepsilon > \norm{f_n-f_m}_{\sobolevcero{1}}=\sqrt{<f_n-f_m,f_n-f_m>}=\sqrt{\integral{a}{b}{(f_n(x)-f_m(x))^2dx}}=\norm{f_n'-f_m'}_2
+\]
+Luego $f_n'$ converge a una cierta $g$ en $\lebesgue{2}$. Definiendo:
+\[
+\tilde{f_n}(x)=\integral{a}{b}{f_n'(s)ds} \Rightarrow \tilde{f_n}(x) \longrightarrow \integral{a}{x}{g(s)ds} \Rightarrow f(x) = \limitemasinfinito{n}{\tilde{f_n}(x)}
+\]
+Ya tenemos nuestro candidato a límite, comprobemos que pertenece a $\sobolevcero{1}$:
+\begin{itemize}
+\item $f(a)=0$ y $f(b)=\integral{a}{b}{g(s)ds}=f_n'(b)-f_n'(a)=0$.
+\item $f$ tiene derivada débil (igual a $g$) por el teorema \ref{fundamentalcalculo}.
+\end{itemize}
+Luego $f\in\sobolevcero{1}$.
+Por último, vemos que converge:
+\[
+\norm{f_n-f}_{\sobolevcero{1}}=\norm{f_n'-g}_2\longrightarrow 0
+\]
+\end{proof}
+
+Una vez comprobado que el espacio es de Hilbert, solo nos falta recordar el Teorema de Riesz-Fréchet:
+\begin{theorem}[Riesz-Fréchet]
+\label{riesz-frechet}
+Si $H$ es un espacio de Hilbert y $f\in H^*$, existe $y\in H$ tal que:
+\[
+f(x)=<x,y> \; \forall x\in H
+\]
+\end{theorem}
+
+Sea ahora $\phi\in\sobolevcero{1}$, definimos $\funcion{R}{\sobolevcero{1}}{\R}$ por $R(\phi)=-\integral{a}{b}{q(x)\phi(x)dx}\in\left(\sobolevcero{1}\right)^*$. Por el teorema de Riesz-Fréchet, existe $y\in\sobolevcero{1}$ tal que $R(\phi)=<y,\phi>$.
+
+Si desarrollamos la última expresión, nos damos cuenta de que es igual a la condición en la definición \ref{soluciondebil}, que es justo lo que buscábamos.
