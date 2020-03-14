@@ -69,9 +69,14 @@ g'(0)=DL_y(\phi)=\integral{a}{b}{F_y(x,y(x),y'(x)dx}+\integral{a}{b}{F_p(x,y(x),
 
 \section{Modelos de cuerdas}
 
-Procedemos a la introducción del \textit{modelo de cuerdas}. Comenzaremos realizando el planteamiento más simple, densidad constante y extremos fijos. Posteriormente, eliminaremos la primera hipótesis y resolveremos dos casos: en el primero partimos de una función de densidad dada explícitamente. Por el contrario, en el segundo caso, lo resolveremos dada una función de densidad arbitraria. A continuación, supondremos que el puente se haya \textit{sujeto} por varias cuerdas elásticas. Finalmente, supondremos fijos los extremos.
+Procedemos a la introducción del \textit{modelo de cuerdas}. Comenzaremos realizando el planteamiento más simple, densidad constante y extremos fijos. Posteriormente, eliminaremos la primera hipótesis y resolveremos dos casos: en el primero partimos de una función de densidad dada explícitamente. Por el contrario, en el segundo caso, lo resolveremos dada una función de densidad arbitraria. A continuación, supondremos que el puente se haya \textit{sujeto} por varias cuerdas elásticas. Finalmente, no supondremos fijos los extremos.
 
 Aunque ya hemos desarrollado una cantidad de resultados considerable, todavía precisamos de ciertos resultados, mayoritariamente del \textit{Análisis Funcional}, que iremos introduciendo al mismo tiempo que el modelo. Como estamos trabajando sobre espacios de Sobolev, que son de Hilbert, podremos usarlos sin mucha complicación.
+
+\begin{figure}[h]
+   \center
+  \includegraphics[scale=0.5]{img/cuerdanormal.png}
+\end{figure}
 
 \subsection{Extremos fijos y densidad constante}
 
@@ -199,7 +204,7 @@ Que como vemos, floa, asi que algo hay mal :D.
 
 \subsection{Extremos fijos y densidad arbitraria}
 
-El planteamiento es igual al caso más simple, pero ahora la función de densidad, $q(x)$, la consideraremos en $C^\infty$. Sin la expresión de la función $q(x)$, no podemos resolver el problema de forma explícita, pero sí podemos asegurar la existencia de solución. El siguiente procedimiento lo repetiremos varias veces: definimos un espacio en donde buscaremos nuestra solución ($\sobolevcero[0,1]{1}$), plantearemos el problema (condición de extremal), definiremos un producto escalar y demostraremos que el espacio definido con ese producto escalar es de Hilbert, para usar el Teorema de Riesz-Fréchet. 
+El planteamiento es igual al caso más simple, pero ahora la función de densidad, $q(x)$, la consideraremos en $C^\infty$. Sin la expresión de la función $q(x)$, no podemos resolver el problema de forma explícita, pero sí podemos asegurar la existencia de solución. El siguiente procedimiento lo repetiremos varias veces: definimos un espacio en donde buscaremos nuestra solución ($\sobolevcero[0,1]{1}$), plantearemos el problema (condición de extremal), definiremos un producto escalar y demostraremos que el espacio definido con ese producto escalar es de Hilbert, para usar el Teorema de Riesz-Fréchet.
 
 Comencemos definiendo nuestro espacio de soluciones:
 \[
@@ -289,3 +294,44 @@ f(x)=<x,y> \; \forall x\in H
 Sea ahora $\phi\in\sobolevcero{1}$, definimos $\funcion{R}{\sobolevcero{1}}{\R}$ por $R(\phi)=-\integral{a}{b}{q(x)\phi(x)dx}\in\left(\sobolevcero{1}\right)^*$. Por el teorema de Riesz-Fréchet, existe $y\in\sobolevcero{1}$ tal que $R(\phi)=<y,\phi>$.
 
 Si desarrollamos la última expresión, nos damos cuenta de que es igual a la condición en la definición \ref{soluciondebil}, que es justo lo que buscábamos.
+
+\subsection{Puente sujeto por cuerdas}
+
+Al modelo del puente anterior le vamos a añadir unas cuerdas elásticas para soportarlo, cada una con una constante de elasticidad distinta, dado por $K(x)\geq 0$.
+Si $K(x)=0$ en algún punto $x\in[0,1]$, significa que en ese punto no hay cuerda sujetando a la de abajo.
+\begin{figure}[H]
+   \center
+  \includegraphics[scale=0.6]{img/puentecuerdas.png}
+\end{figure}
+En esta nueva versión del modelo tenemos que tener en cuentra otra energía más, la aportada por los cables, $E_c$:
+\[
+E_c=\frac{1}{2}\integral{0}{1}{K(x)y^2(x)dx}
+\]
+Con lo que el funcional quedaría:
+\[
+L(y)=\frac{1}{2}\integral{0}{1}{y'(x)^2dx}+\frac{1}{2}\integral{0}{1}{K(x)y(x)^2dx}+\integral{0}{1}{q(x)y(x)dx}
+\]
+Usando la notación usual:
+\[
+L(y)=\integral{0}{1}{F(x,y,p)dx} \; \text{ donde } \;\; F(x,y,p)=\frac{1}{2}p^2+\frac{1}{2}K(x)y^2+q(x)y
+\]
+Suponiendo que $y\in\sobolevcero[0,1]{1}$ es extremal, la condición de punto crítico es:
+\[
+DL_y(\phi)=\integral{0}{1}{y'(x)\phi'(x)dx}+\integral{0}{1}{\left(K(x)y(x)+q(x)\right)\phi(x)dx}=0 \;\; \forall \phi\in\sobolevcero[0,1]{1}
+\]
+Denotando $Z(x)=y'(x)$ y viendo la expresión anterior en sentido débil, tenemos que $Z'(x)=K(x)y(x)+q(x)$ es su derivada débil. Luego la EDO de orden 2 de este modelo es (que la obtenemos a partir de la ecuación de Euler):
+\[
+-y''(x)=+K(x)y(x)+q(x)=0
+\]
+Ahora, al igual que en el modelo anterior, vamos a definir un cierto producto escalar de forma que el teorema de Riesz-Frechét nos de la existencia de solución.
+\begin{prop}
+El espacio $\sobolevcero[a,b]{1}$ con el siguiente producto escalar:
+\[
+f,g\in\sobolevcero[a,b]{1}, \espacio <f,g>=\integral{a}{b}{f'(x)g'(x)dx}+\integral{a}{b}{K(x)f(x)g(x)dx}
+\]
+con $K\in\lebesgue{2}$, $K(x)\geq 0$ $\forall x\in[a,b]$, es un espacio de Hilbert.
+\end{prop}
+\begin{proof}
+
+\end{proof}
+
