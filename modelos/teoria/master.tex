@@ -1,5 +1,5 @@
 % !TeX root = master.tex
-\documentclass[12pt]{article}
+\documentclass[12pt]{report}
  
 \usepackage[margin=1in]{geometry} 
 \usepackage{amsmath,amsthm,amssymb}
@@ -24,7 +24,7 @@
 
 \usepackage{../../texmf/tex/latex/config/config}
 
-\newtheorem{theorem}{Teorema}[section]
+\newtheorem{theorem}{Teorema}[chapter]
 \newtheorem{lemma}[theorem]{Lema}
 \newtheorem{prop}[theorem]{Proposición}
 \newtheorem{coro}[theorem]{Corolario}
@@ -44,15 +44,30 @@
 \newcommand{\xcerocerrado}{[a,b]}
 \newcommand{\fvariaciones}{F(x,y(x),y'(x))}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Titulos
+\makeatletter
+\@ifundefined{@chapapp}{\def\@chapapp{\chaptername}}{}
+\makeatother
+
+\usepackage[Lenny]{fncychap}
+
+\ChTitleVar{\Huge\bfseries}
+
+\setcounter{chapter}{0}
+%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \begin{document}
 
 \title{Modelos Matemáticos II}
 \author{Antonio Gámiz Delgado\\ Universidad de Granada} 
  
-\maketitle
+%\maketitle
+
+%\tableofcontents
 
 \include{tema1_variaciones}
-
 \include{tema2_derivadas_debiles}
+\include{tema3_espacios_sobolev}
 
 \end{document}

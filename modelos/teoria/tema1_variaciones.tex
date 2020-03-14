@@ -1,8 +1,8 @@
 % !TeX root = master.tex
 
-\section{Cálculo de variaciones}
+\chapter{Cálculo de variaciones}
 
-\subsection{Herramientas previas y repaso}
+\section{Herramientas previas y repaso}
 
 Necesitaremos recordar algunas nociones y teoremas básicos sobre derivabilidad:
 
@@ -25,7 +25,9 @@ F'(t_0)=\displaystyle\int_X\derivada{f}{t}(t_0,x)dx
 
 \end{theorem}
 
-\subsection{Problema general del cálculo de variaciones}
+TODO: añadir resto de resultados usados de otras asignaturas que no recordábamos
+
+\section{Problema general del cálculo de variaciones}
 
 Primeramente definimos un tipo de funciones llamadas \textit{funciones test} o \textit{funciones de la clase de Schwartz}, junto con algunos resultados que usaremos bastante para trabajar con ellas.
 
@@ -70,7 +72,9 @@ e^{1/x}\frac{R(x)}{x^{2n}} & x<0 \\
 \end{array}
 \right.
 \]
-donde $R(x)$ es un cierto polinomio que no nos interesa calcular. Queremos ver que $\limite{x}{0^-}{g^{n)}(x)}=0$, con lo cual, $g\in C^n$. Haciendo el cambio $y=-\frac{1}{x}$, el anterior límite equivale a 
+donde $R(x)$ es un cierto polinomio que no nos interesa calcular. Queremos ver que 
+\[\limite{x}{0^-}{g^{n)}(x)}=0,\]
+con lo cual, $g\in C^n$. Haciendo el cambio $y=-\frac{1}{x}$, el anterior límite equivale a 
 \[
 \limite{y}{+\infty}{\frac{y^{2n}}{e^y}}=0 \Rightarrow g\in C^{n} \;\forall n \in\N \Rightarrow g\in C^{\infty}
 \]
@@ -102,7 +106,7 @@ Como $\bar{x}$ era arbitrario, tenemos que $f(\bar{x})=0 \; \forall \bar{x}\in\x
 
 \end{proof}
 
-\subsubsection{Cálculo de extremales}
+\subsection{Cálculo de extremales}
 
 Sea $\Omega\subset\R^3$, definamos $F:\Omega \longrightarrow \R$ tal que $(x,y,p)\longmapsto F(x,y,p)$. Supongamos que $F\in C^1(\Omega)$  respecto de las dos últimas variables, es decir, existen $\derivada{F}{y}$ y $\derivada{F}{p}$, continuas. 
 
@@ -213,7 +217,7 @@ g'(0)=\integral{a}{b}{\Big(F_y(x,\bar{y},\bar{y}')\phi+F_p(x,\bar{y},\bar{y}')\p
 \]
 \end{proof}
 
-\subsubsection{Ecuación de Euler}
+\subsection{Ecuación de Euler}
 
 Usando el teorema anterior vamos a llegar a una ecuación diferencial de segundo orden que nos ayudará a resolver este problema. Definimos $Z(x)=F_p(x,y(x),y'(x))$, nuestro objetivo ahora es imponer condiciones suficientes para que $Z(x)\in C^1(a,b)$, para poder derivarla y obtener una ecuación diferencial en $y'$.
 
@@ -357,11 +361,7 @@ Y usnado el lema \ref{lemma:14}, tenemos que $f-\tilde{f}$ es constante, luego $
 \]
 \end{proof}
 
-\subsection{Ejemplos}
-
-A continuación veremos un ejemplo teórico y algunos ejemplos más prácticos de la teoría anterior.
-
-\subsubsection{Problema de Braquistocrona}
+\section{Problema de Braquistocrona}
 
 Este problema se centra principalmente en averiguar que forma (curva) tenemos que darle a un tobogán para que este sea el más rápido.
 
@@ -434,15 +434,15 @@ Esa ecuación diferencial, es de variables separadas, deberíamos resolverla con
   \caption{Ejemplo de cicloide}
 \end{figure}
 
-\subsubsection{Ejercicios prácticos}
+\section{Relación de ejercicios}
 
-\begin{ejercicio*}
+\begin{ejercicio}
 Encontrar la curva en la que el siguiente funcional podría alcanzar su extremo:
 \[
 I(y)=\integral{1}{2}{\Big(y'(x)^2-2xy(x)\Big)dx}
 \]
 con condiciones de contorno $y(1)=0,y(2)=-1$.
-\end{ejercicio*}
+\end{ejercicio}
 \textbf{Solución:}
 Definimos $F(x,y,p)=p^2-2xy$ y obtenemos:
 \[
@@ -456,61 +456,48 @@ Usando las condiciones de contorno, podemos calcular el valor de $C$ y $D$, obte
 \[
 y(x)=\frac{x-x^3}{6}
 \]
-\begin{ejercicio*}
+\begin{ejercicio}
 Encuentra las curvas que unen $(1,3)$ con $(2,5)$, que puedan ser extremos del funcional:
 \[
 I(y)=\integral{1}{2}{\Big(y'(x)+x^2y'(x)^2\Big)dx}
 \]
-\end{ejercicio*}
+\end{ejercicio}
 
 \textbf{Solución} $y(x)=-\frac{4}{x}+7$
 
-\subsection{Relación de ejercicios}
-
 \begin{ejercicio}
   Sean $\Phi\in \mathcal{C}^1(\mathbb{R}^3), y(x)\in \mathcal{C}^2\xcero, y'(x) \neq 0$. Dado el funcional
-
   \[
     F[y] = \int_{a}^{b}{\Phi(x,y(x),y'(x))dx}
   \]
-
   demuéstrese la equivalencia de las dos formas siguientes de las
   ecuaciones de Euler-Lagrange.
-
   \begin{itemize}
   \item $\frac{\partial\Phi}{\partial y}-\frac{d}{dx}\frac{\partial\Phi}{\partial p} = 0 $
   \item $\frac{\partial\Phi}{\partial x} - \frac{d}{dx}(\Phi-y'\frac{\partial\Phi}{\partial p}) = 0$
   \end{itemize}
-
   \begin{proof}
     Comenzamos viendo el caso $a) \implies b)$. Para ello en primer
     lugar tenemos que comprobar que efectivamente podemos derivar
     $\Phi$ respecto al tercer parámetro. Del apartado $a)$ sabemos que
-
     \[
       \frac{\partial\Phi}{\partial y} = \frac{d}{dx}\frac{\partial\Phi}{\partial p}
     \]
-    
     y del enunciado sabemos que $\Phi$ es de calse $\mathcal{C}^1$
     luego $\frac{\partial\Phi}{\partial p}$ es de $\mathcal{C}^1$.
 
     Cuando derivamos $\Phi(x,y(x),y'(x))$ obtenemos
-
     \begin{align*}
       \Phi(x,y(x),y'(x))' & = \frac{\partial\Phi}{\partial x}(x, y(x), y'(x)) \\
                           & = \frac{\partial\Phi}{\partial y}(x, y(x), y'(x))y'(x) \\
                           & = \frac{\partial\Phi}{\partial p}(x, y(x), y'(x))y''(x)
     \end{align*}
-
     Recordemos que $\frac{\partial\Phi}{\partial p}(x, y(x), y'(x)) = z(x)$ luego
-
     \begin{align*}
       \frac{d}{dx}(\Phi-y'\frac{\partial\Phi}{\partial p}) & = \Phi_x + \Phi_yy' + \Phi_py'' - y''z -y'z'
     \end{align*}
-
     Tenemos que el 3º y 4º termino son iguales t el 2º y 4º son
     iguales entre ellos luego obtenemos
-
         \begin{align*}
       \frac{d}{dx}(\Phi-y'\frac{\partial\Phi}{\partial p}) = \Phi_x
         \end{align*}

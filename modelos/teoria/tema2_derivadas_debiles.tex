@@ -1,6 +1,4 @@
-\section{Derivadas débiles y espacios de Sobolev}
-
-\subsection{Derivadas débiles}
+\chapter{Derivadas débiles}
 
 Recordemos el espacio $L^1(a,b)$ de las funciones $\funcion{f}{(a,b)}{\R}$ que son Lebesgue integrables. Ese espacio estaba formado por clases de equivalencia, que normalmente llamamos clases de funciones. Que sea Lebesgue integrable, no quiere decir que sea continua, como nos indica la \textit{función de Dirichlet}, que es Lebesgue integrable pero evidentemente no es continua.
 \[
@@ -15,7 +13,7 @@ Toda función continua no es integrable, necesitamos que esté acotada. Eso nos 
 \[
 L^1_{loc}(a,b)=\{\funcion{f}{(a,b)}{\R} \;|\; \forall J \text{ intervalo compacto},f_{|J}\text{ es integrable}\}
 \]
-Ese espacio soluciona el problema anterior ya que todas las funciones continuas sí son localmente integrables.
+Ese espacio soluciona el problema anterior ya que todas las funciones continuas sí son localmente integrables. Solucionado el problema, podemos definir la derivada débil con tranquilidad:
 
 \begin{definition}
 Sean $f,g\in\localmenteintegrable$, se dice que $g$ es la derivada débil de $f$ si se verifica que:
@@ -26,7 +24,9 @@ Sean $f,g\in\localmenteintegrable$, se dice que $g$ es la derivada débil de $f$
 
 Cabe resaltar, que la definición anterior implica que la derivada débil de una función no es única, es decir, una función $f$ puede admitir varias derivadas débiles. Sin embargo, como veremos en el siguiente corolario, serán iguales para casi todo punto.
 
-Usando el espacio definido anteriormente, podemos generalizar el lema fundamental del cálculo de variciones:
+\section{Propiedades básicas}
+
+Podemos generalizar el lema fundamental del cálculo de variciones:
 
 \begin{lemma}
 Si $f\in\localmenteintegrable$ cumpliendo:
@@ -177,6 +177,7 @@ Ahora nos queda ver $f'=g$. Para ello tenemos que comprobar que:
 \integral{a}{b}{f(x)\phi'(x)dx}+\integral{a}{b}{g(x)\phi(x)dx}=0 \espacio \forall \phi\in \soportecompacto
 \]
 Tenemos el problema de que $g$ no tiene por qué ser derivable (podría ser una función escalón, por ejemplo). Vamos a empezar suponiendo que $g\in L^1([a,b])$ (para que $f$ esté bien definida) y que $x_0=a$. Al final reduciremos esas hipótesis hasta llegar a que $g\in\localmenteintegrable$.
+
 \underline{Paso 1}: $g\in L^1([a,b])$ y $x_0=a$. Para ver que
 \[
 \integral{a}{b}{f(x)\phi'(x)dx}=-\integral{a}{b}{g(x)\phi(x)dx} 
@@ -281,7 +282,7 @@ El caso $n$ se deduce fácilmente del siguiente hecho:
 Si derivamos $(n-1)$-veces $f$, obtenemos $\tilde{f}^{n-1)}=f^{n-1)}=g$, que no sabemos si es continua, pero sabemos que podemos elegir un representante que si lo sea. Usando el hecho anterior, tenemos que $\tilde{f}\in C^{n-1}(a,b)$.
 \end{proof}
 
-\subsection{The Devil Staircase}
+\section{The Devil Staircase}
 
 Nuestro objetivo va a ser construir una función continua$\funcion{f}{\R}{\R}$ que no admita derivada débil.
 
@@ -336,44 +337,3 @@ f_n(x)=f_1(x)+f_2(x)-f_1(x)+...=f_1(x)+\sum_{n=1}^\infty\left(f_{n+1}(x)-f_n(x)\
 Obteniendo así que $f_n$ converge uniformemente a $f$, y como $f_n$ es continua para todo $n\in\N$, $f$ también lo es. 
 
 Ya tenemos nuestra \textit{escalera continua} construida, falta ver que no tiene derivada débil. Supongamos que existe $g$ tal que $f'=g$. Como $f$ está definida como una función constante en cada componente conexa de $B$, su derivada vale 0, es decir, $g(x)=0\;$ si $x \in B$ o $x\leq 1$ o $x\leq 0$. Pero, como $B$ tiene medida llena, lo anterior implica que $g(x)=0 \; a.e \; x\in\R$, luego $f$ sería constante, lo cual es una evidente contradicción.
-
-\subsection{Espacios de Sobolev}
-
-Antes de definir los \textit{espacios de Sobolev}, recordemos algunas propiedades del espacio 
-\[L^2(a,b)=\displaystyle\{\funcion{f}{(a,b)}{\R}\;:\; \integral{a}{b}{|f(x)|^2dx<+\infty}\displaystyle\}\]
-La norma de este espacio venía dada por $\norm{f}_2=\sqrt{\integral{a}{b}{f(x)^2dx}}$ e inducía el siguiente producto escalar: $<f,g>=\integral{a}{b}{f(x)g(x)dx}$ (nótese que no usamos el conjugado de $g$ ya que estamos trabajando sobre $\R$, no sobre $\C$). Además, $L^2(a,b)\subset L^1(a,b)$ ya que 
-\[
-\integral{a}{b}{f(x)}=\integral{a}{b}{|f(x)|\cdot 1dx}\leq \left(\integral{a}{b}{f(x)^2dx}\right)^{1/2}\left(b-a\right)^{1/2}
-\]
-donde hemos usado la desigualdad de Schwartz para el último paso. Con estas propiedades en mente, podemos definir el primer espacio de Sobolev:
-\[
-\sobolev{1}=\conjunto{f\in\lebesgue{2}: f \text{ tiene derivada débil }f' \text{ y } f'\in\lebesgue{2}}
-\]
-Este espacio tiene la particularidad de que también cuenta con un producto escalar:
-\[
-<f,g>=\integral{a}{b}{f(x)g(x)dx}+\integral{a}{b}{f'(x)g'(x)dx}
-\]
-Por supuesto, $\sobolev{1}$ es un espacio de Hilbert con la norma $\norm{f}=\sqrt{\norm{f}^2_2+\norm{f'}_2^2}$. Es importante recordar que si $f\in\sobolev{1}$, no tiene por qué ser continua (como muestra \textit{The devil staircase}), pero podemos elegir un representante continuo en su clase de equivalencia, es decir, $\sobolev{1}\hookrightarrow C[a,b]$. Además, si $f\in C^1[a,b]$, tiene derivada clásica, luego también tiene derivada débil, luego $f\in\sobolev{1}$. Resumiendo, hemos construido la siguiente cadena:
-\[
-C^1[a,b]\subset\sobolev{^1}\subset C[a,b]\subset \lebesgue{2}
-\]
-Definimos ahora el siguiente espacio de Sobolev:
-\[
-\sobolev{2}=\conjunto{f\in\lebesgue{2}: \exists f',f''\in\lebesgue{2}\text{ (débiles)}}
-\]
-Usando la propiedad \ref{derivadanesima}, tenemos que $\sobolev{2}\subset C^1[a,b]$ y repitiendo el argumento anterior $C^2[a,b]\subset \sobolev{2}$, es decir:
-\[
-C^2[a,b]\subset \sobolev{2}\subset C^1[a,b]
-\]
-Repitiendo este proceso iterativamente, podemos definir el $n$-ésimo espacio de Sobolev:
-\[
-\sobolev{n}=\conjunto{f\in\lebesgue{2}: \exists f',\dots,f^{n)}\in\lebesgue{2} \text{ (débiles)}}
-\]
-con la propiedad:
-\[
-C^{n}[a,b]\subset\sobolev{n}\subset C^{n-1}[a,b]\subset\sobolev{n-1}\subset\dots\subset\sobolev{1}\subset\lebesgue{2}
-\]
-
-¿Qué tienen de particular estos espacios? Que son de Hilbert, es decir, vamos a poder usar todas las herramientes que tenemos de Análisis Funcional para resolver algunos problemas como veremos a continuación.
-
-\subsection{Modelo de cuerdas elásticas y vigas}
