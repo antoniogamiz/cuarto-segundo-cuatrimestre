@@ -18,12 +18,72 @@ Este espacio tiene la particularidad de que también cuenta con un producto esca
 \[
 <f,g>=\integral{a}{b}{f(x)g(x)dx}+\integral{a}{b}{f'(x)g'(x)dx}
 \]
-Por supuesto, $\sobolev{1}$ es un espacio de Hilbert con la norma $\norm{f}=\sqrt{\norm{f}^2_2+\norm{f'}_2^2}$. Es importante recordar que si $f\in\sobolev{1}$, no tiene por qué ser continua (como muestra \textit{The devil staircase}), pero podemos elegir un representante continuo en su clase de equivalencia, es decir, $\sobolev{1}\hookrightarrow C[a,b]$. De hecho:
+De es producto se induce la siguiente norma:
+\[
+\norm{f}_{\sobolev{1}}=\sqrt{\integral{a}{b}{f(x)g(x)dx}+\integral{a}{b}{f'(x)g'(x)dx}}
+\]
+Por supuesto, $\sobolev{1}$ es un espacio de Hilbert con la norma $\norm{f}=\sqrt{\norm{f}^2_2+\norm{f'}_2^2}$. Es importante recordar que si $f\in\sobolev{1}$, no tiene por qué ser continua (como muestra \textit{The devil staircase}), pero podemos elegir un representante continuo en su clase de equivalencia, es decir, $\sobolev{1}\hookrightarrow C[a,b]$.
+\begin{lemma}
+Sea una función $f$, arbitraria, con derivada débil $g$, y denotamos por $\tilde{f}$ a su representante continuo. Entonces:
+\[
+\forall x,y\in(a,b) \espacio \tilde{f}(y)-\tilde{f}(x)=\integral{x}{y}{g(s)ds}
+\]
+\end{lemma}
+\begin{proof}
+Sea $x_0\in(a,b)$. Definimos $\funcion{h}{\R}{\R}$ por 
+\[h(x)=\integral{x_0}{x}{g(s)ds} \;\;\forall x\in\R\] 
+Por el teorema \ref{fundamentalcalculo}, $h$ es derivable débil con $h'=g$. Luego $h$ y $f$ tienen la misma derivada débil, aplicando la proposición \ref{derivadadebilcero} a $h-f$, tenemos que:
+\[
+h(x)=f(x)+C \;a.e \;\in(a,b)
+\]
+para alguna constante $C\in\R$. Cambiando $f$ por su representante continuo:
+\[
+h(x)=\tilde{f}(x)+C \Rightarrow \tilde{f}(x)=h(x)-C
+\]
+Repetiendo el mismo razonamiento con $y\in(x,b)$:
+\[
+h(y)=\tilde{f}(y)+C \Rightarrow \tilde{f}(y)=h(y)-C
+\]
+Restnado ambas expresiones:
+\[
+\tilde{f}(y)-\tilde{f}(x)=h(y)-C-h(x)+C=\integral{x_0}{y}{g(s)ds}-\integral{x_0}{x}{g(s)ds}=\integral{x}{y}{g(s)ds}
+\]
+\end{proof}
+\begin{remark}
+\label{desigualdadcomun}
+Tenemos la siguiente desigualadad (en general):
+\[
+h\in\lebesgue{2} \Rightarrow \norm{h}_1\leq \norm{h}_2(b-a)^{1/2}
+\]
+\end{remark}
 \begin{prop}\label{inclusion continua}
-La aplicación inclusión $\funcion{i}{\sobolev{1}}{C[a,b]}$ es continua.
+La aplicación inclusión $\funcion{i}{\sobolev{1}}{C[a,b]}$, definida por $f\mapsto\tilde{f}$ (su representante continuo), es continua.
 \end{prop}
 \begin{proof}
-Pendiente.
+Tenemos que ver si existe una constante $C\in\R^+$ de forma que
+\[
+\norm{i(f)}_{\infty}=\norm{\tilde{f}}_\infty\leq C\normasobolev{1}{f}
+\]
+Tomamos $x,y\in(a,b)$, usando el lema anterior:
+\[
+\tilde{f}(x)-\tilde{f}(y)=\integral{x}{y}{g(s)ds} \Rightarrow \norm{\tilde{f(x)}}_1\leq\norm{\tilde{f}(y)}_1+\norm{g}_1
+\]
+Aplicando la desigualdad de la nota \ref{desigualdadcomun}:
+\[
+\norm{\tilde{f}(x)}_1\leq \norm{\tilde{f}(y)}_1+\norm{g}_2(b-a)^{1/2}
+\]
+Integrando respecto de $y$:
+\[
+(b-a)\norm{\tilde{f}(x)}_1\leq \norm{\tilde{f}(y)}_2(b-a)^{1/2}+\norm{g}_2(b-a)^{3/2}
+\leq (b-a)\norm{\tilde{f}(x)} \Rightarrow
+\]
+\[
+\norm{\tilde{f}(x)}_1\leq c_1\norm{f}_2+c_2\norm{g}_2 \Rightarrow
+\]
+\[
+\norm{\tilde{f}}_\infty\leq c_1\norm{f}_2+c_2\norm{g}_2 \leq (c_1+c_2)\normasobolev{1}{f}
+\]
+\textbf{REVISAR ESTA DEMOSTACION}
 \end{proof}
 Además, si $f\in C^1[a,b]$, tiene derivada clásica, luego también tiene derivada débil, luego $f\in\sobolev{1}$. Resumiendo, hemos construido la siguiente cadena:
 \[
@@ -67,7 +127,7 @@ g'(0)=DL_y(\phi)=\integral{a}{b}{F_y(x,y(x),y'(x)dx}+\integral{a}{b}{F_p(x,y(x),
 \]
 \newpage
 
-\section{Modelos de cuerdas}
+\section{Modelos de cuerdas y puentes}
 
 Procedemos a la introducción del \textit{modelo de cuerdas}. Comenzaremos realizando el planteamiento más simple, densidad constante y extremos fijos. Posteriormente, eliminaremos la primera hipótesis y resolveremos dos casos: en el primero partimos de una función de densidad dada explícitamente. Por el contrario, en el segundo caso, lo resolveremos dada una función de densidad arbitraria. A continuación, supondremos que el puente se haya \textit{sujeto} por varias cuerdas elásticas. Finalmente, no supondremos fijos los extremos.
 
@@ -204,7 +264,18 @@ Que como vemos, floa, asi que algo hay mal :D.
 
 \subsection{Extremos fijos y densidad arbitraria}
 
-El planteamiento es igual al caso más simple, pero ahora la función de densidad, $q(x)$, la consideraremos en $C^\infty$. Sin la expresión de la función $q(x)$, no podemos resolver el problema de forma explícita, pero sí podemos asegurar la existencia de solución. El siguiente procedimiento lo repetiremos varias veces: definimos un espacio en donde buscaremos nuestra solución ($\sobolevcero[0,1]{1}$), plantearemos el problema (condición de extremal), definiremos un producto escalar y demostraremos que el espacio definido con ese producto escalar es de Hilbert, para usar el Teorema de Riesz-Fréchet.
+El planteamiento es igual al caso más simple, pero ahora la función de densidad, $q(x)$, la consideraremos en $\lebesgue{\infty}$. Sin la expresión de la función $q(x)$, no podemos resolver el problema de forma explícita, pero sí podemos asegurar la existencia de solución. El siguiente procedimiento lo repetiremos varias veces: definimos un espacio en donde buscaremos nuestra solución ($\sobolevcero[0,1]{1}$), plantearemos el problema (condición de extremal), definiremos un producto escalar y demostraremos que el espacio definido con ese producto escalar es de Hilbert, para usar el Teorema de Riesz-Fréchet.
+
+\begin{remark}
+El espacio $\lebesgue{\infty}$ se definía como:
+\[
+\lebesgue{\infty}=\{\funcion{f}{(a,b)}{\R}|f\text{ medible y esencialmente acotada}\}
+\]
+con la norma:
+\[
+\norm{f}_\infty = \suppess_{x\in(a,b)\;a.e}|f(x)|
+\]
+\end{remark}
 
 Comencemos definiendo nuestro espacio de soluciones:
 \[
@@ -256,15 +327,15 @@ es un espacio de Hilbert.
 \begin{proof}
 Sea $f_n\in\sobolevcero{1} \;\forall n\in\N$ una sucesión de Cauchy, entonces:
 \[
-\forall \varepsilon>0 \; \exists n_0: \; n,m\geq n_0 \; \norm{f_n-f_m}_{\sobolevcero{1}}<\varepsilon
+\forall \varepsilon>0 \; \exists n_0: \; n,m\geq n_0 \; \normasobolevcero{1}{f_n-f_m}<\varepsilon
 \]
 Recordemos que si tenemos un producto escalar definido, podemos expresar la norma de un elemento del espaico como la raíz cuadrada del producto escalar de el elemento consigo mismo, es decir:
 \[
-\norm{f}_{\sobolevcero{1}}=\sqrt{<f,f>}
+\normasobolevcero{1}{f}=\sqrt{<f,f>}
 \]
 Usando esa propiedad:
 \[
-\varepsilon > \norm{f_n-f_m}_{\sobolevcero{1}}=\sqrt{<f_n-f_m,f_n-f_m>}=\sqrt{\integral{a}{b}{(f_n(x)-f_m(x))^2dx}}=\norm{f_n'-f_m'}_2
+\varepsilon > \normasobolevcero{1}{f_n-f_m}=\sqrt{<f_n-f_m,f_n-f_m>}=\sqrt{\integral{a}{b}{(f_n(x)-f_m(x))^2dx}}=\norm{f_n'-f_m'}_2
 \]
 Luego $f_n'$ converge a una cierta $g$ en $\lebesgue{2}$. Definiendo:
 \[
@@ -278,7 +349,7 @@ Ya tenemos nuestro candidato a límite, comprobemos que pertenece a $\sobolevcer
 Luego $f\in\sobolevcero{1}$.
 Por último, vemos que converge:
 \[
-\norm{f_n-f}_{\sobolevcero{1}}=\norm{f_n'-g}_2\longrightarrow 0
+\normasobolevcero{1}{f_n-f}=\norm{f_n'-g}_2\longrightarrow 0
 \]
 \end{proof}
 
@@ -312,9 +383,9 @@ Con lo que el funcional quedaría:
 L(y)=\frac{1}{2}\integral{0}{1}{y'(x)^2dx}+\frac{1}{2}\integral{0}{1}{K(x)y(x)^2dx}+\integral{0}{1}{q(x)y(x)dx}
 \]
 Usando la notación usual:
-\[
+\begin{equation}\label{funcionalpuente}
 L(y)=\integral{0}{1}{F(x,y,p)dx} \; \text{ donde } \;\; F(x,y,p)=\frac{1}{2}p^2+\frac{1}{2}K(x)y^2+q(x)y
-\]
+\end{equation}
 Suponiendo que $y\in\sobolevcero[0,1]{1}$ es extremal, la condición de punto crítico es:
 \[
 DL_y(\phi)=\integral{0}{1}{y'(x)\phi'(x)dx}+\integral{0}{1}{\left(K(x)y(x)+q(x)\right)\phi(x)dx}=0 \;\; \forall \phi\in\sobolevcero[0,1]{1}
@@ -323,7 +394,45 @@ Denotando $Z(x)=y'(x)$ y viendo la expresión anterior en sentido débil, tenemo
 \[
 -y''(x)=+K(x)y(x)+q(x)=0
 \]
-Ahora, al igual que en el modelo anterior, vamos a definir un cierto producto escalar de forma que el teorema de Riesz-Frechét nos de la existencia de solución.
+Ahora, al igual que en el modelo anterior, vamos a definir un cierto producto escalar de forma que el teorema de Riesz-Frechét nos de la existencia de solución. Pero antes, vamos a desarrollar la teoría necesaria para demostrarlo:
+
+\begin{remark}
+\begin{itemize}
+\label{notafuncional}
+\item Dos normas, $||\cdot||_1$ y $||\cdot||_2$, se dicen comparables si existe $c_1\in\R^+$ tal que $\norm{x}_1\leq c_1\norm{x}_2$.
+\item Si además existe otra constante $c_2\in\R^+$ tal que$\norm{x}_2\leq c_2\norm{x}_1$, entonces se dicen equivalentes.
+\item (Tª Isomorfismos de Banach) Si $\funcion{f}{B}{B'}$ es una aplicación lineal, continua y biyectiva entre dos espacios de Banach, $B$ y $B'$, entonces $F^{-1}$ es continua.
+\end{itemize}
+
+Como corolario de ese teorema tenemos que si en un espacio de Banach, $B$, existen dos normas comparables, entonces las normas son equivalentes. Este resultado se obtiene fácilmente al aplicar el teorema anterior con $f=Id_B$.
+\end{remark}
+
+\begin{prop}[Lema de Poincaré]
+\label{lemapoincare}
+Existe $\lambda\in\R^+$ constante tal que se verifica
+\[
+\integral{a}{b}{f(x)^2dx}=\lambda\integral{a}{b}{f'(x)^2dx} \espacio \forall f\in\sobolevcero{1}
+\]
+\end{prop}
+
+\begin{proof}
+
+En $\sobolevcero{1}$ tenemos dos normas:
+\[
+\normasobolevcero{1}{f} = \sqrt{\integral{a}{b}{f'(x)^2dx}}, \espacio \normasobolev{1}{f}=\sqrt{\integral{a}{b}{f(x)^2dx}+\integral{a}{b}{f'(x)^2dx}}
+\]
+
+Evidentemente la desigualdad que necesitamos para que sean comparables se cumple: $\normasobolevcero{1}{f}\leq \normasobolev{1}{f}$. Luego existe $C\in\R$ tal que $\normasobolev{1}{f}\leq C\normasobolevcero{1}{f}$, es decir:
+\[
+\integral{a}{b}{f(x)^2dx}+\integral{a}{b}{f'(x)^2dx}\leq C^2\integral{a}{b}{f'(x)^2dx}
+\]
+Por tanto:
+\[
+\integral{a}{b}{f(x)^2dx}\leq (C^2-1)\integral{a}{b}{f'(x)^2dx}
+\]
+
+\end{proof}
+
 \begin{prop}
 El espacio $\sobolevcero[a,b]{1}$ con el siguiente producto escalar:
 \[
@@ -331,19 +440,18 @@ f,g\in\sobolevcero[a,b]{1}, \espacio <f,g>=\integral{a}{b}{f'(x)g'(x)dx}+\integr
 \]
 con $K\in\lebesgue{2}$, $K(x)\geq 0$ $\forall x\in[a,b]$, es un espacio de Hilbert.
 \end{prop}
-
-Antes de proceder a la demostración necesitamos algunas herramientas previas:
-
-\begin{prop}[Lema de Poincaré]
-\label{lemapoincare}
-Existe $\lambda\in\R^+$ constante tal que se verifica
-\[
-\sqrt{\integral{a}{b}{f(x)^2dx}}=\lambda\integral{a}{b}{f'(x)^2dx} \espacio \forall f\in\sobolevcero{1}
-\]
-\end{prop}
-
 \begin{proof}
-La aplicación $\funcion{i}{\sobolevcero{1}}{\sobolev{1}}$ es continua, es decir, si $f\in\sobolevcero{1} \Rightarrow \norm{i(f)}_{\sobolev{1}}\leq M \norm{f}_{\sobolevcero{1}}$ para cierta constante $M\in\R$. 
-\textbf{esta demostración no la tengo para nada clara} 
+Usando el lema \ref{lemapoincare}, es fácil ver que $\normasobolevcero{1}{\cdot}$ y $\normasobolev{1}{\cdot}$ son comparables, luego equivalentes por la nota \ref{notafuncional}. Como ya vimos al principio del tema, la norma $\normasobolev{1}{\cdot}$ es completa, luego $\normasobolevcero{1}{\cdot}$ también lo es, por ser ambas equivalentes.
 \end{proof}
 
+Usando ese producto escalar, la expresión \eqref{funcionalpuente} se puede reescribir como:
+
+\[
+L(y)=\frac{1}{2}<y,y>+R(y)
+\]
+
+donde $R(y)=\integral{a}{b}{q(x)y(x)dx}$ e $y\in\sobolevcero{1}$, y por el teorema de representación de Riesz existe punto crítico.
+
+\subsection{Teorema de Lax-Milgran}
+
+Queremos dejar el puente libre y ahorrarnos el trabajo de definir varias normas en un mismo espacio de Hilbert. Intentaremos obtener una norma natural para cada espacio de Hilbert que usemos.
