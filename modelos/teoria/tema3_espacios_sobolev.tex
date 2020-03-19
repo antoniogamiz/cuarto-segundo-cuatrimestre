@@ -213,14 +213,14 @@ Tenemos el problema de que $y\notin C^2[0,1]$. Intentemos arreglarlo:
 \item Si $x\in(0,\frac{1}{2}) \Rightarrow y''(x)=1 \Rightarrow y\in C^2(0,\frac{1}{2}) \Rightarrow y'(x)=\integral{0}{x}{1dx}+y'(0)=x+\alpha$\\
  $\Rightarrow y(x)=\integral{0}{x}{x+\alpha dx}=\frac{x^2}{2}+x\alpha$.
 \item Si $x\in(\frac{1}{2},1) \Rightarrow y''(x)=1/2 \Rightarrow y\in C^2(\frac{1}{2},1) \Rightarrow y'(x)=y'(1)-\integral{x}{1}{\frac{1}{2}dx}=\beta+\frac{x}{2}-\frac{1}{2}$\\
-$\Rightarrow y(1)-y(x)=\integral{x}{1}{\frac{x}{2}-\frac{1}{2}+\beta dx}\Rightarrow y(x)=\frac{x^2}{2}-\frac{x}{2}+\beta(x-1)+\frac{1}{4}$
+$\Rightarrow y(1)-y(x)=\integral{x}{1}{\frac{x}{2}-\frac{1}{2}+\beta dx}\Rightarrow y(x)=-\frac{x^2}{2}+\frac{x}{2}+\beta(x-1)$
 \end{itemize}
 Quedando:
 \begin{equation}\label{y}
 y(x)=\left\{
 \begin{array}{cc}
-\frac{x^2}{2}+x\alpha & x\in[0,1/2]) \\
-\frac{x^2}{2}-\frac{x}{2}+\beta(x-1)+\frac{1}{4} & x\in(1/2,1]
+\frac{x^2}{2}+x\alpha & x\in[0,1/2) \\
+-\frac{x^2}{2}+\frac{x}{2}+\beta(x-1) & x\in(1/2,1]
 \end{array}
 \right.
 \end{equation}
@@ -228,8 +228,8 @@ y(x)=\left\{
 \begin{equation}\label{yprima}
 y'(x)=\left\{
 \begin{array}{cc}
-x+\alpha & x\in[0,1/2]) \\
-\frac{x}{2}-\frac{1}{2}+\beta & x\in(1/2,1]
+x+\alpha & x\in[0,1/2) \\
+-x+\frac{1}{2}+\beta & x\in(1/2,1]
 \end{array}
 \right.
 \end{equation}
@@ -239,32 +239,30 @@ Ahora tenemos que resolver el sistema de $\alpha$ y $\beta$. Obtendremos dos ecu
 \left\{
 \begin{array}{cc}
 \alpha+\beta & =0 \\
-\alpha-\beta & =-\frac{3}{4}
+\alpha-\beta & =-\frac{1}{2}
 \end{array}
 \right.
 \end{equation}
-Resolviendo el sistema, $\alpha=-\frac{3}{8}$, $\beta=\frac{3}{8}$. Quedando finalmente la siguiente solución al modelo: (esta mal)
+Resolviendo el sistema, $\alpha=-1/4$, $\beta=1/4$. Quedando finalmente la siguiente solución al modelo:
 \begin{equation}\label{y}
 y(x)=\left\{
 \begin{array}{cc}
-\frac{x^2}{2}-\frac{x}{4} & x\in[0,1/2]) \\
-\frac{x^2}{2}-\frac{x}{2}+\frac{1}{4} & x\in(1/2,1]
+\frac{x^2}{2}-\frac{x}{4} & x\in[0,1/2) \\
+\frac{-x^2}{2}+\frac{x}{2}+\frac{1}{4}(x-1) & x\in(1/2,1]
 \end{array}
 \right.
 \end{equation}
-
-\textbf{ESTAS CUENTAS NO ESTAN ACTUALIZADAS, AUNQUE ESTAN MAL :D}
 
 \begin{figure}[h]
    \center
   \includegraphics[scale=0.6]{img/puenteflotante.png}
 \end{figure}
 
-Que como vemos, floa, asi que algo hay mal :D.
+\textbf{el puente sigue flotanto x'dddddddddds}
 
 \subsection{Extremos fijos y densidad arbitraria}
 
-El planteamiento es igual al caso más simple, pero ahora la función de densidad, $q(x)$, la consideraremos en $\lebesgue{\infty}$. Sin la expresión de la función $q(x)$, no podemos resolver el problema de forma explícita, pero sí podemos asegurar la existencia de solución. El siguiente procedimiento lo repetiremos varias veces: definimos un espacio en donde buscaremos nuestra solución ($\sobolevcero[0,1]{1}$), plantearemos el problema (condición de extremal), definiremos un producto escalar y demostraremos que el espacio definido con ese producto escalar es de Hilbert, para usar el Teorema de Riesz-Fréchet.
+El planteamiento es igual al caso más simple, pero ahora la función de densidad, $q(x)$, la consideraremos en $\lebesgue{\infty}$. Sin la expresión de la función $q(x)$, no podemos resolver el problema de forma explícita, pero sí podemos asegurar la existencia de solución. El siguiente procedimiento lo repetiremos varias veces: definimos un espacio en donde buscaremos nuestra solución ($\sobolevcero{1}$), plantearemos el problema (condición de extremal), definiremos un producto escalar y demostraremos que el espacio definido con ese producto escalar es de Hilbert, para usar el Teorema de Riesz-Fréchet.
 
 \begin{remark}
 El espacio $\lebesgue{\infty}$ se definía como:
@@ -286,7 +284,7 @@ Recordemos que en este espacio están las funciones de $\lebesgue{2}$, que tiene
 El espacio vectorial $\sobolevcero{1}$, es cerrado.
 \end{prop}   
 \begin{proof}
-Sea una secuencia de funciones convergentes en $\sobolevcero{1}$, $f_n\longrightarrow f$. Usando la proposición \ref{inclusion continua} y $\sobolevcero{1}\subset\sobolev{1}$, tenemos que $f_n(a)\longrightarrow f(a)$ y $f_n(b)\longrightarrow f(b)$. Luego $f_n(a)=f_n(b)=0 \;\forall n\in\N \Rightarrow f(a)=f(b)=0 \Rightarrow f\in\sobolevcero{1}$.\\
+Sea una secuencia de funciones convergentes en $\sobolevcero{1}$, $f_n\longrightarrow f$. Usando la proposición \ref{inclusion continua} y $\sobolevcero{1}\subset C^{1}[a,b]$, tenemos que $f_n(a)\longrightarrow f(a)$ y $f_n(b)\longrightarrow f(b)$. Luego $f_n(a)=f_n(b)=0 \;\forall n\in\N \Rightarrow f(a)=f(b)=0 \Rightarrow f\in\sobolevcero{1}$.\\
 \end{proof}
 
 Una vez definido nuestro nuevo espacio, pasamos a resolver el modelo. Como de costumbre, suponemos que $y\in\sobolevcero[0,1]{1}$ es extremal y usamos la teoría de Euler:
@@ -337,20 +335,20 @@ Usando esa propiedad:
 \[
 \varepsilon > \normasobolevcero{1}{f_n-f_m}=\sqrt{<f_n-f_m,f_n-f_m>}=\sqrt{\integral{a}{b}{(f_n(x)-f_m(x))^2dx}}=\norm{f_n'-f_m'}_2
 \]
-Luego $f_n'$ converge a una cierta $g$ en $\lebesgue{2}$. Definiendo:
+
+Luego $f_n'$ converge a una cierta $g$ en $\lebesgue{2}$. Dado que $\tilde{f_n}(a)=0$, se obtiene que
 \[
-\tilde{f_n}(x)=\integral{a}{b}{f_n'(s)ds} \Rightarrow \tilde{f_n}(x) \longrightarrow \integral{a}{x}{g(s)ds} \Rightarrow f(x) = \limitemasinfinito{n}{\tilde{f_n}(x)}
+\tilde{f_n}(x)=\integral{a}{x}{f'_n(s)ds}\longrightarrow\integral{a}{x}{g(s)ds}
 \]
-Ya tenemos nuestro candidato a límite, comprobemos que pertenece a $\sobolevcero{1}$:
-\begin{itemize}
-\item $f(a)=0$ y $f(b)=\integral{a}{b}{g(s)ds}=f_n'(b)-f_n'(a)=0$.
-\item $f$ tiene derivada débil (igual a $g$) por el teorema \ref{fundamentalcalculo}.
-\end{itemize}
-Luego $f\in\sobolevcero{1}$.
-Por último, vemos que converge:
+Luego tomo
 \[
-\normasobolevcero{1}{f_n-f}=\norm{f_n'-g}_2\longrightarrow 0
+f(x)=\integral{a}{x}{g(s)ds}=\limitemasinfinito{n}{\tilde{f_n}(x)}, \;\; x \in[a,b]
 \]
+Ya tenemos candidato a límite. Veamos que $f\in\sobolevcero{1}$. En principio:
+\[
+f(b)=\integral{a}{b}{g(s)ds}=\limitemasinfinito{n}{f'_n(s)ds}=\tilde{f_n}(b)-\tilde{f_n}(a)=0
+\]
+Además, $f$ tiene derivada débil (igual a $g$) por el teorema \ref{fundamentalcalculo}.
 \end{proof}
 
 Una vez comprobado que el espacio es de Hilbert, solo nos falta recordar el Teorema de Riesz-Fréchet:

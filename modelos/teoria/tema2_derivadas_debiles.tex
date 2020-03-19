@@ -28,17 +28,14 @@ Cabe resaltar, que la definición anterior implica que la derivada débil de una
 
 Podemos generalizar el lema fundamental del cálculo de variciones:
 
-\begin{lemma}
+\begin{theorem}
 Si $f\in\localmenteintegrable$ cumpliendo:
 \[
-\integral{a}{b}{f\phi}=0 \espacio\forall\phi\in\soportecompacto
+\integral{a}{b}{f(x)\phi(x)dx}=0 \espacio\forall\phi\in\soportecompacto
 \]
 Entonces $f(x)=0$ $a.e$ $x\in(a,b)$.
-
-\end{lemma}
-
-Como consecuencia, tenemos:
-
+\end{theorem}
+Este resultado engloba al visto previamente en el teorema \ref{theorem:1.3}. Como consecuencia, tenemos:
 \begin{coro}
 Sea $f\in\localmenteintegrable$ y $g,\tilde{g}\in\localmenteintegrable$ dos derivadas débiles de $f$. Entonces $g(x)=\tilde{g}(x)$ $a.e$ $x\in(a,b)$.
 \end{coro}

@@ -282,6 +282,10 @@ Z'(x)=F_y(x,y(x),y'(x))
 
 Ya tenemos la ecuación que queremos resolver. La demostración del teorema es consecuencia de los anteriores resultados.
 
+\begin{definition}
+Una función $\phi\in\soportecompacto$ admite primitiva si existe otra función $\Psi\in\soportecompacto$ tal que $\Phi'=\phi$. 
+\end{definition}
+
 \begin{lemma}
 \label{lemma:13}
 Sea $\phi\in\mathcal{D}(a,b)$, entonces:
@@ -313,7 +317,7 @@ Por tanto $\supp\Psi\subset[a',b']$.
 
 \begin{lemma}
 \label{lemma:14}
-Sea $f\in C(a,b)$ tal que $\integral{}{}{f\phi'(x)dx=0}\espacio\forall\phi\in\mathcal{D}(a,b)\Longrightarrow f \text{ es constante.}$
+Sea $f\in C(a,b)$ tal que $\integral{a}{b}{f(x)\phi'(x)dx=0}\espacio\forall\phi\in\mathcal{D}(a,b)\Longrightarrow f \text{ es constante.}$
 \end{lemma}
 
 \begin{proof}
@@ -365,11 +369,11 @@ Y usnado el lema \ref{lemma:14}, tenemos que $f-\tilde{f}$ es constante, luego $
 
 Este problema se centra principalmente en averiguar que forma (curva) tenemos que darle a un tobogán para que este sea el más rápido.
 
-A esa curva la vamos a denotar por $Y(t)$ y vamos a suponer que  pertenece a $C^1(0,L)$, es decir, que no tenga picos. Además, vamos a suponer que el tobogán tiene altura máximo 1, y mínima 0, es decir, $Y(0)=1$ e $Y(L)=0$. También necesitamos que el tobogán tenga sentido, es decir, que no tenga subidas ni bajadas muy bruscas, luego necesitamos imponer $Y''(x)<1 \espacio \forall x \in (0,L)$.
+A esa curva la vamos a denotar por $Y(t)$ y vamos a suponer que  pertenece a $C^1(0,L)$, es decir, que no tenga picos. Además, vamos a suponer que el tobogán tiene altura máximo 1, y mínima 0, es decir, $Y(0)=1$ e $Y(L)=0$. También necesitamos que el tobogán tenga sentido, es decir, que no tenga subidas ni bajadas muy bruscas, luego necesitamos imponer $Y(x)<1 \espacio \forall x \in (0,L)$.
 
 Recordemos primero algunas nociones de física. Vamos a denotar por $(x(t),y(t))$ a la posición de una persona en el tobogán en el instante $t\in[0,L]$, por $m$ a su masa y por $g$ a la gravedad. Recordemos que la expresión de la energía es $mgy(t)$, la de la velocidad es $v(t)=\sqrt{x'(t)^2+y'(t)^2}$ y la de la energía cinética es $\frac{mv(t)^2}{2}$.
 
-Si hacemos el tobogán suficientemente suave, se tiene que verificar lo siguiente:
+Si hacemos el tobogán suficientemente suave, por el teorema de conservación de la energía, se cumple:
 
 \begin{equation}
 \label{equationff}

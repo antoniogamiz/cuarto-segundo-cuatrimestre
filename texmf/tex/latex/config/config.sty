@@ -28,12 +28,16 @@
 \newcommand{\localmenteintegrable}{L^1_{loc}(a,b)}
 \newcommand{\casipordoquier}{a.e \;\; x\in(a,b)}
 \newcommand{\valorabsoluto}[1]{\left| #1 \right|}
-\newcommand{\sobolev}[1]{\mathcal{H}^{ #1 }(a,b)}
+\newcommand{\sobolev}[2][a,b]{\mathcal{H}^{ #2 } (#1) }
+\newcommand{\sobolevcero}[2][a,b]{\mathcal{H}_0^{ #2 } (#1) }
 \newcommand{\conjunto}[1]{\left\{ #1 \right\}}
 \newcommand{\lebesgue}[1]{L^{ #1 }(a,b)}
+\newcommand{\normasobolev}[2]{\norm{ #2 }_{\mathcal{H}^{ #1 }}}
+\newcommand{\normasobolevcero}[2]{\norm{ #2 }_{\mathcal{H}^{ #1 }_0}}
+
 %------------------------------------------
 % Operadores
 %------------------------------------------
 
 \DeclareMathOperator\supp{soporte}
-
+\DeclareMathOperator\suppess{suppess}
