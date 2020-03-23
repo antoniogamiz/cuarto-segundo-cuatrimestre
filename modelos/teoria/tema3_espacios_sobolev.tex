@@ -452,4 +452,192 @@ donde $R(y)=\integral{a}{b}{q(x)y(x)dx}$ e $y\in\sobolevcero{1}$, y por el teore
 
 \subsection{Teorema de Lax-Milgran}
 
-Queremos dejar el puente libre y ahorrarnos el trabajo de definir varias normas en un mismo espacio de Hilbert. Intentaremos obtener una norma natural para cada espacio de Hilbert que usemos.
+Para dejar el puente libre, primero necesitamos ver nuestro funcional $L$ desde otro punto de vista. Para ello, vamos a ver una serie de definiciones y propiedades abstractas sobre los \textit{funcionales cuadráticos}, lo que nos va a permitir enunciar el teorema de Lax-Milgran, que nos dará la existencia de solución en esta última versión del modelo.
+
+\begin{definition}\label{formabilineal}
+Dados un cuerpo $K$ y un $K-$espacio vectorial $V$, una forma bilineal es una aplicación $\funcion{f}{V\times V}{K}$ que verifica:
+\begin{enumerate}[(a)]
+\item $f(u_1+u_2,v)=f(u_1,v)+f(u_2,v)$
+\item $f(u, v_1+v_2)=f(u,v_1)+f(u,v_2)$
+\item $f(au,v)=af(u,v)$
+\item $f(u,av)=af(u,v)$
+\end{enumerate}
+para cualquier $a\in K$ y $u,v,u_1,u_2,v_1,v_2\in V$.
+
+Una propiedad que necesitaremos es:
+\[
+f\left(\sum_ia_iu_i,\sum_jb_jv_h\right)=\sum_i\sum_ja_ib_jf(u_i,v_j)
+\]
+
+\end{definition}
+
+\begin{definition}
+Una forma bilineal $\funcion{f}{V\times V}{K}$ se dice simétrice si verifica:
+\[
+f(u,v)=f(v,u) \espacio \forall u,v\in V
+\]
+\end{definition}
+
+\begin{definition}
+Sea $H$ un espacio de Hilbert arbitrario, $\funcion{A}{H\times H}{\R}$ una forma bilineal, continua y simétrica y $\funcion{R}{H}{\R}$ una aplicación lineal y continua. Llamamos funcional cuadrático a la aplicación $\funcion{L}{H}{\R}$ dada por
+\[
+L(y)=\frac{1}{2}A(y,y)-R(y) \espacio\forall y\in H
+\]
+\end{definition}
+
+\begin{definition}
+Sea $\funcion{L}{H}{\R}$ una forma cuadrática. Diremos que es coerciva si existe una constante $\alpha\in\R^+$ tal que:
+\[
+A(u,u)\geq \alpha\norm{u}^2 \espacio \forall u\in H
+\]
+\end{definition}
+
+\begin{prop}
+Sea un espacio de Hilbert $H$ y $\funcion{L}{H}{\R}$ una forma cuadrátrica en ese espacio.
+Entonces, la aplicación $\funcion{\norm{\cdot}_H}{H}{\R^+_0}$ definida por 
+\[
+\norm{u}_H=\sqrt{A(u,u)} \espacio \forall u\in H
+\]
+donde $\funcion{A}{H\times H}{\R}$ es la forma bilineal asociada a $L$, es una norma, y es equivalente a la norma natural de $H$.
+\end{prop}
+\begin{proof}
+El hecho de que $\norm{\cdot}_H$ es una norma es sencillo de comprobar ya que $A$ define un producto escalar en $H$.
+
+Sea $\funcion{\norm{\cdot}}{H}{\R}$ la norma de $H$. Necesitamos encontrar dos constante $c_1,c_2\in\R^+$ tal que 
+\[
+c_1\norm{u}\leq \norm{u}_H \leq c_2\norm{u}
+\]
+La constante $c_2$ la obtenemos por continuidad de la norma $\norm{\cdot}_H$ y la constante $c_1$ de la coercividad de $L$.
+
+\end{proof}
+
+A partir de ahora consideramos $\norm{\cdot}_H$ como nuestra norma por defecto en $H$.
+
+\begin{prop}
+Todo funcional cuadrático está acotado inferiormente.
+\end{prop}
+\begin{proof}
+Sea $\funcion{L}{H}{\R}$ un funcional cuadrático, donde $\funcion{A}{H\times H}{\R}$ es su forma bilineal, continua y simétrica y $\funcion{R}{H}{\R}$ es su aplicación lineal y continua.
+Vamos a ver que podemos acotar inferiormente la expresión de $L(y)$, con $y\in H$, por una función parabólica hacia arriba.
+
+Como $R$ es continua, entonces $\norm{R(y)}\leq \norm{R}\norm{y} \Rightarrow -\norm{R(y)} \geq -\norm{R}\norm{y}$. Además, como $L$ es coerciva, existe cierta constante $C\in\R^+$ tal que $A(y,y)\geq C\norm{y}^2$. Combinando esas dos acotaciones, obtenemos:
+\[
+L(y)=\frac{1}{2}A(y,y)-R(y)\geq \frac{1}{2}C\norm{y}^2-\norm{R}\norm{y}
+\]
+Para ver con más claridad la parábola, hacemos el cambio $s=\norm{y}$, obteniendo una nueva función $P$ dependiente de las dos constantes $C$ y $\norm{R}$: $P(s)=\frac{1}{2}s^2-s\norm{R}$. Derivando e igualando a 0, obtenemos fácilmente que el mínimo de la parábola $P$ se alcanza en $s=\frac{\norm{R}}{C}$. Luego:
+\[
+L(y)\geq \frac{\norm{R}}{C} \espacio \forall y\in H 
+\]
+
+\end{proof}
+
+\begin{theorem}[Lax-Milgran]
+Sea $\funcion{L}{H}{\R}$ un funcional cuadrático. Si $L$ es coercivo, entonces tiene mínimo absoluto en $H$.
+\end{theorem}
+
+\begin{prop}[condición de punto crítico]
+Sea $\funcion{L}{H}{\R}$ un funcional cuadrático coercivo, $y\in H$, $\phi\in\soportecompacto$. Entonces existe $y\in H$ verificando:
+\[
+A(\phi,y)-R(\phi)=0 \espacio \forall\phi\in\soportecompacto
+\]
+
+Además, el punto $y$ es el mínimo de $L$.
+\end{prop}
+\begin{proof}
+Calculemos primero la expresión explícita de $g(s)$:
+\[
+g(s)=L(y+s\phi)=\frac{1}{2}A(y+s\phi,y+s\phi)-R(y+s\phi)
+\]
+Desarrollamos el primer término (usando la última propiedad en la definición \ref{formabilineal}):
+\[
+A(y+s\phi,y+s\phi)=A(y,y)+sA(y,\phi)+sA(\phi,y)+s^2A(\phi,\phi)=s^2A(\phi,\phi)+2sA(\phi,\phi)+A(y,y)
+\]
+Para el segundo término, usamos que $R$ es lineal:
+\[
+R(y+s\phi)=R(y)+sR(\phi)
+\]
+Quedándo:
+\[
+g(s)=\frac{1}{2}\left(s^2A(\phi,y)+2sA(\phi,\phi)+A(y,y)\right)-R(y)-sR(\phi)
+\]
+Derivando respecto de $s$:
+\[
+g(s)=sA(\phi,\phi)+A(\phi,y)-R(\phi) \Rightarrow g'(0)=A(\phi,y)-R(\phi)
+\]
+Luego nuestra condición de punto crítico es:
+\[
+A(\phi,y)-R(\phi)=0 \espacio \forall\phi\in\soportecompacto
+\]
+
+Para le existencia, simplemente tenemos que definir un producto escalar y usar el teorema de Riesz, como en los ejemplos anteriores. Sea $<<u,v>>=A(u,v)$ un producto escalar en $H$, por el teorema \ref{riesz-frechet}, existe $y\in H$ verificando:
+\[
+<<y,\phi>>=R(\phi) \espacio \forall \phi\in\soportecompacto
+\]
+
+Para ver que es mínimo, tomamos $\funcion{g}{\R}{\R}$ definida por $g(s)=L(y+s(z-y))$. Notemos que $y+s(z-y)$ es la recta que una a $z$ con $y$. Tenemos que ver
+\[
+L(z)>L(y) \espacio \forall z\in H
+\]
+Que si nos fijamos, es equivalente a ver que
+\[
+g(1)>g(0)
+\]
+Que ya lo tenemos porque $s=0$ era el punto mínimo de la parábola.
+\end{proof}
+
+Una vez planteada toda la teoría necesaria, podemos volver a nuestro modelo del puente. Recordemos que nuestro funcional  $\funcion{L}{\sobolev{1}}{\R}$ venía dado por la expresión:
+\[
+L(y)=\frac{1}{2}\integral{a}{b}{y'(x)^2dx}+\frac{1}{2}\integral{a}{b}{K(x)y(x)^2dx}+\integral{a}{b}{q(x)y(x)dx}
+\]
+donde $q,K\in\lebesgue{\infty}$ y $K(x)\geq k_0 >0\casipordoquier$. La última condición la imponemos porque al dejar los extramos sueltos (lo hemos hecho al considerar como dominio de $L$ el espacio $\sobolev{1}$ en lugar de $\sobolevcero{1}$) necesitemos que el puente siga enganchado por las cuerdas.
+
+Para poder usar la teoría desarrollada anteriormente, necesitamos ver que nuestro funcional es cuadrático. Definimos nuestra forma bilineal, continua y simétrica, y nuestra aplicación lineal y continua:
+\[
+A(u,v)=\integral{a}{b}{u'(x)v'(x)dx}+\integral{a}{b}{K(x)u(x)v(x)dx}, \; \espacio R(u)=-\integral{a}{b}{q(x)u(x)dx} \;\;\forall u,v\in\sobolev{1}
+\]
+Pero también necesitamos que $L$ sea coerciva. Usando la hipótesis sobre $K(x)$ es fácil de ver:
+
+
+\[
+A(u,u)=\integral{a}{b}{u'(x)^2dx}+\integral{a}{b}{K(x)u(x)^2dx}\geq\normasobolev{1}{u}^2+k_0\normasobolev{1}{u}^2\geq(1+k_0)\normasobolev{1}{u}^2
+\]
+
+Por lo tanto, sabemos que existe mínimo en $\sobolev{1}$. Además de saber que existe, queremos saber algo más sobre su expresión. Como hemos visto antes, los puntos críticos están caracterizados por la expresión:
+
+\[
+y\in\sobolev{1} \text{ punto critico } \Leftrightarrow A(y,\phi)=R(\phi) \espacio \forall \phi\in\sobolev{1}
+\]
+es decir,
+\[
+\integral{a}{b}{y'(x)\phi'(x)dx}+\integral{a}{b}{K(x)y(x)\phi(x)dx}=-\integral{a}{b}{q(x)\phi(x)dx} \espacio  \forall\phi\in\sobolev{1}
+\]
+Si en lugar de considerar $\phi$ en $\sobolev{1}$, la consideramos en $\soportecompacto$. Vemos que llamando $z=y'$ y agrupando los términos que tienen $\phi$, llegamos a:
+\[
+\integral{a}{b}{z(x)\phi'(x)dx}=-\integral{a}{b}{(K(x)y(x)+q(x))\phi(x)dx} \espacio  \forall\phi\in\sobolev{1}
+\]
+
+lo que significa que la derivada débil de $z$ es justamente $ky+q$. En particular z está en $\sobolev{1}$, porque todas las funciones que aparecen están en $\lebesgue{2}$. Luego debemos resolver la siguiente ecuación diferencial de orden 2 en $y$:
+\[
+y''(x)=K(x)y(x)+q(x) \espacio \forall x \in[a,b]
+\]
+Si imaginamos que $K$ y $q$ son continuas, esa ecuación tendría un gran número de soluciones. De hecho, el conjunto de soluciones sería un espacio biparamétrico (porque la solución depende de las condiciones iniciales sobre $y$ e $y'$). Tenemos que intentar limitarlas de alguna forma.
+
+\begin{prop}
+Sea $y\in\sobolev{1}$ (el representante continuo) y $\phi\in\mathcal{D}(\R)$, entonces $y\phi\in\sobolev{1}$.
+\end{prop}
+\begin{proof}
+Para ver que $y\phi\in\sobolev{1}$, necesitamos encontrar su derivada débil. ¿Cuál es nuestro candidato a derivada débil? La derivada clásica, es decir, $z=y'\phi+y\phi'$. Para comprobarlo, tenemos que ver que para toda $\psi\in\soportecompacto$ se tiene:
+\[
+\integral{a}{b}{(y'(x)\phi(x)+y(x)\phi'(x))\psi(x)dx}+\integral{a}{b}{y(x)\phi(x)\psi'(x)dx}=0
+\]
+Reordenando los términos que tienen $y$ e $y'$, obtenemos:
+\[
+\integral{a}{b}{(\phi(x)\psi'(x)+\phi'(x)\psi(x))y(x)dx}+\integral{a}{b}{\phi(x)\psi(x)y'(x)dx}=0
+\]
+Luego
+\[
+\integral{a}{b}{y'(x)\phi(x)}+\integral{a}{b}{y(x)\phi'(x)}=y(x)\phi(x)\Big|^b_a
+\] 
+\textbf{DEMOSTRACION DUDOSA}
+\end{proof}
+El final de la clase no le he entendido muy bien.
