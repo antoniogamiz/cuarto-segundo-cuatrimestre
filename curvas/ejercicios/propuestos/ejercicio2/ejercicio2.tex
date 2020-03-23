@@ -1,0 +1,107 @@
+\documentclass[12pt]{article}
+ 
+\usepackage[margin=1in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{tikz-cd}
+\usepackage{amsmath}
+\usepackage[shortlabels]{enumitem}
+\usepackage{config}
+
+\newtheorem{theorem}{Teorema}
+\newtheorem{lemma}[theorem]{Lema}
+\newtheorem{prop}[theorem]{Proposición}
+\newtheorem{coro}[theorem]{Corolario}
+\newtheorem{conj}[theorem]{Conjetura}
+\newtheorem{ejercicio}[theorem]{Ejercicio}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definición}
+\newtheorem{example}[theorem]{Ejemplo}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Nota}
+\newtheorem{notacion}[theorem]{Notación}
+
+\begin{document}
+
+\title{Curvas y Superficies}
+\author{Antonio Gámiz Delgado\\ Universidad de Granada} 
+ 
+\maketitle
+
+\begin{ejercicio}
+
+\end{ejercicio}
+Para cada función diferenciable $\funcion{f}{\R}{\R}$ se considera la curva $\funcion{\alpha_f}{\R}{\R^3}$ dada por $\alpha_f(t)=(\cos t,\sin t, f(t))$.
+\begin{enumerate}[(a)]
+\item Comprueba que $\alpha_f$ es regular.
+Tenemos que comprobar $\valorabsoluto{\alpha'_f(t)}\neq 0 \; \forall t\in\R$:
+\[
+\valorabsoluto{\alpha'_f(t)}=\sqrt{(-\sin t)^2+(\cos t)^2+(f'(t))^2}=\sqrt{1+(f'(t))^2}
+\]
+Que nunca puede dar 0 ya que es la suma de dos números positivos.
+\item Prueba que para cada $t_1,t_2\in\R$, con $t_1<t_2$, se cumple $\integral{t_1}{t_2}{\valorabsoluto{\alpha'_{f}(t)}dt}\geq t_2-t_1$.
+
+\[
+\integral{t_1}{t_2}{\valorabsoluto{\alpha'_{f}(t)}dt}=\integral{t_1}{t_2}{\sqrt{1+(f'(t))^2}dt}\geq\integral{t_1}{t_2}{dt}=t_2-t_1
+\]
+
+\item Construye el triedro de Frenet.
+
+Como $\valorabsoluto{\alpha_f(t)}\neq 1$, tenemos que el triedro viene dado por:
+\[
+e_1(t)=\frac{\alpha'_f(t)}{\valorabsoluto{\alpha'_f(t)}}=\frac{1}{\sqrt{1+(f'(t))^2}}\alpha'_f(t)
+\]
+\[
+\alpha''_f(t)=(-\cos t,-\sin t,f''(t)) \Rightarrow \tilde{e_2(t)}= \alpha''_f(t)-<\alpha''_f(t),e_1(t)>e_1(t)=
+\]
+\[
+=\alpha''_f(t)-\frac{f'(t)f''(t)}{1+(f'(t))^2}\alpha'_f(t)=(-\cos t,-\sin t,f''(t))-\frac{f'(t)f''(t)}{1+(f'(t))^2}(-\sin t,\cos t,f'(t))
+\]
+Calculemos $\valorabsoluto{\tilde{e_2}(t)}^2$, saltándonos las cuentas debido a su gran longitud:
+\[
+\valorabsoluto{\tilde{e_2}(t)}^2 = \frac{1+f'(t)^2+f''(t)^2}{1+f'(t)^2}\Rightarrow e_2(t)=\sqrt{\frac{1+f'(t)^2+f''(t)^2}{1+f'(t)^2}}\tilde{e_2}(t)
+\]
+\[
+e_3(t)=e_1(t)\times e_2(t)=(...\text{ cuentas }...) = 
+\]
+\[
+=\frac{1}{\sqrt{1+f'(t)^2+f''(t)^2}}(f''(t)\cos t+f'(t)\sin t, f''(t)\sin t-f'(t)\cos t, 1)
+\]
+
+\item Calcula sus funciones curvatura y torsión.
+
+Usando el ejercicio 3:
+\[
+K(t)=\frac{\valorabsoluto{\alpha'(t)\times\alpha''(t)}}{\valorabsoluto{\alpha'(t)}^3} \espacio \tau(t)=\frac{det(\alpha'(t),\alpha''(t),\alpha'''(t))}{|\alpha'(t)\times\alpha''(t)|^2}
+\]
+\[
+\alpha'(t)\times\alpha''(t)=(\cos tf''(t)+\sin tf'(t), \sin tf''(t)-\cos tf'(t),1) \Rightarrow
+\]
+\[
+\valorabsoluto{\alpha'(t)\times\alpha''(t)}^2=1+f'(t)^2+f''(t)^2 \Rightarrow
+\]
+\[
+K(t)=\frac{\sqrt{1+f'(t)^2+f''(t)^2}}{(1+f'(t)^2)^{3/2}}
+\]
+\[
+\alpha'''(t)=(\sin t, -\cos t,f'''(t)) \Rightarrow 
+\]
+\[
+det(\alpha'(t),\alpha''(t),\alpha'''(t))=
+\left|
+\begin{array}{ccc}
+-\sin t & \cos t & f'(t) \\
+-\cos t & -\sin t & f''(t) \\
+\sin t & -\cos t & f'''(t)
+\end{array}
+\right|=f'''(t)+f'(t)
+\]
+
+\item Determina las funciones $f$ para las cuales $\alpha_f$ es una curva plana.
+
+Para que sea una curva plana, su torsión tiene que ser 0, es decir, $\tau(t)=0$. 
+La expresión solo será 0 si el numerador lo es, es decir, $f'''(t)+f'(t)=0$. Cuya solución son las funciones $f(x)=c_1\cos x+c_2\sin x$, con $c_1,c_2\in\R$.
+
+\end{enumerate}
+\end{document}

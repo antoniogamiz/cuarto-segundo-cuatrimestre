@@ -1,0 +1,176 @@
+\documentclass[12pt]{article}
+ 
+\usepackage[margin=1in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{tikz-cd}
+\usepackage{amsmath}
+\usepackage[shortlabels]{enumitem}
+\usepackage{mathtools}
+
+% cosas entre comillas 
+\usepackage{csquotes}
+
+\usepackage{tikz}
+
+
+\usepackage{xcolor}
+
+\usepackage{config}
+
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}[theorem]{Lema}
+\newtheorem{prop}[theorem]{Proposición}
+\newtheorem{coro}[theorem]{Corolario}
+\newtheorem{conj}[theorem]{Conjetura}
+\newtheorem{ejercicio}{Ejercicio}
+\newtheorem*{ejercicio*}{Ejercicio}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definición}
+\newtheorem{example}[theorem]{Ejemplo}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Nota}
+\newtheorem{notacion}[theorem]{Notación}
+
+ 
+
+\begin{document}
+
+\textbf{Autor:} Antonio Gámiz Delgado
+
+\begin{ejercicio*}[3]
+El responsable de personal de la empresa CONSTRUCCIONES ALEGRES S.A. (CONALSA) se enfrenta al problema de diseñar la estrategia más adecuada para hacer frente al proceso de negociación colectiva que se comenzará a desarrollar próximamente y que regulará los salarios y otros aspectos de las relaciones laborales en CONALSA durante el próximo trienio.
+
+Según su información, los representantes sindicales pueden adoptar varias posturas negociadoras que ha catalogado como intransigente, normal y permisiva; afectando las mismas a los resultados de la empresa en el período de referencia. Ante esta situación este responsable piensa que existen tres posibles respuestas por parte de la dirección de la empresa: fuerte, media y débil.
+
+De otro lado, las estimaciones realizadas por el directivo indican que los costes laborales que deberá asumir la empresa durante los próximos años serían los que se muestran en la siguiente tabla:
+\begin{center}
+
+\begin{tabular}{|c|c|c|c|}
+\hline 
+ & Intransigente & Normal& Permisiva\\ 
+\hline 
+Fuerte & 700.000 & 550.000 & 500.000 \\ 
+\hline 
+Media & 625.000 & 600.000 & 500.000 \\ 
+\hline 
+Débil & 800.000 & 525.000 & 550.000 \\ 
+\hline 
+\end{tabular} 
+\end{center}
+
+Partiendo de la información disponible, determine cuál será la mejor manera de enfrentar la negociación por parte de la empresa según los diferentes criterios decisorios que sean de aplicación (NOTA: suponga para Hurwiz que el decisor, sin ser totalmente optimista, es más bien optimista)
+
+\end{ejercicio*}
+
+\begin{enumerate}
+\item \underline{Criterio pesimista o de Wald:}
+
+Como las entradas de la tabla representan costes, debemos emplear el método \textit{minimax}, es decir, de los costes máximos de cada estrategia, el menor.
+
+\[
+\begin{tabular}{|c|c|}
+\hline 
+ & Max \\ 
+\hline 
+Fuerte & 700000 \\ 
+\hline 
+Medio & 625000 \\ 
+\hline 
+Débil & 800000 \\ 
+\hline 
+\end{tabular} \Rightarrow minmax = 625000
+\]
+\item \underline{Criterio optimista:}
+
+Como las entradas de la tabla representan costes, debemos emplear el método \textit{minimin}, es decir, de los costes máximos de cada estrategia, el menor.
+
+\[
+\begin{tabular}{|c|c|}
+\hline 
+ & Max \\ 
+\hline 
+Fuerte & 500000 \\ 
+\hline 
+Medio & 500000 \\ 
+\hline 
+Débil & 525000 \\ 
+\hline 
+\end{tabular} \Rightarrow minmax = 500000
+\]
+
+Como hay dos opciones que nos dan el mismo mínimo, podemos elegir cualquiera de ellas.
+
+\item \underline{Criterio de Laplace:}
+
+Convertimos este problema en uno en situación de riesgo. Suponemos que todos los estados de la naturaleza tienen la misma probabilidad (equiprobabilidad).
+
+\[
+\begin{array}{cc}
+(700000+550000+500000)/3 & = 583333 \\
+(625000+600000+500000)/3 & = 575000 \\
+(800000+525000+550000)/3 & = 625000
+\end{array}
+\]
+
+Como las entradas representan costes, el mejor valor monetario esperado será el menor de los 3, es decir, $575000$.
+
+\item \underline{Criterio de Hurwiz}
+
+Como el enunciado nos dice que el decisor tiende a ser optimista, escogemos $\alpha=0.8$ y $\beta=0.2$. Como las entradas de la tabla son costes, el mejor resultado de cada estrategia será el mínimo valor y el peor resultado el mayor.
+
+\[
+\begin{array}{cc}
+0.8 * 500000 + 0.2 * 700000 & = 540000 \\
+0.8 * 500000 + 0.2 * 625000 & = 525000 \\
+0.8 * 525000 + 0.2 * 800000 & = 580000
+\end{array}
+\]
+
+Ahora escogemos el menor resultado, es decir, 525000.
+
+\item \underline{Criterio de Savage:}
+
+Convertimos la matriz inicial en una matriz en términos de coste por oportunidad. Para ello nos fijamos, por columnas, en el mínimo valor:
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline 
+ & Intransigente & Normal& Permisiva\\ 
+\hline 
+Fuerte & 700.000 & 550.000 & 500.000 \\ 
+\hline 
+Media & \color{red}{625.000} & 600.000 & \color{red}{500.000} \\ 
+\hline 
+Débil & 800.000 & \color{red}{525.000} & 550.000 \\ 
+\hline 
+\end{tabular} 
+\end{center}
+
+Restamos cada mínimo obtenido a su columna, obteniendo la matriz deseada:
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline 
+ & Intransigente & Normal& Permisiva\\ 
+\hline 
+Fuerte & 75000 & 25.000 & 0 \\ 
+\hline 
+Media & 0 & 75000 & 0 \\ 
+\hline 
+Débil & 175000 & 0 & 50000 \\ 
+\hline 
+\end{tabular} 
+\end{center}
+
+Y ahora aplicamos la estrategia \textit{minimax}:
+\[
+\min(75000,75000,175000)=75000
+\]
+
+\end{enumerate}
+
+
+Como vemos, en todos los casos nos sale que la estrategia a elegir sería la 'Media' o la 'Fuerte'.
+\end{document}
