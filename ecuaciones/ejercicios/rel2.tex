@@ -1,0 +1,152 @@
+% !TeX root = master.tex
+\documentclass[12pt]{article}
+ 
+\usepackage[margin=1in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{tikz-cd}
+\usepackage{amsmath}
+\usepackage[shortlabels]{enumitem}
+\usepackage{mathtools}
+
+% cosas entre comillas 
+\usepackage{csquotes}
+
+\usepackage{tikz}
+
+
+\usepackage{xcolor}
+
+\usepackage{config}
+
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}[theorem]{Lema}
+\newtheorem{prop}[theorem]{Proposición}
+\newtheorem{coro}[theorem]{Corolario}
+\newtheorem{conj}[theorem]{Conjetura}
+\newtheorem{ejercicio}{Ejercicio}
+\newtheorem*{ejercicio*}{Ejercicio}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definición}
+\newtheorem{example}[theorem]{Ejemplo}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Nota}
+\newtheorem{notacion}[theorem]{Notación}
+\newcommand{\continuas}[1][]{C^{ #1 }[a,b]}
+\newcommand{\continuasabierto}[1][]{C^{ #1 }(a,b)}
+\newcommand{\soportecompacto}{\mathcal{D}(a,b)}
+\newcommand{\xcero}{(a,b)}
+\newcommand{\xcerocerrado}{[a,b]}
+\newcommand{\fvariaciones}{F(x,y(x),y'(x))}
+
+
+\usepackage{pdfpages}
+ 
+
+\begin{document}
+
+\begin{ejercicio}
+Sea $I\subset\R$ un intervalo no vacío y sea $\funcion{f}{I}{\R}$. Denotamos
+\[
+I^*=\{t\in I:\exists f'(t)\}
+\]
+Supongamos que existe una sucesión $t_n\in I^*$ tal que
+\[
+|f'(t_n)|\longrightarrow\infty
+\]
+Demuestra que la función $f$ no es globalmente lipschitziana en $I$.
+
+Como la derivada de $f$ existe en $I^*$, $f$ también es continua en $I^*$. Usando la definición de derivada con la sucesión $t_n$:
+\[
+|f'(t_n)|=\limite{h}{0}{\frac{|f(t_n+h)-f(t_n)|}{h}}=\infty
+\]
+Luego $f$ no es globalmente lipschitziana porque no lo es localmente (como nos dice la caracterización).
+\end{ejercicio}
+\begin{ejercicio}
+Sea $I\subset\R$ un intervalo no vacío y sea $\funcion{f}{I}{\R}$. Diremos que $f$ es una función de clase uno a trozos y escribiremos $f\in \mathcal{C}^1_T(I)$, si existe un recubrimiento finito del intervalo $I$:
+\[
+I=\bigcup_{j=1}^nI_j
+\]
+donde los subintervalos $I_j$ son cerrados relativos a $I$ y se cumple: $f_{|I_j}\in\mathcal{C}^1(I_j)$. Dada $f\in\mathcal{C}^1_T(I)$, si denotamos $I^*=\{t\in I:\exists f'(t)\}$, demuestra que las siguientes afirmaciones son equivalentes:
+\begin{enumerate}[(a)]
+\item La función $f$ es globalmente lipschitziana en $I$.
+\item Existe $L\geq 0$ tal que $|f'(t)|\leq L \;\; \forall t\in I^*$
+\end{enumerate}
+\end{ejercicio}
+\begin{ejercicio}
+Sea $D\subset\R^d$ un conjunto convexo y sea $\funcion{f}{D}{\R^d}$. Suponemos que existe un recubrimiento finito del conjunto $D$ formada por conjuntos cerrados:
+\[
+D=\bigcup_{i=1}^nC_i \espacio \bar{C_i}=C_i \;\;\forall i = 1,\cdots,n
+\]
+tales que para cada $i=1,\cdots,n$ la restricción $f_{|C_i}$, es lipschitziana (con constante de lipschitz $L_i$). Queremos demostrar que $f$ es lipschitziana en $D$. Para ello:
+\begin{enumerate}[(a)]
+\item Dados $x,y\in D$ demuestra que existe una partición del segmento $[x,y]$ tal que los nodos consecutivos están en un mismo conjunto cerrado del recubrimiento:
+\[
+\exists\{z_j\}_{j=1}^m\subset[x,y] \;\; z_1=x, \; z_m=y \espacio z_j,z_{j+1}\in C_i \;\;\;\forall j=1,\cdots,m-1
+\]
+\item Prueba que $\norm{f(x)-f(y)}\leq \displaystyle\sum_{j=1}^{m-1}\norm{f(z_j)-f(z_{j+1}}$
+\item Deduce que $f$ es lipschitziana y determina su constante de Lipschitz.
+\end{enumerate}
+\end{ejercicio}
+\begin{ejercicio}
+Sea $D\subset\R^d$, $\funcion{f}{D}{\R^K}$, $\bar{D}\subset\R^k$, $\funcion{g}{\bar{D}}{\R^m}$ tales que las funciones $f$ y $g$ son globalmente lipschitzianas y además $f(D)\subset\bar{D}$. Demuestra que la composición $\funcion{g\circ f}{D}{\R^m}$ es globalmente lipschitziana.
+\end{ejercicio}
+
+Sean $L_1$ y $L_2$ las constantes de lipschitz de $f$ y $g$ respectivamente. Tenemos:
+\[
+\norm{f(g(x_1))-f(g(x_2))}\leq L_1\norm{g(x_1)-g(x_2)}\leq L_1L_2\norm{x_1-x_2} \espacio x_1,x_2\in D
+\]
+Luego $f\circ g$ es lipschitziana.
+\begin{ejercicio}
+Sea $D\subset\R\times\R^d$ abierto y sean $\funcion{f}{D}{\R^d}$ y $\funcion{g}{D}{\R^k}$ continuas. Además $f(t,x)$ y $g(t,x)$ son localmente lipschitzianas (respecto de la variable $x\in\R^d$). Decide sobre la validez de las siguientes afirmaciones:
+\begin{enumerate}
+\item Si $k=d$ entonces $f+g$ es localmente lipschitziana (respecto de la variable $x$).
+\item Si $k=1$ entonces $f\cdot g$ es localmente lipschitziana (respecto de la variable $x$).
+\end{enumerate}
+\end{ejercicio}
+\begin{ejercicio}
+Sean $I$ y $J$ dos intervalos de $\R$ y sean $\funcion{f}{I}{\R}$, $\funcion{g}{J}{\R}$ dos funciones localmente lipschitzianas. Estudia si podemos asegurar que las siguientes funciones son localmente lipschitzianas:
+\begin{enumerate}[(a)]
+\item $\funcion{F}{I\times J}{\R}$, $F(x,y)=f(x)+g(y)$
+
+Para ver que $F$ es localmente lipschitziana, tenemos que encontrar un entorno $U_{xy}$  de $(x,y)\in I\times J$ tal que existe una constante $L_{xy}$ verificando:
+\[
+|F(x,y)-F(x',y')|\leq L_{xy}\norm{(x,y)-(x',y')} \espacio \forall (x',y')\in U_{xy}
+\]
+
+Si $(x,y)\in I\times J$, como $f$ y $g$ son localmente lipschitzianas, podemos encontrar dos entornos $U_x \subset I$, $U_y\subset J$ de $x$ e $y$ respectivamente, tal que se verifica la condición de lipschitz. Podemos tomar $U_{xy}=U_x\cap U_y$, teniendo:
+\[
+|f(x)-f(y)|\leq L_{x}|x-y|, \espacio |f(x)-g(y)|\leq L_{y}|x-y| \espacio \forall x,y\in U_{xy}
+\]
+Tenemos que ver que se verifica para $F$:
+\[
+|F(x_1,y_1)-F(x_2,y_2)|=|f(x_1)+g(y_1)-f(x_2)-g(y_2)|\leq
+\]
+\[
+\leq |f(x_1)-f(x_2)|+|g(y_1)-g(y_2)|\leq L_x|x_1-x_2|+L_y|y_1-y_2|\leq
+\]
+\[
+\leq L_{xy}(|x_1-x_2|+|y_1-y_2|)\leq L_{xy}\norm{(x_1,y_1)-(x_2,y_2)}
+\]
+donde $L_{xy}=\max{L_x,L_y}$.
+
+\item $\funcion{G}{I\times J}{\R}$, $G(x,y)=f(x)\cdot g(y)$
+
+Sean $[a,b]\subset I$, $[c,d]\subset J$ dos intervalos compactos. Como $f$ y $g$ son lipschitzianas, son continuas, por lo tanto, por el teorema de Weierstrass están acotadas en esos dos intervalos compactos por una constante $C$, que podemos suponerla común para ambas funciones.
+
+Sean $L_f$ y $L_g$ las constantes de lipschitz de $f$ y $g$ en esos dos subintervalos. Entonces:
+\[
+|f(x_1)g(y_1)-f(x_2)g(y_2)|\leq |f(x_1)g(y_1)-f(x_2)g(y_1)|+|f(x_2)g(y_1)-f(x_2)g(y_2)|\leq
+\]
+\[
+\leq C|f(x_1)-f(x_2)|+C|g(y_1)-g(y_2)|\leq C\left(L_f|x_1-x_2|+L_g|y_1-y_2|\right)\leq
+\]
+\[
+\leq K\norm{(x_1,y_1)-(x_2,y_2)}, \espacio \forall (x_1,y_1),(x_2,y_2)\in [a,b]\times[c,d] 
+\]
+donde $K=2C\max{L_f,L_g}$.
+
+\end{enumerate}
+\end{ejercicio}
+\end{document}
