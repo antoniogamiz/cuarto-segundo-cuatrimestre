@@ -1,0 +1,21 @@
+name: Build pdf files using latex
+
+on: [push]
+
+jobs:
+  compile-and-deploy:
+    runs-on: ubuntu-18.04
+    steps:
+    - name: Checkout 🛎️
+      uses: actions/checkout@v2
+      with:
+         persist-credentials: false
+    - uses: docker://blang/latex
+    - name: Compile Modelos book
+      run: mkdir pdfs && pdflatex -synctex=1 -interaction=nonstopmode -output-directory=pdfs ./modelos/teoria/master.tex
+    - name: Deploy 🚀
+      uses: JamesIves/github-pages-deploy-action@releases/v3
+      with:
+        ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+        BRANCH: gh-pages
+        FOLDER: pdfs
