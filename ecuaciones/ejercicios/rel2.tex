@@ -56,13 +56,12 @@ Supongamos que existe una sucesión $t_n\in I^*$ tal que
 |f'(t_n)|\longrightarrow\infty
 \]
 Demuestra que la función $f$ no es globalmente lipschitziana en $I$.
-
+\end{ejercicio}
 Como la derivada de $f$ existe en $I^*$, $f$ también es continua en $I^*$. Usando la definición de derivada con la sucesión $t_n$:
 \[
 |f'(t_n)|=\limite{h}{0}{\frac{|f(t_n+h)-f(t_n)|}{h}}=\infty
 \]
 Luego $f$ no es globalmente lipschitziana porque no lo es localmente (como nos dice la caracterización).
-\end{ejercicio}
 \begin{ejercicio}
 Sea $I\subset\R$ un intervalo no vacío y sea $\funcion{f}{I}{\R}$. Diremos que $f$ es una función de clase uno a trozos y escribiremos $f\in \mathcal{C}^1_T(I)$, si existe un recubrimiento finito del intervalo $I$:
 \[
@@ -74,6 +73,17 @@ donde los subintervalos $I_j$ son cerrados relativos a $I$ y se cumple: $f_{|I_j
 \item Existe $L\geq 0$ tal que $|f'(t)|\leq L \;\; \forall t\in I^*$
 \end{enumerate}
 \end{ejercicio}
+
+$(a)\Rightarrow(b)$ Si $f$ es globalmente lipschitz se cumple que existe una constante $L$ tal que $|f(x)-f(y)|\leq L|x-y|$. Como cada intervalo $I_j$ es cerrado puedo encontrar una sucesión de puntos $x_n\longrightarrow y \;\; \forall y\in I_j\cap I^*$, luego:
+\[
+\limite{x_n}{y}{\frac{|f(x_n)-f(y)|}{|x_n-y|}}=|f'(y)|\leq L
+\]
+Por lo tango, para todo $t$ en $I^*$ se cumple que $|f'(t)|\leq L$.
+
+$(b)\Rightarrow(a)$ Tomo $x_n$ sucesión de forma que $x_0=s$ y $x_n$ sea el mayor valor dentro de cada $I_j$ de manera que puedo ir enlazando entre los distintos $I_j$ y $x_i\longrightarrow t$ de manera que 
+\[
+|f(t)-f(s)|\leq\integral{s}{t}{|f'(\tau)|d\tau}\leq\displaystyle\sum\integral{x_i}{x_{i+1}}{|f'(\tau)|d\tau}\leq L\displaystyle\sum|x_{i+1}-x_i|=L|t-s|
+\]
 \begin{ejercicio}
 Sea $D\subset\R^d$ un conjunto convexo y sea $\funcion{f}{D}{\R^d}$. Suponemos que existe un recubrimiento finito del conjunto $D$ formada por conjuntos cerrados:
 \[
@@ -105,6 +115,22 @@ Sea $D\subset\R\times\R^d$ abierto y sean $\funcion{f}{D}{\R^d}$ y $\funcion{g}{
 \item Si $k=1$ entonces $f\cdot g$ es localmente lipschitziana (respecto de la variable $x$).
 \end{enumerate}
 \end{ejercicio}
+Existe un entorno $U=U^\circ\subset D$ donde $f$ y $g$ son localmente lipschitzianas.
+
+$(a)$
+\[
+\forall(t,x),(t,y)\in U \Rightarrow \norm{f(t,x)-f(t,y)+g(t,x)-g(t,y)}\leq
+\]
+\[
+\leq L_f\norm{x-y}+L_g\norm{x-y}\leq (L_f+L_g)\norm{x-y} \Rightarrow f+g \text{ lipscihtz }
+\]
+
+$(b)$ De forma análoga al apartado anterior obtenemos:
+\[
+\norm{g(t,x)f(t,x)-g(t,y)f(t,y)}\leq (BL_f+AL_g)\norm{x-y}
+\]
+Donde $A$ y $B$ son las cotas de $f$ y $g$ respectivamente.
+
 \begin{ejercicio}
 Sean $I$ y $J$ dos intervalos de $\R$ y sean $\funcion{f}{I}{\R}$, $\funcion{g}{J}{\R}$ dos funciones localmente lipschitzianas. Estudia si podemos asegurar que las siguientes funciones son localmente lipschitzianas:
 \begin{enumerate}[(a)]
