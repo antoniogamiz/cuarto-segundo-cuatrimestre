@@ -1,0 +1,196 @@
+% !TeX root = master.tex
+\documentclass[12pt]{report}
+ 
+\usepackage[margin=1in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage[shortlabels]{enumitem}
+\usepackage{mathtools}
+\usepackage{amsfonts}
+\usepackage{float}
+\usepackage{epigraph}
+\usepackage{lipsum}
+
+
+\usepackage[spanish]{babel}
+\usepackage{tikz}
+\usetikzlibrary{babel}
+
+% cosas entre comillas 
+\usepackage{csquotes}
+
+\usepackage{xcolor}
+
+\usepackage{../texmf/tex/latex/config/config}
+
+\newtheorem{theorem}{Teorema}
+\newtheorem{lemma}[theorem]{Lema}
+\newtheorem{prop}[theorem]{Proposición}
+\newtheorem{coro}[theorem]{Corolario}
+\newtheorem{conj}[theorem]{Conjetura}
+\newtheorem{ejercicio}{Ejercicio}
+\newtheorem*{ejercicio*}{Ejercicio}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definición}
+\newtheorem{example}[theorem]{Ejemplo}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Nota}
+\newtheorem{notacion}[theorem]{Notación}
+
+
+\begin{document}
+\begin{ejercicio}
+Estudia si la función $\funcion{f}{\R}{\R}$ definida por
+\[
+f(x):=\left\{
+\begin{array}{cc}
+x^2 & |x|\leq 1 \\
+|x| & |x| > 1
+\end{array}
+\right.
+\]
+es lipschitziana y, en caso de serlo,  calcula una constante de Lipschitz óptima para $f$.
+\end{ejercicio}
+
+Estudiamos si su derivada está acotada:
+\[
+f'(x):=\left\{
+\begin{array}{cc}
+2x & |x|\leq 1 \\
+1 & x > 1 \\
+-1 & x < 1
+\end{array}
+\right.
+\]
+Que vemos que podemos acotarla por 2, y que esa es la constante más pequeña con la que podemos acotarla, luego es la óptima.
+
+\begin{ejercicio}
+Estudia si la función 
+\[
+\funcion{f}{\R}{\R}, f(x)=36x\sin(x+6)
+\]
+es lipschitziana y, en caso de serlo,  calcula una constante de Lipschitz óptima para $f$.
+\end{ejercicio}
+
+Igual que antes, calculamos su derivada:
+\[
+f'(x)=36\sin(x+6)+36x\cos(x+6)
+\]
+Que vemos que no podemos acotar por el término $x$ que aparece, luego no es lipschitz.
+
+\begin{ejercicio}
+Estudia si la función 
+\[
+\funcion{f}{\R^2}{\R}, f(x,y)=\sin(x)\arctan(y)
+\]
+es lipschitziana y, en caso de serlo,  calcula una constante de Lipschitz para $f$ cuando se usa en $\R^2$ la norma del máximo.
+\end{ejercicio}
+Calculamos las dos derivadas parciales y las intentamos acotar:
+\[
+\derivada{f}{x}(x,y)=\cos(x)\arctan(y)\Rightarrow \norm{\derivada{f}{x}}_\infty \leq \frac{\pi}{2} 
+\]
+\[
+\derivada{f}{y}(x,y)= \frac{\sin(x)}{1+y^2} \Rightarrow \norm{\derivada{f}{y}}_\infty \leq 1 
+\]
+Luego es lipschitziana con constante $L=\frac{\pi}{2}$.
+
+\begin{ejercicio}
+¿Cuál de los siguientes funciones \textbf{no} es localmente lipschitziana en $\R$?
+\begin{enumerate}[(a)]
+\item $f(x)=\log(x^2+1)$
+\item $f(x)=x+|x|$
+\item $f(x)=|x|^{7/6}$
+\item $f(x)=|x|^{8/7}$
+\item $f(x)=x|x|$
+\item $f(x)=|x|^{6/7}$
+\end{enumerate}
+\end{ejercicio}
+
+Si nos fijamos en la $(f)$ y la derivamos:
+\[
+f'(x):=\left\{
+\begin{array}{cc}
+x^{-1/7} & x \geq 0 \\
+-x^{-1/7} & x < 0
+\end{array}
+\right.
+\]
+Como el exponente es negativo, en un entorno de $x=0$ no se va a poder acotar, luego no es localmente lipschitziana.
+
+\begin{ejercicio}
+Estudia si la función 
+\[
+\funcion{f}{\R}{\R}, f(x)=8\arctan(7x+3)
+\]
+es lipschitziana y, en caso de serlo,  calcula una constante de Lipschitz óptima para $f$.
+\end{ejercicio}
+
+Calculamos su derivad:
+\[
+f'(x)=\frac{56}{1+(7x+3)^2}
+\]
+Luego sí es lipschitziana con $L=56$.
+
+\begin{ejercicio}
+Sea $\funcion{f}{A\subset \R^d}{\R}$ una función lipschitziana cuyo valor absoluto está acotado inferiormente:
+\[
+R=\inf\{|f(x)|:x\in A\}>0
+\]
+y cuya constante de Lipschitz óptima es $L_f$. Estudia si
+\[
+\funcion{F}{A}{\R}, \;\; F(x)=\frac{1}{f(x)}
+\]
+es lipschitziana y, en caso de serlo, calcula una constante de Lipschitz para $F$.
+\end{ejercicio}
+
+\[
+\norm{F(x)-F(y)}=\norm{\frac{1}{F(x)}-\frac{1}{F(y)}}=\norm{\frac{F(y)-F(x)}{F(x)F(y)}}\leq \frac{L_f\norm{x-y}}{R^2}
+\]
+Luego sí lo es con constante $L=\frac{L_f}{R^2}$.
+
+\begin{ejercicio}
+Sean $\funcion{f}{A\subset\R^d}{\R^k}$, $\funcion{g}{A}{\R}$ dos funciones lipschitzianas con constantes de Lipschitz óptimas $L_f$ y $L_g$ (resp.). Estudia si el producto:
+\[
+\funcion{F}{A}{\R^k}, \;\; F(x):=g(x)f(x)
+\]
+es lipschitziana y, en caso de serlo, calcula una constante de Lipschitz para $F$.
+\end{ejercicio}
+
+No lo es, considerar $f(x)=x$, $g(x) \Rightarrow F(x)=x^2$ que no es lipstchitziana ya que su derivada es $F'(x)=2x$, que no está acotada.
+
+\begin{ejercicio}
+Sea $A\subset\R^d$ y sean $\funcion{f_1,f_2}{A}{\R^k}$ dos funciones lipschitzianas con constantes de Lipschitz óptimas $L_1$ y $L_2$ (resp.). Estudia si la combinación lineal
+\[
+\funcion{F}{A}{\R^k}, \;\; F(x)=af_1(x)+bf_2(x) \espacio a,b\in\R
+\]
+es lipschitziana y, en caso de serlo, calcula una constante de Lipschitz para $F$.
+\end{ejercicio}
+\[
+|F(x)-F(y)|=|af_1(x)+bf_2(x)-af_1(y)-bf_2(y)|\leq|a||f_1(x)-f_2(x)|+|b||f_1(x)-f_2(y)|\leq
+\]
+\[
+\leq|a|L_1|x-y|+|b|L_2|x-y|=(|a|L_1+|b|L_2)
+\]
+
+\begin{ejercicio}
+Sean $\funcion{f}{\R^d}{\R^k}$ y $\funcion{g}{\R^k}{\R^n}$ dos funciones lipschitzianas con constantes de Lipschitz óptimas $L_f$ y $L_g$ (resp.). Estudia si la composición
+\[
+\funcion{F}{\R^d}{\R^n}, \;\; F(x)=g(f(x))
+\]
+es lipschitziana y, en caso de serlo, calcula una constante de Lipschitz para $F$.
+\end{ejercicio}
+
+\[
+\norm{g(f(x_1))-g(f(x_2))}\leq L_g\norm{f(x_1)-f(x_2)}\leq L_fL_g\norm{x_1-x_2} \espacio x_1,x_2\in \R^d
+\]
+
+Luego sí lo es, con constante $L$ igual a $L_fL_g$.
+
+\begin{ejercicio}
+Sea $\funcion{g}{\R^d}{\R^d}$ globalmente lipschitziana y $A\in\mathcal{M}_d(\R)$ (una matriz cuadrada). ¿Podemos asegurar que la función $\funcion{F}{\R\times\R^d}{\R^d}$, $F(t,x)=g(tAx)$ es globalmente lipschitziana?
+\end{ejercicio}
+
+Si no estuviera la $t$ sí que lo es (lo han dicho los demás, no me he enterado por qué).
+Está en el archivo que han pasado del año pasado.
+\end{document}

@@ -3,10 +3,7 @@
  
 \usepackage[margin=1in]{geometry} 
 \usepackage{amsmath,amsthm,amssymb}
-\usepackage[spanish]{babel}
 \usepackage[utf8]{inputenc}
-\usepackage{tikz-cd}
-\usepackage{tikz}
 \usepackage{amsmath}
 \usepackage[shortlabels]{enumitem}
 \usepackage{mathtools}
@@ -17,11 +14,12 @@
 
 \usepackage{parskip}
 
+\usepackage[spanish]{babel}
+\usepackage{tikz}
+\usetikzlibrary{babel}
+
 % cosas entre comillas 
 \usepackage{csquotes}
-
-\usepackage{tikz}
-
 
 \usepackage{xcolor}
 
@@ -122,6 +120,12 @@
 \end{tikzpicture}%
 
 }
+
+\usepackage[framemethod=tikz,xcolor=true]{mdframed}
+
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+            \node[shape=circle,draw,inner sep=1pt] (char) {#1};}}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
 
@@ -153,8 +157,8 @@
 
 \tableofcontents
 
-\include{tema1_variaciones}
-\include{tema2_derivadas_debiles}
+%\include{tema1_variaciones}
+%\include{tema2_derivadas_debiles}
 \include{tema3_espacios_sobolev}
-
+%\include{ejercicios}
 \end{document}
