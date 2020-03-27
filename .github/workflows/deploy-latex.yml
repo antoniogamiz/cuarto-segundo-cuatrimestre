@@ -13,7 +13,7 @@ jobs:
       with:
          persist-credentials: false
     - name: Compile Modelos book
-      run: mkdir pdfs && pdflatex -synctex=1 -interaction=nonstopmode -output-directory=pdfs ./modelos/teoria/master.tex
+      run: mkdir pdfs && TEXINPUTS=./texmf/tex/latex/config/:$TEXINPUTS && pdflatex -synctex=1 -interaction=nonstopmode -output-directory=pdfs ./modelos/teoria/master.tex
   deploy:
     runs-on: ubuntu-18.04
     needs: [compile]
