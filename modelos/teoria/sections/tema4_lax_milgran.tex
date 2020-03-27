@@ -171,19 +171,78 @@ Sea $y\in\sobolev{1}$ (el representante continuo) y $\phi\in\mathcal{D}(\R)$, en
 \end{prop}
 \begin{proof}
 Para ver que $y\phi\in\sobolev{1}$, necesitamos encontrar su derivada débil. ¿Cuál es nuestro candidato a derivada débil? La derivada clásica, es decir, $z=y'\phi+y\phi'$. Para comprobarlo, tenemos que ver que para toda $\psi\in\soportecompacto$ se tiene:
+
 \[
 \integral{a}{b}{(y'(x)\phi(x)+y(x)\phi'(x))\psi(x)dx}+\integral{a}{b}{y(x)\phi(x)\psi'(x)dx}=0
 \]
 Reordenando los términos que tienen $y$ e $y'$, obtenemos:
 \[
-\integral{a}{b}{(\phi(x)\psi'(x)+\phi'(x)\psi(x))y(x)dx}+\integral{a}{b}{\phi(x)\psi(x)y'(x)dx}=0
+\integral{a}{b}{[\phi(x)\psi'(x)+\phi'(x)\psi(x)]y(x)dx}+\integral{a}{b}{[\phi(x)\psi(x)]y'(x)dx}=0
 \]
-Luego
+Se cumple que si
+$\phi \in \mathcal{D}(\mathbb{R}), \psi \in \mathcal{D}((a,b))$
+entonce $\phi\psi \in \mathcal{D}((a,b))$ y
 \[
-\integral{a}{b}{y'(x)\phi(x)}+\integral{a}{b}{y(x)\phi'(x)}=y(x)\phi(x)\Big|^b_a
-\] 
-\textbf{DEMOSTRACION DUDOSA}
+  (\phi\psi)' = \phi'\psi + \phi\psi'
+\]
+Ahora por ser $y \in \mathcal{H}^1(a,b)$ y
+$\hat\phi \in \mathcal{\mathbb{R}}$ tenemos que se cumple
+\[
+\integral{a}{b}{y'(x)\hat\phi(x)}+\integral{a}{b}{y(x)\hat\phi'(x)}=y(x)\hat\phi(x)\Big|^b_a
+\]
+una expresión general. Tomando $\hat\phi = \phi\psi$ tenemos que 
+
+\[
+\integral{a}{b}{y'(x)\hat\phi(x)}+\integral{a}{b}{y(x)\hat\phi'(x)}=y(x)\hat\phi(x)\Big|^b_a = 0
+\]
+ya que $\phi\psi(b) = \phi\psi(a) = 0$ y obtenemos así el resultado que buscabamos.
 \end{proof}
+
+Volviendo al problema original teníamos que
+
+\begin{equation}
+  \label{eq:probleminicial}
+  \integral{a}{b}{y'(x)\phi(x)}+\integral{a}{b}{k(x)y(x)\phi(x)}=-\integral{a}{b}{q(x)\phi(x)}
+\end{equation}
+
+
+Considerando $\phi \in \mathcal{D}(\mathbb{R}), \phi \in \mathcal{H}^1$ y $z = y'$
+
+obtenemos en la expresión anterior
+
+\begin{equation}
+  \label{eq:resparcial}
+  \integral{a}{b}{z\phi'}=z\phi(x)\Big|^b_a - \integral{a}{b}{z'\phi}
+\end{equation}
+
+Como estabamos resolviendo el problema $y''=ky + q$ tenemos que se cumple
+
+\[
+\integral{a}{b}{z'\phi} = \integral{a}{b}{k(x)y(x)+q(x)\phi}
+\]
+
+y usando la igualdad que nos da \ref{eq:probleminicial} despejamos en
+\ref{eq:resparcial} y obtenmos
+
+\[
+y'\phi\Big|^b_a = 0
+\]
+
+Si tomamos una $\phi$ como la siguiente
+
+\textbf{Antonio haz el dibujo de una phi entre a y b que sea como una colina y solo llegue a la mitad}
+
+de la expresión $ 0 = y'\phi\Big|^b_a = y'(b)\phi(b)-y'(a)\phi(a)$
+obtenemos $y'(b) = 0$
+
+y tomando como $\phi$
+
+\textbf{Antonio haz el dibujo de una phi entre a y b que sea como una colina y de la segundad mitad}
+
+obtenemos $y'(a) = 0$
+
+Dado que $z=y'\in \mathcal{H}^1$ entonces $y\in \mathcal{H}^2$ y
+tomando el representante continuo obtenemos lo que se conoce como la condición de Neumann
 
 \section{La delta de Dirac y el espacio $H^{-1}$}
 \subsection{Caso particular}
