@@ -26,7 +26,7 @@ jobs:
       - name: Download math result for job 1
         uses: actions/download-artifact@v1
         with:
-          name: homework
+          name: pdfs
       - name: Extract pdfs files
         run: tar -xzvf pdfs.tar.gz
       - name: Deploy 🚀
