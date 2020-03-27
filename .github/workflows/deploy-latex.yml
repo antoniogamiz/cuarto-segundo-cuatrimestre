@@ -8,19 +8,30 @@ jobs:
     container:
       image: blang/latex
     steps:
-    - name: Checkout 🛎️
-      uses: actions/checkout@v2
-      with:
-         persist-credentials: false
-    - name: Compile Modelos book
-      run: mkdir pdfs && TEXINPUTS=./texmf/tex/latex/personal-commands/:$TEXINPUTS && pdflatex -synctex=1 -interaction=nonstopmode -output-directory=pdfs ./modelos/teoria/master.tex
+      - name: Checkout 🛎️
+        uses: actions/checkout@v2
+        with:
+          persist-credentials: false
+      - name: Compile Modelos book
+        run: bash compile.sh && tar -czvf pdfs.tar.gz pdfs/
+      - name: Upload math result for job 1
+        uses: actions/upload-artifact@v1
+        with:
+          name: pdfs
+          path: pdfs.tar.gz
   deploy:
     runs-on: ubuntu-18.04
     needs: [compile]
     steps:
-    - name: Deploy 🚀
-      uses: JamesIves/github-pages-deploy-action@releases/v3
-      with:
-        ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-        BRANCH: gh-pages
-        FOLDER: pdfs
+      - name: Download math result for job 1
+        uses: actions/download-artifact@v1
+        with:
+          name: homework
+      - name: Extract pdfs files
+        run: tar -xzvf pdfs.tar.gz
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@releases/v3
+        with:
+          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          BRANCH: gh-pages
+          FOLDER: pdfs
