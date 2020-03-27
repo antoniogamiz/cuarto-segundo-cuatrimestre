@@ -29,8 +29,8 @@ jobs:
           name: pdfs
       - name: Extract pdfs files
         run: tar -xzvf pdfs/pdfs.tar.gz && rm -f pdfs/pdfs.tar.gz
-      - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@releases/v3.4.2
+      - name: Deploy 🚀- name:
+        uses: JamesIves/github-pages-deploy-action@3.4.2
         with:
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
           BRANCH: gh-pages
