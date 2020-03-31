@@ -166,7 +166,7 @@ y''(x)=K(x)y(x)+q(x) \espacio \forall x \in[a,b]
 \]
 Si imaginamos que $K$ y $q$ son continuas, esa ecuación tendría un gran número de soluciones. De hecho, el conjunto de soluciones sería un espacio biparamétrico (porque la solución depende de las condiciones iniciales sobre $y$ e $y'$). Tenemos que intentar limitarlas de alguna forma.
 
-\begin{prop}
+\begin{prop}\label{productoh1}
 Sea $y\in\sobolev{1}$ (el representante continuo) y $\phi\in\mathcal{D}(\R)$, entonces $y\phi\in\sobolev{1}$.
 \end{prop}
 \begin{proof}
@@ -222,30 +222,25 @@ Como estabamos resolviendo el problema $y''=ky + q$ tenemos que se cumple
 \]
 
 y usando la igualdad que nos da \ref{eq:probleminicial} despejamos en
-\ref{eq:resparcial} y obtenmos
-
+\ref{eq:resparcial} y obtenemos
 \[
 y'\phi\Big|^b_a = 0
 \]
 
 Si tomamos una $\phi$ como la siguiente
 
-\textbf{Antonio haz el dibujo de una phi entre a y b que sea como una colina y solo llegue a la mitad}
+\centerline{\includegraphics[scale=0.5]{img/caso1.png}} 
 
 de la expresión $ 0 = y'\phi\Big|^b_a = y'(b)\phi(b)-y'(a)\phi(a)$
-obtenemos $y'(b) = 0$
+obtenemos $y'(b) = 0$. Tomando como $\phi$
 
-y tomando como $\phi$
+\centerline{\includegraphics[scale=0.5]{img/caso2.png}} 
 
-\textbf{Antonio haz el dibujo de una phi entre a y b que sea como una colina y de la segundad mitad}
-
-obtenemos $y'(a) = 0$
-
-Dado que $z=y'\in \mathcal{H}^1$ entonces $y\in \mathcal{H}^2$ y
+obtenemos $y'(a) = 0$. Dado que $z=y'\in \mathcal{H}^1$ entonces $y\in \mathcal{H}^2$ y
 tomando el representante continuo obtenemos lo que se conoce como la condición de Neumann
 
 \section{La delta de Dirac y el espacio $H^{-1}$}
-\subsection{Caso particular}
+
 Ahora vamos a ver otro caso del modelo, donde colgamos una masa $m$ en un punto $\alpha\in(a,b)$ del puente. La energía de este objeto es $my(\alpha)$, luego la expresión de nuestro funcional $\funcion{L}{\sobolevcero{1}}{\R}$ es:
 \[
 L(y)=\frac{1}{2}\integral{a}{b}{y'(x)^2dx}+\frac{1}{2}\integral{a}{b}{q(x)y(x)^2dx}+my(\alpha)
@@ -326,93 +321,88 @@ Cancelando ámbos términos:
 \[
 \left(z(\alpha^-)-z(\alpha^+)\right)\phi(\alpha)=-m\phi(\alpha)
 \]
-Como la función de Swartz esocgido es arbitraria, podemos suponer quevale 1 en $\alpha$. Usando eso y que $z=y'$:
+Como la función de Swartz escogida es arbitraria, podemos suponer que vale 1 en $\alpha$. Usando eso y que $z=y'$:
 \[
 y'(\alpha^-)-y'(\alpha^+)=-m \Rightarrow y'(\alpha^+)-y'(\alpha^-)=m  
 \]
 Es decir, el cambio de pendiente que se da entre $\alpha^-$ y $\alpha^+$ es igual a $m$, el peso de la masa.
 
-\duda{entre este apartado y el siguiente hay varias cosas que se repiten, como el planteamiento del funcional, el problema de sutrm-liouville, etc, me gustaría saber que se debería quedar y que debería borrar}
+\section{Problema de Sturm-Liouville}
 
-\subsection{Caso abstracto: problema de Sturm-Liouville}
 Vamos a generalizar el caso anterior para obtener una ecuación diferencial con varias condiciones. Sea $\funcion{L}{\sobolev{1}}{\R}$ el funcional dado por:
 \[
-L(y)=\frac{1}{2}\integral{a}{b}{p(x)y'(x)^2dx}+\frac{1}{2}\integral{a}{b}{q(x)y(x)dx}-R(y)
+L(y)=\frac{1}{2}\integral{a}{b}{y'(x)^2dx}+\frac{1}{2}\integral{a}{b}{q(x)y(x)^2dx}-R(y)
 \]
-donde $p,q\in\lebesgue{\infty}$ cumpliendo $0<p_0\leq p(x)\leq p_1$, $0<q_0\leq q(x)\leq q_1$. 
+con $q\in\lebesgue{\infty}$, $0<q_0\leq q(x)\leq q_1 \; \casipordoquier$. 
 
-La teoría de Lax-Milgran nos dice que:
+De donde podemos definir la siguiente forma cuadrática: 
 \[
-A(y,\phi)=R(\phi) \Rightarrow \integral{a}{b}{p(x)y'(x)\phi'(x)dx}+\integral{a}{b}{q(x)y(x)\phi(x)dx}=R(\phi)
+A(y,\phi)=\integral{a}{b}{y'(x)\phi'(x)dx}+\integral{a}{b}{q(x)y(x)^2\phi(x)dx}
 \]
-Y denotando $z=py'$ se verifica $z'=qy-R(\phi)$.
+Una vez más, la teoría de Lax-Milgran nos dice que existe $y$ en $\sobolev{1}$ cumpliendo $A(y,\phi)=R(\phi)$, es decir, $ \forall R\in \sobolev{-1}=\left(\sobolev{1}\right)^*$:
+\begin{equation}
+\label{condicion1}
+\integral{a}{b}{y'(x)\phi'(x)dx}+\integral{a}{b}{q(x)y(x)\phi(x)dx}=R(\phi) \;\; \forall \phi\in\sobolev{1}
+\end{equation}
 
-\begin{definition}
-Sean $p,q\in\lebesgue{\infty}$ cumpliendo $0<p_0\leq p(x)\leq p_1$, $0<q_0\leq q(x)\leq q_1 \;\; \casipordoquier$. La ecuación de Sturm-Liouville viene dada por la expresión:
+Una vez planteado el problema y visto que tiene solución, tenemos que intentar determinar $y$ mediante alguna ecuación diferencial. Como vamos a determinar $y$ mediante una ecuación diferencial, necesitamos buscar condiciones de regularidad sobre ella porque la teoría de ecuaciones diferenciales nos dice que hay solución siempre que los elementos de la ecuación sean continuos. Nótese que, por ahora, solo sabemos que $y\in\continuas$ e $y'\lebesgue{2}$.
+   
+Ahora vamos a empezar con el primer caso. Partimos de la condición \eqref{condicion1} y recordamos que tenemos la cadena de espacios:
 \[
-(p(x)y'(x))'-q(x)y(x)=R(\phi)
+\lebesgue{2} = \sobolev{0} \subset \sobolev{-1}
 \]
-\begin{itemize}
-\item Si $y\in\sobolevcero{1}$, consideramos $R\in(\sobolevcero{1})^*$.
-\item Si $y\in\sobolev{1}$, consideramos $R\in(\sobolev{1})^*$.
-\end{itemize}
-\end{definition}
-\begin{definition}
-Una solución débil de la ecuación de Sturm-Lioville es una función $y$ verificando la expresión anterior.
-\begin{itemize}
-\item Si $y\in\sobolevcero{1}$, entonces $y(a)=y(b)=0$ (caso Dirichlet).
-\item Si $y\in\sobolev{1}$, entonces $y'(a)=y'(b)=0$ (caso Neumann).
-\end{itemize}
-\end{definition}
-\begin{remark}
-Si consideramos $R\in(\sobolev{1})^*$, la condición $y'(a)=y'(b)=0$ nos aparece de forma natural al minimizar (visto anteriormente).
-\end{remark} 
 
-A partir de ahora nos vamos a centrar en el caso $y\in\sobolev{1}$, $R\in(\sobolev{1})^*$.
-
-\textbf{que vamos a hacer a continuacion?}
-
-\begin{remark}
-Recordemos una propiedad del Análisis funcional respecto a duales: (\textbf{DUDOSA})
-\begin{center}
-\begin{tikzpicture}[node distance=2.5cm, auto]
-\node (A) {$\sobolev{1}$};
-\node (B) [right of=A] {$\sobolev{1}$};
-\node (C) [below of=A] {$(\sobolev{1})^*$};
-\node (D) [below of=B] {$(\sobolev{0})^*$};
-\draw[->](A) to node {$i$}(B);
-\draw[->, dashed](B) to node [] {}(D);
-\draw[->, dashed](A) to node [] {}(C);
-\draw[->](D) to node [above] {$i^*$}(C);
-\end{tikzpicture}
-\end{center}
-donde $i^*$ es la aplicación traspuesta de $i$. Veámoslo con un ejemplo concreto, supongamos que tenemos $n<m$:
-\begin{center}
-\begin{tikzpicture}[node distance=2cm, auto]
-\node (A) {$\R^n$};
-\node (B) [right of=A] {$\R^m$};
-\node (C) [below of=A] {$\R^n$};
-\node (D) [below of=B] {$\R^m$};
-\draw[->](A) to node {$i$}(B);
-\draw[->, dashed](B) to node [] {}(D);
-\draw[->, dashed](A) to node [] {}(C);
-\draw[->](D) to node [above] {$i^*$}(C);
-\end{tikzpicture}
-\end{center}
-donde $i\in\mathcal{M}_{n\times m}$ y $i^*\in\mathcal{M}_{m\times n}$. Lo esperable es que si $i$ es inyectiva, es decir, el rango de $i$ es $n$, entonces la otra matriz también tiene rango $n$, pero eso quiere decir que es sobreyectiva. Es decir, esta dualidad nos pasa aplicaciones inyectivas a aplicaciones sobreyectivas. A nosotros nos interesa ver la inclusión de los espacios "relativamente bien", puesto que el al fin y al cabo el Teorema de Riesz nos dice que todos los espacios de Hilbert son iguales, pero no quiero perder la estructura ni las inclusiones entre ellos.
-\end{remark}
-
-\duda{no me queda claro el propósito de esta nota}
-
-Si ahora tomamos $g\in\lebesgue{2}=\sobolev{0}$, podemos definir la función $\funcion{R_g}{\sobolev{1}}{\R}$ por
+Donde la indentificación $\sobolev{0}\longhookrightarrow\sobolev{-1}$ viene dada por la aplicación
 \[
-R_g(y)=\integral{a}{b}{g(x)y(x)dx} 
+\begin{array}{ll}
+R: & \lebesgue{2} \longrightarrow \sobolev{-1} \\
+  &\;\;\; r \;\;\; \;\;\;\; \longmapsto    \funcion{R_r}{\sobolev{2}}{\R} \\
+  & \hspace*{3cm} y \mapsto R_r(y)=\integral{a}{b}{r(x)y(x)dx} 
+\end{array}
 \]
 
-Aquí dijimos $R_g\in(\sobolev{1})^*=\sobolev{-1}$. Tambíen hablamos de la inclusión
+Nótese ahora que si denotamos $z=y'$, la ecuación \eqref{condicion1} nos dice que se verifica:
+\begin{equation}
+\label{condicion2}
+\integral{a}{b}{z(x)\phi'(x)dx}+\integral{a}{b}{q(x)y(x)\phi(x)dx}=\integral{a}{b}{r(x)\phi(x)dx}
+\end{equation}
+Y agrupando:
 \[
-\sobolev{2}\subset\sobolev{1}\subset\sobolev{-1}
+\integral{a}{b}{z(x)\phi'(x)dx}+\integral{a}{b}{\left(q(x)y(x)-r(x)\right)\phi(x)dx}=0
 \]
+Luego $z$ tiene derivada débil y coincide con $z'=qy-r$. Como $z'=y''$, nos queda la EDO:
+\[
+y''-qy=-r \Rightarrow -y''+qy=r
+\]
+Ahora, como $z$ tiene derivada débil, puedo tomar su representante continuo $\bar{z}\in$, es decir, podemos suponer directamente que $z\in\continuas$. Pero claro, como $z=y'$, entonces $y'\in\continuas$, lo que implica que $y\in\continuas[1]$. En particular, tenemos definido cuanto vale $y'(a)$ e $y'(b)$ (antes no lo teníamos porque solo sabíamos que $y\in\lebesgue{2}$). Luego la ecuación $-y''+qy=r$ se verifica en $\sobolev{2}$ (porque $z\in\sobolev{1}$, luego $y\in\sobolev{2}$).
+
+Se puede comprobar fácilmente que si $r,q\in\continuas$ entonces $y\in\continuas[2]$, debido a que en ese caso, $y''$ sería continua (se expresaría como diferencia de continuas y producto de continuas).
+
+Como la expresión \eqref{condicion2} es válida para toda $\phi\in\sobolev{1}$, podemos tomar una $\phi\in\mathcal{D}(\R)$ y como $z\in\sobolev{2}$, la proposición \ref{productoh1} nos dice que $z\phi\in\sobolev{1}$ y $\left(z\phi\right)'=z\phi'+z'\phi$. Usando integración por partes en el primer término:
+\[
+\integral{a}{b}{z(x)\phi'(x)dx}=z(x)\phi(x)\Big|_a^b-\integral{a}{b}{z'(x)\phi'(x)dx}=
+\]
+\[
+=z(b)\phi(b)-z(a)\phi(a)-\integral{a}{b}{(q(x)y(x)-r(x))\phi'(x)dx}
+\]
+Sustituyendo ahora lo obtenido en la expresión \eqref{condicion2} y simplificando, llegamos a:
+\[
+z(b)\phi(b)-z(a)\phi(a)=0 \espacio \forall \phi \in\mathcal{D}(\R)
+\]
+Si ahora tomamos una función $\phi$ de la siguiente forma:
+
+\centerline{\includegraphics[scale=0.5]{img/caso1.png}} 
+
+Entonces $\phi(a)=0$ y $\phi(b)=1$, de donde queda que $z(b)=0$. Tomando otra $\phi$ de esta forma
+\centerline{\includegraphics[scale=0.5]{img/caso2.png}} 
+
+obtenemos que $z(a)=0$. Es decir, $y'(a)=y'(b)=0$.
+
+\subsection{Caso 2}
+
+Para al siguiente caso tenemos que definir primero la \textit{delta de Dirach}.
+
+\medskip
 
 \begin{definition}
 Dado $\alpha\in(a,b)$, definimos la función $\funcion{\delta_\alpha}{\sobolev{-1}}{\R}$
@@ -421,121 +411,59 @@ Dado $\alpha\in(a,b)$, definimos la función $\funcion{\delta_\alpha}{\sobolev{-
 \]
 A $\delta_\alpha$ se le llama $\delta$ de Dirach.
 \end{definition}
-
-\duda{no sé que significa lo de abajo}
-
-\[
-(py')'-qy=\delta_\alpha
-\]
-\[
-(py')(\alpha^+)-(py')(\alpha^-)=+1
-\]
-
-\duda{duda generalizada del caso Dirichlet caso Neumann, según he ententido: antes de esta nota hemos definido el problema de Sturm-Liouville, y ahora consideramos dos casos diferentes (dirichlet y neumann) según donde tomemos la y???}
-
-\subsection{Problema de Sturm-Liouville}
-Vamos a escribir formalmente el problema de Sturm-Liouville. Para ello, tomamos el siguiente funcional: 
-\[
-L(y)=\frac{1}{2}\integral{a}{b}{p(x)y'(x)^2dx}+\frac{1}{2}\integral{a}{b}{q(x)y(x)^2dx}-R(y)
-\]
-con $p,q\in\lebesgue{\infty}$, $0<p_0\leq p(x)\leq p_1 \; \casipordoquier$. 
-
-Existen dos casos distintos de este problema, dependiendo de donde consideremos la función $y$, es decir, dependiendo de donde queramos minimizar:
-\begin{definition}[Caso Dirichlet]
-Sea $\funcion{L}{\sobolevcero{1}}{\R}$ y establecemos las siguientes condiciones:
-\begin{enumerate}[(a)]
-\item $y\in\sobolevcero{1}: \; y(a)=y(b)=0$
-\item $0\leq q(x)\leq q_1 \; \casipordoquier$
-\item $R\in(\sobolevcero{1})^*$
-\end{enumerate}
-\end{definition}
-\begin{definition}[Caso Neumann]
-Sea $\funcion{L}{\sobolev{1}}{\R}$ y establecemos las siguientes condiciones:
-\begin{enumerate}[(a)]
-\item $y\in\sobolev{1}: \; y'(a)=y'(b)=0$
-\item $0<q_0\leq q(x)\leq q_1 \; \casipordoquier$
-\item $R\in(\sobolev{1})^*=\sobolev{-1}$
-\end{enumerate}
-\end{definition}
 \begin{remark}
-A partir de ahora, cuando pongamos \circled{D} o \circled{N}, haremos referencia a las condiciones del caso Dirichlet o Neumann respectivamente.
+Nótese que esta función simplemente es otra forma de denotar la evaluación en $\alpha$, que usamos para indicar en qué punto ($\alpha$) de una cuerda ($y$) colgamos una masa $c$. 
 \end{remark}
-\duda{se ha hablado en varias ocasiones sobre las condiciones que se imponen, pero no me acaban de quedar clara porque imponemos cada una, podría añadir un breve comentario sobre cada una de ellas?}
-En cualquiera de los dos casos, el teorema de Lax-Milgran (\ref{laxmilgran}) nos confirma la existencia de solución y nos da la condición de punto crítico (dependiente del caso en el que estemos):
-\begin{equation}
-\label{criticoliouville}
-A(y,\phi)=R(\phi) \Rightarrow \integral{a}{b}{p(x)y'(x)\phi'(x)dx}+\integral{a}{b}{q(x)y(x)\phi(x)dx}=R(\phi)
-\end{equation}
-\begin{itemize}
-\item Para toda $\phi$ en $\sobolevcero{1}$, en el caso Dirichlet.
-\item Para toda $\phi$ en $\sobolev{1}$, en el caso Neumann.
-\end{itemize}
-Formalmente, si llamo $z(x)=p(x)y'(x)$, la expresión \eqref{criticoliouville} me diría que $z'(x)=q(x)y(x)-R$. Fijaros que $R$ no es una función, sino un elemento del dual y que lo único que sabemos es que $y$ está en $\sobolev{1}$, luego no tenemos información sobre $z$. 
 
-Esa ecuación se escribe formalmente como:
+Ahora pasamos al siguiente caso, donde suponemos que $R(\phi)=c\delta_\alpha(\phi)=c\phi(\alpha) \espacio \forall \phi\in\sobolev{1}\subset\continuas$, con $a<\alpha<b$. Con esta nueva $R$, vemos otra vez la ecuación \ref{condicion1} con $z=y'$:
 \[
-(p(x)y'(x))'-q(x)y(x)=R \text{ (Problema de Sturm-Liouville) }
+\integral{a}{b}{z(x)\phi'(x)dx}+\integral{a}{b}{q(x)y(x)\phi(x)dx}=c\phi(\alpha)
 \]
-junto con una condición \circled{D} o \circled{N}. 
+donde solo sabemos que $z\in\lebesgue{2}$ e $y\sobolev{1}$ y $z$ no tiene por qué tener derivada débil ya que la expresión anterior no coincide con la de la definición. 
 
-Si ahora a $R$ la denotamos por $f$, la ecuación quedaría:
-\begin{equation}
-\label{problemaliouville2}
-(p(x)y'(x))'-q(x)y(x)=f(x)
-\end{equation}
-Fijaros que hemos añadido $(x)$ al lado de $f$, pero realmente $f$ no es una funcion, sino que es un elemento de $(\sobolevcero{1})^*$ (caso \circled{D}) o de $\sobolev{1}$ (caso \circled{N}). Pero recordad que $\lebesgue{2}=\sobolev{0}\hookrightarrow\sobolev{-1}$, ¿cómo hacemos esa inclusión? Con $R_g$, definida anteriormente:
+Si ahora considero el intervalo $(a,\alpha)$ y tomo $\phi\in\mathcal{D}(a,\alpha)$, tenemos que $\phi(\alpha)=0$ y
 \[
-f\mapsto R_f(y)=\integral{a}{b}{f(x)y(x)dx}
+\integral{a}{b}{z(x)\phi'(x)dx}+\integral{a}{b}{q(x)y(x)dx}=0
 \]
-\duda{a parte, $R_f(y)\in\R$, cómo va a estar en $\sobolev{1}$ si eso es un espacio de funciones?}
-\duda{aqui usamos $R_f$, definido en la clase anterior pero no me queda claro por qué}
+Luego $z\in\sobolev[a,\alpha]{1}$, que tiene un representante continuo $z_1\in\mathcal{C}[a,\alpha]$. De forma análoga, obtenemos $z_2\in\mathcal{C}[\alpha,b]$. Si definimos $z'$ como la unión de $z_1'$ y $z_2'$:
+\[
+z'(x)= \left\{
+\begin{array}{cc}
+z_1'(x) & x\in(a,\alpha) \\
+z_2'(x) & x\in(\alpha,b)
+\end{array}
+\right.
+\]
+¿y qué pasa con $z'(\alpha)$? No pasa nada, porque $\{\alpha\}$ tiene medida nula asi que no hace falta definirla en ese punto. Además, $z'\in L(a,\alpha)$ y $z'\in L(\alpha,b)$, luego $z'\in\lebesgue{2}$ por la misma razón. 
 
-\begin{itemize}
-\item Si $f\in\sobolev{0} \Rightarrow p(x)y'(x)\in\sobolev{1}$ y tenemos la siguiente ecuación diferencial
+Como $z'$ no es la derivada débil de $z$ en $(a,b)$, solo podemos decir que
 \[
-(p(x)y'(x))'-q(x)y(x)=f(x)
+\integral{a}{b}{z'(x)\phi(x)dx}+\integral{a}{b}{z(x)\phi'(x)dx}=0 \espacio \forall \phi\in\mathcal{D}(a,\alpha) \text{ ó } \forall \phi\in\mathcal{D}(\alpha,b)
 \]
-más la condición \circled{N}, donde esas derivadas sí son débiles.
-\item Si $f=\displaystyle\sum_{i=1}^kc_i\delta_{\alpha_i}$ donde $a<\alpha_1,...,\alpha_k<b$ y $c_1,...,c_k\in\R$.
+Y en ese caso, $z'(x)=-q(x)y(x) \;\; \casipordoquier$. 
 
-Denotando $z(x)=p(x)y'(x)$, tenemos que $z$ verifica la expresión \eqref{problemaliouville2}:
-\begin{equation}
-\label{intentandoentenderesto}
-\integral{a}{b}{z(x)\phi'(x)dx}+\integral{a}{b}{q(x)y(x)\phi(x)dx}=\sum_{i=0}^kc_i\delta_{\alpha_i}=\sum_{i=0}^kc_i\phi(\alpha_i)
-\end{equation}
-para toda $\phi$ en $\sobolevcero{1}$ si \circled{D} o en $\sobolev{1}$ si \circled{N}.
+Como vemos, este es el origen de la cuestión, tenemos una función $z'$, que sabemos que es una derivada, pero es una derivada \textit{extraña}, ya que es débil en $(a,\alpha)$ y $(\alpha,b)$, coincide en casi todo punto con $-q(x)y(x)$, pero no es una derivada débil en $(a,b)$. 
 
-Si ahora tomamos $\phi\in\mathcal{D}(a,b)$ de forma que en cada intervalo $(\alpha_{i-1},\alpha_{i+1})$ se cumpla:
-\begin{figure}[H]
-   \center
-  \includegraphics[scale=0.6]{img/flatproof.png}
-\end{figure}
-y consideramos $z$ como la unión de los representantes continuos en cada intervalo, es decir,
-$z\in\mathcal{C}\left([a,\alpha_1)\cup...\cup(\alpha_k,b]\right)$, tenemos que $z'(x)=q(x)y(x) \; \casipordoquier$. Aplicando la expresión \eqref{intentandoentenderesto} a cada intervalo $((\alpha_{i-1},\alpha_{i+1}))$ nos queda:
-\begin{equation}
-\label{comparando}
-\integral{\alpha_{i-1}}{\alpha_{i+1}}{z(x)\phi'(x)dx}+\integral{\alpha_{i-1}}{\alpha_{i+1}}{z'(x)\phi(x)dx}=c_i\phi(\alpha_i)
-\end{equation}
-Si separamos la integral del primer término en dos, en los intervalos $(\alpha_{i-1},\alpha_{i})$ y $(\alpha_{i},\alpha_{i+1})$ y aplicamos la regla de la cadena:
+Como $z_1$ tiene derivada débil en $(a,\alpha)$, tenemos que:
 \[
-\integral{\alpha_{i-1}}{\alpha_{i}}{z(x)\phi'(x)dx}=z(x)\phi(x)\Big|_{\alpha_{i-1}}^{\alpha_{i}}-\integral{\alpha_{i-1}}{\alpha_{i}}{z'(x)\phi(x)dx}=z(\alpha_{i}^-)-\integral{\alpha_{i-1}}{\alpha_{i}}{q(x)y(x)\phi(x)dx}
-\]
+\integral{a}{\alpha}{z_1(x)\phi'(x)dx}+\integral{a}{\alpha}{q(x)y(x)\phi(x)dx}=0 \espacio \forall\phi\in\mathcal{D}(a,\alpha)
+\] 
+Si igual que en el caso anterior, consideramos $\phi\in\mathcal{D}(\R)$ y aplicamos integración por partes al primer término:
 \[
-\integral{\alpha_{i}}{\alpha_{i+1}}{z(x)\phi'(x)dx}=z(x)\phi(x)\Big|_{\alpha_{i}}^{\alpha_{i+1}}-\integral{\alpha_{i}}{\alpha_{i+1}}{z'(x)\phi(x)dx}=-z(\alpha_{i}^+)-\integral{\alpha_{i}}{\alpha_{i+1}}{q(x)y(x)\phi(x)dx}
+\integral{a}{\alpha}{z_1(x)\phi'(x)dx}=z_1(x)\phi(x)\Big|_a^\alpha-\integral{a}{\alpha}{q(x)y(x)\phi(x)dx}
 \]
-Sumando ahora esos dos resultados y volviendo a combinar las integrales:
+Cogiendo la $\phi$ de forma que $\phi(a)=1$ y $\phi(\alpha)=0$ y sustituyendo en la expresión anterior, obtenemos que:
 \[
-\integral{\alpha_{i-1}}{\alpha_{i+1}}{z(x)\phi'(x)dx}=z(\alpha_{i}^-)-z(\alpha_{i}^+)-\integral{\alpha_{i-1}}{\alpha_{i+1}}{q(x)y(x)\phi(x)dx} \Rightarrow
+-z_1(a)\phi(a)=0 \Rightarrow z_1(a)=0
 \]
+Si ahora usamos eso en la expresión:
 \[
-\integral{\alpha_{i-1}}{\alpha_{i+1}}{z(x)\phi'(x)dx}-\integral{\alpha_{i-1}}{\alpha_{i+1}}{q(x)y(x)\phi(x)dx}=z(\alpha_{i}^-)-z(\alpha_{i}^+)
+\integral{a}{b}{z(x)\phi'(x)dx}+\integral{a}{b}{q(x)y(x)\phi(x)dx}=0
 \]
-Si nos fijamos, a la izquierda tenemos lo mismo que en la expresión \eqref{comparando}, luego igualando:
+Pero claro, el primer término lo podemos partir en dos integrales diferentes:
 \[
-z(\alpha_{i}^-)-z(\alpha_{i}^+)=c_i\phi(\alpha_i)=c_i \Rightarrow
+\integral{a}{b}{z(x)\phi'(x)dx}=\integral{a}{\alpha}{z(x)\phi'(x)dx}+\integral{\alpha}{b}{z(x)\phi'(x)dx}
 \]
-\[
-z(\alpha_{i}^+)-z(\alpha_{i}^-)=-c_i
-\]
-\duda{que hemos conseguido con esto?}
-\end{itemize}
+
+\subsection{CLASE 31 MARZO}
+

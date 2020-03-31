@@ -18,6 +18,7 @@
 \usepackage{csquotes}
 \usepackage{xcolor}
 \usepackage[framemethod=tikz,xcolor=true]{mdframed}
+\usepackage[new]{old-arrows}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -59,9 +60,24 @@
 
 \tableofcontents
 
-\include{./sections/tema1_variaciones}
-\include{./sections/tema2_derivadas_debiles}
-\include{./sections/tema3_espacios_sobolev}
+%\include{./sections/tema1_variaciones}
+%\include{./sections/tema2_derivadas_debiles}
+%\include{./sections/tema3_espacios_sobolev}
 \include{./sections/tema4_lax_milgran}
-\include{./sections/ejercicios}
+%\include{./sections/ejercicios}
 \end{document}
+
+
+% codigo para dibujar funciones tests
+%\begin{tikzpicture}[scale=0.5]
+%\node[inner sep=0pt] (russell) at (0,0)
+%    {\includegraphics[scale=1]{img/flat.png}};
+%\draw (-8,-7.75)-- (8,-7.75);
+%\draw[-,dashed] (-5,0)-- (5,0); 
+%\draw (-6,0) node[anchor=north] {$1$};
+%\draw[-,dashed] (-7,-8.25) -- (-7,-7.25);
+%\draw (-7,-8.5) node [anchor=north] {$a$};
+%\draw[-,dashed] (0,-8.25) -- (0,-7.25);
+%\draw (0,-8.5) node [anchor=north] {$b$};
+%\end{tikzpicture}
+
