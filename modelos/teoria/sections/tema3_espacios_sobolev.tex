@@ -18,11 +18,11 @@ Este espacio tiene la particularidad de que también cuenta con un producto esca
 \[
 <f,g>=\integral{a}{b}{f(x)g(x)dx}+\integral{a}{b}{f'(x)g'(x)dx}
 \]
-De es producto se induce la siguiente norma:
+De este producto se induce la siguiente norma:
 \[
-\normasobolev{1}{f}=\sqrt{\integral{a}{b}{f(x)g(x)dx}+\integral{a}{b}{f'(x)g'(x)dx}}
+\normasobolev{1}{f}=\sqrt{\integral{a}{b}{f(x)^2dx}+\integral{a}{b}{f'(x)^2dx}}
 \]
-Por supuesto, $\sobolev{1}$ es un espacio de Hilbert con la norma $\norm{f}=\sqrt{\norm{f}^2_2+\norm{f'}_2^2}$. Es importante recordar que si $f\in\sobolev{1}$, no tiene por qué ser continua (como muestra \textit{The devil staircase}), pero podemos elegir un representante continuo en su clase de equivalencia, es decir, $\sobolev{1}\hookrightarrow C[a,b]$.
+Por supuesto, $\sobolev{1}$ es un espacio de Hilbert con la norma $\norm{f}=\sqrt{\norm{f}^2_2+\norm{f'}_2^2}$. Es importante recordar que si $f\in\sobolev{1}$, no tiene por qué ser continua, pero podemos elegir un representante continuo en su clase de equivalencia, es decir, $\sobolev{1}\hookrightarrow C[a,b]$.
 \begin{lemma}
 Sea una función $f$, arbitraria, con derivada débil $g$, y denotamos por $\tilde{f}$ a su representante continuo. Entonces:
 \[
@@ -44,7 +44,7 @@ Repetiendo el mismo razonamiento con $y\in(x,b)$:
 \[
 h(y)=\tilde{f}(y)+C \Rightarrow \tilde{f}(y)=h(y)-C
 \]
-Restnado ambas expresiones:
+Restando ambas expresiones:
 \[
 \tilde{f}(y)-\tilde{f}(x)=h(y)-C-h(x)+C=\integral{x_0}{y}{g(s)ds}-\integral{x_0}{x}{g(s)ds}=\integral{x}{y}{g(s)ds}
 \]
@@ -113,7 +113,7 @@ Diremos que $\funcion{F}{[a,b]\times\R^2}{\R}$ es una \textit{función de Carath
 \begin{enumerate}[(a)]
 \item Para casi todo punto $x\in(a,b)$, $F(x,y,p)$ es continua en $(y,p)$.
 \item Para casi todo punto $(y,p)\in\R^2$, la función $x\mapsto F(x,y,p)$ es medible.
-\item Dado $K\subset[a,b]\times\R^2$ compacto, existe una función $m_k(x)\in\lebesgue{1}$ tal que $\valorabsoluto{F(x,y,p)}\leq m_k(x)$ $\forall(x,y,p)\in K$.
+\item Dado $K\subset[a,b]\times\R^2$ compacto, existe una función $m_K(x)\in\lebesgue{1}$ tal que $\valorabsoluto{F(x,y,p)}\leq m_K(x)$ $\forall(x,y,p)\in K$.
 \end{enumerate}
 \end{definition}
 
@@ -123,7 +123,7 @@ L(y)=\integral{a}{b}{F(x,y(x),y'(x))dx}
 \]
 que está bien definido ya que que $F$ es medible y está acotada por una función que es integrable. Tomando $\phi\in\soportecompacto$, podemos definir otra función $\funcion{g}{[a,b]}{\R}$ por $g(s)=L(y+s\phi)$, derivarla respecto a $s$ y evaluarla en 0 (a esta expresión la llamamos \textit{derivada de y a lo largo de $\phi$}):
 \[
-g'(0)=DL_y(\phi)=\integral{a}{b}{F_y(x,y(x),y'(x)dx}+\integral{a}{b}{F_p(x,y(x),y'(x)dx}
+g'(0)=DL_y(\phi)=\integral{a}{b}{F_y(x,y(x),y'(x))\phi(x)dx}+\integral{a}{b}{F_p(x,y(x),y'(x))\phi'(x)dx}
 \]
 \newpage
 
@@ -140,7 +140,7 @@ Aunque ya hemos desarrollado una cantidad de resultados considerable, todavía p
 
 \subsection{Extremos fijos y densidad constante}
 
-Supongamos tener una \textit{cuerda elástica}, colgada entre dos puntos, 0 y 1, es decir, nuestra cuerda está representada por una función $\funcion{y}{[0,1]}{\R}$ en $\sobolev{1}$ tal que $y(0)=y(1)=1$. El objetivo del modelo será encontrar la \textit{cuerda} de mínima energía. En este caso, vamos a suponer que la \textit{densidad} de la cuerda es una constante $m\in\R^+$. 
+Supongamos tener una \textit{cuerda elástica}, colgada entre dos puntos, 0 y 1, es decir, nuestra cuerda está representada por una función $\funcion{y}{[0,1]}{\R}$ en $\sobolev{1}$ tal que $y(0)=y(1)=0. El objetivo del modelo será encontrar la \textit{cuerda} de mínima energía. En este caso, vamos a suponer que la \textit{densidad} de la cuerda es una constante $m\in\R^+$. 
 
 Denotamos por $E_p$ a la energía potencial y por $E_e$ a la energía elástica:
 \[
@@ -213,14 +213,14 @@ Tenemos el problema de que $y\notin C^2[0,1]$. Intentemos arreglarlo:
 \item Si $x\in(0,\frac{1}{2}) \Rightarrow y''(x)=1 \Rightarrow y\in C^2(0,\frac{1}{2}) \Rightarrow y'(x)=\integral{0}{x}{1dx}+y'(0)=x+\alpha$\\
  $\Rightarrow y(x)=\integral{0}{x}{x+\alpha dx}=\frac{x^2}{2}+x\alpha$.
 \item Si $x\in(\frac{1}{2},1) \Rightarrow y''(x)=1/2 \Rightarrow y\in C^2(\frac{1}{2},1) \Rightarrow y'(x)=y'(1)-\integral{x}{1}{\frac{1}{2}dx}=\beta+\frac{x}{2}-\frac{1}{2}$\\
-$\Rightarrow y(1)-y(x)=\integral{x}{1}{\frac{x}{2}-\frac{1}{2}+\beta dx}\Rightarrow y(x)=-\frac{x^2}{2}+\frac{x}{2}+\beta(x-1)$
+$\Rightarrow y(1)-y(x)=\integral{x}{1}{\frac{x}{2}-\frac{1}{2}+\beta dx}\Rightarrow y(x)=\frac{x^2}{4}-\frac{x}{2}+\beta(x-1)+\frac{1}{4}$
 \end{itemize}
 Quedando:
 \begin{equation}\label{y}
 y(x)=\left\{
 \begin{array}{cc}
 \frac{x^2}{2}+x\alpha & x\in[0,1/2) \\
--\frac{x^2}{2}+\frac{x}{2}+\beta(x-1) & x\in(1/2,1]
+\frac{x^2}{4}-\frac{x}{2}+\beta(x-1)+\frac{1}{4} & x\in(1/2,1]
 \end{array}
 \right.
 \end{equation}
@@ -229,7 +229,7 @@ y(x)=\left\{
 y'(x)=\left\{
 \begin{array}{cc}
 x+\alpha & x\in[0,1/2) \\
--x+\frac{1}{2}+\beta & x\in(1/2,1]
+\frac{x}{2}-\frac{1}{2}+\beta & x\in(1/2,1]
 \end{array}
 \right.
 \end{equation}
@@ -238,16 +238,16 @@ Ahora tenemos que resolver el sistema de $\alpha$ y $\beta$. Obtendremos dos ecu
 \begin{equation}
 \left\{
 \begin{array}{cc}
-\alpha+\beta & =0 \\
-\alpha-\beta & =-\frac{1}{2}
+\alpha+\beta & = -\frac{1}{8}\\
+\alpha-\beta & =-\frac{3}{4}
 \end{array}
 \right.
 \end{equation}
-Resolviendo el sistema, $\alpha=-1/4$, $\beta=1/4$. Quedando finalmente la siguiente solución al modelo:
+Resolviendo el sistema, $\alpha=-7/16$, $\beta=5/16$. Quedando finalmente la siguiente solución al modelo:
 \begin{equation}
 y(x)=\left\{
 \begin{array}{cc}
-\frac{x^2}{2}-\frac{x}{4} & x\in[0,1/2) \\
+\frac{x^2}{2}-\frac{7}{16}x & x\in[0,1/2) \\
 \frac{-x^2}{2}+\frac{x}{2}+\frac{1}{4}(x-1) & x\in(1/2,1]
 \end{array}
 \right.
@@ -257,8 +257,6 @@ y(x)=\left\{
    \center
   \includegraphics[scale=0.6]{img/puenteflotante.png}
 \end{figure}
-
-\textbf{el puente sigue flotanto x'dddddddddds}
 
 \subsection{Extremos fijos y densidad arbitraria}
 
@@ -284,7 +282,7 @@ Recordemos que en este espacio están las funciones de $\lebesgue{2}$, que tiene
 El espacio vectorial $\sobolevcero{1}$, es cerrado.
 \end{prop}   
 \begin{proof}
-Sea una secuencia de funciones convergentes en $\sobolevcero{1}$, $f_n\longrightarrow f$. Usando la proposición \ref{inclusion continua} y $\sobolevcero{1}\subset C^{1}[a,b]$, tenemos que $f_n(a)\longrightarrow f(a)$ y $f_n(b)\longrightarrow f(b)$. Luego $f_n(a)=f_n(b)=0 \;\forall n\in\N \Rightarrow f(a)=f(b)=0 \Rightarrow f\in\sobolevcero{1}$.\\
+Sea una secuencia de funciones convergentes en $\sobolevcero{1}$, $f_n\longrightarrow f$. Usando la proposición \ref{inclusion continua} y $\sobolevcero{1}\subset C^{1}[a,b]$, tenemos convergencia uniforme y por tanto puntual, $f_n(a)\longrightarrow f(a)$ y $f_n(b)\longrightarrow f(b)$. Como $f_n(a)=f_n(b)=0 \;\forall n\in\N \Rightarrow f(a)=f(b)=0 \Rightarrow f\in\sobolevcero{1}$.\\
 \end{proof}
 
 Una vez definido nuestro nuevo espacio, pasamos a resolver el modelo. Como de costumbre, suponemos que $y\in\sobolevcero[0,1]{1}$ es extremal y usamos la teoría de Euler:
@@ -312,7 +310,8 @@ $y\in\sobolevcero{1}$ es \textit{solución débil} de $y''(x)=q(x) \; \forall x
 \integral{0}{1}{y'(x)\phi'(x)dx}+\integral{0}{1}{q(x)\phi(x)dx}=0 \espacio \forall \phi\in\sobolevcero[0,1]{1}
 \]
 \end{definition}
-Cabe resaltar, el hecho de que en la anterior definición, $y$ está en $\sobolevcero[0,1]{1}$ y estamos resolviendo una EDO de segundo orden, es decir, no sabemos nada sobre la segunda derivada de $y$ (solo de la primera).
+
+Cabe resaltar, el hecho de que en la anterior definición, $y$ está en $\sobolevcero[0,1]{1}$ y estamos resolviendo una EDO de segundo orden, es decir, no sabíamos que $y$ tuviese segunda derivada débil, sólo primera.
 
 Definimos un producto escalar en $\sobolevcero[a,b]{1}$ y veamos que es de Hilbert:
 \begin{prop}
@@ -327,13 +326,13 @@ Sea $f_n\in\sobolevcero{1} \;\forall n\in\N$ una sucesión de Cauchy, entonces:
 \[
 \forall \varepsilon>0 \; \exists n_0: \; n,m\geq n_0 \; \normasobolevcero{1}{f_n-f_m}<\varepsilon
 \]
-Recordemos que si tenemos un producto escalar definido, podemos expresar la norma de un elemento del espaico como la raíz cuadrada del producto escalar de el elemento consigo mismo, es decir:
+Recordemos que si tenemos un producto escalar definido, podemos expresar la norma de un elemento del espacio como la raíz cuadrada del producto escalar de el elemento consigo mismo, es decir:
 \[
 \normasobolevcero{1}{f}=\sqrt{<f,f>}
 \]
 Usando esa propiedad:
 \[
-\varepsilon > \normasobolevcero{1}{f_n-f_m}=\sqrt{<f_n-f_m,f_n-f_m>}=\sqrt{\integral{a}{b}{(f_n(x)-f_m(x))^2dx}}=\norm{f_n'-f_m'}_2
+\varepsilon > \normasobolevcero{1}{f_n-f_m}=\sqrt{<f_n-f_m,f_n-f_m>}=\sqrt{\integral{a}{b}{(f_n'(x)-f_m'(x))^2dx}}=\norm{f_n'-f_m'}_2
 \]
 
 Luego $f_n'$ converge a una cierta $g$ en $\lebesgue{2}$. Dado que $\tilde{f_n}(a)=0$, se obtiene que
@@ -372,7 +371,7 @@ Si $K(x)=0$ en algún punto $x\in[0,1]$, significa que en ese punto no hay cuerd
    \center
   \includegraphics[scale=0.6]{img/puentecuerdas.png}
 \end{figure}
-En esta nueva versión del modelo tenemos que tener en cuentra otra energía más, la aportada por los cables, $E_c$:
+En esta nueva versión del modelo tenemos que tener en cuenta otra energía más, la aportada por los cables, $E_c$:
 \[
 E_c=\frac{1}{2}\integral{0}{1}{K(x)y^2(x)dx}
 \]
@@ -390,7 +389,7 @@ DL_y(\phi)=\integral{0}{1}{y'(x)\phi'(x)dx}+\integral{0}{1}{\left(K(x)y(x)+q(x)\
 \]
 Denotando $Z(x)=y'(x)$ y viendo la expresión anterior en sentido débil, tenemos que $Z'(x)=K(x)y(x)+q(x)$ es su derivada débil. Luego la EDO de orden 2 de este modelo es (que la obtenemos a partir de la ecuación de Euler):
 \[
--y''(x)=+K(x)y(x)+q(x)=0
+-y''(x)+K(x)y(x)+q(x)=0
 \]
 Ahora, al igual que en el modelo anterior, vamos a definir un cierto producto escalar de forma que el teorema de Riesz-Frechét nos de la existencia de solución. Pero antes, vamos a desarrollar la teoría necesaria para demostrarlo:
 
@@ -398,8 +397,8 @@ Ahora, al igual que en el modelo anterior, vamos a definir un cierto producto es
 \begin{itemize}
 \label{notafuncional}
 \item Dos normas, $||\cdot||_1$ y $||\cdot||_2$, se dicen comparables si existe $c_1\in\R^+$ tal que $\norm{x}_1\leq c_1\norm{x}_2$.
-\item Si además existe otra constante $c_2\in\R^+$ tal que$\norm{x}_2\leq c_2\norm{x}_1$, entonces se dicen equivalentes.
-\item (Tª Isomorfismos de Banach) Si $\funcion{f}{B}{B'}$ es una aplicación lineal, continua y biyectiva entre dos espacios de Banach, $B$ y $B'$, entonces $F^{-1}$ es continua.
+\item Si además existe otra constante $c_2\in\R^+$ tal que $\norm{x}_2\leq c_2\norm{x}_1$, entonces se dicen equivalentes.
+\item (Tª Isomorfismos de Banach) Si $\funcion{f}{B}{B'}$ es una aplicación lineal, continua y biyectiva entre dos espacios de Banach, $B$ y $B'$, entonces $f^{-1}$ es continua.
 \end{itemize}
 
 Como corolario de ese teorema tenemos que si en un espacio de Banach, $B$, existen dos normas comparables, entonces las normas son equivalentes. Este resultado se obtiene fácilmente al aplicar el teorema anterior con $f=Id_B$.
@@ -409,7 +408,7 @@ Como corolario de ese teorema tenemos que si en un espacio de Banach, $B$, exist
 \label{lemapoincare}
 Existe $\lambda\in\R^+$ constante tal que se verifica
 \[
-\integral{a}{b}{f(x)^2dx}=\lambda\integral{a}{b}{f'(x)^2dx} \espacio \forall f\in\sobolevcero{1}
+\integral{a}{b}{f(x)^2dx}\leq\lambda\integral{a}{b}{f'(x)^2dx} \espacio \forall f\in\sobolevcero{1}
 \]
 \end{prop}
 
@@ -420,7 +419,7 @@ En $\sobolevcero{1}$ tenemos dos normas:
 \normasobolevcero{1}{f} = \sqrt{\integral{a}{b}{f'(x)^2dx}}, \espacio \normasobolev{1}{f}=\sqrt{\integral{a}{b}{f(x)^2dx}+\integral{a}{b}{f'(x)^2dx}}
 \]
 
-Evidentemente la desigualdad que necesitamos para que sean comparables se cumple: $\normasobolevcero{1}{f}\leq \normasobolev{1}{f}$. Luego existe $C\in\R$ tal que $\normasobolev{1}{f}\leq C\normasobolevcero{1}{f}$, es decir:
+Evidentemente la desigualdad que necesitamos para que sean comparables se cumple: $\normasobolevcero{1}{f}\leq \normasobolev{1}{f}$. Como ambos espacios son de Banach, existe $C\in\R$ tal que $\normasobolev{1}{f}\leq C\normasobolevcero{1}{f}$, es decir:
 \[
 \integral{a}{b}{f(x)^2dx}+\integral{a}{b}{f'(x)^2dx}\leq C^2\integral{a}{b}{f'(x)^2dx}
 \]
@@ -439,7 +438,11 @@ f,g\in\sobolevcero[a,b]{1}, \espacio <f,g>=\integral{a}{b}{f'(x)g'(x)dx}+\integr
 con $K\in\lebesgue{2}$, $K(x)\geq 0$ $\forall x\in[a,b]$, es un espacio de Hilbert.
 \end{prop}
 \begin{proof}
-Usando el lema \ref{lemapoincare}, es fácil ver que $\normasobolevcero{1}{\cdot}$ y $\normasobolev{1}{\cdot}$ son comparables, luego equivalentes por la nota \ref{notafuncional}. Como ya vimos al principio del tema, la norma $\normasobolev{1}{\cdot}$ es completa, luego $\normasobolevcero{1}{\cdot}$ también lo es, por ser ambas equivalentes.
+\[\|f\|_K=\sqrt{\int_a^b f'(x)^2 dx+\int_a^b K(x)f(x)^2dx}\]
+
+Se tiene que $\|f\|_{H_0^1}\leq \|f\|_K \leq \|f\|_{H_0^1}+\sqrt{\|K\|_\infty}\|f\|_2 \leq (1+\lambda\sqrt{\|K\|_\infty})\|f\|_{H_0^1}$
+
+Como son equivalentes, ambas son completas.
 \end{proof}
 
 Usando ese producto escalar, la expresión \eqref{funcionalpuente} se puede reescribir como:
