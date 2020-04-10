@@ -475,13 +475,11 @@ I(y)=\integral{1}{2}{\Big(y'(x)+x^2y'(x)^2\Big)dx}
   demuéstrese la equivalencia de las dos formas siguientes de las
   ecuaciones de Euler-Lagrange.
   \begin{itemize}
-  \item $\frac{\partial\Phi}{\partial y}-\frac{d}{dx}\frac{\partial\Phi}{\partial p} = 0 $
-  \item $\frac{\partial\Phi}{\partial x} - \frac{d}{dx}(\Phi-y'\frac{\partial\Phi}{\partial p}) = 0$
+  \item[$a)$] $\frac{\partial\Phi}{\partial y}-\frac{d}{dx}\frac{\partial\Phi}{\partial p} = 0 $
+  \item[$b)$] $\frac{\partial\Phi}{\partial x} - \frac{d}{dx}(\Phi-y'\frac{\partial\Phi}{\partial p}) = 0$
   \end{itemize}
   \begin{proof}
-    Comenzamos viendo el caso $a) \implies b)$. Para ello en primer
-    lugar tenemos que comprobar que efectivamente podemos derivar
-    $\Phi$ respecto al tercer parámetro. Del apartado $a)$ sabemos que
+    Comenzamos viendo el caso $a) \implies b)$. Del apartado $a)$ sabemos que
     \[
       \frac{\partial\Phi}{\partial y} = \frac{d}{dx}\frac{\partial\Phi}{\partial p}
     \]
@@ -490,16 +488,15 @@ I(y)=\integral{1}{2}{\Big(y'(x)+x^2y'(x)^2\Big)dx}
 
     Cuando derivamos $\Phi(x,y(x),y'(x))$ obtenemos
     \begin{align*}
-      \Phi(x,y(x),y'(x))' & = \frac{\partial\Phi}{\partial x}(x, y(x), y'(x)) \\
-                          & = \frac{\partial\Phi}{\partial y}(x, y(x), y'(x))y'(x) \\
-                          & = \frac{\partial\Phi}{\partial p}(x, y(x), y'(x))y''(x)
+      \frac{d\Phi}{dx}(x,y(x),y'(x)) & = \frac{\partial\Phi}{\partial x}(x, y(x), y'(x)) \\
+                          & + \frac{\partial\Phi}{\partial y}(x, y(x), y'(x))y'(x) \\
+                          & + \frac{\partial\Phi}{\partial p}(x, y(x), y'(x))y''(x)
     \end{align*}
     Recordemos que $\frac{\partial\Phi}{\partial p}(x, y(x), y'(x)) = z(x)$ luego
     \begin{align*}
       \frac{d}{dx}(\Phi-y'\frac{\partial\Phi}{\partial p}) & = \Phi_x + \Phi_yy' + \Phi_py'' - y''z -y'z'
     \end{align*}
-    Tenemos que el 3º y 4º termino son iguales t el 2º y 4º son
-    iguales entre ellos luego obtenemos
+    Tenemos que el 3º y 4º termino son opuestos, al igual que el 2º y 5º, luego obtenemos
         \begin{align*}
       \frac{d}{dx}(\Phi-y'\frac{\partial\Phi}{\partial p}) = \Phi_x
         \end{align*}
@@ -519,14 +516,14 @@ I(y)=\integral{1}{2}{\Big(y'(x)+x^2y'(x)^2\Big)dx}
           z = \frac{\Phi-H}{y'}
         \]
 
-        luego se verifica cómo queríamos.
+        luego $z$ es derivable por ser cociente de derivables ($y'\neq 0$).
 
         \begin{align*}
           \Phi_x & = \Phi_x + \Phi_yy' + \Phi_py'' - y''z -y'z' \\
-                 & \implies y'(\Phi_Y-z') = 0
+                 & \implies y'(\Phi_y-z') = 0
         \end{align*}
 
-        e $y' \neq 0$ por hipótesis luego $\Phi_Y - z' = 0$.
+        e $y' \neq 0$ por hipótesis, luego $\Phi_y - z' = 0$.
   \end{proof}
 \end{ejercicio}
 \begin{ejercicio}
@@ -535,32 +532,9 @@ Obténgase la forma que adopta la ecuación de Euler-Lagrange en los siguientes 
 \begin{enumerate}[a)]
 \item $\Phi$ sólo depende de $y'$.
     \begin{proof}
-      $\Phi$ solo depende de $y'$ Aplicamos el Ejercicio 1 para
-      resolver este apartado. Como $\Phi$ solo depende de $y'$ tenemos
-      que
-
-      \begin{align*}
-        \Phi & = \Phi(y')\\
-        \Phi_x & = 0
-      \end{align*}
-
-      Del primer ejercicio tenemos que
-
+      Usando el apartado a) del ejercicio anterior y sustituyendo $\frac{\partial\Phi}{\partial y}=0$ obtenemos
       \[
-        \frac{d}{dx}\Phi = \Phi_p(y'(x))y''(x)
-      \]
-
-      y además
-
-      \begin{align*}
-        \Phi_x & = \Phi_x + \Phi_yy' + \Phi_py'' - y''z -y'z' \\
-               & = y''\Phi + y'\frac{d}{dx}\Phi_p
-      \end{align*}
-
-      igualando las dos expresiones obtenemos
-
-      \[
-        y'\frac{d}{dx}\Phi_p = 0 \implies \frac{d}{dx}\Phi_p = 0
+        \frac{d}{dx}\Phi_p = 0
       \]
 
       De donde deducimos que $\Phi_p(y'(x))$ es una constante.
@@ -575,24 +549,23 @@ Obténgase la forma que adopta la ecuación de Euler-Lagrange en los siguientes 
 Aplíquense los resultados anteriores a los ejemplos siguientes:
 \begin{enumerate}[a)]
 \item $\mathcal{F}(y(x))=\integral{}{}{y(2x-y)dx}$, $y(0)=0$, $y(\pi/2)=\pi/2$.
-\item $\mathcal{F}[y(x)] = \int{y(2x-y)dx}, \quad y(0) = 0, \quad y(\pi/2) = \pi/2$
+\item $\mathcal{F}[y(x)] =\integral{}{}{y(2x-y)dx}, \quad y(0) = 0, \quad y(\pi/2) = \pi/2$
 
     Definimos $F(x,y,p) = y(2x-y)$. Se cumple
 
     \begin{align*}
       F_p &= 0\\
       z(x) &= 0\\
-      F_y(x,y(x)) &= 0
+      F_y(x,y(x)) &= 2y(x)-2x
     \end{align*}
 
     De aquí obtenemos $2x-2y = 0 \implies y(x) = x$. Ahora tenemos que
     comprobar que la solución cumple las condiciones de contorno.
 
-    \begin{align*}
-      y(0) = 0
-      y(\pi/2) = \pi/2
-    \end{align*}
-
+    \[
+      y(0) = 0, \quad y(\pi/2) = \pi/2
+    \]
+    
     Luego se cumplen ambas condiciones.
 \item $\mathcal{F}(y(x))=\integral{}{}{(y^2+2xyy')dx}$, $y(a)=A$, $y(b)=B$.
 \item $\mathcal{F}(y(x))=\integral{}{}{y'(1+x^2y')dx}$, $y(1)=3$, $y(2)=5$.
