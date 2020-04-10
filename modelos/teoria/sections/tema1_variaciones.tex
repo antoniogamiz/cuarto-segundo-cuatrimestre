@@ -281,7 +281,7 @@ Z'(x)=F_y(x,y(x),y'(x))
 Ya tenemos la ecuación que queremos resolver. La demostración del teorema es consecuencia de los anteriores resultados.
 
 \begin{definition}
-Una función $\phi\in\soportecompacto$ admite primitiva si existe otra función $\Psi\in\soportecompacto$ tal que $\Phi'=\phi$. 
+Una función $\phi\in\soportecompacto$ admite primitiva si existe otra función $\Psi\in\soportecompacto$ tal que $\Psi'=\phi$. 
 \end{definition}
 
 \begin{lemma}
@@ -369,7 +369,7 @@ Este problema se centra principalmente en averiguar que forma (curva) tenemos qu
 
 A esa curva la vamos a denotar por $Y(t)$ y vamos a suponer que  pertenece a $C^1(0,L)$, es decir, que no tenga picos. Además, vamos a suponer que el tobogán tiene altura máximo 1, y mínima 0, es decir, $Y(0)=1$ e $Y(L)=0$. También necesitamos que el tobogán tenga sentido, es decir, que no tenga subidas ni bajadas muy bruscas, luego necesitamos imponer $Y(x)<1 \espacio \forall x \in (0,L)$.
 
-Recordemos primero algunas nociones de física. Vamos a denotar por $(x(t),y(t))$ a la posición de una persona en el tobogán en el instante $t\in[0,L]$, por $m$ a su masa y por $g$ a la gravedad. Recordemos que la expresión de la energía es $mgy(t)$, la de la velocidad es $v(t)=\sqrt{x'(t)^2+y'(t)^2}$ y la de la energía cinética es $\frac{mv(t)^2}{2}$.
+Recordemos primero algunas nociones de física. Vamos a denotar por $(x(t),y(t))$ a la posición de una persona en el tobogán en el instante $t\in[0,T]$, por $m$ a su masa y por $g$ a la gravedad. Recordemos que la expresión de la energía potencial es $mgy(t)$, la de la velocidad es $v(t)=\sqrt{x'(t)^2+y'(t)^2}$ y la de la energía cinética es $\frac{mv(t)^2}{2}$.
 
 Si hacemos el tobogán suficientemente suave, por el teorema de conservación de la energía, se cumple:
 
@@ -409,7 +409,7 @@ Usando el Teorema \ref{theorem:12} podemos definir:
 \[
 Z(x)=\derivada{F}{p}(x,y,y')=\frac{1}{\sqrt{1-y(x)}}\frac{y'(x)}{\sqrt{1+y'(x)^2}} \in C^1(0,T)
 \]
-Ahora, en lugar de despejar $y'(x)$, vamos a ver que $y\in C^2$. Definiendo $\Psi(y')=\frac{y'}{\sqrt{1+y'^2}}=Z(x)\sqrt{1+y'^2}$. Como $\Psi(s)=\frac{s}{\sqrt{1+s^2}}$ tiene inversa de clase 1, tenemos:
+Ahora, despejando $y'(x)$, vamos a ver que $y\in C^2$. Definiendo $\Psi(y')=\frac{y'}{\sqrt{1+y'^2}}=Z(x)\sqrt{1-y}$. Como $\Psi(s)=\frac{s}{\sqrt{1+s^2}}$ tiene inversa de clase 1, tenemos:
 \[
 y'(x)=\Psi^{-1}(Z(x)\sqrt{1-y(x)})\Rightarrow y\in C^2
 \]
