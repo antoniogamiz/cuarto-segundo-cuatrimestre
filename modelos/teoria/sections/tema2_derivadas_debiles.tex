@@ -9,7 +9,7 @@ f(x)=\left\{
 \end{array}
 \right. 
 \]
-Toda función continua no es integrable, necesitamos que esté acotada. Eso nos dice que todas las funciones continuas no están en $L^1(a,b)$. Para evitar eso, definimos el \textit{espacio de funciones continuas localmente integrables}, que denotaremos por:
+Toda función continua no es integrable, necesitamos que encierre área finita. Eso nos dice que todas las funciones continuas no están en $L^1(a,b)$. Para evitar eso, definimos el \textit{espacio de funciones continuas localmente integrables}, que denotaremos por:
 \[
 L^1_{loc}(a,b)=\{\funcion{f}{(a,b)}{\R} \;|\; \forall J \text{ intervalo compacto},f_{|J}\text{ es integrable}\}
 \]
@@ -55,7 +55,7 @@ Simplemente usando la definición y el lema generalizado tenemos:
 Para la demostración del lema generalizado, necesitaremos algunas herramientos previas. Recordemos primeramente una propiedad de las funciones Lebesgue integrables:
 
 \begin{prop}
-Dado $f\in\localmenteintegrable$, existe una secuencia de funciones simples, $\{g_n\}$, tal que $\{g_n\}\longrightarrow f$.
+Dado $f\in\localmenteintegrable$, existe una secuencia de funciones simples, $\{g_n\}$, tal que $\{g_n\}\longrightarrow f$ a.e.
 \end{prop}
 
 \begin{lemma}
@@ -65,9 +65,9 @@ Sea $g$ una función simple, entonces existe una sucesión de funciones de sopor
 Ahora ya sí podemos demostrar el lema generalizado:
 
 \begin{proof}
-Sea $g$ una función simple. Por el lema anterior, puedo tomar una sucesión $\phi_n$ de funciones de soporte compacto convergiendo a $g$.Usando el teorema de la convergencia dominada de Lebesgue, podemos intercambiar el límite en la siguiente integral:
+Sea $g$ una función simple. Por el lema anterior, puedo tomar una sucesión $\phi_n$ de funciones de soporte compacto convergiendo a $g$. Usando el teorema de la convergencia dominada de Lebesgue, podemos intercambiar el límite en la siguiente integral:
 \[
-\limitemasinfinito{n}{\integral{}{}{\phi_n(x)f(x)dx}}=\integral{}{}{g(x)f(x)}dx
+0=\limitemasinfinito{n}{\integral{}{}{\phi_n(x)f(x)dx}}=\integral{}{}{g(x)f(x)}dx
 \]
 Por la proposición anterior, nos podemos tomar una sucesión $g_n$ de funciones simples de forma que $\{g_n\}\longrightarrow f \; a.e$. De forma análoga:
 \[
@@ -85,10 +85,12 @@ Si $f$ es una función que admite derivada débil $f'=g$ en $(a,b)$, y tomamos $
 Evidente usando el hecho de que $\mathcal{D}(a',b')\hookrightarrow\soportecompacto$.
 \end{proof}
 
-Toda función derivable no es derivable débil, como ilustra el siguiente ejemplo:
+Toda función derivable débil no es derivable, como ilustra el siguiente ejemplo:
 
 \begin{example}
 La función $\funcion{f}{\R}{\R}$ definida por $f(x)=\sqrt{|x|}$, es derivable débil pero no derivable.
+
+\[g(x)=\frac{1}{2\sqrt{x}}\quad \text{para } x>0; \qquad g(x)=\frac{-1}{2\sqrt{-x}}\quad \text{para } x<0\]
 
 Primero tenemos que ver que $g\in\localmenteintegrable$. Si el intervalo compacto $J$ escogido no contiene al 0, entonces podemos integral sin problema. En caso contrario, tenemos que ver qué pasa con la siguiente integral:
 \[
@@ -99,7 +101,7 @@ Ahora tenemos que comprobar que $g$ es la derivada débil de $f$, es decir:
 \integral{\R}{}{f\phi'}+\integral{\R}{}{g\phi}=0 \espacio \forall\phi\in\soportecompacto
 \]
 \[
-\integral{\R}{}{f(x)\phi'(x)dx}=\integral{|x|>\varepsilon}{}{f(x)\phi'(x)dx}+\underbrace{\integral{|x|<\varepsilon}{}{f(x)\phi'(x)dx}}_{f\phi'\leq2\sqrt{\varepsilon}\max\phi'\to0}=\integral{|x|>\varepsilon}{}{f(x)\phi'(x)dx}=
+\integral{\R}{}{f(x)\phi'(x)dx}=\integral{|x|>\varepsilon}{}{f(x)\phi'(x)dx}+\underbrace{\integral{|x|<\varepsilon}{}{f(x)\phi'(x)dx}}_{\leq2\varepsilon\sqrt{\varepsilon}\max|\phi'|\to 0}=\integral{|x|>\varepsilon}{}{f(x)\phi'(x)dx}=
 \]
 \[
 =\integral{-\infty}{-\varepsilon}{f(x)\phi'(x)dx}+\integral{\varepsilon}{+\infty}{f(x)\phi'(x)dx}=
@@ -167,7 +169,7 @@ Y ese es la clave que nos va a permitir ver que $f(x_n)\to f(\tilde{x})$. Sea $J
 \]
 Usando lo anterior obtenemos la convergencia puntual de la sucesión $g(x)\chi_{[x_0,x_n]}\overset{cp}{\longrightarrow}g(x)\chi_{(x_0,\tilde{x})}$. Lo que nos da la convergencia en integral también:
 \[
-f(x_n)=\integral{J}{}{g(x)\chi_{[x_0,x_n]}(x)dx}\overset{cp}{\longrightarrow}\integral{J}{}{g(x)\chi_{(x_0,\tilde{x})}(x)dx}=\integral{x_0}{\tilde{x}}{g(x)dx}=f(\tilde{x})
+f(x_n)=\integral{J}{}{g(x)\chi_{[x_0,x_n]}(x)dx}\longrightarrow\integral{J}{}{g(x)\chi_{(x_0,\tilde{x})}(x)dx}=\integral{x_0}{\tilde{x}}{g(x)dx}=f(\tilde{x})
 \]
 Luego $f\in C(a,b) \Rightarrow f\in \localmenteintegrable$.
 Ahora nos queda ver $f'=g$. Para ello tenemos que comprobar que:
@@ -225,7 +227,7 @@ Sea $f\in\localmenteintegrable$, $\funcion{g}{(a,b)}{\R}$ su derivda débil, es 
 \[
 \tilde{f}(x)=\integral{x_0}{x}{g(s)ds}
 \]
-El resultado anterior nos da que $\tilde{f}\in C(a,b)$ y $\tilde{f}'=g$. Solo nos falta ver que $\tilde{f}$ es igual casi por doquier a $f$, o lo que es lo mismo, comprobar que $f-\tilde{f}$ tiene derivada débil 0:
+El resultado anterior nos da que $\tilde{f}\in C(a,b)$ y $\tilde{f}'=g$. Solo nos falta ver que $\tilde{f}$ es igual casi por doquier a $f$ salvo una constante, o lo que es lo mismo, comprobar que $f-\tilde{f}$ tiene derivada débil 0:
 \[
 \left.
 \begin{array}{cc}
@@ -248,7 +250,7 @@ La demostración de este es prácticamente igual a la demostración del Lema \re
 \begin{example}[examen 18/19]
 Sea $\funcion{f}{\R\backslash\{1\}}{\R}$ definida por $f(x)=\frac{(x-1)(x+2)}{|x-1|}$. ¿Tiene derivada débil?
 
-Nos damos cuenta de que $f(x)=\frac{(x-1)(x+2)}{|x-1|}=\frac{x-1}{|x-1}(x+2)$, es decir, $f$ se expresa como producto de una función escalón (discontinua), por un polinomio (continuo), luego $f$ es discontinua.
+Nos damos cuenta de que $f(x)=\frac{(x-1)(x+2)}{|x-1|}=\frac{x-1}{|x-1|}(x+2)$, es decir, $f$ se expresa como producto de una función escalón (discontinua), por un polinomio (continuo), luego $f$ es discontinua.
 
 Como es discontinua, si tuviera derivada débil, por la proposición \ref{representantecontinuo} , debe existir $\tilde{f}$ función continua tal que $f(x)=\tilde{f}(x)\;\; a.e$. Veamos que esa función no puede existir. El conjunto $\{x:\;\; f(x)=\tilde{f}(x)\}$ tiene \textbf{medida llena} (complementario con medida nula), luego es denso. Tomamos $\{x_n\}\longrightarrow 1$ y vemos que:
 \[
@@ -268,7 +270,7 @@ Sea $f\in\localmenteintegrable$ $n$-veces derivable débil, entonces existe $\ti
 
 \begin{proof}
 \underline{Caso n=1}: Si $f$ tiene derivada débil, sabemos por la proposición \ref{representantecontinuo} que existe $\tilde{f}\in C(a,b)$ y $f(x)=\tilde{f}(x) \;\casipordoquier$.
-El caso $n$ se deduce fácilmente del siguiente hecho:
+Se deduce fácilmente del siguiente hecho:
 \[
 \left.
 \begin{array}{r}
@@ -277,8 +279,21 @@ El caso $n$ se deduce fácilmente del siguiente hecho:
 \end{array}
 \right\} \Rightarrow \tilde{f}\in C^1(a,b), \;\tilde{f}'=g \text{ (en sentido clásico)}
 \]
-\underline{Caso n}: Suponemos que $f$ es $(n-1)$-veces derivable débil y que existe $\tilde{f}\in C^{n-2}(a,b)$ tal que $f(x)=\tilde{f}(x)\;\casipordoquier$.
-Si derivamos $(n-1)$-veces $f$, obtenemos $\tilde{f}^{n-1)}=f^{n-1)}=g$, que no sabemos si es continua, pero sabemos que podemos elegir un representante que si lo sea. Usando el hecho anterior, tenemos que $\tilde{f}\in C^{n-1}(a,b)$.
+\underline{Suponemos para $n-1$}: Toda función $n-1$ veces (débilmente) derivable tiene un representante de clase $C^{n-2}$.
+\underline{Caso n}: Suponemos que $f$ es $n$-veces derivable débil entonces $f'$ es $n-1$ veces derivable (débil), luego
+existe $g\in C^{n-2}$ tal que $f'=g$ a.e. Por otra parte, $f$ tiene derivada débil, luego existe $\tilde{f}$ continua con
+$f=\tilde{f}$ a.e. Por tanto tenemos
+
+\[
+\left.
+\begin{array}{r}
+\integral{a}{b}{\tilde{f}(x)\phi'(x)dx}+\integral{a}{b}{g(x)\phi(x)dx}=0 \\
+\tilde{f}, g \text{ continuas }
+\end{array}
+\right\} \Rightarrow \tilde{f}\in C^1(a,b), \;\tilde{f}'=g \text{ (en sentido clásico)}
+\]
+
+Y el hecho de que $g\in C^{n-2}$ implica $\tilde{f}\in C^{n-1}$.
 \end{proof}
 
 \section{The Devil Staircase}
@@ -302,7 +317,7 @@ En $(0,1)$ nos va a costar un poco más construirla. Para ello, definimos primer
   \caption{Representación gráfica}
 \end{figure}
 
-Es fácil ver que la media del primer conjunto $C_0$ es $2/3$, el de $C_1$ $4/9$, y el de $C_n=(\frac{2}{3})^n$. Además, cada $C_n$ es compacto, luego si consideramos como conjunto $C$ a la intersección de todos, es decir, $C=\cap_{n\in\N} C_n$, obtenemos otro conjunto compacto. $C$ tiene media nula, ya que $\mu(C)=\left(\frac{2}{3}\right)^n\to0$.
+Es fácil ver que la medida del primer conjunto $C_0$ es $2/3$, el de $C_1$ $4/9$, y el de $C_n=(\frac{2}{3})^n$. Además, cada $C_n$ es compacto, luego si consideramos como conjunto $C$ a la intersección de todos, es decir, $C=\cap_{n\in\N} C_n$, obtenemos otro conjunto compacto. $C$ tiene medida nula, ya que $\mu(C)=\left(\frac{2}{3}\right)^n\to0$.
 
 Vamos a construir nuestra $f$ sobre el complementario de ese conjunto, es decir, sobre $B=(0,1)\backslash C$.
 
