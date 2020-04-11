@@ -60,7 +60,7 @@ La constante $c_2$ la obtenemos por continuidad de la norma $\norm{\cdot}_H$ y l
 \end{proof}
 A partir de ahora consideramos $\norm{\cdot}_H$ como nuestra norma por defecto en $H$.
 \begin{prop}
-Todo funcional cuadrático está acotado inferiormente.
+Todo funcional cuadrático coercivo está acotado inferiormente.
 \end{prop}
 \begin{proof}
 Sea $\funcion{L}{H}{\R}$ un funcional cuadrático, donde $\funcion{A}{H\times H}{\R}$ es su forma bilineal, continua y simétrica y $\funcion{R}{H}{\R}$ es su aplicación lineal y continua.
@@ -137,7 +137,7 @@ Una vez planteada toda la teoría necesaria, podemos volver a nuestro modelo del
 \[
 L(y)=\frac{1}{2}\integral{a}{b}{y'(x)^2dx}+\frac{1}{2}\integral{a}{b}{K(x)y(x)^2dx}+\integral{a}{b}{q(x)y(x)dx}
 \]
-donde $q,K\in\lebesgue{\infty}$ y $K(x)\geq k_0 >0\casipordoquier$. La última condición la imponemos porque al dejar los extramos sueltos (lo hemos hecho al considerar como dominio de $L$ el espacio $\sobolev{1}$ en lugar de $\sobolevcero{1}$) necesitemos que el puente siga enganchado por las cuerdas.
+donde $q,K\in\lebesgue{\infty}$ y $K(x)\geq k_0 >0\ \casipordoquier$. La última condición la imponemos porque al dejar los extremos sueltos (lo hemos hecho al considerar como dominio de $L$ el espacio $\sobolev{1}$ en lugar de $\sobolevcero{1}$) necesitemos que el puente siga enganchado por las cuerdas.
 
 Para poder usar la teoría desarrollada anteriormente, necesitamos ver que nuestro funcional es cuadrático. Definimos nuestra forma bilineal, continua y simétrica, y nuestra aplicación lineal y continua:
 \[
@@ -237,7 +237,7 @@ obtenemos $y'(b) = 0$. Tomando como $\phi$
 \centerline{\includegraphics[scale=0.5]{img/caso2.png}} 
 
 obtenemos $y'(a) = 0$. Dado que $z=y'\in \mathcal{H}^1$ entonces $y\in \mathcal{H}^2$ y
-tomando el representante continuo obtenemos lo que se conoce como la condición de Neumann
+tomando el representante continuo obtenemos lo que se conoce como la condición de Neumann.
 
 \section{La delta de Dirac y el espacio $H^{-1}$}
 
@@ -293,11 +293,11 @@ Ahora hacemos una distinción de casos con $\phi$ perteneciendo a diferentes cla
 ya que $\alpha\notin(a,\alpha) \Rightarrow \phi(\alpha)=0$. Si denotamos $z=y'$, entonces $z\in\sobolev[a,\alpha]{1}\subset\mathcal{C}[a,\alpha]$ (porque la expresión anterior coincide con la definición de derivada débil para $z$).
 \item si $\phi\in\mathcal{D}(\alpha,b)$, de igual forma conseguimos que $z\in\sobolevcero[\alpha,b]{1}\subset\mathcal{C}[\alpha,b]$. 
 \end{itemize}
-Fijaros que ese razonamiento no implica que $z\in\mathcal{C}[a,b]$, ya que el representante continuo usado en $[a,\alpha]$ y $[\alpha,b]$ son distintos. Lo que si implica es que $z\in\mathcal{C}\left([a,\alpha)\cup(\alpha,b]\right)$ y existen los límites laterales de $\alpha$:
+Fijaros que ese razonamiento no implica que $z\in\mathcal{C}[a,b]$, ya que el representante continuo usado en $[a,\alpha]$ y $[\alpha,b]$ son distintos. Lo que si implica es que $z\in\mathcal{C}\left([a,\alpha]\right)\cap \mathcal{C}\left([\alpha,b]\right)$ y existen los límites laterales de $\alpha$:
 \[
 z(\alpha^-)=\limite{x}{\alpha^-}{z(x)} \espacio z(\alpha^+)=\limite{x}{\alpha^+}{z(x)}
 \]
-Además sabesmos que $z'=qy \;\; a.e \; x \in(a,\alpha)\cup(\alpha,b)$. Si volvemos a la fórmula general \eqref{formulageneral}:
+Además sabemos que $z'=qy \;\; a.e \; x \in(a,\alpha)\cup(\alpha,b)$. Si volvemos a la fórmula general \eqref{formulageneral}:
 \begin{equation}
 \label{formulageneral2}
 \integral{a}{b}{z(x)\phi'(x)dx}+\integral{a}{b}{q(x)y(x)\phi(x)dx}=-m\phi(\alpha) \espacio \forall\phi\in\sobolevcero{1}
