@@ -345,7 +345,7 @@ Una vez más, la teoría de Lax-Milgran nos dice que existe $y$ en $\sobolev{1}$
 \integral{a}{b}{y'(x)\phi'(x)dx}+\integral{a}{b}{q(x)y(x)\phi(x)dx}=R(\phi) \;\; \forall \phi\in\sobolev{1}
 \end{equation}
 
-Una vez planteado el problema y visto que tiene solución, tenemos que intentar determinar $y$ mediante alguna ecuación diferencial. Como vamos a determinar $y$ mediante una ecuación diferencial, necesitamos buscar condiciones de regularidad sobre ella porque la teoría de ecuaciones diferenciales nos dice que hay solución siempre que los elementos de la ecuación sean continuos. Nótese que, por ahora, solo sabemos que $y\in\continuas$ e $y'\lebesgue{2}$.
+Una vez planteado el problema y visto que tiene solución, tenemos que intentar determinar $y$ mediante alguna ecuación diferencial. Como vamos a determinar $y$ mediante una ecuación diferencial, necesitamos buscar condiciones de regularidad sobre ella porque la teoría de ecuaciones diferenciales nos dice que hay solución siempre que los elementos de la ecuación sean continuos. Nótese que, por ahora, solo sabemos que $y\in\continuas$ e $y'\in\lebesgue{2}$.
    
 Ahora vamos a empezar con el primer caso. Partimos de la condición \eqref{condicion1} y recordamos que tenemos la cadena de espacios:
 \[
@@ -374,13 +374,13 @@ Luego $z$ tiene derivada débil y coincide con $z'=qy-r$. Como $z'=y''$, nos que
 \[
 y''-qy=-r \Rightarrow -y''+qy=r
 \]
-Ahora, como $z$ tiene derivada débil, puedo tomar su representante continuo $\bar{z}\in$, es decir, podemos suponer directamente que $z\in\continuas$. Pero claro, como $z=y'$, entonces $y'\in\continuas$, lo que implica que $y\in\continuas[1]$. En particular, tenemos definido cuanto vale $y'(a)$ e $y'(b)$ (antes no lo teníamos porque solo sabíamos que $y\in\lebesgue{2}$). Luego la ecuación $-y''+qy=r$ se verifica en $\sobolev{2}$ (porque $z\in\sobolev{1}$, luego $y\in\sobolev{2}$).
+Ahora, como $z$ tiene derivada débil, puedo tomar su representante continuo $\bar{z}\in\continuas$, es decir, podemos suponer directamente que $z\in\continuas$. Pero claro, como $z=y'$, entonces $y'\in\continuas$, lo que implica que $y\in\continuas[1]$. En particular, tenemos definido cuanto vale $y'(a)$ e $y'(b)$ (antes no lo teníamos porque solo sabíamos que $y\in\lebesgue{2}$). Luego la ecuación $-y''+qy=r$ se verifica en $\sobolev{2}$ (porque $z\in\sobolev{1}$, luego $y\in\sobolev{2}$).
 
 Se puede comprobar fácilmente que si $r,q\in\continuas$ entonces $y\in\continuas[2]$, debido a que en ese caso, $y''$ sería continua (se expresaría como diferencia de continuas y producto de continuas).
 
 Como la expresión \eqref{condicion2} es válida para toda $\phi\in\sobolev{1}$, podemos tomar una $\phi\in\mathcal{D}(\R)$ y como $z\in\sobolev{2}$, la proposición \ref{productoh1} nos dice que $z\phi\in\sobolev{1}$ y $\left(z\phi\right)'=z\phi'+z'\phi$. Usando integración por partes en el primer término:
 \[
-\integral{a}{b}{z(x)\phi'(x)dx}=z(x)\phi(x)\Big|_a^b-\integral{a}{b}{z'(x)\phi'(x)dx}=
+\integral{a}{b}{z(x)\phi'(x)dx}=z(x)\phi(x)\Big|_a^b-\integral{a}{b}{z'(x)\phi(x)dx}=
 \]
 \[
 =z(b)\phi(b)-z(a)\phi(a)-\integral{a}{b}{(q(x)y(x)-r(x))\phi'(x)dx}
@@ -400,7 +400,7 @@ obtenemos que $z(a)=0$. Es decir, $y'(a)=y'(b)=0$.
 
 \section{Sturm-Liouville: caso 2}
 
-Para al siguiente caso tenemos que definir primero la \textit{delta de Dirach}.
+Para al siguiente caso tenemos que definir primero la \textit{delta de Dirac}.
 
 \medskip
 
@@ -409,7 +409,7 @@ Dado $\alpha\in(a,b)$, definimos la función $\funcion{\delta_\alpha}{\sobolev{-
 \[
 \delta_\alpha(y)=y(\alpha), \espacio \delta_\alpha\in\sobolev{1}, \;\; \delta_\alpha\notin\sobolev{0}
 \]
-A $\delta_\alpha$ se le llama $\delta$ de Dirach.
+A $\delta_\alpha$ se le llama $\delta$ de Dirac.
 \end{definition}
 \begin{remark}
 Nótese que esta función simplemente es otra forma de denotar la evaluación en $\alpha$, que usamos para indicar en qué punto ($\alpha$) de una cuerda ($y$) colgamos una masa $c$. 
@@ -419,7 +419,7 @@ Ahora pasamos al siguiente caso, donde suponemos que $R(\phi)=c\delta_\alpha(\ph
 \[
 \integral{a}{b}{z(x)\phi'(x)dx}+\integral{a}{b}{q(x)y(x)\phi(x)dx}=c\phi(\alpha)
 \]
-donde solo sabemos que $z\in\lebesgue{2}$ e $y\sobolev{1}$ y $z$ no tiene por qué tener derivada débil ya que la expresión anterior no coincide con la de la definición. 
+donde solo sabemos que $z\in\lebesgue{2}$ e $y\in\sobolev{1}$ y $z$ no tiene por qué tener derivada débil ya que la expresión anterior no coincide con la de la definición. 
 
 Si ahora considero el intervalo $(a,\alpha)$ y tomo $\phi\in\mathcal{D}(a,\alpha)$, tenemos que $\phi(\alpha)=0$ y
 \[
@@ -434,28 +434,36 @@ z_2'(x) & x\in(\alpha,b)
 \end{array}
 \right.
 \]
-¿y qué pasa con $z'(\alpha)$? No pasa nada, porque $\{\alpha\}$ tiene medida nula asi que no hace falta definirla en ese punto. Además, $z'\in L(a,\alpha)$ y $z'\in L(\alpha,b)$, luego $z'\in\lebesgue{2}$ por la misma razón. 
+¿y qué pasa con $z'(\alpha)$? No pasa nada, porque $\{\alpha\}$ tiene medida nula asi que no hace falta definirla en ese punto. Además, $z'\in L^2(a,\alpha)$ y $z'\in L^2(\alpha,b)$, luego $z'\in\lebesgue{2}$ por la misma razón. 
 
 Como $z'$ no es la derivada débil de $z$ en $(a,b)$, solo podemos decir que
 \[
-\integral{a}{b}{z'(x)\phi(x)dx}+\integral{a}{b}{z(x)\phi'(x)dx}=0 \espacio \forall \phi\in\mathcal{D}(a,\alpha) \text{ ó } \forall \phi\in\mathcal{D}(\alpha,b)
+\integral{a}{b}{z'(x)\phi(x)dx}+\integral{a}{b}{z(x)\phi'(x)dx}=0 \espacio \forall \phi\in\mathcal{D}(a,\alpha) \text{ y } \forall \phi\in\mathcal{D}(\alpha,b)
 \]
 Y en ese caso, $z'(x)=-q(x)y(x) \;\; \casipordoquier$. 
 
 Como vemos, este es el origen de la cuestión, tenemos una función $z'$, que sabemos que es una derivada, pero es una derivada \textit{extraña}, ya que es débil en $(a,\alpha)$ y $(\alpha,b)$, coincide en casi todo punto con $-q(x)y(x)$, pero no es una derivada débil en $(a,b)$. 
 
-Como $z_1$ tiene derivada débil en $(a,\alpha)$, tenemos que:
+Por la condición de punto crítico, tenemos que:
 \[
-\integral{a}{\alpha}{z_1(x)\phi'(x)dx}+\integral{a}{\alpha}{q(x)y(x)\phi(x)dx}=0 \espacio \forall\phi\in\mathcal{D}(a,\alpha)
+\integral{a}{b}{z_1(x)\phi'(x)dx}+\integral{a}{b}{q(x)y(x)\phi(x)dx}=0 \espacio \forall\phi\in\mathcal{H}^1(a,b)
+\]
+Si $phi(x)=0\quad\forall x\geq\alpha$,
+\[
+\integral{a}{\alpha}{z_1(x)\phi'(x)dx}+\integral{a}{\alpha}{q(x)y(x)\phi(x)dx}=0
 \] 
 Si igual que en el caso anterior, consideramos $\phi\in\mathcal{D}(\R)$ y aplicamos integración por partes al primer término:
 \[
 \integral{a}{\alpha}{z_1(x)\phi'(x)dx}=z_1(x)\phi(x)\Big|_a^\alpha-\integral{a}{\alpha}{q(x)y(x)\phi(x)dx}
 \]
-Cogiendo la $\phi$ de forma que $\phi(a)=1$ y $\phi(\alpha)=0$ y sustituyendo en la expresión anterior, obtenemos que:
+Cogiendo la $\phi$ de forma que $\phi(a)=1$ y $phi(x)=0\quad\forall x\geq\alpha$ y sustituyendo en la expresión anterior, obtenemos que:
 \[
 -z_1(a)\phi(a)=0 \Rightarrow z_1(a)=0
 \]
+
+Análogamente se prueba que $z_2(b)=0$.
+
+% A partir de aquí no tiene sentido, supongo que está incompleto
 Si ahora usamos eso en la expresión:
 \[
 \integral{a}{b}{z(x)\phi'(x)dx}+\integral{a}{b}{q(x)y(x)\phi(x)dx}=0
