@@ -400,7 +400,7 @@ obtenemos que $z(a)=0$. Es decir, $y'(a)=y'(b)=0$.
 
 \section{Sturm-Liouville: caso 2}
 
-Para al siguiente caso tenemos que definir primero la \textit{delta de Dirac}.
+Para el siguiente caso tenemos que definir primero la \textit{delta de Dirac}.
 
 \medskip
 
@@ -409,10 +409,10 @@ Dado $\alpha\in(a,b)$, definimos la función $\funcion{\delta_\alpha}{\sobolev{-
 \[
 \delta_\alpha(y)=y(\alpha), \espacio \delta_\alpha\in\sobolev{1}, \;\; \delta_\alpha\notin\sobolev{0}
 \]
-A $\delta_\alpha$ se le llama $\delta$ de Dirac.
+A $\delta_\alpha$ la llamaremos \textit{delta de Dirac}.
 \end{definition}
 \begin{remark}
-Nótese que esta función simplemente es otra forma de denotar la evaluación en $\alpha$, que usamos para indicar en qué punto ($\alpha$) de una cuerda ($y$) colgamos una masa $c$. 
+Nótese que esta función simplemente es otra forma de denotar la evaluación en $\alpha$, que usamos para indicar en qué punto $\alpha$, de una cuerda $y$, colgamos una masa $c$. 
 \end{remark}
 
 Ahora pasamos al siguiente caso, donde suponemos que $R(\phi)=c\delta_\alpha(\phi)=c\phi(\alpha) \espacio \forall \phi\in\sobolev{1}\subset\continuas$, con $a<\alpha<b$. Con esta nueva $R$, vemos otra vez la ecuación \ref{condicion1} con $z=y'$:
@@ -438,40 +438,51 @@ z_2'(x) & x\in(\alpha,b)
 
 Como $z'$ no es la derivada débil de $z$ en $(a,b)$, solo podemos decir que
 \[
-\integral{a}{b}{z'(x)\phi(x)dx}+\integral{a}{b}{z(x)\phi'(x)dx}=0 \espacio \forall \phi\in\mathcal{D}(a,\alpha) \text{ y } \forall \phi\in\mathcal{D}(\alpha,b)
+\integral{a}{b}{z'(x)\phi(x)dx}+\integral{a}{b}{z(x)\phi'(x)dx}=0 \espacio \forall \phi\in\mathcal{D}(a,\alpha) \text{ ó } \forall \phi\in\mathcal{D}(\alpha,b)
 \]
 Y en ese caso, $z'(x)=-q(x)y(x) \;\; \casipordoquier$. 
 
 Como vemos, este es el origen de la cuestión, tenemos una función $z'$, que sabemos que es una derivada, pero es una derivada \textit{extraña}, ya que es débil en $(a,\alpha)$ y $(\alpha,b)$, coincide en casi todo punto con $-q(x)y(x)$, pero no es una derivada débil en $(a,b)$. 
 
-Por la condición de punto crítico, tenemos que:
+En principio, no sabemos si $z$ es continua, lo único que sabemos es que $z_1$ y $z_2$ sí lo son, y se cumple:
 \[
-\integral{a}{b}{z_1(x)\phi'(x)dx}+\integral{a}{b}{q(x)y(x)\phi(x)dx}=0 \espacio \forall\phi\in\mathcal{H}^1(a,b)
+\begin{array}{cc}
+z(x)=z_1(x) & \text{ a.e } x\in(a,\alpha) \\
+z(x)=z_2(x) & \text{ a.e } x\in(\alpha,b)
+\end{array}
 \]
-Si $phi(x)=0\quad\forall x\geq\alpha$,
+Usando esa propiedad, podemos definir otra función, $z_3$, como sigue:
+\[
+z_3(x)=\left\{
+\begin{array}{cc}
+z_1(x) & x\in[a,\alpha) \\
+z_2(x) & x\in(\alpha,b]
+\end{array}
+\right.
+\]
+Fijaros que $z_3$, por el carácter local de la continuidad, es continua en $(a,\alpha)$ y $(\alpha,b)$. De hecho, es continua en $a$ y $b$ también porque coincide con $z$ en ese entorno. Además, se verifica:
+\[
+\begin{array}{c}
+\limite{x}{\alpha^-}{z_3(x)}=\limite{x}{\alpha^-}{z_1(x)}=z_1(\alpha)\\
+\limite{x}{\alpha^+}{z_3(x)}=\limite{x}{\alpha^+}{z_2(x)}=z_2(\alpha)
+\end{array}
+\]
+Es decir, $z_3$ no es continua en $[a,b]$, pero sí tienes límites laterales. Además, la discontinuidad que presenta en $\alpha$ es evitable (ojo, que no es seguro que siempre la tenga). De ahora en adelante, vamos a denotar simplemente por $z$ a $z_3$, ya que no tiene mucho sentido arrastrar ambas notaciones. 
+
+Ahora vamos a razonar con $z_1$, que es una solución en $(a,\alpha)$, luego por la condición de punto crítico, tenemos que:
+\[
+\integral{a}{b}{z_1(x)\phi'(x)dx}+\integral{a}{b}{q(x)y(x)\phi(x)dx}=0 \espacio \forall\phi\in\mathcal{D}(a,\alpha)
+\]
+Si consideramos ahora $\phi$ sobre $\mathcal{D}(\R)$ en lugar de sobre $\mathcal{D}(a,\alpha)$, tenemos que:
 \[
 \integral{a}{\alpha}{z_1(x)\phi'(x)dx}+\integral{a}{\alpha}{q(x)y(x)\phi(x)dx}=0
 \] 
-Si igual que en el caso anterior, consideramos $\phi\in\mathcal{D}(\R)$ y aplicamos integración por partes al primer término:
+Aplicando integración por partes al primer término:
 \[
 \integral{a}{\alpha}{z_1(x)\phi'(x)dx}=z_1(x)\phi(x)\Big|_a^\alpha-\integral{a}{\alpha}{q(x)y(x)\phi(x)dx}
 \]
-Cogiendo la $\phi$ de forma que $\phi(a)=1$ y $phi(x)=0\quad\forall x\geq\alpha$ y sustituyendo en la expresión anterior, obtenemos que:
+Cogiendo la $\phi$ de forma que $\phi(a)=1$ y $\phi(x)=0\quad\forall x\geq\alpha$, y sustituyendo en la expresión anterior:
 \[
--z_1(a)\phi(a)=0 \Rightarrow z_1(a)=0
+-z_1(a)\phi(a)-\integral{a}{\alpha}{q(x)y(x)\phi(x)dx}+\integral{a}{\alpha}{q(x)y(x)\phi(x)dx}=0 \Rightarrow -z_1(a)\phi(a)=0
 \]
-
-Análogamente se prueba que $z_2(b)=0$.
-
-% A partir de aquí no tiene sentido, supongo que está incompleto
-Si ahora usamos eso en la expresión:
-\[
-\integral{a}{b}{z(x)\phi'(x)dx}+\integral{a}{b}{q(x)y(x)\phi(x)dx}=0
-\]
-Pero claro, el primer término lo podemos partir en dos integrales diferentes:
-\[
-\integral{a}{b}{z(x)\phi'(x)dx}=\integral{a}{\alpha}{z(x)\phi'(x)dx}+\integral{\alpha}{b}{z(x)\phi'(x)dx}
-\]
-
-\subsection{CLASE 31 MARZO}
-
+Es decir, $z_1(a)=0$. De forma análoga, se prueba que $z_2(b)=0$. Eso implica que $y'(a)=y'(b)=0$.
