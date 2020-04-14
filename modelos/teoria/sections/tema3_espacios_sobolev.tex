@@ -66,24 +66,22 @@ Tenemos que ver si existe una constante $C\in\R^+$ de forma que
 \]
 Tomamos $x,y\in(a,b)$, usando el lema anterior:
 \[
-\tilde{f}(x)-\tilde{f}(y)=\integral{x}{y}{g(s)ds} \Rightarrow \norm{\tilde{f(x)}}_1\leq\norm{\tilde{f}(y)}_1+\norm{g}_1
+\tilde{f}(x)-\tilde{f}(y)=\integral{x}{y}{g(s)ds} \Rightarrow |f(x)|\leq|f(y)|+\norm{g}_{L^1}
 \]
 Aplicando la desigualdad de la nota \ref{desigualdadcomun}:
 \[
-\norm{\tilde{f}(x)}_1\leq \norm{\tilde{f}(y)}_1+\norm{g}_2(b-a)^{1/2}
+|f(x)|\leq |f(y)|+\norm{g}_{L^2}(b-a)^{1/2}
 \]
 Integrando respecto de $y$:
 \[
-(b-a)\norm{\tilde{f}(x)}_1\leq \norm{\tilde{f}(y)}_2(b-a)^{1/2}+\norm{g}_2(b-a)^{3/2}
-\leq (b-a)\norm{\tilde{f}(x)} \Rightarrow
+(b-a)|f(x)|\leq \norm{\tilde{f}}_{L^2}(b-a)^{1/2}+\norm{g}_{L^2}(b-a)^{3/2} \Rightarrow
 \]
 \[
-\norm{\tilde{f}(x)}_1\leq c_1\norm{f}_2+c_2\norm{g}_2 \Rightarrow
+|f(x)|\leq c_1\norm{f}_{L^2}+c_2\norm{g}_{L^2} \Rightarrow
 \]
 \[
-\norm{\tilde{f}}_\infty\leq c_1\norm{f}_2+c_2\norm{g}_2 \leq (c_1+c_2)\normasobolev{1}{f}
+\norm{\tilde{f}}_\infty\leq c_1\norm{f}_{L^2}+c_2\norm{g}_{L^2} \leq (c_1+c_2)\normasobolev{1}{f}
 \]
-\textbf{REVISAR ESTA DEMOSTACION}
 \end{proof}
 Además, si $f\in C^1[a,b]$, tiene derivada clásica, luego también tiene derivada débil, luego $f\in\sobolev{1}$. Resumiendo, hemos construido la siguiente cadena:
 \[
@@ -210,9 +208,9 @@ y(1)= 0, y'(1) & = \beta
 \]
 Tenemos el problema de que $y\notin C^2[0,1]$. Intentemos arreglarlo:
 \begin{itemize}
-\item Si $x\in(0,\frac{1}{2}) \Rightarrow y''(x)=1 \Rightarrow y\in C^2(0,\frac{1}{2}) \Rightarrow y'(x)=\integral{0}{x}{1dx}+y'(0)=x+\alpha$\\
+\item Si $x\in(0,\frac{1}{2}) \Rightarrow y''(x)=1 \Rightarrow y\in C^2[0,\frac{1}{2}] \Rightarrow y'(x)=\integral{0}{x}{1dx}+y'(0)=x+\alpha$\\
  $\Rightarrow y(x)=\integral{0}{x}{x+\alpha dx}=\frac{x^2}{2}+x\alpha$.
-\item Si $x\in(\frac{1}{2},1) \Rightarrow y''(x)=1/2 \Rightarrow y\in C^2(\frac{1}{2},1) \Rightarrow y'(x)=y'(1)-\integral{x}{1}{\frac{1}{2}dx}=\beta+\frac{x}{2}-\frac{1}{2}$\\
+\item Si $x\in(\frac{1}{2},1) \Rightarrow y''(x)=1/2 \Rightarrow y\in C^2[\frac{1}{2},1] \Rightarrow y'(x)=y'(1)-\integral{x}{1}{\frac{1}{2}dx}=\beta+\frac{x}{2}-\frac{1}{2}$\\
 $\Rightarrow y(1)-y(x)=\integral{x}{1}{\frac{x}{2}-\frac{1}{2}+\beta dx}\Rightarrow y(x)=\frac{x^2}{4}-\frac{x}{2}+\beta(x-1)+\frac{1}{4}$
 \end{itemize}
 Quedando:
@@ -302,6 +300,7 @@ podemos calcular $\funcion{DL_y}{\sobolevcero[0,1]{1}}{\R}$ y usar la concidici�
 DL_y(\phi)=\integral{0}{1}{y'(x)\phi'(x)dx}+\integral{0}{1}{q(x)\phi(x)dx}=0 \espacio \forall \phi\in\sobolevcero[0,1]{1}
 \]
 Si lo miramos como una derivada débil, vemos que si $Z(x)=y'(x) \Rightarrow Z'(x)=q(x) \Rightarrow y''(x)=q(x)$, en sentido débil.
+\medskip
 \begin{definition}
 \label{soluciondebil}
 $y\in\sobolevcero{1}$ es \textit{solución débil} de $y''(x)=q(x) \; \forall x 

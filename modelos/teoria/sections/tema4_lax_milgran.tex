@@ -20,7 +20,7 @@ f\left(\sum_ia_iu_i,\sum_jb_jv_h\right)=\sum_i\sum_ja_ib_jf(u_i,v_j)
 \end{definition}
 
 \begin{definition}
-Una forma bilineal $\funcion{f}{V\times V}{K}$ se dice simétrice si verifica:
+Una forma bilineal $\funcion{f}{V\times V}{K}$ se dice simétrica si verifica:
 \[
 f(u,v)=f(v,u) \espacio \forall u,v\in V
 \]
@@ -84,9 +84,9 @@ Sea $\funcion{L}{H}{\R}$ un funcional cuadrático. Si $L$ es coercivo, entonces 
 
 \begin{prop}[condición de punto crítico]
 \label{puntocritico}
-Sea $\funcion{L}{H}{\R}$ un funcional cuadrático coercivo, $y\in H$, $\phi\in\soportecompacto$. Entonces existe $y\in H$ verificando:
+Sea $\funcion{L}{H}{\R}$ un funcional cuadrático coercivo, $y\in H$. Entonces existe $y\in H$ verificando:
 \[
-A(\phi,y)-R(\phi)=0 \espacio \forall\phi\in\soportecompacto
+A(\phi,y)-R(\phi)=0 \espacio \forall\phi\in\sobolev{}
 \]
 
 Además, el punto $y$ es el mínimo de $L$.
@@ -114,12 +114,12 @@ g(s)=sA(\phi,\phi)+A(\phi,y)-R(\phi) \Rightarrow g'(0)=A(\phi,y)-R(\phi)
 \]
 Luego nuestra condición de punto crítico es:
 \[
-A(\phi,y)-R(\phi)=0 \espacio \forall\phi\in\soportecompacto
+A(\phi,y)-R(\phi)=0 \espacio \forall\phi\in\sobolev{}
 \]
 
 Para le existencia, simplemente tenemos que definir un producto escalar y usar el teorema de Riesz, como en los ejemplos anteriores. Sea $<<u,v>>=A(u,v)$ un producto escalar en $H$, por el teorema \ref{riesz-frechet}, existe $y\in H$ verificando:
 \[
-<<y,\phi>>=R(\phi) \espacio \forall \phi\in\soportecompacto
+<<y,\phi>>=R(\phi) \espacio \forall \phi\in\\sobolev{}
 \]
 
 Para ver que es mínimo, tomamos $\funcion{g}{\R}{\R}$ definida por $g(s)=L(y+s(z-y))$. Notemos que $y+s(z-y)$ es la recta que una a $z$ con $y$. Tenemos que ver
@@ -284,7 +284,7 @@ Lo que vamos a hacer ahora es calcular o ver qué condiciones verifica la funci�
 \label{formulageneral}
 \integral{a}{b}{y'(x)\phi'(x)dx}+\integral{a}{b}{q(x)y(x)\phi(x)dx}=-m\phi(\alpha)
 \end{equation}
-Ahora hacemos una distinción de casos con $\phi$ perteneciendo a diferentes clases de Swartz:
+Ahora hacemos una distinción de casos con $\phi$ perteneciendo a diferentes clases de Schwartz:
 \begin{itemize}[-]
 \item si $\phi\in\mathcal{D}(a,\alpha)$:
 \[
@@ -321,7 +321,7 @@ Cancelando ámbos términos:
 \[
 \left(z(\alpha^-)-z(\alpha^+)\right)\phi(\alpha)=-m\phi(\alpha)
 \]
-Como la función de Swartz escogida es arbitraria, podemos suponer que vale 1 en $\alpha$. Usando eso y que $z=y'$:
+Como la función de Schwartz escogida es arbitraria, podemos suponer que vale 1 en $\alpha$. Usando eso y que $z=y'$:
 \[
 y'(\alpha^-)-y'(\alpha^+)=-m \Rightarrow y'(\alpha^+)-y'(\alpha^-)=m  
 \]
@@ -485,4 +485,102 @@ Cogiendo la $\phi$ de forma que $\phi(a)=1$ y $\phi(x)=0\quad\forall x\geq\alpha
 \[
 -z_1(a)\phi(a)-\integral{a}{\alpha}{q(x)y(x)\phi(x)dx}+\integral{a}{\alpha}{q(x)y(x)\phi(x)dx}=0 \Rightarrow -z_1(a)\phi(a)=0
 \]
-Es decir, $z_1(a)=0$. De forma análoga, se prueba que $z_2(b)=0$. Eso implica que $y'(a)=y'(b)=0$.
+Es decir, $z_1(a)=0$. De forma análoga, se prueba que $z_2(b)=0$. Eso implica que $y'(a)=y'(b)=0$, luego: 
+\[
+\left.
+\begin{array}{cc}
+y\in\sobolev[a,\alpha]{2}\\
+y\in\sobolev[\alpha,b]{2}
+\end{array}
+\right\} \Rightarrow
+\left.
+\begin{array}{cc}
+y\in\mathcal{C}^1[a,\alpha]\\
+y\in\mathcal{C}^1[\alpha,b]
+\end{array}
+\right\}
+\]
+En conclusión, hemos llegado a la ecuación diferencial
+\[
+-y''(x)+q(x)y(x)=0
+\]
+que sólo se cumple en $(a,\alpha)$ y $(\alpha,b)$. Quedaría ver qué pasa en el extremo, aunque más o menos se ve que simplemente no van a coincidir las derivadas laterales: $y'(\alpha^+)-y'(\alpha^-)=-c$
+
+\section{Sturm-Liouville: caso 3}
+
+Podemos combinar los dos casos anteriores, para resolver el caso donde $R$ vene dado por:
+\[
+R(x)=r(x)+\sum_{i=1}^nc_i\delta_{\alpha_i} \espacio a<\alpha_1<\cdots<\alpha_n<b
+\]
+donde $y\in\sobolev{1}$, $y\in\mathcal{H}^2\left((a,\alpha_1)\cup\dots\cup(\alpha_n,b)\right)$, $y\in\mathcal{C}^1\left((a,\alpha_1)\cup\dots\cup(\alpha_n,b)\right)$, y por supuesto $y\in\mathcal{C}[a,b]$. La ecuación diferencial de este caso es la misma que en los dos anteriores:
+\[
+-y''(x)+p(x)y(x)=0
+\]
+La \textit{condición de contorno} también se verifica: $y'(a)=y'(b)=0$ y$y'(\alpha^+_i)-y'(\alpha^-_i)=-c_i$
+
+\section{Sturm-Liouville: caso 4}
+
+En este caso, en lugar de minimizar en $\sobolev{1}$, podemos hacerlo en $\sobolevcero{1}$. La única diferencia es que la concición $y'(a)=y'(b)=0$ se sustituye por
+\[
+y(a)=y(b)=0
+\]
+Además, basta tomar $0\leq q(x)\leq q_1$. En este caso también podemos suponer que 
+\[
+R(x)=r(x)+\sum_{i=1}^nc_i\delta_{\alpha_i} \espacio a<\alpha_1<\cdots<\alpha_n<b
+\]
+verificándose casi lo mismo que en el caso anterior: $y\in\sobolev{1}$, $y\in\mathcal{H}^2\left((a,\alpha_1)\cup\dots\cup(\alpha_n,b)\right)$, $y\in\mathcal{C}^1\left((a,\alpha_1)\cup\dots\cup(\alpha_n,b)\right)$, $y\in\mathcal{C}[a,b]$ pero $y(a)=y(b)=0$.
+
+\section{Sturm-Liouville: caso 5}
+
+En este caso vamos a añadir un peso, por lo que nuestro funcional cambia un poco:
+\[
+L(y)=\frac{1}{2}\integral{a}{b}{p(x)y'(x)^2dx}+\frac{1}{2}\integral{a}{b}{q(x)y(x)^2dx}-R(y)
+\]
+Con las condiciones: $0<p_0\leq p(x) \leq p_1$, $0<q_0\leq q(x) \leq q_1$.
+Con este planteamiento, la ecuación que se verifica es:
+\[
+\integral{a}{b}{p(x)y'(x)\phi'(x)dx}+\integral{a}{b}{q(x)y(x)\phi(x)dx}=R(\phi) \espacio \forall \phi\in\sobolev{1}
+\]
+con $y\in\sobolev{1}$, $y\in\mathcal{C}[a,b]$. Si tomo $z(x)=p(x)y'(x)$, ¿cuáles son las condiciones de regularidad?
+\begin{enumerate}[(a)]
+\item Si $R(x)=r(x)$, entonces $z\in\sobolev{1}$ y $z\in\continuas$. Además:
+\[
+-(p(x)y'(x))'+q(x)y(x)=r(x)
+\]
+Y $z(a)=z(b)=0$.
+\item Si cambiamos $\sobolev{1}$ por $\sobolevcero{1}$, la condición $z(a)=z(b)=0$ la tenemos que cambiar por $y(a)=y(b)=0$. Y en este caso, basta con que se cumpla $0\geq q(x)\leq q_1$.
+\item Si $R(x)=r(x)+\sum_{i=1}^nc_i\delta_{\alpha_i} \espacio a<\alpha_1<\cdots<\alpha_n<b$ e $y\in\sobolev{}$. Luego $z\in\sobolev[a,\alpha_1]{1}$, $\cdots$, $z\in\sobolev[\alpha_n,b]{1}$, e igual con las continuas: $z\in\mathcal{C}[a,\alpha_1]$, $\cdots$, $z\in\mathcal{C}[\alpha_n,b]$. La ecuación que s e verifica es:
+\[
+(p(x)y'(x))'+q(x)y(x)=r(x)
+\]
+Con la condición de contorno $z(a)=z(b)=0$ (si $\sobolev{}$) ó $y(a)=y(b)=0$ (si $\sobolevcero{1}$). Las condiciones en las derivadas laterales son:
+\[
+z(\alpha^+_i)-z(\alpha_i^-)=-c_i
+\]
+\end{enumerate}
+
+\section{Sturm-Liouville: caso regular (1)}
+
+En este caso tenemos $y\in\sobolev{1}$ y nuestro funcional (sin peso) es:
+\[
+L(y)=\frac{1}{2}\integral{a}{b}{y'(x)^2dx}+\frac{1}{2}\integral{a}{b}{q(x)y(x)^2dx}-R(y)
+\]
+La diferencia es que vamos a considerar $R=r(x)$ con $r\in\continuas$, $q\in\continuas$ con 
+\[
+\begin{array}{rr}
+0<q_0\leq q(x)\leq q_1 & \text{ si } \sobolev{}\\
+0\leq q(x) \leq q_1    & \text{ si } \sobolevcero{1}
+\end{array}
+\]
+Ahora aqui hay una demostracion  pero no sé ni de que es ¿?.
+
+\section{Sturm-Liouville: caso regular (2)}
+
+Igual que el anterior, pero añadiendo deltas de Dirac:
+\[
+R(\phi)=r(x)+\sum_{i=1}^nc_i\delta_{\alpha_i} \espacio a<\alpha_1<\cdots<\alpha_n<b
+\]
+¿?
+
+\section{Sturm-Liouville: caso regular (3)}
+igual pero con peso.
