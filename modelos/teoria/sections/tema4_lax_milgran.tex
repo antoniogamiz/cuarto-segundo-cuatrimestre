@@ -327,7 +327,7 @@ y'(\alpha^-)-y'(\alpha^+)=-m \Rightarrow y'(\alpha^+)-y'(\alpha^-)=m
 \]
 Es decir, el cambio de pendiente que se da entre $\alpha^-$ y $\alpha^+$ es igual a $m$, el peso de la masa.
 
-\section{Sturm-Liouville: caso 1}
+\section{Sturm-Liouville: caso 1}\label{slc1}
 
 Vamos a generalizar el caso anterior para obtener una ecuación diferencial con varias condiciones. Sea $\funcion{L}{\sobolev{1}}{\R}$ el funcional dado por:
 \[
@@ -506,7 +506,7 @@ En conclusión, hemos llegado a la ecuación diferencial
 \]
 que sólo se cumple en $(a,\alpha)$ y $(\alpha,b)$. Quedaría ver qué pasa en el extremo, aunque más o menos se ve que simplemente no van a coincidir las derivadas laterales: $y'(\alpha^+)-y'(\alpha^-)=-c$
 
-\section{Sturm-Liouville: caso 3}
+\section{Sturm-Liouville: caso 3}\label{slc3}
 
 Podemos combinar los dos casos anteriores, para resolver el caso donde $R$ vene dado por:
 \[
@@ -516,7 +516,9 @@ donde $y\in\sobolev{1}$, $y\in\mathcal{H}^2\left((a,\alpha_1)\cup\dots\cup(\alph
 \[
 -y''(x)+p(x)y(x)=r(x)
 \]
-La \textit{condición de contorno} también se verifica: $y'(a)=y'(b)=0$ y$y'(\alpha^+_i)-y'(\alpha^-_i)=-c_i$
+Esta igualdad es una igualdad puntual y la $y''$ es derivada débil en
+cada uno de los trocitos. La \textit{condición de contorno} también se
+verifica: $y'(a)=y'(b)=0$ y $y'(\alpha^+_i)-y'(\alpha^-_i)=-c_i$
 
 \section{Sturm-Liouville: caso 4}
 
@@ -530,7 +532,7 @@ R(x)=r(x)+\sum_{i=1}^nc_i\delta_{\alpha_i} \espacio a<\alpha_1<\cdots<\alpha_n<b
 \]
 verificándose casi lo mismo que en el caso anterior: $y\in\sobolev{1}$, $y\in\mathcal{H}^2\left((a,\alpha_1)\cup\dots\cup(\alpha_n,b)\right)$, $y\in\mathcal{C}^1\left((a,\alpha_1)\cup\dots\cup(\alpha_n,b)\right)$, $y\in\mathcal{C}[a,b]$ pero $y(a)=y(b)=0$.
 
-\section{Sturm-Liouville: caso 5}
+\section{Sturm-Liouville: caso 5}\label{slc5}
 
 En este caso vamos a añadir un peso, por lo que nuestro funcional cambia un poco:
 \[
@@ -559,31 +561,109 @@ z(\alpha^+_i)-z(\alpha_i^-)=-c_i
 \]
 \end{enumerate}
 
-\section{Sturm-Liouville: caso regular (1)}
+\section{Casos regulares}
 
-En este caso tenemos $y\in\sobolev{1}$ y nuestro funcional (sin peso) es:
-\[
-L(y)=\frac{1}{2}\integral{a}{b}{y'(x)^2dx}+\frac{1}{2}\integral{a}{b}{q(x)y(x)^2dx}-R(y)
-\]
-La diferencia es que vamos a considerar $R=r(x)$ con $r\in\continuas$, $q\in\continuas$ con 
+Procedemos ahora a replantear los problemas anteriores bajo la
+hípotesis de que $R=r(x)$ con $r\in\continuas$, $q\in\continuas$ con
 \[
 \begin{array}{rr}
 0<q_0\leq q(x)\leq q_1 & \text{ si } \sobolev{}\\
 0\leq q(x) \leq q_1    & \text{ si } \sobolevcero{1}
 \end{array}
 \]
-Ahora aqui hay una demostracion  pero no sé ni de que es ¿?.
+\subsection{Sturm-Liouville: caso regular (1)}
 
-\section{Sturm-Liouville: caso regular (2)}
+Trabajamos en el mismo caso que \eqref{slc1} con esta nuevas
+hipótesis. Tenemos $y\in\sobolev{1}$ y nuestro funcional (sin peso)
+es:
+\[
+L(y)=\frac{1}{2}\integral{a}{b}{y'(x)^2dx}+\frac{1}{2}\integral{a}{b}{q(x)y(x)^2dx}-R(y)
+\]
 
-Igual que el anterior, pero añadiendo deltas de Dirac:
+De aquí obtenemos que $y\in\sobolev{2}$ de donde tendríamos que se verificaría la condición
+\[
+ -y'' + q(x)y(x) = r(x)
+\]
+
+que al igual que nos pasaba antes es una igualdad que se da en sentido
+puntual. Despejando de esta ecuación, ya que $y\in\continuas$,
+obtenemos que $y''\in\continuas$ y por tanto
+$y\in\continuas[2]$. Tenemos ahora las herramientas para resolver el
+problema con la formula de variación de constantes y las condiciones
+iniciales.
+
+\subsection{Sturm-Liouville: caso regular (2)}
+
+Procedemos como en el caso \eqref{slc3}, es decir, partimos de :
 \[
 R(\phi)=r(x)+\sum_{i=1}^nc_i\delta_{\alpha_i} \espacio a<\alpha_1<\cdots<\alpha_n<b
 \]
-¿?
 
-\section{Sturm-Liouville: caso regular (3)}
-igual pero con peso.
+y con $y\in\mathcal{H}^2(\alpha_i,\alpha_{i+1})$ donde en cada intervalo tenemos la ecuación diferencial, en sentido debil:
+
+\[
+ -y'' + q(x)y(x) = r(x)
+\]
+
+esto quiere decir que en cada intervalo
+$y\in\mathcal{C}^2[\alpha_i,\alpha_{i+1}]$. Ahora se cumplen unas
+condiciónes que son propia de la $y$ y no de un representante continuo:
+
+\[
+\begin{array}{rr}
+y'(a) = y'(b) = 0 & \text{ si } \sobolev{}\\
+y(a) = y(b) = 0    & \text{ si } \sobolevcero{1}
+\end{array}
+\]
+
+y la condición sobre la delta de dirac es que
+$y'(\alpha_i^+) - y'(\alpha_i^-) = c_i$ por lo que si $c_i \neq 0$ se
+tiene que $y\notin\continuas$
+
+
+\subsection{Sturm-Liouville: caso regular (3)}
+Como en el caso \eqref{slc5} procedemos a añadir un peso con las
+hipótesis que estamos manejando.
+
+\[
+L(y)=\frac{1}{2}\integral{a}{b}{p(x)y'(x)^2dx}+\frac{1}{2}\integral{a}{b}{q(x)y(x)^2dx}-R(y)
+\]
+
+pero voy a imponer que $p\in\continuas[1]$ y
+$0 < p_o \leq p(x) \leq p_1$. Tendríamos así que
+$p(x)y'(x)\in\sobolev{1}$ y usando el resultado \eqref{productoh1}
+bajo unas condicion más fuerte donde $\phi\in\continuas$ podemos ver
+que
+
+\[
+ y'(x) = \frac{1}{p(x)}p(x)y'(x) \in \sobolev{1} \label{regular3prod}
+\]
+
+y en particular $y\in\sobolev{2}$. Sobre la cuestión de la derivada
+debil
+
+\[
+-(p(x)y'(x)) + q(x)y(x)
+\]
+
+y derivando (realmente habría que hacerlo en \ref{regular3prod} obtenemos que
+
+\[
+-p(x)'y'(x)  - p(x)'y''(x) + q(x)y(x) = r(x)
+\]
+
+y despejando $y''$ obtenemos que $y\in\continuas[2]$. Ahora adaptamos
+la condición de contorno. En el caso anterior se verificaba
+$z(a) = z(b) = 0$ con $z(x) = p(x)y'(x) \in \continuas$ luego
+\[
+  p(a)y'(a) = 0 \text{ y } p(b)y'(b) = 0 \implies y'(a) = 0 \text { } y'(b) = 0
+\]
+
+en el caso de $\sobolev{1}$ y en el caso de $\sobolevcero{1}$
+
+\[
+  y(a) = 0 \text{ y } y(b) = 0
+\]
 
 \textbf{AQUI EMPIEZA LA CLASE DEL 14 DE ABRIL}
 
