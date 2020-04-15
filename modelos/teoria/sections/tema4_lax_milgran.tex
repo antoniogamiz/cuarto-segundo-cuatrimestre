@@ -679,15 +679,15 @@ Tenemos la ecuación (de los casos anteriores):
 -(p(x)u'(x))'+q(x)u(x)=r(x) \espacio \forall x\in[a,b]
 \end{equation}
 con las siguientes condiciones de contorno:
-\[
-\begin{array}{c}
-\alpha_au(a)+\beta_au'(a)=\gamma_a\\
-\alpha_bu(b)+\beta_bu'(b)=\gamma_b
-\end{array}
-\]
+\begin{equation}\label{eq:ca}
+\alpha_au(a)+\beta_au'(a)=\gamma_a \tag{$c_a$}
+\end{equation}
+\begin{equation}\label{eq:cb}
+\alpha_bu(b)+\beta_bu'(b)=\gamma_b \tag{$c_b$}
+\end{equation}
 donde $p\in\continuas[1]$, lo que nos dice que el primer término de \eqref{ec} se puede desarrollar para obtener una EDO (recordemos, que necesitamos que todas los elementos sean continuos para poder aplciar la teoría que sabemos de ecuaciones diferenciales). Además, $p(x)>0$ si $x\in[a,b]$ (para que podemos hacer cocientes luego). $q,r\in\continuas$ y $(\alpha_a,\beta_a)\neq(0,0)$, $(\alpha_b,\beta_b)\neq(0,0)$.
 
-A la ecuación anterior y al conjunto de condiciones de contorno anteriores, es lo que vamos a denominar el \textit{problema de Sturm-Liouville regular (PSL)}. Recordemos que tenemos varios casos ya conocidos y que hemos resuelto. Reescribámoslos con esta nueva notación del problema:
+A la ecuación anterior y al conjunto de condiciones de contorno anteriores, es lo que vamos a denominar el \textit{problema de Sturm-Liouville regular}. Recordemos que tenemos varios casos ya conocidos y que hemos resuelto. Reescribámoslos con esta nueva notación del problema:
 \begin{enumerate}[(a)]
 \item (Dirichlet) $(\alpha_a,\beta_a)=(1,0)=(\alpha_b,\beta_b)$, $\gamma_a=\gamma_b=0$. Además había que imponer $q(x)\geq 0$ $x\in[a,b]$. En estas condiciones, existe una única solución del problema.
 
@@ -715,55 +715,73 @@ Sea $A\in\mathcal{M}_{n\times n}(\R)$, $x,b\in\R^n$ y queremos resolver el siste
 
 Al principio de esta sección, planteamos el \textit{problema de Sturm-Liouville regular}, si se da el caso de que $r(x)=0$ para $x\in[a,b]$ y $\gamma_a=\gamma_b=0$, es decir, tendríamos la ecuación
 \[
--(p(x)u'(x))'+q(x)u(x)=r(x) \espacio \forall x\in[a,b]
+-(p(x)u'(x))'+q(x)u(x)=0 \espacio \forall x\in[a,b]
 \]
 con las condiciones de contorno:
-\[
-\begin{array}{c}
-\alpha_au(a)+\beta_au'(a)=0\\
-\alpha_bu(b)+\beta_bu'(b)=0
-\end{array}
-\]
-entonces lo denotaremos por \textit{problema de Sturm-Liouville homogéneo}.
+\begin{equation}\label{eq:ha}
+\alpha_au(a)+\beta_au'(a)=0 \tag{$h_a$}
+\end{equation}
+\begin{equation}\label{eq:hb}
+\alpha_bu(b)+\beta_bu'(b)=0 \tag{$h_b$}
+\end{equation}
+entonces lo denotaremos por \textit{problema de Sturm-Liouville homogéneo}. 
+\begin{remark}
+Por abreviar en la notación, de ahora en adelante usaremos las siguientes convenciones para diferenciar entre el problema homogéneo y el completo (o regular):
+\begin{equation}\label{eq:psl}
+-(p(x)u'(x))'+q(x)u(x)=r(x) \espacio \forall x\in[a,b]\tag{PSL}
+\end{equation}
+\begin{equation}\label{eq:pslh}
+-(p(x)u'(x))'+q(x)u(x)=0 \espacio \forall x\in[a,b]\tag{PSLH}
+\end{equation}
+Además, cuando digamos que una función verifica $(PSL)+c_a$, estaremos diciendo que las condiciones iniciales de la solución cumplen $c_a$ y la ecuación diferencial dada por $(PSL)$. Igual con $(PSLH)$, $c_b$, $h_a$ y $h_b$.
+\end{remark}
 
-\begin{theorem}
-Si el problema homogéneo de Sturm-Liouville (SLH), tiene una única solución, entonces el problema de Sturm-Liouville regular también tiene una única solución.
-\end{theorem}
-\begin{proof}
-Tenemos que ver que existe una única solución de (PSL) cumpliendo ca y cb. Si consideramos (PSL) cumpliendo ca, el lema anterior nos dice que las soluciones son del tipo 
-\[
-u_1(t)+\lambda u_2(t)
-\]
-y cumplen ca. Tenemos que encontrar $\lambda$ tal que esas soluciones también cumplan cb, es decir, que se cumpla:
-\[
-\alpha_b(u_1(b)+\lambda u_2(t))+\beta_b(u_1'(b)+\lambda u_2'(t))=\gamma_b
-\]
-Despejando (¿?)
-\end{proof}
+Veamos ahora un lema que nos ayudará en la demostración del siguiente teorema.
 
 \begin{lemma}
 Las soluciones de la ecuación diferencial (PSL) que verifican la condición $c_a$ son de la forma:
 \[
 u_1(t)+\lambda u_2(t)
 \]
-donde $\lambda\in\R$, $u_1$ es una solución particular de la ecuación diferencial (PSL) junto con la condición $c_a$ y $u_2$ es una solución no trivial de la ecuación diferencial (PSLH) verificando la ecuación $c_a$.
+donde $\lambda\in\R$, $u_1$ es una solución particular de $(PSL)$ junto con la condición $c_a$, y $u_2$ es una solución no trivial de $(PSLH)$ junto con la condición $h_a$.
 \end{lemma}
-\begin{proof}
-($\Rightarrow$) Si $u_1$ es solución de (PSL) y $u_2$ es solución de (PSLH), entonces, por el principio de superposición, tenemos que $u_1+\lambda u_2$ es solución de (PSL).
-Pero además, si $u_1,u_2$ verifican $c_a$ entonces $u_1+\lambda u_2$ también.
 
-($\Leftarrow$) Sea $u_1$ una solución particular de la ecuación (PSL) cumpliendo $c_a$ y $u_2$ una solución de (PDSLH) cumplicando $c_a$, veamos que si $\tilde{u}$ es otra solución de de (PSL) cumplicando $c_a$, entonces 
+\begin{proof}
+($\Rightarrow$) Si $u_1$ es solución de $(PSL)$ y $u_2$ es solución de $(PSLH)$, entonces, por el principio de superposición, tenemos que $u_1+\lambda u_2$ es solución de (PSL).
+Pero además, si $u_1$ verifica $c_a$ y $u_2$ verifica $h_a$ entonces $u_1+\lambda u_2$ también verifica $c_a$.
+
+($\Leftarrow$) Sea $u_1$ una solución particular de $(PSL)$ cumpliendo $c_a$ y $u_2$ una solución de $(PSLH)$ cumpliendo $h_a$. Veamos que si $\tilde{u}$ es otra solución de de $(PSL)$ cumpliendo $c_a$, entonces 
 \[
 \tilde{u}=u_1+\lambda u_2, \text{ para cierto } \lambda\in\R
 \]
-Lo anterior es equivalente a decir que $\tilde{u}-u_1=\lambda u_2$, es decir, que $\tilde{u}-u_1$ es múltiplo de $u_2$, es decir, $\tilde{u}-u_1$ cumple (PSLH) y $c_a$. Ahora solo queda que ver que el conjunto de soluciones que verifican (PSLH) y $c_a$ es un espacio vectorial unidimensional. Como la (PSLH) es de segundo orden, entonces el espacio de soluciones es bidimensional.
+Lo anterior es equivalente a decir que $\tilde{u}-u_1=\lambda u_2$, es decir, que $\tilde{u}-u_1$ es múltiplo de $u_2$, es decir, $\tilde{u}-u_1$ cumple $(PSLH)+h_a$. Lo único que hay que ver es que el conjunto de soluciones que verifican $(PSLH) +c_a$ es un espacio vectorial unidimensional. Como $(PSLH)$ es de segundo orden, entonces el espacio de soluciones es bidimensional. Eso nos dice que no todas las soluciones de $(PSLH)$ verifican $c_a$.
 
-Busco $\bar{u}$ solución de (PSLH) que no verifique $c_a$. Para ello, busco unas condiciones iniciales $u_0$, $u_0'$ que no verifiquen $\alpha_a u_0+\alpha_b u_0'=0$ y tomo la solución del problema de valores iniciales.
+Entonces busco $\bar{u}$ solución de $(PSLH)$ que no verifique $c_a$. Para ello, busco unas condiciones iniciales $u_0$, $u_0'$ que no verifiquen $\alpha_a u_0+\alpha_b u_0'=0$ y tomo la solución del problema de valores iniciales (que existe porque todos los elementos que intervienen son continuos).
 \end{proof}
 
+\begin{theorem}
+Si el problema homogéneo de Sturm-Liouville $(PSLH)$, tiene una única solución, entonces el problema de Sturm-Liouville regular $(PSL)$,   también tiene una única solución.
+\end{theorem}
+\begin{proof}
+Tenemos que ver que existe una única solución de $(PSL)$, cumpliendo $c_a$ y $c_b$. Si consideramos una solución del $(PSL)$ cumpliendo $c_a$, el lema anterior nos dice que las soluciones son del tipo 
+\[
+u_1(t)+\lambda u_2(t)
+\]
+y todas cumplen la condición $c_a$. Ahora debemos encontrar $\lambda$ tal que esas soluciones también cumplan $c_b$, es decir, que se cumpla:
+\[
+\alpha_b(u_1(b)+\lambda u_2(t))+\beta_b(u_1'(b)+\lambda u_2'(t))=\gamma_b
+\]
+Esto es fácil, ya que simplemente tenemos que despejar $\lambda$ de esa expresión:
+\[
+\lambda=\frac{\gamma_b-\alpha_bu_1(b)-\beta_bu_1'(b)}{\alpha_bu_2(b)+\beta_bu_2'(b)}
+\]
+El denominador, $\alpha_bu_2(b)+\beta_bu_2'(b)$, no se anula ya que $u_2$ no cumple la condición $h_b$, ya que si la cumpliera, entonces tendría una solución no trivial de la homogénea.
+\end{proof}
+
+
 \begin{coro}
-Si $(\alpha_a,\beta_a)=(1,0)=(\alpha_b,\beta_b)$ y $q(x)\geq 0$, el problema (PSL) tiene una única solución, por la unicidad del mínimo en el caso Dirichlet.
+Si $(\alpha_a,\beta_a)=(1,0)=(\alpha_b,\beta_b)$ y $q(x)\geq 0$, el problema $(PSL)$ tiene una única solución, por la unicidad del mínimo en el caso Dirichlet.
 \end{coro}
 \begin{coro}
-Si $(\alpha_a,\beta_a)=(0,1)=(\alpha_b,\beta_b)$ y $q(x)>0$, el problema (PSL) tiene una única solución, por la unicidad del mínimo en el caso Neumann.
+Si $(\alpha_a,\beta_a)=(0,1)=(\alpha_b,\beta_b)$ y $q(x)>0$, el problema $(PSL)$ tiene una única solución, por la unicidad del mínimo en el caso Neumann.
 \end{coro}
