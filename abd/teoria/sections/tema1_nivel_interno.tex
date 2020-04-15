@@ -1,0 +1,129 @@
+\chapter{Nivel Interno}
+
+Recordemos que un sistema gestor de bases de datos (SGBD) tiene tres niveles distintos: interno, conceptual y lógico. En este tema nos vamos a centrar en el primero de ellos. El nivel interno está formado, a su vez, por otros dos niveles distintos:
+\begin{enumerate}[(a)]
+\item Comunicación SO: asociado al sistema operativo donde se ejecute el SGBD.
+\item Gestión de la información: asociado el SGBD en sí.
+\end{enumerate}
+
+\section{Medidas para evaluar un sistema de archivos}
+
+Al final, la información está almacenada en un disco duro, que tienen sistemas de ficheros asociados que les dan estructura. Hay que compararlos para elegir el más eficiente, para ello, tenemos una serie de parámetros:
+\begin{center}
+\begin{tabular}{|c|l|}
+\hline
+Parámetro & Mide...\\
+\hline
+R & la memoria necesaria para almacenar un registro \\
+\hline
+T & el tiempo para encontrar un registro arbitrario \\
+\hline
+$T_F$ & el tiempo para encontrar un registro por clave \\
+\hline
+$T_W$ & el tiempo para escribir un registro cuando ya se tiene su posición \\
+\hline
+$T_N$ & el tiempo para encontrar el siguiente registro a uno dado \\
+\hline
+$T_I$ & el tiempo necesario para insertar un registro \\
+\hline
+$T_U$ & el tiempo necesario para actuar un registro \\
+\hline
+$T_X$ & el tiempo necesario para leer el archivo \\
+\hline
+$T_Y$ & el tiempo necesario para reorganizar el archivo \\
+\hline
+\end{tabular}
+\end{center}
+\section{Registros y bloques}
+
+Un SGBD almacena la información en tablas. La estructura de las tablas vienen determinadas por las columnas. La información de una tabla se almacena en filas. EL SGBD provee de una serie de tipos de datos para las columnas de una tabla (numéricos, enteros, etc). 
+
+Los ficheros en los que se almacenan las tablas de una base de datos se componen de un conjunto de bloques, que a su vez se componen de un conjunto de registros, que a su vez están compuestos por campos, y en cada campo se almacena un valor.
+
+Los registros, según su longitud ($R$), pueden clasificarse en:
+\begin{enumerate}[(a)]
+\item Longitud fija: todos los campos tienen longitud fija conocida a priori. Si denotamos por $V_i$ a la longitud del campo $i-$ésimo, entonces la longitud del registro es:
+\[
+R=\sum_iV_i
+\]
+\item Longitud variable: hay por lo menos un campo del registro que tiene longitud variable. Con la siguiente notación
+\begin{enumerate}
+\item $A$: longitud media de los nombres de atributo.
+\item $V$: longitud media de los valores de atributo.
+\item $a'$: número medio de atributos.
+\item $s$: número de separadores por atributo.
+\end{enumerate}
+tenemos que la longitud del registro es:
+\[
+R=a'(A+V+s)
+\]
+\end{enumerate}
+
+\begin{example}
+Calcular la longitud del siguiente registro de longitud variable:
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+Factura=325; & Linea=1; & Concepto=Análisis; & Cant=1; & Precio=300; \\
+\hline
+\end{tabular}
+\end{center}
+\[
+\left.
+\begin{array}{c}
+A=(7+5+8+4+6)/5=6 \\
+V=(2+2+8+2+6)/5=4 \\
+s=2
+\end{array}
+\right\} \Rightarrow R=a'(6+4+2)=12a'
+\]
+\end{example}
+
+Los \textbf{bloques} son las unidades de transferencia de información del disco a la memoria o viceversa (aunque en memoria se denominan \textit{buffers}). El tamaño del bloque es fijo para toda la base de datos y es múltiplo del tamaño del bloque físico del SO (por eficiencia).
+
+Según su estructura, los bloques se pueden clasificar en:
+\begin{enumerate}[(a)]
+\item Estructura homogénea: todos los registros tienen la misma estructura, es decir, todos los registros son del mismo tipo y tienen el mismo número de campos.
+\item Estructura heterogénea: los registros tienen distinta estructura (los registros tienen distinta longitud). Para usar este tipo, también necesitamos almacenar información sobre la propia estructura del registro.
+\end{enumerate}
+
+La relación entre los registros en disco, los bloques del SO y los bloques del SGBD es:
+\[
+\text{Registro disco} \leftrightarrows \text{Bloque SO} \leftrightarrows \text{Bloque SGBD}
+\]
+
+LLamamos \textbf{factor de bloqueo} ($Bfr$), al número de registros que caben en un bloque y depende del tamaño del mismo bloque, $B$, y del tamaño de los registros, $R$. Este valor puede ser fijado a priori por el administrador del SGBD. Siempre incluye una cabecera \textbf{C}, con información útil para el sistema (referencias, fecha de actualización, etc), que tiene que restarse a $B$.
+
+Denominamos \textbf{bloqueo} a la forma en la que se ajustan los registros a un bloque. Hay dos tipos de bloqueo:
+
+\begin{enumerate}[(a)]
+\item Fijo o entero: se rellena el bloque con tantos registros como sea posible.
+\begin{enumerate}
+\item Registro longitud fija:
+\[
+Bfr=\left\lfloor\frac{B-C}{R}\right\rfloor
+\]
+\item Registro de longitud variable:
+\[
+Bfr=\left\lfloor\frac{B-C}{R+M}\right\rfloor
+\]
+$M$ es el tamaño de las marcas de separación, ya que al ser de longitud variable, las necesitamos para diferenciar entre los registros.
+\end{enumerate}
+En ambos se redondea hacia abajo ya que si no cabe un registro entero, no podemos guardar una fracción de él.
+\item Partido o desencadenado: se escriben registros en un bloque hasta que no quede espacio. Cuando vayamos a insertar el último registro, puede caber entero o partirse en dos partes, cada una en un bloque distinto. Debido a eso, es necesaria la existencia de una referencia del bloque conteniendo el primer trozo, al bloque conteniendo el otro.
+\begin{enumerate}
+\item Registro longitud fija:
+\[
+Bfr=\left\lfloor\frac{B-C-P}{R}\right\rfloor
+\]
+\item Registro de longitud variable:
+\[
+Bfr=\left\lfloor\frac{B-C-P}{R+M}\right\rfloor
+\]
+\end{enumerate}
+$P$ es el tamaño del puntero al siguiente bloque.
+\end{enumerate}
+
+\section{Organización de archivos y métodos de acceso}
+
+\section{Evaluación del sistema}
