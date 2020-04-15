@@ -1,0 +1,110 @@
+\chapter{Ley de acción de masas}
+
+Ahora dejamos los puentes y cambiamos a otro tipo de modelos totalmente diferentes. Vamos a hablar de la ley de acción de masas, pero primero vamos a repasar un poco algunas nociones sobre reacciones químicas. Tenemos una serie de productos $A_1,\cdots, A_n$, $B_1,\cdots, B_n$ y una serie de coeficientes que nos indican la concentración de cada producto: $\alpha_1,\cdots, \alpha_n$, $\beta_1,\cdots, \beta_n$. A estos coeficientes se les llama \textit{coeficientes estequiométricos}. Estos elementos nos dan una reacción química, que expresaremos como:
+\[
+\alpha_1A_1+\cdots+\alpha_nA_n \longrightarrow \beta_1B_1+\cdots+\beta_nB_n
+\]
+\begin{example} La reacción química de la quema de hidrógeno:
+\[
+2H_2+0_2\longrightarrow 2H_20
+\]
+Otra diferente:
+\[
+ClH+NaOH \longrightarrow ClNa+H_20
+\]
+\end{example}
+
+Esto es una cuestión molecular y trabajar con ellas es bastante complicado. Para solventar ese problema, usamos los \textit{moles}. Un \textit{mol} es la cantidad de una sustancia que contiene tantos átomos como su peso atómico. También usaremos la \textit{concentración de un producto}, $[N]$, que es el igual al número de moles que hay del producto. En la reacción anterior obtendríamos dos moles de agua, combinando dos moles de hidrógeno y un mol de oxígeno. Podemos hablar de concentración de \textit{reactivos} y \textit{productos}: $[A] = \{ \text{ número de moles de reactivo } \}$, $[B] = \{ \text{ número de moles de producto } \}$
+
+Por otro lado, está la denominada \textit{velocidad de reacción}, que es la variación de la concentración a lo largo del tiempo. La teoría nos dice que:
+\[
+\frac{d}{dt}[B]=k[A_1]\cdots[A_n]
+\]
+\begin{example}
+Sean $X,Y$ y $Z$ tre compuestos químicos que se combinan en un producto final $F$ según la reacción:
+\[
+2X+3Y+5Z\longrightarrow 5F
+\]
+La velocidad de reacción (moléculas más o menos iguales) se puede suponer proporcional al producto de concentraciones de productos $X,Y,Z$, según un coeficiente $\beta$ (velocidad de reacción). Suponemos que $\beta=0.01$. Si partimos inicalmente de 5 moles de $X$, 7 moles de $Y$ y 10 moles de $Z$, plantear un modelo que permita calcular la concentración de cada sustancia en cada instante. ¿Qué pasará tras mucho tiempo?
+
+Básicamente hay que aplicar una regla de 3:
+\[
+\left.
+\begin{array}{ccc}
+2X & \longrightarrow & 5F\\
+5X & \longrightarrow & ?
+\end{array}
+\right\} \Rightarrow \text{ se producirían  12.5F}
+\]
+\[
+\left.
+\begin{array}{ccc}
+3Y & \longrightarrow & 5F\\
+7Y & \longrightarrow & ? = 
+\end{array}
+\right\} \Rightarrow \text{ se producirían  11.6F }
+\]
+\[
+\left.
+\begin{array}{ccc}
+5Z & \longrightarrow & 5F\\
+10Z & \longrightarrow & ? = 10 
+\end{array}
+\right\} \Rightarrow \text{ se producirían  10F }
+\]
+De aquí, deduzco que se van a producir 10 moles de $F$, ya que es el mínimo de las 3 reglas que hemos hecho. Ahora tenemos que ver cuanta cantidad queda de los reactivas $X$ e $Y$ al crear 10 moles de $F$.
+\[
+\left.
+\begin{array}{ccc}
+2X & \longrightarrow & 5F\\
+? & \longrightarrow & 10F
+\end{array} 
+\right\}
+\Rightarrow \text{ se gastan 4X }
+\]
+\[
+\left.
+\begin{array}{ccc}
+3Y & \longrightarrow & 5F\\
+? & \longrightarrow & 10F
+\end{array}
+\right\} \Rightarrow \text{ se gastan 6Y }
+\]
+Luego sobran 1 de $X$, 1 de $Y$ y 0 de $Z$, y se habrán creado 10 moles de $F$. Ahora vamos a denotar por $x(t),y(t),z(t),F(t)$ a la concentración de $X,Y,Z,F$ en el instante $t$ respectivamente. En el instante $t=0$, tendremos las concentraciones iniciales, y en el instante $t=1$, tendremos las finales (el resultado de las cuentas que hemos hecho antes), es decir:
+\[
+\begin{array}{|c|c|c|}
+\hline
+& t=0 & t=1 \\
+\hline
+x(t) & 4 & 1\\
+\hline
+y(t) & 7 & 1\\
+\hline
+z(t) & 10 & 1\\
+\hline
+F(t) & 0 & 1\\
+\hline
+\end{array}
+\]
+Si nos fijamos, $5-x(t),7-y(t),10-z(t)$ son los restantes de los productos $X,Y,Z$ en el instante $t$. Es decir, tenemos que la velocidad de reacción de $F$ es:
+\[
+F'(t)=\beta x(t)y(t)z(t)
+\]
+Haciendo otra regla de 3:
+\[
+\left.
+\begin{array}{ccc}
+2X & \longrightarrow & 5F\\
+5-x(t) & \longrightarrow & F(t)
+\end{array}
+\right\} \Rightarrow F(t)=\frac{5(5-x(t))}{2} \Rightarrow x(t)=5-\frac{2F(t)}{5}
+\]
+De forma análoga, obtenemos las expresiones de $y(t)$ y $z(t)$:
+\[
+y(t)=7-\frac{3F(t)}{5}, \espacio z(t)=10-F(t)
+\]
+Es decir, la expresión final de la velocidad de reacción sería:
+\[
+F'(t)=0.01\left(5-\frac{2F(t)}{5}\right)\left(7-\frac{3F(t)}{5}\right)\left(10-F(t)\right), \espacio F(0)=0
+\]
+\end{example}

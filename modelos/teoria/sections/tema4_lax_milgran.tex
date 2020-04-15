@@ -584,3 +584,106 @@ R(\phi)=r(x)+\sum_{i=1}^nc_i\delta_{\alpha_i} \espacio a<\alpha_1<\cdots<\alpha_
 
 \section{Sturm-Liouville: caso regular (3)}
 igual pero con peso.
+
+\textbf{AQUI EMPIEZA LA CLASE DEL 14 DE ABRIL}
+
+\section{Problema de Sturm-Liouville regular}
+
+En esta sección vamos a cambiar la notación, lo que antes represantábamos por $y$ lo vamos a denotar por $u$. Con esta notación, nuestro funcional quedaría:
+\begin{equation}\label{ff}
+L(u)=\frac{1}{2}\integral{a}{b}{p(x)u'(x)^2dx}+\frac{1}{2}\integral{a}{b}{q(x)u(x)^2dx}-R(u)
+\end{equation}
+
+Tenemos la ecuación (de los casos anteriores):
+\begin{equation}\label{ec}
+-(p(x)u'(x))'+q(x)u(x)=r(x) \espacio \forall x\in[a,b]
+\end{equation}
+con las siguientes condiciones de contorno:
+\[
+\begin{array}{c}
+\alpha_au(a)+\beta_au'(a)=\gamma_a\\
+\alpha_bu(b)+\beta_bu'(b)=\gamma_b
+\end{array}
+\]
+donde $p\in\continuas[1]$, lo que nos dice que el primer término de \eqref{ec} se puede desarrollar para obtener una EDO (recordemos, que necesitamos que todas los elementos sean continuos para poder aplciar la teoría que sabemos de ecuaciones diferenciales). Además, $p(x)>0$ si $x\in[a,b]$ (para que podemos hacer cocientes luego). $q,r\in\continuas$ y $(\alpha_a,\beta_a)\neq(0,0)$, $(\alpha_b,\beta_b)\neq(0,0)$.
+
+A la ecuación anterior y al conjunto de condiciones de contorno anteriores, es lo que vamos a denominar el \textit{problema de Sturm-Liouville regular (PSL)}. Recordemos que tenemos varios casos ya conocidos y que hemos resuelto. Reescribámoslos con esta nueva notación del problema:
+\begin{enumerate}[(a)]
+\item (Dirichlet) $(\alpha_a,\beta_a)=(1,0)=(\alpha_b,\beta_b)$, $\gamma_a=\gamma_b=0$. Además había que imponer $q(x)\geq 0$ $x\in[a,b]$. En estas condiciones, existe una única solución del problema.
+
+Para comprobarlo, lo único que tenemos que hacer es minimizar en $\sobolevcero{1}$ el funcional dado por \eqref{ff} con $R(u)=\integral{a}{b}{r(x)u(x)dx}$. Al resolverlo, obtenemos $u\in\continuas[2]$.
+
+La solución de este caso, es la misma que la del siguiente problema:
+\[
+\min\left\{L(u):\; u\in\continuas[2],\; u(a)=u(b)=0\right\}
+\]
+A ese espacio se le suele llamar $C_0^2[a,b]$. El problema es que ese espacio es de Banach pero no es reflexivo, luego no puede ser de Hilbert, es decir, nada de la teoría que desarrollamos anteriormente vale para este espacio.
+
+\item (Neumann) $(\alpha_a,\beta_a)=(0,1)=(\alpha_b,\beta_b)$, $\gamma_a=\gamma_b=0$, $q(x)>0$ $x\in[a,b].$ La condición sobre $q$ la ponemos porque una función continua en un compacto alcanza el mínimo, luego si imponemos que sea positiva en todo el intervalo, ese mínimo también será positivo. En estas condiciones, existe una única solución en $\sobolev{1}$. Igual que antes, esta solución coincide con la solución de:
+\[
+\min\left\{L(u):\; u\in\continuas[2]\right\}
+\]
+De hecho, también se da que es:
+\[
+\min\left\{L(u):\; u\in\continuas[2],\; u'(a)=u'(b)=0\right\}
+\]
+\end{enumerate}
+
+\begin{remark}
+Sea $A\in\mathcal{M}_{n\times n}(\R)$, $x,b\in\R^n$ y queremos resolver el sistema $Ax=b$. Si $Ax=0$  tiene una única solución, entonces el sistema completo también tiene una única solución.
+\end{remark}
+
+Al principio de esta sección, planteamos el \textit{problema de Sturm-Liouville regular}, si se da el caso de que $r(x)=0$ para $x\in[a,b]$ y $\gamma_a=\gamma_b=0$, es decir, tendríamos la ecuación
+\[
+-(p(x)u'(x))'+q(x)u(x)=r(x) \espacio \forall x\in[a,b]
+\]
+con las condiciones de contorno:
+\[
+\begin{array}{c}
+\alpha_au(a)+\beta_au'(a)=0\\
+\alpha_bu(b)+\beta_bu'(b)=0
+\end{array}
+\]
+entonces lo denotaremos por \textit{problema de Sturm-Liouville homogéneo}.
+
+\begin{theorem}
+Si el problema homogéneo de Sturm-Liouville (SLH), tiene una única solución, entonces el problema de Sturm-Liouville regular también tiene una única solución.
+\end{theorem}
+\begin{proof}
+Tenemos que ver que existe una única solución de (PSL) cumpliendo ca y cb. Si consideramos (PSL) cumpliendo ca, el lema anterior nos dice que las soluciones son del tipo 
+\[
+u_1(t)+\lambda u_2(t)
+\]
+y cumplen ca. Tenemos que encontrar $\lambda$ tal que esas soluciones también cumplan cb, es decir, que se cumpla:
+\[
+\alpha_b(u_1(b)+\lambda u_2(t))+\beta_b(u_1'(b)+\lambda u_2'(t))=\gamma_b
+\]
+Despejando (¿?)
+\end{proof}
+
+\begin{lemma}
+Las soluciones de la ecuación diferencial (PSL) que verifican la condición $c_a$ son de la forma:
+\[
+u_1(t)+\lambda u_2(t)
+\]
+donde $\lambda\in\R$, $u_1$ es una solución particular de la ecuación diferencial (PSL) junto con la condición $c_a$ y $u_2$ es una solución no trivial de la ecuación diferencial (PSLH) verificando la ecuación $c_a$.
+\end{lemma}
+\begin{proof}
+($\Rightarrow$) Si $u_1$ es solución de (PSL) y $u_2$ es solución de (PSLH), entonces, por el principio de superposición, tenemos que $u_1+\lambda u_2$ es solución de (PSL).
+Pero además, si $u_1,u_2$ verifican $c_a$ entonces $u_1+\lambda u_2$ también.
+
+($\Leftarrow$) Sea $u_1$ una solución particular de la ecuación (PSL) cumpliendo $c_a$ y $u_2$ una solución de (PDSLH) cumplicando $c_a$, veamos que si $\tilde{u}$ es otra solución de de (PSL) cumplicando $c_a$, entonces 
+\[
+\tilde{u}=u_1+\lambda u_2, \text{ para cierto } \lambda\in\R
+\]
+Lo anterior es equivalente a decir que $\tilde{u}-u_1=\lambda u_2$, es decir, que $\tilde{u}-u_1$ es múltiplo de $u_2$, es decir, $\tilde{u}-u_1$ cumple (PSLH) y $c_a$. Ahora solo queda que ver que el conjunto de soluciones que verifican (PSLH) y $c_a$ es un espacio vectorial unidimensional. Como la (PSLH) es de segundo orden, entonces el espacio de soluciones es bidimensional.
+
+Busco $\bar{u}$ solución de (PSLH) que no verifique $c_a$. Para ello, busco unas condiciones iniciales $u_0$, $u_0'$ que no verifiquen $\alpha_a u_0+\alpha_b u_0'=0$ y tomo la solución del problema de valores iniciales.
+\end{proof}
+
+\begin{coro}
+Si $(\alpha_a,\beta_a)=(1,0)=(\alpha_b,\beta_b)$ y $q(x)\geq 0$, el problema (PSL) tiene una única solución, por la unicidad del mínimo en el caso Dirichlet.
+\end{coro}
+\begin{coro}
+Si $(\alpha_a,\beta_a)=(0,1)=(\alpha_b,\beta_b)$ y $q(x)>0$, el problema (PSL) tiene una única solución, por la unicidad del mínimo en el caso Neumann.
+\end{coro}
