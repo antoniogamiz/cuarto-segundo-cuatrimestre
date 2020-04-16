@@ -54,9 +54,9 @@ R=\sum_iV_i
 \item $s$: número de separadores por atributo.
 \end{enumerate}
 tenemos que la longitud del registro es:
-\[
+\begin{equation}\label{eq:1}
 R=a'(A+V+s)
-\]
+\end{equation}
 \end{enumerate}
 
 \begin{example}
@@ -124,6 +124,204 @@ Bfr=\left\lfloor\frac{B-C-P}{R+M}\right\rfloor
 $P$ es el tamaño del puntero al siguiente bloque.
 \end{enumerate}
 
+Llamamos \textbf{espacio desperdiciado (W)} al espacio que se pierde en marcas, referencias, espacio en el que no cabe un registro,  etc.
+\begin{enumerate}[(a)]
+\item Bloqueo partido con registros de longitud variable:
+\[
+W=\frac{(P+Bfr \cdot M)}{Bfr}=\frac{P}{Bfr}+M
+\]
+Esa fórmula se puede ver como el porcentaje de espacio del bloque que no es dedicado a almacenar registros. Como es bloque partido, necesitamos un puntero $P$ al siguiente bloque, y como son registros de longitud variable, necesitamos un separador por \textit{cada} registro que almacenamos en ese bloque, es decir, usamos $Bfr\cdot M$ espacio para separadores.
+\end{enumerate}
+
+Una vez sabemos medir cuánto espacio se desperdicia en un bloque, podemos saber más o menos que bloqueo es más eficiente teniendo en cuenta el tamaño de los registros:
+\begin{enumerate}[(a)]
+\item El bloqueo fijo es más eficiente para registros pequeños.
+\item El bloqueo partido es más eficiente para registros grandes.
+\end{enumerate}
+
 \section{Organización de archivos y métodos de acceso}
+
+\subsection{Archivo Secuencial Físico (ASF)}
+
+En este tipo de archivo suponemos que los registros tienen estructura y longitud variable, es decir, necesitamos \textit{dos} separadores: el primero para separar los campos dentro de un registro y el otro para separar el nombre el campo de su valor. Por ejemplo:
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+Factura=325; & Linea=1; & Concepto=Análisis; & Cant=1; & Precio=300; \\
+\hline
+\end{tabular}
+\end{center}
+\subsubsection{Tamaño de registro}
+Si recordamos la expresión \eqref{eq:1}, tenemos que: (porque $s=2$):
+\[
+R=a'(A+V+2)
+\]
+\subsubsection{Recuperación de un registro}
+\begin{equation}\label{eq:2}
+T_F=\sum_{i=1}^n\frac{i}{n}T=\frac{n+1}{2}T\approx\frac{n}{2}T
+\end{equation}
+\subsubsection{Siguiente registro (por clave)}
+\[
+T_N=T_F
+\]
+Como es por clave, el siguiente registro no tiene porqué estar justo después del que tenemos, por lo que hay buscarlo entero de nuevo.
+\subsubsection{Inserción de registro}
+\[
+T_I=T_W
+\]
+Simplemente hay que abrir el archivo, ir al final e insertarlo.
+\subsubsection{Actualización de registro}
+Hay que distinguir dos casos:
+\begin{enumerate}[(a)]
+\item Si el tamaño del registro no cambia, lo único que hay que hacer es encontrarlo y sustituir el nuevo valor:
+\[
+T_U=T_F+T_W
+\]
+\item Si el tamaño del registro cambia, entonces primero tenemos que encontrar el registro ($T_F$), marcarlo como inválido ($T_W$) e insertarlo al final ($T_I$):
+\[
+T_U=T_F+T_W+T_I
+\]
+\end{enumerate}
+\subsubsection{Lectura de fichero}
+Hay que distinguir dos casos en función de si queremos que el resultado esté ordenado:
+\begin{enumerate}[(a)]
+\item Independientemente del contenido del registro: como están seguidos, simplemente hay que leerlos todos:
+\[
+T_X=nT
+\]
+\item Lectura ordenada según el valor de un atributo: hay leer el primero, buscar el siguiente, leerlo, buscar el siguiente, es decir: (ojo, al buscarlo ya lo has leído):
+\[
+T_X=nT_F
+\]
+\end{enumerate}
+\subsubsection{Reorganización del fichero}
+Llamemos $O$ al número de registros añadidos y $d$ al número de registros que hay marcados para borrar. Para reorganizarlo, primero debemos leer todos los registros que había antes más los añadios ($n+O$, en $n$, van incluidos también los que hay marcados para borrar). Después, hay que escribirlos todos otra vez, excepto los marcados para borrar. Importante, no consideramos ningún orden, por lo que no hay que tener en cuenta ningún tiempo de ordenación. Además, como lo insertamos en un archivo totalmente nuevo, los podemos escribir directamente $(T_W)$.
+\[
+T_Y=(n+O)T+(n+O-d)T_W
+\]
+\subsection{Archivo Secuencial Lógico (ASL)}
+
+En este tipo de archivo, los registros se encuentran ordenados por una \textbf{clave física}, que puede tener uno o varios campos. Además, los registros los consideramos de longitud fija, es decir, tienen los mismos campos y aparecen en el mismo orden. La estructura de los registros se incluye en la cabecera del fichero. Este tipo de registros son muy útiles para hacer estrategias tipo \textit{merge}.
+
+Como los registros están ordenados por una clave, tenemos que insertalos necesariamente en alguna parte del interior del archivo (no al final, en la mayoría de los casos). Esto es terriblemente costoso porque tendríamos que mover todos los registros existentes un lugar hacia abajo para insertar el nuevo registro. Por esta razón, se usa una \textbf{zona de desbordamiento} no ordenada, de tipo ASF. Cuando esta zona de desbordamiento crece, tenemos que reconstruir el fichero haciendo un merge del original con este y reescribiéndolo.
+
+\subsubsection{Tamaño de registro}
+
+Como tienen estructura y longitud fija, simplemente tenemos que considerar lo que ocupa el valor de cada registro (porque la cabecera solo aparece al principio y despreciamos su tamaño):
+\[
+R=\sum_{i}V_i
+\]
+
+\subsubsection{Recuperación de un registro}
+Dos casos:
+\begin{enumerate}[(a)]
+\item Si el valor de búsqueda no es clave, entonces no podemos aprovechar la única ventaja que nos da la estructura de ASL, es decir, sería igual que el ASF \eqref{eq:2}:
+\[
+T_F=\frac{n}{2}T
+\]
+\item Si además de no ser clave, hay registros en la zona de desbordamiento, hay que buscarlo en la zona de desbordamiento, es decir, buscarlo en dos ASF de tamaño $n$ y $O$ ($O$ es el tamaño de la zona de desbordamiento):
+\[
+T_F=\frac{n}{2}T+\frac{O}{2}T
+\] 
+\item Si el valor de búsqueda es clave, entonces la eficiencia dependerá del algoritmo de búsqueda que usemos. En el mejor de los casos:
+\[
+T_F\approx \log_2(n)T
+\]
+\end{enumerate}
+\subsubsection{Siguiente registro (por clave)}
+Hay que tener en cuenta donde se encuentra el siguiente registro:
+\begin{enumerate}[(a)]
+\item Si el siguiente valor de clave está en el propio fichero, entonces va a estar justo después del registro que tenemos porque los valores están ordenados, entonces solo tenemos que leerlo:
+\[
+T_N=T
+\]
+\item Si el siguiente valor de clave está en la zona de desbordamiento, entonces leemos nuestro registro más todos los de la zona de desbordamiento para buscarlo:
+\[
+T_N=T+OT
+\]
+\end{enumerate}
+\subsubsection{Inserción de registro}
+Como el archivo está ordenado, la inserción es más complicada. Primero tenemos que buscar el sitio que le corresponde al registro, escribirlo y leer y reescribir todos los que haya después de ese:
+\[
+T_I=T_F+T_W+\frac{n}{2}T+\frac{n}{2}T_W
+\]
+Si la inserción es de varios registros, es más eficiente insertarlos en el zona de desbordamiento directamente:
+\[
+T_I=T_W
+\]
+Pero como después, en algún punto, habrá que insertarlos en el fichero maestro:
+\[
+T_I=\frac{T_Y}{O}
+\]
+\textit{esta formula no la entiendo muy bien}
+\subsubsection{Actualización de registro}
+Hay que distinguir dos casos dependiendo de si se cambia el valor de la clave o no:
+\begin{enumerate}[(a)]
+\item Si no se cambia el valor de la clave, entonces simplemente hay que encontrarlo y escribir los nuevos valores:
+\[
+T_U=T_F+T_W
+\]
+\item Si se cambia el valor de la clave, entonces hay que encontrarlo, marcarlo como inválido, e insertarlo:
+\[
+T_U=T_F+T_W+T_I
+\]
+\end{enumerate}
+\subsubsection{Lectura de fichero}
+\begin{enumerate}[(a)]
+\item Si sólo se usa archivo maestro:
+\[
+T_X=nT
+\]
+\item Si se usa un fichero de desbordamiento, primero hay que ordenar ese fichero ($T_C(O)$) y después leer ambos ficheros usando $merge$ ($(n+O)T$):
+\[
+T_X=T_C(O)+(n+O)T
+\]
+\end{enumerate}
+\subsubsection{Reorganización del fichero}
+La reorganización de un ASL es muy fácil: consiste en leer el fichero en merge, y reescribir los registros eliminando los borrados:
+\[
+T_Y=T_X+(n+O-d)T_W=T_C(O)+(n+O)T+(n+O-d)T_W
+\]
+Importante, si no hay zona de desbordamiento no tiene sentido reorganizar el fichero porque ya está ordenado de por sí.
+\subsection{Archivo Secuencial Indexado (ASI)}
+
+Este tipo de archivo acelera el acceso por clave. Se busca el valor de clave en el \textbf{índice} y éste irá acompañado de una posición en el fichero. Si la posición a la que apunta el índice es un registro, entonces se llama \textbf{índice denso}, si apunta a otro índice, se llama \textbf{índice no denso}.
+
+La estructura de este fichero usa ASLs, descritos en la sección anterior. Manejamos dos ficheros:
+\begin{enumerate}[(a)]
+\item Un fichero de datos: de tipo ASL con una posible área de desbordamiento (pero que se gestiona de forma distinta al ASL).
+\item Un fichero de índice: otro ASL con registros de longitud fija (y estructura uniforme) que contiene valor de clave y dirección del fichero de datos.
+\end{enumerate}
+
+\subsubsection{Tamaño de registro}
+Al igual que en el ASL, los registros son de longitud fija y estructura uniforme, luego hay que sumar las longitudes de cada atributo. Peo también hay que tener en cuenta el tamaño del índice, que está formado por la clave ($V_K$) y el puntero al registro ($P$):
+\[
+R=\sum_iV_i + (V_K+P)
+\]
+\subsubsection{Recuperación de un registro}
+La recuperación es muy sencilla, buscar el índice y leer el registro:
+\[
+T_F=\log_2(n)T+T
+\]
+\subsubsection{Siguiente registro (por clave)}
+Como los índices sí están ordenados, simplemente hay que leer el siguiente índice y luego leer el registro al que apunta su puntero, es decir, dos lecturas sólo:
+\[
+T_N=T+T=2T
+\]
+\subsubsection{Inserción de registro}
+\subsubsection{Actualización de registro}
+\subsubsection{Lectura de fichero}
+\subsubsection{Reorganización del fichero}
+
+\subsection{Archivo de Acceso Directo (AAD)}
+
+\subsubsection{Tamaño de registro}
+\subsubsection{Recuperación de un registro}
+\subsubsection{Siguiente registro (por clave)}
+\subsubsection{Inserción de registro}
+\subsubsection{Actualización de registro}
+\subsubsection{Lectura de fichero}
+\subsubsection{Reorganización del fichero}
+
 
 \section{Evaluación del sistema}
