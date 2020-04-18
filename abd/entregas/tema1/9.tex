@@ -1,0 +1,41 @@
+\documentclass[12pt]{report}
+ 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\usepackage[margin=1in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage[shortlabels]{enumitem}
+\usepackage{mathtools}
+\usepackage{amsfonts}
+\usepackage{float}
+\usepackage{epigraph}
+\usepackage{lipsum}
+\usepackage{parskip}
+\usepackage[spanish]{babel}
+\usepackage{tikz}
+\usetikzlibrary{babel}
+\usepackage{csquotes}
+\usepackage{xcolor}
+\usepackage[framemethod=tikz,xcolor=true]{mdframed}
+\usepackage[new]{old-arrows}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\textbf{Ejercicio 9.} Se tienen registros con: char(15), integer (2B), fecha (10B), real (8B), R=235B, B=4KB. Supuesta la estructura de longitud variable, una cabecera con 2 punteros (de 4B) más un carácter, calcula el factor de bloqueo para:
+
+Como la cabecera contiene 2 punteros de $4B$ más un carácter, su tamaño será $C=9B$. Pero eso es para el caso del bloqueo encadenado, ya que en caso de que sea bloque fijo, si suponemos que uno de los dos punteros es usado para apuntar al siguiente bloque, el tamaño de la cabecera sería $C=5B$, ya que no lo necesitaríamos. 
+
+Además tenemos que considerar el tamaño de los separadores, que habrá 8 (4 para separar campos y 4 para separar valores), es  decir, $M=8B$
+
+\begin{enumerate}[(a)]
+\item bloqueo fijo
+\[
+Bfr=\left\lfloor\frac{B-C}{R+M}\right\rfloor=\left\lfloor\frac{4KB-5B}{235B+8B}\right\rfloor=\left\lfloor\frac{4\cdot 1024B-5B}{243B}\right\rfloor=16
+\]
+\item bloqueo encadenado
+\[
+Bfr=\left\lfloor\frac{B-C}{R+M}\right\rfloor=\left\lfloor\frac{4KB-9B}{235B+8B}\right\rfloor=\left\lfloor\frac{4\cdot 1024B-9B}{243B}\right\rfloor=16
+\]\end{enumerate}
+
+\end{document}
+

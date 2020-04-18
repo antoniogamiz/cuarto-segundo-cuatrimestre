@@ -1,0 +1,35 @@
+\documentclass[12pt]{report}
+ 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\usepackage[margin=1in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage[shortlabels]{enumitem}
+\usepackage{mathtools}
+\usepackage{personalcommands}
+\usepackage{amsfonts}
+\usepackage{float}
+\usepackage{epigraph}
+\usepackage{lipsum}
+\usepackage{parskip}
+\usepackage[spanish]{babel}
+\usepackage{tikz}
+\usetikzlibrary{babel}
+\usepackage{csquotes}
+\usepackage{xcolor}
+\usepackage[framemethod=tikz,xcolor=true]{mdframed}
+\usepackage[new]{old-arrows}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\textbf{Ejercicio 5.} Indica si son ciertas o falsas las siguientes afirmaciones y, brevemente, explica por qué:
+\begin{enumerate}[(a)]
+\item El tiempo que se tarda en reorganizar un fichero ASI (Arcihvos Secuenciales Indexados) denso depende únicamente del tiempo necesario para reordenar el fichero de desbordamientoo y de reescribir ordenadamente el nuevo fichero maestro.
+
+Falso. Eso sería si fuera un ASL, pero como indica la I de ASI, aquí también juegan los índices. Al reordenar el archivo, es necesario reconstruir el índice, luego también hay que tener en cuenta ese tiempo.
+\item Para consultas por rango, los ASI (Archivos Secuenciales Indexados) son  más adecuados.
+
+Falso también, para que quieres un índice si vas a consultar por rango. Para eso, te ahorras el índice y usas un ASL, que simplemente tienes que encontrar el del principio del rango, el del final, y leer todo lo del medio.
+\end{enumerate} 
+\end{document}
+

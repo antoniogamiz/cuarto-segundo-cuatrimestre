@@ -1,0 +1,106 @@
+\documentclass[12pt]{report}
+ 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\usepackage[margin=1in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage[shortlabels]{enumitem}
+\usepackage{mathtools}
+\usepackage{personalcommands}
+\usepackage{amsfonts}
+\usepackage{float}
+\usepackage{epigraph}
+\usepackage{lipsum}
+\usepackage{parskip}
+\usepackage[spanish]{babel}
+\usepackage{tikz}
+\usetikzlibrary{babel}
+\usepackage{csquotes}
+\usepackage{xcolor}
+\usepackage[framemethod=tikz,xcolor=true]{mdframed}
+\usepackage[new]{old-arrows}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\textbf{Ejercicio 1.} Sean las relaciones $R$ y $S$ con los siguientes parámetros:
+
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline 
+R(a,b,c) & S(c,d) \\ 
+\hline 
+N(R)=5000 & N(S)=200 \\ 
+\hline 
+V(R,a)=5000 &   \\ 
+\hline 
+V(R,b)=3000 &   \\ 
+\hline 
+V(R,c)=5 & V(S,c)=5 \\ 
+\hline 
+  & V(S,d)=40 \\ 
+\hline 
+Size(a)=20 &   \\ 
+\hline 
+Size(b)=60 &   \\ 
+\hline 
+Size(c)=20 & Size(c)=20 \\ 
+\hline 
+  & Size(d)=40 \\ 
+\hline 
+\end{tabular} 
+\end{center} 
+
+Teniendo en cuenta que el tamaño de bloque es $B=2KB$, que la cabecera es de $20B$ y que en memoria sólo cabe un bloque, determina el número de operaciones de E/S que supondría la ejecución de la consulta:
+\[
+\Pi_{a,d}(R\;JOIN\;S)
+\]
+Primero la longitud de los registros:
+\[
+L(R)=20B+60B+20B=100B, \espacio L(S)=20B+40B=60B
+\]
+y el factor de bloqueo para cada tabla:
+\[
+Bfr(R)=\left\lfloor\frac{T(B)-C}{L(R)}\right\rfloor=\left\lfloor\frac{2048B-20B}{100B}\right\rfloor=20
+\]
+\[
+Bfr(S)=\left\lfloor\frac{T(B)-C}{L(S)}\right\rfloor=\left\lfloor\frac{2048B-20B}{60B}\right\rfloor=33
+\]
+y el número de bloques de cada tabla:
+\[
+B(R)=\left\lceil\frac{N(R)}{Bfr(R)}\right\rceil=\left\lceil\frac{5000}{20}\right\rceil= 250
+\]
+\[
+B(S)=\left\lceil\frac{N(S)}{Bfr(S)}\right\rceil=\left\lceil\frac{200}{33}\right\rceil= 7
+\]
+Ahora, para hacer la unión, necesitamos leer las dos tablas enteras, luego necesitaremos $250+7$ bloques de E/S. Hacemos la unión por $c$. Calculamos el número de registros:
+\[
+N(R\;JOIN\;S)=\frac{N(R)N(S)}{\max\{V(R,c),V(S,c)\}}=\frac{5000\cdot 200}{\max\{5,5)\}}=200000
+\]
+\[
+L(R\;JOIN\;S)=L(R)+L(S)-size(c)=100B+60B-20B=140B
+\]
+\[
+Bfr(R\;JOIN\;S)=\left\lfloor\frac{T(B)-C}{L(R\;JOIN\;S)}\right\rfloor=\left\lfloor\frac{2048B-20B}{140B}\right\rfloor=14
+\]
+\[
+B(R\;JOIN\;S)=\left\lceil\frac{N(R\;JOIN\;S)}{Bfr(R\;JOIN\;S)}\right\rceil=\left\lceil\frac{200000}{14}\right\rceil= 14286
+\]
+Luego para escribir en disco el resultado de la unión hemos necesitado 14286 E/S. Ahora necesitamos otros 14286 bloques de E/S para leerlos y hacer la proyección. Por simplicidad, notamos $\Pi_{a,d}(R\;JOIN\;S)$.
+\[
+L(P)=size(a)+size(d)=20B+40B=60B 
+\]
+\[
+N(P)=N(R\;JOIN\;S)
+\]
+\[
+Bfr(P)=\left\lfloor\frac{T(B)-C}{L(P)}\right\rfloor=\left\lfloor\frac{2048B-20B}{60B}\right\rfloor=33
+\]
+\[
+B(P)=\left\lceil\frac{N(P)}{Bfr(P)}\right\rceil=\left\lceil\frac{200000}{33}\right\rceil= 6061
+\]
+Luego necesitamos 6061 bloques E/S para escribir el resultado de la proyección. En total:
+\[
+250+7+14286+6061=20604
+\]
+\end{document}
+

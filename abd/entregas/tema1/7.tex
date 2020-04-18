@@ -1,0 +1,41 @@
+\documentclass[12pt]{report}
+ 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\usepackage[margin=1in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage[shortlabels]{enumitem}
+\usepackage{mathtools}
+\usepackage{amsfonts}
+\usepackage{float}
+\usepackage{epigraph}
+\usepackage{lipsum}
+\usepackage{parskip}
+\usepackage[spanish]{babel}
+\usepackage{tikz}
+\usetikzlibrary{babel}
+\usepackage{csquotes}
+\usepackage{xcolor}
+\usepackage[framemethod=tikz,xcolor=true]{mdframed}
+\usepackage[new]{old-arrows}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\textbf{Ejercicio 7.} Supón una tabla con \textit{nombre\_paciente},  que es un \textit{varchar(55)} que ocupa 56B, una fecha que ocupa 10B, un peso de tipo real que ocupa 8B, un numero\_interveciones que es un entero y ocupa 4B, un numero\_hijos que es un entero y ocupa 4B, un atributo fumador que es lógico y ocupa 1B, y un R de 83B. Calcula el factor de bloqueo y el porcentaje de utilización en caso de tratarse de bloqueo fijo en los casos de:
+
+Del enunciado deducimos que trata de registros de longitud fija con $R=83B$. Como no dice nada de cuanto ocupa la cabecera, voy a suponer que ocupa tanto como un registro (no sé si debería suponer tamaño 0), luego $C=R=83B$.
+
+\begin{enumerate}[(a)]
+\item bloque de 2KB
+\[
+Bfr=\left\lfloor\frac{B-C}{R}\right\rfloor=\left\lfloor\frac{2KB-83B}{83B}\right\rfloor=\left\lfloor\frac{2\cdot 1024B-83B}{83B}\right\rfloor=23
+\]
+\item bloque de 4KB
+\[
+Bfr=\left\lfloor\frac{B-C}{R}\right\rfloor=\left\lfloor\frac{4KB-83B}{83B}\right\rfloor=\left\lfloor\frac{4\cdot 1024B-83B}{83B}\right\rfloor=48
+\]
+\end{enumerate}
+
+
+\end{document}
+

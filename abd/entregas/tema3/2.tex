@@ -1,0 +1,154 @@
+\documentclass[12pt]{report}
+ 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\usepackage[margin=1in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage[shortlabels]{enumitem}
+\usepackage{mathtools}
+\usepackage{personalcommands}
+\usepackage{amsfonts}
+\usepackage{float}
+\usepackage{epigraph}
+\usepackage{lipsum}
+\usepackage{parskip}
+\usepackage[spanish]{babel}
+\usepackage{tikz}
+\usetikzlibrary{babel}
+\usepackage{csquotes}
+\usepackage{xcolor}
+\usepackage[framemethod=tikz,xcolor=true]{mdframed}
+\usepackage[new]{old-arrows}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+Sean las relaciones $R$ y $S$ con los siguientes parámetros:
+
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline 
+R(a,b,c) & S(d,e,b) \\ 
+\hline 
+N(R)=1000 & N(S)=5000 \\ 
+\hline 
+Size(a)=20 &   \\ 
+\hline 
+Size(b)=30 & Size(b)=30 \\ 
+\hline 
+Size(c)=100 &   \\ 
+\hline 
+  & Size(d)=20 \\ 
+\hline 
+  & Size(e)=40 \\ 
+\hline 
+V(R,a)=1000 &   \\ 
+\hline 
+V(R,b)=200 & V(S,b)=500 \\ 
+\hline 
+V(R,c)=20 &   \\ 
+\hline 
+  & V(S,d)=5000 \\ 
+\hline 
+  & V(S,e)=40 \\ 
+\hline 
+\end{tabular} 
+\end{center}
+donde $a$ es la llave primaria de $R$ y $d$ es la llave primaria de $S$, y donde \textbf{no} existe una relación de llave externa entre las relaciones $R$ y $S$, aunque ambas tengan un atributo común en nombre y dominio (con valores comunes) $b$.
+
+Teniendo en cuenta que el $B=4KB$, $C=40B$, que se usa \textbf{bloqueo fijo}, que los \textbf{bloques} son \textbf{homogéneos}, que en memoria cabe únicamente un bloque de cada relación o resultado de operación intermedia, y considerando que las operaciones de \textbf{proyección y selección 'no respetan' índices} (es decir, si las relaciones sobre las que se aplica la operación tienen un índice, el resultado de la misma no está indexado).
+
+\textbf{Ejercicio 2.} Determina el número de operaciones de E/S (plan físico) para el plan lógico del Ejercicio 1.
+
+Recordemos que el plan lógico era:
+
+\begin{center}
+\begin{tikzpicture}[scale=0.4]
+\draw (0,0) node[anchor=north] {$\sigma_{e=e_k}$};
+\draw (0,-1.1)-- (0,-3);
+\draw (0,-3) node[anchor=north] {$\Pi_{a,e}$};
+\draw (0,-4.3)-- (0,-6);
+\draw (0,-6) node[anchor=north] {$JOIN$};
+\draw (0,-7.2)-- (-3,-9);
+\draw (-3,-9) node[anchor=north] {$R$};
+\draw (0,-7.2)-- (3,-9);
+\draw (3,-9) node[anchor=north] {$S$};
+\end{tikzpicture}
+\end{center}
+
+Calculamos la longitud de los registros:
+\[
+L(R)=size(a)+size(b)+size(c)=150B \espacio L(S)=size(b)+size(d)+size(e)=90B
+\]
+El factor de bloqueo:
+\[
+Bfr(R)=\left\lfloor\frac{T(B)-C}{L(R)}\right\rfloor=\left\lfloor\frac{4096B-40B}{150B}\right\rfloor=27
+\]
+\[
+Bfr(S)=\left\lfloor\frac{T(B)-C}{L(S)}\right\rfloor=\left\lfloor\frac{4096B-40B}{90B}\right\rfloor=45
+\]
+El número de bloques de cada tabla:
+\[
+B(R)=\left\lceil\frac{N(R)}{Bfr(R)}\right\rceil=\left\lceil\frac{1000}{27}\right\rceil=38
+\]
+\[
+B(S)=\left\lceil\frac{N(S)}{Bfr(S)}\right\rceil=\left\lceil\frac{5000}{45}\right\rceil=112
+\]
+Veamos cuantos registros genera la unión:
+\[
+N(R\;JOIN\;S)=\frac{N(R)N(S)}{\max\{V(R,b),V(S,b)\}}= \frac{1000\cdot 5000}{500}=10000
+\]
+Y el tamaño de esos registros, factor de bloqueo, número de registros y bloques resultantes:
+\[
+L(R\;JOIN\;S)=L(R)+L(S)-size(b)=150B+90B-30B=210B
+\]
+\[
+N(R\;JOIN\;S)=N(R)N(S)=5000000
+\]
+\[
+Bfr(R\;JOIN\;S)=\left\lfloor\frac{T(B)-C}{L(R\;JOIN\;S)}\right\rfloor=\left\lfloor\frac{4096B-40B}{210B}\right\rfloor=19
+\]
+\[
+B(R\;JOIN\;S)=\left\lceil\frac{N(R\;JOIN\;S)}{Bfr(R\;JOIN\;S)}\right\rceil=\left\lceil\frac{5000000}{19}\right\rceil=263158
+\]
+En resumen, para la unión hemos necesitado: $38+112$ bloques para leer las dos tablas y otros $263158$ para escribir el resultado. En total: $263308$ bloques de E/S.
+
+Hagamos la proyección ahora. Al igual que antes, tamaño, factor de bloqueo y bloques resultantes (llamando $P=\Pi_{a,e}(R\;JOIN\;S)$):
+\[
+L(P)=size(a)+size(b)=20B+40B=60B
+\]
+\[
+N(P)=N(R\;JOIN\;S)=5000000
+\]
+\[
+Bfr(P)=\left\lfloor\frac{T(B)-C}{L(P)}\right\rfloor=\left\lfloor\frac{4096B-40B}{60B}\right\rfloor=67
+\]
+\[
+B(P)=\left\lceil\frac{N(P)}{Bfr(p)}\right\rceil=\left\lceil\frac{5000000}{67}\right\rceil=74627
+\]
+Es decir, necesitamos $263158$ para leer el resultado de la unión y $74627$ para escribir el resultado de la proyección, en total $337785$ bloques de E/S.
+
+Por último, falta la selección: $X=\sigma_{e=e_k}(P)$. Como es una selección por igualadad, tomamos:
+\[
+N(X)=\alpha N(P), \text{ donde } \alpha=\frac{1}{V(P,e)}=\frac{1}{40}
+\]
+La variabilidad de $e$ no se ve afectada por ninguna de las operaciones anteriores, luego podemos tomar la del enunciado. Quedando:
+\[
+N(X)=\alpha N(R)=\frac{5000000}{40}=125000
+\]
+\[
+L(X)=L(P)=60B
+\]
+\[
+Bfr(X)=\left\lfloor\frac{T(B)-C}{L(X)}\right\rfloor=\left\lfloor\frac{4096B-40B}{60B}\right\rfloor=67
+\]
+\[
+B(X)=\left\lceil\frac{N(X)}{Bfr(X)}\right\rceil=\left\lceil\frac{125000}{67}\right\rceil=1866
+\]
+Es decir, necesitamos 74627 bloques para leer el resultado anterior, y otros 1866 para escribir el resultado. En total: 76493.
+
+Sumando el resultado de las 3 operaciones, nos queda:
+\[
+nºbloques \;\; E/S = 263308 + 337785 + 76493=677586
+\]
+\end{document}
+

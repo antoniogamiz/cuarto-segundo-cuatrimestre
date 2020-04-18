@@ -283,7 +283,7 @@ La reorganización de un ASL es muy fácil: consiste en leer el fichero en merge
 T_Y=T_X+(n+O-d)T_W=T_C(O)+(n+O)T+(n+O-d)T_W
 \]
 Importante, si no hay zona de desbordamiento no tiene sentido reorganizar el fichero porque ya está ordenado de por sí.
-\subsection{Archivo Secuencial Indexado (ASI)}
+\subsection{Archivo Secuencial Indexado (denso) (ASI)}
 
 Este tipo de archivo acelera el acceso por clave. Se busca el valor de clave en el \textbf{índice} y éste irá acompañado de una posición en el fichero. Si la posición a la que apunta el índice es un registro, entonces se llama \textbf{índice denso}, si apunta a otro índice, se llama \textbf{índice no denso}.
 
@@ -309,10 +309,120 @@ Como los índices sí están ordenados, simplemente hay que leer el siguiente í
 T_N=T+T=2T
 \]
 \subsubsection{Inserción de registro}
+
+\begin{enumerate}[(a)]
+\item Si el fichero maestro \textbf{no} tiene área de desbordamiento, entonces hay que insertar los registros en el fichero maestro ($T_{I_1}$) además de insertar el registro correspondiente al índice ($T_{I_2}$). Como los dos archivos son ASL, el tiempo de inserción es el mismo que antes:
+\[
+T_{I_1}=T_{I_2}=T_F+T_W+\frac{n}{2}T+\frac{n}{2}T_W
+\]
+Como hay que hacer las dos siempre, el tiempo total es la suma de los dos:
+\[
+T_I=T_{I_1}+T_{I_2}
+\]
+\item Si el fichero \textbf{sí} tiene zona de desbordamiento, entonces simplemente hay que escribir el registro en ese archivo ($T_W$) e insertar el índice en el archivo de índices, que sigue siendo un ASL, luego:
+\[
+T_I=T_W+T_{I_2}
+\]
+\end{enumerate}
 \subsubsection{Actualización de registro}
+
+\begin{itemize}[(a)]
+\item Si no se cambia el valor de la clave, simplemente hay que entrar el registro a modificar y escribir la modificación.
+\[
+T_U=T_F+T_W
+\]
+\item Si se cambia el valor de la clave: hay que buscar el registro que queremos cambiar y marcarlo como inválido ($T_F+T_F$). También hay buscar el índice de ese registro y marcarlo como borrado (el otro $T_F+T_W$). Ahora ya solo hay que insertarlo.
+\[
+T_U=2(T_F+T_W)+T_{I_1}+T_{I_2}
+\]
+\end{itemize}
+
 \subsubsection{Lectura de fichero}
+\begin{itemize}[(a)]
+\item Por índice principal: 
+\[
+T_X=nT
+\]
+\item Por índice secundario:
+\[
+T_X=nT+nT=2nT
+\]
+\item Por índice secundario y con zona de desbordamiento:
+\[
+T_X=(n+O)T+nT+OT=2(n+O)T
+\]
+\end{itemize}
+\textit{ver duda profe}
 \subsubsection{Reorganización del fichero}
 
+Hay que reordenar los ficheros, pero solo el de desbordamiento, porque el de datos es un ASL luego ya está ordenado. Luego hay que ler la zona de desbordamiento ($OT$), ordenarla ($T_C(O)$), y leer el de datos ($nT)$ haciendo merge entre los dos. Una vez hecho esto, hay que escribir los nuevos datos con sus respectivos índices sin tener en cuenta los borrados($(n+O-d)T_W+(n+O-d)T_W$):
+\[
+T_Y=T_C(O)+(n+O)T+(n+O-d)T_W+(n+O-d)T_W
+\]
+
+\subsection{Archivo Secuencial Indexado (no denso) (ASI)}
+
+Cuando los índices densos alcanzan un tamaño tan grande que no cabe en memoria, es necesario crear índices \textbf{no densos}, es decir, índices que apuntes a \textbf{páginas} de registros. El fichero de índices contendrá tantos índices como páginas tenga el fichero de datos.
+\[
+\frac{n}{Bfr}
+\]
+\textit{duda profe}
+
+¿Cómo se busca en un registro no denso? Se selecciona en el índice la clave inmediatamente inferior a la buscada. Se carga el bloque del maestro y ahí se busca secuencialmente. Si no está, hay que acceder al mestro (esto en un denso no era necesario).
+
+Algunas características:
+\begin{enumerate}[(a)]
+\item En cada página del maestro se suele dejar un espacio para nuevos registros.
+\item En maestros con fichero de desbordamiento, cada registro tiene un enlace al siguiente en el fichero de desbordamiento. En una página, hay un enlace a registro de desbordamiento (si la página está completa). En el fichero de desbordamiento, un registro puede tener enlace al siguiente.
+\end{enumerate}
+
+\subsection{ASI multinivel}
+
+Solo son efectivos cuando los archivos son grandes y/o los registros son grandes. Si el índice es grande, puede indexarse también. A esto se le llama \textbf{índice multinivel}.
+
+El tamaño de una página del índice viene dado por:
+\[
+y=\left\lfloor\frac{B-C}{V+P}\right\rfloor
+\]
+donde $B$ es el tamaño del bloque, $C$ es la cabecera, $V$ el tamaño del valor del índice y $P$ el puntero al siguiente índice.
+
+Si es de $m$ niveles, todos los niveles son no densos. La estructura es de árbol. Al primer nivel se le llama \textit{raíz}. El nivel 1 es el más cercano al fichero maestro.
+
+En general, el fichero maestro tiene desbordamiento:
+\[
+r=P+\sum_iV_i
+\]
+\textit{duda profe}
+
+El índice de primer nivel tiene una entrada por bloque del maestro, luego el número de entradas es:
+\[
+i_1=\left\lceil\frac{n}{Bfr}\right\rceil
+\]
+El redondeo es hacia arriba porque necesitamos un índice de bloque para todos los registros, incluso si solo hay un registro en ese bloque.
+
+Los niveles superiores tienen su propio tamaño de bloque $B$ y tamaño de página del índice $y$. Luego su número de entradas es:
+\[
+y_k=\left\lceil\frac{y_{k-1}}{y}\right\rceil
+\]
+Y número de bloques:
+\[
+b_k=\left\lceil\frac{i_k}{y}\right\rceil=i_{k+1}
+\]
+Claramente, el espacio necesario para índices, es la suma de todos los bloques por el espacio que ocupa un bloque:
+\[
+I=(b_1+\cdots+b_m)B
+\]
+Y el \textbf{espacio medio} necesario por registro se calcula como una media del tamaño de todos los índices entre cada registro ($I/n$), 
+\textit{duda profe que tiene que ver con la r anterior}
+\[
+R=r+\frac{O}{n}r+\frac{I}{n}
+\]
+
+\subsubsection{Recuperación de un registro}
+
+\[
+T_F=T_M+(m-1)T_{F_i}+T_F'
+\]
 \subsection{Archivo de Acceso Directo (AAD)}
 
 \subsubsection{Tamaño de registro}

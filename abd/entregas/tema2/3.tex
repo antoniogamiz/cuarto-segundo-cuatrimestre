@@ -1,0 +1,46 @@
+\documentclass[12pt]{report}
+ 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\usepackage[margin=1in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage[shortlabels]{enumitem}
+\usepackage{mathtools}
+\usepackage{personalcommands}
+\usepackage{amsfonts}
+\usepackage{float}
+\usepackage{epigraph}
+\usepackage{lipsum}
+\usepackage{parskip}
+\usepackage[spanish]{babel}
+\usepackage{tikz}
+\usetikzlibrary{babel}
+\usepackage{csquotes}
+\usepackage{xcolor}
+\usepackage[framemethod=tikz,xcolor=true]{mdframed}
+\usepackage[new]{old-arrows}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\textbf{Ejercicio 3.}  Se dispone de una relación $R(a,b)$ donde $a$ es la clave de valores únicos por la que se mantiene ordenado el archivo y $b$ es un atributo con valores duplicados. Además se tiene $B=4096B$, $C=10B$, $P=10B$, $N(R)=1000$, $V(R,b)=200$, $size(a)=10B$, $size(b)=40B$. Se montan dos índices, $I_A$, $I_B$, uno por cada atributo. Calcula el tamaño en bloques de cada índice.
+
+\begin{enumerate}[(a)]
+\item Índice $I_A$: cada entrada del índice ocupará $size(a)+P=10B+10B=20B$. En cada bloque caben las siguientes entradas:
+\[
+Bfr(I_A)=\left\lfloor\frac{B-C}{20B}\right\rfloor=\left\lfloor\frac{4096B-10B}{20B}\right\rfloor=204
+\]
+Como $N(R)=1000$ y necesitamos una entrada en el índice por cada registro, necesitamos:
+\[
+nºbloques=\left\lceil\frac{N(R)}{Bfr(I_A)}\right\rceil=\left\lceil\frac{1000}{204}\right\rceil=5
+\]
+\item Índice $I_B$: como los registros están duplicados, solo necesitamos añadir una entrada en el índice por cada valor distinto, es decir, necesitamos $V(R,b)=200$ entradas.
+\[
+Bfr(I_B)=\left\lfloor\frac{B-C}{40B}\right\rfloor=\left\lfloor\frac{4096B-10B}{40B}\right\rfloor=102
+\]
+\[
+nºbloques=\left\lceil\frac{V(R,b)}{Bfr(I_B)}\right\rceil=\left\lceil\frac{200}{102}\right\rceil=2
+\]
+\end{enumerate}
+
+\end{document}
+

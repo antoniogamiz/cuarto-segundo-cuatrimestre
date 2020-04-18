@@ -1,0 +1,47 @@
+\documentclass[12pt]{report}
+ 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\usepackage[margin=1in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage[shortlabels]{enumitem}
+\usepackage{mathtools}
+\usepackage{amsfonts}
+\usepackage{float}
+\usepackage{epigraph}
+\usepackage{lipsum}
+\usepackage{parskip}
+\usepackage[spanish]{babel}
+\usepackage{tikz}
+\usetikzlibrary{babel}
+\usepackage{csquotes}
+\usepackage{xcolor}
+\usepackage[framemethod=tikz,xcolor=true]{mdframed}
+\usepackage[new]{old-arrows}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\textbf{Ejercicio 5.} Indica cuándo crees que es más adecuado usar el bloqueo partido:
+\begin{enumerate}[(a)]
+\item para registros de gran tamaño
+
+\item para registros de tamaño pequeño
+
+\item para bloques de más tamaño
+
+\item para bloques de tamaño pequeño 
+
+En el caso (a), sería conveniente usarlo, ya que en caso contrario, para que en un bloque cogieran un número considerable de registros, el tamaño del bloque va a crecer demasiado y no sería eficiente. Además, si un registro no coge entero, y su tamaño muy grande, problamente el espacio desperdiciado también lo será.
+
+
+En el caso (b), no, porque ocurre lo contrario al caso anterior. Si un registro no coge, el espacio desperdiciado será pequeño. Además, para registros pequeños no tiene sentido mantener punteros entre ellos.
+
+
+En el caso (c) y (d), no veo cómo comentarlas, porque debería tener en cuenta el tamaño de los registros, porque si el bloque es pequeño pero los registros son grandes, entonces necesariamente necesitas bloqueo partido. Pero si son grandes y los registros pequeños entonces no renta poner bloqueo partido (por lo dicho antes).
+
+Por eso, creo que la mejor opción es la (e).
+
+\end{enumerate}
+
+\end{document}
+
