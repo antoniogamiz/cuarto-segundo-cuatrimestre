@@ -14,7 +14,7 @@
 \usepackage{epigraph}
 \usepackage{lipsum}
 \usepackage{parskip}
-\usepackage[spanish]{babel}
+\usepackage[spanish,es-nodecimaldot]{babel}
 \usepackage{tikz}
 \usetikzlibrary{babel}
 \usepackage{csquotes}
@@ -58,16 +58,19 @@
 \setcounter{chapter}{0}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+%\renewcommand{\labelitemi}{{\tiny $\blacksquare$}}
+\newcommand{\localtextbulletone}{\textcolor{black}{\raisebox{.45ex}{\rule{.6ex}{.6ex}}}}
+\renewcommand{\labelitemi}{\localtextbulletone}
 \begin{document}
 
 \tableofcontents
 
-\include{./sections/tema1_variaciones} 
-\include{./sections/tema2_derivadas_debiles}
-\include{./sections/tema3_espacios_sobolev}
-\include{./sections/tema4_lax_milgran}
+%\include{./sections/tema1_variaciones} 
+%\include{./sections/tema2_derivadas_debiles}
+%\include{./sections/tema3_espacios_sobolev}
+%\include{./sections/tema4_lax_milgran}
 \include{./sections/tema5_accion_masas}
-\include{./sections/ejercicios}
+%\include{./sections/ejercicios}
 \end{document}
 
 
