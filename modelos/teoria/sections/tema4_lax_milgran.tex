@@ -518,7 +518,7 @@ donde $y\in\sobolev{1}$, $y\in\mathcal{H}^2\left((a,\alpha_1)\cup\dots\cup(\alph
 \]
 Esta igualdad es una igualdad puntual y la $y''$ es derivada débil en
 cada uno de los trocitos. La \textit{condición de contorno} también se
-verifica: $y'(a)=y'(b)=0$ y $y'(\alpha^+_i)-y'(\alpha^-_i)=-c_i$
+verifica: $y'(a)=y'(b)=0$ y $y'(\alpha^+_i)-y'(\alpha^-_i)=-c_i$.
 
 \section{Sturm-Liouville: caso 4}
 
@@ -530,11 +530,13 @@ Además, basta tomar $0\leq q(x)\leq q_1$. En este caso también podemos suponer
 \[
 R(x)=r(x)+\sum_{i=1}^nc_i\delta_{\alpha_i} \espacio a<\alpha_1<\cdots<\alpha_n<b
 \]
-verificándose casi lo mismo que en el caso anterior: $y\in\sobolev{1}$, $y\in\mathcal{H}^2\left((a,\alpha_1)\cup\dots\cup(\alpha_n,b)\right)$, $y\in\mathcal{C}^1\left((a,\alpha_1)\cup\dots\cup(\alpha_n,b)\right)$, $y\in\mathcal{C}[a,b]$ pero $y(a)=y(b)=0$.
+verificándose casi lo mismo que en el caso anterior: $y\in\sobolev{1}$, $y\in\mathcal{H}^2\left((a,\alpha_1)\cup\dots
+\cup(\alpha_n,b)\right)$, $y\in\mathcal{C}^1\left((a,\alpha_1)\cup\dots\cup(\alpha_n,b)\right)$, $y\in\mathcal{C}[a,b]$ y
+$y'(\alpha^+_i)-y'(\alpha^-_i)=-c_i$ pero $y(a)=y(b)=0$.
 
 \section{Sturm-Liouville: caso 5}\label{slc5}
 
-En este caso vamos a añadir un peso, por lo que nuestro funcional cambia un poco:
+En este caso vamos a considerar la densidad del puente, por lo que nuestro funcional cambia un poco:
 \[
 L(y)=\frac{1}{2}\integral{a}{b}{p(x)y'(x)^2dx}+\frac{1}{2}\integral{a}{b}{q(x)y(x)^2dx}-R(y)
 \]
@@ -550,8 +552,8 @@ con $y\in\sobolev{1}$, $y\in\mathcal{C}[a,b]$. Si tomo $z(x)=p(x)y'(x)$, ¿cuál
 -(p(x)y'(x))'+q(x)y(x)=r(x)
 \]
 Y $z(a)=z(b)=0$.
-\item Si cambiamos $\sobolev{1}$ por $\sobolevcero{1}$, la condición $z(a)=z(b)=0$ la tenemos que cambiar por $y(a)=y(b)=0$. Y en este caso, basta con que se cumpla $0\geq q(x)\leq q_1$.
-\item Si $R(x)=r(x)+\sum_{i=1}^nc_i\delta_{\alpha_i} \espacio a<\alpha_1<\cdots<\alpha_n<b$ e $y\in\sobolev{}$. Luego $z\in\sobolev[a,\alpha_1]{1}$, $\cdots$, $z\in\sobolev[\alpha_n,b]{1}$, e igual con las continuas: $z\in\mathcal{C}[a,\alpha_1]$, $\cdots$, $z\in\mathcal{C}[\alpha_n,b]$. La ecuación que s e verifica es:
+\item Si cambiamos $\sobolev{1}$ por $\sobolevcero{1}$, la condición $z(a)=z(b)=0$ la tenemos que cambiar por $y(a)=y(b)=0$. Y en este caso, basta con que se cumpla $0\leq q(x)\leq q_1$.
+\item Si $R(x)=r(x)+\sum_{i=1}^nc_i\delta_{\alpha_i} \espacio a<\alpha_1<\cdots<\alpha_n<b$ e $y\in\sobolev{}$. Luego $z\in\sobolev[a,\alpha_1]{1}$, $\cdots$, $z\in\sobolev[\alpha_n,b]{1}$, e igual con las continuas: $z\in\mathcal{C}[a,\alpha_1]$, $\cdots$, $z\in\mathcal{C}[\alpha_n,b]$. La ecuación que se verifica es:
 \[
 (p(x)y'(x))'+q(x)y(x)=r(x)
 \]
@@ -567,14 +569,14 @@ Procedemos ahora a replantear los problemas anteriores bajo la
 hípotesis de que $R=r(x)$ con $r\in\continuas$, $q\in\continuas$ con
 \[
 \begin{array}{rr}
-0<q_0\leq q(x)\leq q_1 & \text{ si } \sobolev{}\\
+0<q_0\leq q(x)\leq q_1 & \text{ si } \sobolev{1}\\
 0\leq q(x) \leq q_1    & \text{ si } \sobolevcero{1}
 \end{array}
 \]
 \subsection{Sturm-Liouville: caso regular (1)}
 
 Trabajamos en el mismo caso que \eqref{slc1} con esta nuevas
-hipótesis. Tenemos $y\in\sobolev{1}$ y nuestro funcional (sin peso)
+hipótesis. Tenemos $y\in\sobolev{1}$ y nuestro funcional (sin considerar la densidad del puente)
 es:
 \[
 L(y)=\frac{1}{2}\integral{a}{b}{y'(x)^2dx}+\frac{1}{2}\integral{a}{b}{q(x)y(x)^2dx}-R(y)
@@ -600,25 +602,24 @@ R(\phi)=r(x)+\sum_{i=1}^nc_i\delta_{\alpha_i} \espacio a<\alpha_1<\cdots<\alpha_
 \]
 
 y con $y\in\mathcal{H}^2(\alpha_i,\alpha_{i+1})$ donde en cada intervalo tenemos la ecuación diferencial, en sentido debil:
-
 \[
  -y'' + q(x)y(x) = r(x)
 \]
 
 esto quiere decir que en cada intervalo
 $y\in\mathcal{C}^2[\alpha_i,\alpha_{i+1}]$. Ahora se cumplen unas
-condiciónes que son propia de la $y$ y no de un representante continuo:
+condiciones que son propia de la $y$ y no de un representante continuo:
 
 \[
 \begin{array}{rr}
-y'(a) = y'(b) = 0 & \text{ si } \sobolev{}\\
+y'(a) = y'(b) = 0 & \text{ si } \sobolev{1}\\
 y(a) = y(b) = 0    & \text{ si } \sobolevcero{1}
 \end{array}
 \]
 
 y la condición sobre la delta de dirac es que
 $y'(\alpha_i^+) - y'(\alpha_i^-) = c_i$ por lo que si $c_i \neq 0$ se
-tiene que $y\notin\continuas$
+tiene que $y\notin\mathcal{C}^1[a,b]$
 
 
 \subsection{Sturm-Liouville: caso regular (3)}
@@ -632,7 +633,7 @@ L(y)=\frac{1}{2}\integral{a}{b}{p(x)y'(x)^2dx}+\frac{1}{2}\integral{a}{b}{q(x)y(
 pero voy a imponer que $p\in\continuas[1]$ y
 $0 < p_o \leq p(x) \leq p_1$. Tendríamos así que
 $p(x)y'(x)\in\sobolev{1}$ y usando el resultado \eqref{productoh1}
-bajo unas condicion más fuerte donde $\phi\in\continuas$ podemos ver
+bajo unas condicion más fuertes donde $\phi\in\continuas$ podemos ver
 que
 
 \[
@@ -643,10 +644,10 @@ y en particular $y\in\sobolev{2}$. Sobre la cuestión de la derivada
 debil
 
 \[
--(p(x)y'(x)) + q(x)y(x)
+-(p(x)y'(x))' + q(x)y(x)=r(x)
 \]
 
-y derivando (realmente habría que hacerlo en \ref{regular3prod} obtenemos que
+y derivando obtenemos que
 
 \[
 -p(x)'y'(x)  - p(x)'y''(x) + q(x)y(x) = r(x)
@@ -656,7 +657,7 @@ y despejando $y''$ obtenemos que $y\in\continuas[2]$. Ahora adaptamos
 la condición de contorno. En el caso anterior se verificaba
 $z(a) = z(b) = 0$ con $z(x) = p(x)y'(x) \in \continuas$ luego
 \[
-  p(a)y'(a) = 0 \text{ y } p(b)y'(b) = 0 \implies y'(a) = 0 \text { } y'(b) = 0
+  p(a)y'(a) = 0 \text{ y } p(b)y'(b) = 0 \implies y'(a) = y'(b) = 0
 \]
 
 en el caso de $\sobolev{1}$ y en el caso de $\sobolevcero{1}$
@@ -665,7 +666,7 @@ en el caso de $\sobolev{1}$ y en el caso de $\sobolevcero{1}$
   y(a) = 0 \text{ y } y(b) = 0
 \]
 
-\textbf{AQUI EMPIEZA LA CLASE DEL 14 DE ABRIL}
+\textbf{(AQUI EMPIEZA LA CLASE DEL 14 DE ABRIL)}
 
 \section{Problema de Sturm-Liouville regular}
 
@@ -685,7 +686,7 @@ con las siguientes condiciones de contorno:
 \begin{equation}\label{eq:cb}
 \alpha_bu(b)+\beta_bu'(b)=\gamma_b \tag{$c_b$}
 \end{equation}
-donde $p\in\continuas[1]$, lo que nos dice que el primer término de \eqref{ec} se puede desarrollar para obtener una EDO (recordemos, que necesitamos que todas los elementos sean continuos para poder aplciar la teoría que sabemos de ecuaciones diferenciales). Además, $p(x)>0$ si $x\in[a,b]$ (para que podemos hacer cocientes luego). $q,r\in\continuas$ y $(\alpha_a,\beta_a)\neq(0,0)$, $(\alpha_b,\beta_b)\neq(0,0)$.
+donde $p\in\continuas[1]$, lo que nos dice que el primer término de \eqref{ec} se puede desarrollar para obtener una EDO (recordemos, que necesitamos que todas los elementos sean continuos para poder aplicar la teoría que sabemos de ecuaciones diferenciales). Además, $p(x)>0$ si $x\in[a,b]$ (para que podemos hacer cocientes luego). $q,r\in\continuas$ y $(\alpha_a,\beta_a)\neq(0,0)$, $(\alpha_b,\beta_b)\neq(0,0)$.
 
 A la ecuación anterior y al conjunto de condiciones de contorno anteriores, es lo que vamos a denominar el \textit{problema de Sturm-Liouville regular}. Recordemos que tenemos varios casos ya conocidos y que hemos resuelto. Reescribámoslos con esta nueva notación del problema:
 \begin{enumerate}[(a)]
