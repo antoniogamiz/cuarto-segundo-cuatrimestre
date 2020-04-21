@@ -161,13 +161,13 @@ Usando el punto anterior es fácil, ya que $x'(t)=g(x(t))>0$ porque $g(x)$ es po
 
 \item Necesariamente se tiene que $w_+=+\infty$.
 
-Si $t\in[0,w_+)$, entonces $x_0\leq x(t) < \alpha_2$. Ahora podemos usar la teoría de prolongación de soluciones, que nos dice que si tenemos una solución acotada, podemos prolongarla. $x$ además de estar acotada, está lejos del borde. 
+Si $t\in[0,w_+)$, entonces $x_0\leq x(t) < \alpha_1$. Ahora podemos usar la teoría de prolongación de soluciones, que nos dice que si tenemos una solución acotada, podemos prolongarla. $x$ además de estar acotada, está lejos del borde. 
 
 \item $\limitemasinfinito{t}{x(t)}=\alpha_1$
 
 Como $x(t)$ es creciente y acotada, entonces el límite existe, y valdrá $L\in\R$. Evidentemente, $L\leq \alpha_1$. Lo único que tenemos que ver es que $L=\alpha_1$. Para ello, vamos a recordar un resultado general:
 \begin{lemma}
-Sea $\funcion{x}{(w_-,+\infty)}{\R}\in\mathcal{C}^1$ con $\limitemasinfinito{t}{x(t)}=L\in\R$. Entonces existe una sucesión $t_n\in(w_-,+\infty)$ tal que $t_n\longrightarrow +\infty$, con $x'(t_n)\longrightarrow m0$.
+Sea $\funcion{x}{(w_-,+\infty)}{\R}\in\mathcal{C}^1$ con $\limitemasinfinito{t}{x(t)}=L\in\R$. Entonces existe una sucesión $t_n\in(w_-,+\infty)$ tal que $t_n\longrightarrow +\infty$, con $x'(t_n)\longrightarrow 0$.
 \end{lemma}
 \begin{proof}
 Considerando la diferencia $x(n+1)-x(n)$ y aplicando el teorema del valor medio, nos queda que:
@@ -205,23 +205,23 @@ Volvemos otra vez a la parte abstracta. Sea $g\in\mathcal{C}^2$ de la forma:
 \draw[dashed] (0,-0.7) -- (0,.2);
 \draw (0,-0.75) node[anchor=north] {$x_0$};
 \draw[dashed] (3.6,-0.7) -- (3.6,.2);
-\draw (3.6,-0.75) node[anchor=north] {$x$};
+\draw (3.6,-0.75) node[anchor=north] {$\alpha$};
 \end{tikzpicture}
 \end{center}
 
-cumpliendo $g'(\alpha)=\delta<0$. Entonces vamos a tener que (lo que he visto antes):
+cumpliendo $g(\alpha)=0$ y $g'(\alpha)=\delta<0$. Entonces vamos a tener que (lo que he visto antes):
 \[
 \limitemasinfinito{t}{x(t)}=\alpha
 \]
 Ahora vamos a decir un poquito más. Vamos a probar que:
 \[
-\limitemasinfinito{t}{\frac{x(t)-\alpha}{e^{\delta t}}}=-L\in(-\infty,0)
+\limitemasinfinito{t}{\frac{x(t)-\alpha}{e^{\delta t}}}=L\in(-\infty,0)
 \]
-Eso quiere decir que la convergencia al valor $\alpha$ es exponencial, es decir, los residuos ($x(t),y(t),z(t)$no sólo tienden a 10, sino que además lo hacen exponencialmente.
+Eso quiere decir que la convergencia al valor $\alpha$ es exponencial, es decir, los residuos ($x(t),y(t),z(t))$ no sólo tienden a (1,1,0), sino que además lo hacen exponencialmente.
 \begin{proof}
 Calculemos el siguiente límite:
 \[
-\limitemasinfinito{t}{\frac{x'(t)}{x(t)-\alpha}}=\limitemasinfinito{g(x(t))}{x(t)-\alpha}=\limite{x}{\alpha}{\frac{g(x)}{x-\alpha}}=\delta
+\limitemasinfinito{t}{\frac{x'(t)}{x(t)-\alpha}}=\limitemasinfinito{t}\frac{g(x(t))}{x(t)-\alpha}=\limite{x}{\alpha}{\frac{g(x)}{x-\alpha}}=\delta
 \]
 Eso nos dice que si tenemos $\beta(t)=\frac{x'(t)}{x(t)-\alpha}$, entonces $\beta(t)\longrightarrow \delta$. Por supuesto, $\beta$ es continua y se verifica la ecuación diferencial:
 \[
