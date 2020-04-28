@@ -20,7 +20,9 @@ Por otro lado, está la denominada \textit{velocidad de reacción}, que es la va
 \[
 \frac{d}{dt}[B]=k[A_1]\cdots[A_n]
 \]
-\begin{example}
+
+\section{Reacción química}
+
 Sean $X,Y$ y $Z$ tre compuestos químicos que se combinan en un producto final $F$ según la reacción:
 \[
 2X+3Y+5Z\longrightarrow 5F
@@ -138,9 +140,9 @@ x(0)=x_0, \espacio x_0<\alpha_1
 \end{array}
 \right.
 \]
-donde $\funcion{g}{\R}{\R}$, $g(\alpha_1)=0$, $g'(\alpha_1)<0$ (para que sea compatible con el dibujo) (\textbf{duda}), $g(x)>0$ si $x\in(-\infty, \alpha_1)$ y $\alpha_1$ es la primera raíz de $g$. 
+donde $\funcion{g}{\R}{\R}$, $g(\alpha_1)=0$, $g'(\alpha_1)<0$ (para que sea compatible con el dibujo), $g(x)>0$ si $x\in(-\infty, \alpha_1)$ y $\alpha_1$ es la primera raíz de $g$. 
 
-Como sabemos, el anterior problema de valores iniciales tiene una solución maximal $\funcion{x}{(w_-,w_+)}{\R}$, que además es única. Probemos ahora, una serie de propiedades.
+Como sabemos, el anterior problema de valores iniciales tiene una solución maximal $\funcion{x}{(w_-,w_+)}{\R}$, que además es única. Probemos ahora una serie de propiedades.
 \begin{itemize}
 \item $x(t)<\alpha_1, \text{ si } t\in(w_-,w_+)$
 
@@ -221,7 +223,7 @@ Eso quiere decir que la convergencia al valor $\alpha$ es exponencial, es decir,
 \begin{proof}
 Calculemos el siguiente límite:
 \[
-\limitemasinfinito{t}{\frac{x'(t)}{x(t)-\alpha}}=\limitemasinfinito{g(x(t))}{x(t)-\alpha}=\limite{x}{\alpha}{\frac{g(x)}{x-\alpha}}=\delta
+\limitemasinfinito{t}{\frac{x'(t)}{x(t)-\alpha}}=\limitemasinfinito{g(x(t))}{x(t)-\alpha}=\limite{x}{\alpha}{\frac{g(x)}{x-\alpha}}=-\delta
 \]
 Eso nos dice que si tenemos $\beta(t)=\frac{x'(t)}{x(t)-\alpha}$, entonces $\beta(t)\longrightarrow \delta$. Por supuesto, $\beta$ es continua y se verifica la ecuación diferencial:
 \[
@@ -243,12 +245,77 @@ donde para la acotación por algo de orden $x-\alpha$ hemos usado que $g\in\math
 \[
 \beta(t)-\delta\leq O(x(t)-\alpha)
 \]
-¿Y por qué $x(t)$ es integrable? Debido a que:
+%================================= corrección
+Para ver que $x(t)-\alpha$ es integrable, se puede expresar $g(x(t))$ de la siguiente forma:
 \[
-x(t)-\alpha = \frac{x(t)-\alpha}{g(x(t))}g(x(t))
+g(x(t))=\frac{x(t)-\alpha}{g(x(t))}x'(t)
 \]
-y ambos términos están acotados (ya que $g(x(t))=x'(t)$ y $x'(t)$ es integrable).
+Se vió anteriormente que el primer término converge a una constante ($-\frac{1}{\delta}$), luego solo hay que comprobar si $x'(t)$ es integrable. Como $x'(t)>0$, se tiene:
+\[
+\integral{0}{+\infty}{x'(t)dt}=\limitemasinfinito{T}{\integral{0}{T}{x'(t)dt}}=
+\limitemasinfinito{T}{\left(x(T)-x(0)\right)}=\alpha-x(0)
+\]
+Luego $x'$ es integrable (lebesgue) en $(0,+\infty)$.
+%=================================
 \end{proof}
 
 Este es el único modelo que vamos a desarrollar con este nivel de detalle, los siguientes serán más escuetos.
-\end{example}
+
+\section{Reacción química en equilibrio}
+%================================== clase 27/05
+
+En este modelo se supone que hay dos sustancias químicas, $A$ y $B$, con concentraciones $\alpha$ y $\beta$ respectivamente. Estas dos sustancias químicas se combinarán para forma una tercera sutancia, $C$, con concentración $\gamma$. La diferencia de este modelo con el anterior, es que en este se va a considerar posible que parte del producto $C$, vuelva a descomponerse en las sustancias $A$ y$B$. Esa nueva reacción química se va a represenar como sigue:
+\[
+\alpha A + \beta B \underset{k_{-1}}{\overset{k_1}{\rightleftarrows}} \gamma C
+\]
+donde $k_1$ y $k_{-1}$ son constantes. Se denota por $x(t),y(t)$ y $z(t)$  al número de moles de $A$,$B$ y $C$ respectivamente, y por $a_0$, $b_0$ a las cantidades iniciales de $A$ y $B$. La cantidad inicial de $C$ se supone 0.
+
+Al igual que antes, si se hace una regla de tres con los productos $A$ y $C$ se obtiene:
+\[
+\left.
+\begin{array}{ccc}
+\alpha A & \longrightarrow & \gamma C\\
+a_0-x(t) & \longrightarrow & z(t)
+\end{array}
+\right\} \Rightarrow z(t)=\frac{(a_0-x(t))\gamma}{\alpha}
+\]
+\[
+\left.
+\begin{array}{ccc}
+\beta B & \longrightarrow & \gamma C\\
+b_0-y(t) & \longrightarrow & z(t)
+\end{array}
+\right\} \Rightarrow z(t)=\frac{(b_0-y(t))\gamma}{\beta}
+\]
+Además, la variación de concentado tiene como expresión: $z'(t)=k_1x(t)y(t)$. Ojo, esto solo es para la reacción hacia la derecha. También se debe tener en cuenta la relación hacia la izquierda, en la que se destruyen moléculas de $C$ según la constante $k_{-1}$. $z'$ quedaría entonces:
+\[
+z'(t)=k_1x(t)y(t)-k_{-1}z(t)
+\]
+Despejando de las reglas de tres del principio, se obtienen las expresiones de $x(t)$ y $y(t)$, quedando:
+\[
+z'(t)=k_1\left(a_0-\frac{\alpha z(t)}{\gamma}\right)\left(b_0-\frac{\beta z(t)}{\gamma}\right)-k_ {-1}z(t)
+\]
+Al igual que en el otro modelo, se toma $z'=g(z)$ para estudiar la ecuación. Se ve que el primer término de $g$ es una parábola, con dos raíces diferentes dependientes de $\alpha$ y $\beta$. El segundo es una recta de pendiente $k_{-1}$ que corta a esa parábola.
+
+\textbf{duda: me no sale una parábola invertida}
+
+\begin{center}
+\begin{tikzpicture}[scale=1]
+\draw (-1,0) -- (5,0);
+ parabola
+\draw[scale=1,domain=-1:5,smooth,variable=\x,red] plot ({\x}, {0.5*(1-\x)*(1-\x)-\x});
+\draw[scale=1,domain=-1:5,smooth,variable=\x,blue] plot ({\x}, {0.3*\x-0.3});
+
+\draw[dashed] (4.2,-0.35) -- (4.2,1.1);
+\draw (4.3,-0.35) node[anchor=north] {$z^*$};
+\end{tikzpicture}
+\end{center}
+$z^*$ es la raíz más grande de las dos que salen al resolver $g(z)=0$. Eso implica que $z(t)\longrightarrow z^*$. Se toma tombién $x^*$ e $y^*$ como el resultado de despejar $x(t)$ e $y(t)$ al sustituir $z(t)$ por $z^*$ en las expresiones anteriores. Como $z^*$ es raíz de $g$, queda:
+\[
+k_1x^*y^*=k_{-1}z^*
+\]
+A partir de esa expresión se deduce la ley de \textit{equilibrio químico}:
+\[
+\frac{x^*y^*}{z^*}=\frac{k_{-1}}{k_1}
+\]
+%==================================
