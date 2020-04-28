@@ -1,0 +1,180 @@
+% !TeX root = master.tex
+\documentclass[12pt]{article}
+ 
+\usepackage[margin=1in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{tikz-cd}
+\usepackage{amsmath}
+\usepackage[shortlabels]{enumitem}
+\usepackage{mathtools}
+
+% cosas entre comillas 
+\usepackage{csquotes}
+
+\usepackage{tikz}
+
+\decimalpoint
+\usepackage{xcolor}
+
+\usepackage{personalcommands}
+
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}[theorem]{Lema}
+\newtheorem{prop}[theorem]{Proposición}
+\newtheorem{coro}[theorem]{Corolario}
+\newtheorem{conj}[theorem]{Conjetura}
+\newtheorem{ejercicio}{Ejercicio}
+\newtheorem*{ejercicio*}{Ejercicio}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definición}
+\newtheorem{example}[theorem]{Ejemplo}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Nota}
+\newtheorem{notacion}[theorem]{Notación}
+\newcommand{\continuas}[1][]{C^{ #1 }[a,b]} 
+
+\begin{document}
+
+\begin{ejercicio}
+Demuestra que la solución maximal del siguiente PVI está acotada (en el futuro y en el pasado):
+\[
+\left.
+\begin{array}{c}
+x'=(1-x^2-y^2)(x+y)\\
+y'=(1-x^2-y^2)(x-y)\\
+x(0)=\frac{1}{3}, \;\; y(0)=-\frac{2}{3}
+\end{array}
+\right\}
+\]
+\end{ejercicio}
+
+\begin{ejercicio}
+En cada uno de los problemas de valores iniciales siguientes, demuestra que la solución maximal está acotada en el futuro.
+\end{ejercicio}
+
+Denotamos por $\varphi$ a la solución maximal en cada uno de los respectivos apartados.
+
+\begin{enumerate}[(a)]
+\item $
+\left\{
+\begin{array}{l}
+x'=\frac{x^2-25}{1+t^2}\\
+x(0)=4
+\end{array}
+\right.
+$
+
+Como $f(t,x)\in\mathcal{C}^1$, es localmente lipschitziana y por tanto verifica la propiedad de unicidad global. Los puntos de equilibrio de $f$ son $x_1=-5$ y $x_2=5$. Como $x_0\in[-5,5]$, entonces $\varphi$ cumple que $\varphi(t)\in[-5,5]$ $\forall t\geq 0$.
+\item $
+\left\{
+\begin{array}{l}
+x'=\frac{16}{1+t^2}x-x^3\\
+x(0)=3
+\end{array}
+\right.
+$
+
+Como $f(t,x)\in\mathcal{C}^1$, es localmente lipschitziana y por tanto verifica la propiedad de unicidad global. Los puntos de equilibrio de $f$ son $x_1=0$ y $x_2=1$. Como $x_0\notin[0,1]$, usamos:
+\[
+\begin{array}{ll}
+x_3=5:& f(t,5)<0 \espacio \forall t\in\R\\
+x_4=0.1: & f(t,0.1)>0 \espacio \forall t\in\R
+\end{array}
+\]
+Ahora se cumple que $x_0\in[0.1,5]$, siendo $[0.1,5]$ un conjunto invariante. Luego $\varphi$ cumple que $\varphi(t)\in[0.1,5]$ $\forall t\geq 0$.
+
+\item $
+\left\{
+\begin{array}{l}
+x'=\frac{1-x^3}{1+x^2}\\
+x(0)=2
+\end{array}
+\right.
+$
+
+Como $f(t,x)\in\mathcal{C}^1$, es localmente lipschitziana y por tanto verifica la propiedad de unicidad global. Los puntos de equilibrio de $f$ son $x_1=-1$ y $x_2=1$. Como $x_0\notin[-1,1]$, usamos:
+\[
+\begin{array}{ll}
+f(t,0)>0 \espacio \forall t\in\R\\
+f(t,2)<0 \espacio \forall t\in\R
+\end{array}
+\]
+Luego $\varphi$ cumple que $\varphi(t)\in(0,2)$ $\forall t\geq 0$.
+
+\end{enumerate}
+
+\begin{ejercicio}
+Busca funciones guía que nos permitan asegurar que las soluciones de las siguientes ecuaciones diferenciales están acotadas en el futuro:
+\end{ejercicio}
+\begin{enumerate}[(a)]
+\item $x'=\sin(t)-x^3$
+
+Sea $V(x)=x^2$. Entonces:
+\[
+\dot{V}(x)=2x\sin(t)-2x^4\leq 0, \espacio \forall x\geq n_0
+\]
+Con $n_0\in\N$ suficientemente grande. Luego $V$ es una función guía y coerciva, luego $(a)$ está acotada en el futuro.
+
+\item $
+\left\{
+\begin{array}{l}
+x_1'=x_2\\
+x_2'=-\sin(x_1)-x_1
+\end{array}
+\right.
+$
+
+Sea $V(x_1,x_2)=V_1(x_1)+V_2(x_2)$. Entonces:
+\[
+\dot{V}(x_1,x_2)=V_1'(x_1)x_2-V_2'(x_2)(\sin(x_1)+x_1)
+\]
+Para que $\dot{V}(x_1,x_2)\equiv 0$ tiene que darse:
+\[
+V_1'(x_1)=\sin(x_1)+x_1, \espacio V_2'(x_2)=x_2
+\]
+Luego, integrando:
+\[
+V_1(x_1)=-\cos(x_1)+\frac{x_1^2}{2}, \espacio V_2(x_2)=\frac{x_2^2}{2}
+\]
+Luego $V$ es una función guía y coerciva, luego $(b)$ está acotada en el futuro.
+\item $
+\left\{
+\begin{array}{l}
+x'_1=-x_1+x_2\\
+x'_2=-x_2
+\end{array}
+\right.
+$
+
+Sea $V(x_1,x_2)=x_1^2+x_2^2$. Entonces:
+\[
+\dot{V}(x_1,x_2)=2x_1(-x_1+x_2)+2x_2(-x_2)=-x_1^2-x_2^2-(x_1-x_2)^2\leq 0 \espacio \forall (x_1,x_2)\in\R^2
+\]
+Luego $V$ es una función guía y coerciva, luego $(c)$ está acotada en el futuro.
+\end{enumerate}
+
+\begin{ejercicio}
+Determina qué debe cumplir el parámetro $a>0$ para que:
+\[
+V(x,y)=x^2+axy+y^2
+\]
+sea una función guía coerciva para el sistema plano:
+\[
+\left\{
+\begin{array}{l}
+x'=-x+6y\\
+y'=-20y
+\end{array}
+\right.
+\]
+(Debes indicar un intervalo). Además justifica la veracidad o falsedad de las siguientes afirmaciones:
+\begin{enumerate}[(a)]
+\item Todas las soluciones del sistema están acotadas en el futuro.
+\item Todas las soluciones del sistema están acotadas en el pasado.
+\item Existe una solución que está acotada (en el pasado y en el futuro).
+\end{enumerate}
+\end{ejercicio}
+
+\end{document}

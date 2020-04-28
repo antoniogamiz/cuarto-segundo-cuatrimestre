@@ -1,0 +1,112 @@
+\documentclass[12pt]{report}
+ 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\usepackage[margin=1in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage[shortlabels]{enumitem}
+\usepackage{mathtools}
+\usepackage{personalcommands}
+\usepackage{amsfonts}
+\usepackage{float}
+\usepackage{epigraph}
+\usepackage{lipsum}
+\usepackage{parskip}
+\usepackage[spanish]{babel}
+\usepackage{tikz}
+\usetikzlibrary{patterns}
+\usetikzlibrary{babel}
+\usepackage{csquotes}
+\usepackage{xcolor}
+\usepackage[framemethod=tikz,xcolor=true]{mdframed}
+\usepackage[new]{old-arrows}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+Se dispone de un archivo secuencial indexado con un factor de bloqueo de 4 registros para almacenar registros de longitud fija, con la siguiente estructura en el fichero maestro (de datos):
+
+\begin{center}
+\begin{tikzpicture}[scale=0.4]
+\draw[draw=black] (-0.5,0) rectangle (0,3);
+\draw[draw=black] (0,0) rectangle (3,3);
+\draw[draw=black] (3,0) rectangle (6,3);
+\draw[draw=black] (6,0) rectangle (9,3);
+\draw[draw=black] (9,0) rectangle (12,3);
+\pattern[pattern=north east lines] (-0.5,0)--(-0.5,3)--(0,3)--(0,0)--cycle;
+\end{tikzpicture}
+\end{center}
+
+\textbf{Ejercicio 5.} Indica qué ocurre cuando se añaden los registros con valores de clave 6,4,8,9 y 1, tanto el fichero maestro como en el fichero de índice.
+
+El fichero maestro es un ASL, luego los registros se encuentran ordenados por una clave física, la que nos dan. 
+
+\begin{center}
+\begin{tikzpicture}[scale=0.4]
+%
+\draw[draw=black] (-0.5,0) rectangle (0,3);
+\draw[draw=black] (0,0) rectangle (3,3);
+\draw[draw=black] (3,0) rectangle (6,3);
+\draw[draw=black] (6,0) rectangle (9,3);
+\draw[draw=black] (9,0) rectangle (12,3);
+\pattern[pattern=north east lines] (-0.5,0)--(-0.5,3)--(0,3)--(0,0)--cycle;
+%
+\draw (-4.5,1.5) node[] {$Maestro$};
+\draw (1.5,1.5) node[] {$1$};
+\draw (4.5,1.5) node[] {$4$};
+\draw (7.5,1.5) node[] {$6$};
+\draw (10.5,1.5) node[] {$8$};
+\draw (1.5,-1) node[] {$0$};
+\draw (4.5,-1) node[] {$1$};
+\draw (7.5,-1) node[] {$2$};
+\draw (10.5,-1) node[] {$3$};
+%
+\draw[draw=black] (-0.5+15,0) rectangle (0+15,3);
+\draw[draw=black] (0+15,0) rectangle (3+15,3);
+\draw[draw=black] (3+15,0) rectangle (6+15,3);
+\draw[draw=black] (6+15,0) rectangle (9+15,3);
+\draw[draw=black] (9+15,0) rectangle (12+15,3);
+\pattern[pattern=north east lines] (-0.5+15,0)--(-0.5+15,3)--(0+15,3)--(0+15,0)--cycle;
+%
+\draw (1.5+15,1.5) node[] {$9$};
+\draw (1.5+15,-1) node[] {$4$};
+\draw (4.5+15,-1) node[] {$5$};
+\draw (7.5+15,-1) node[] {$6$};
+\draw (10.5+15,-1) node[] {$7$};
+%
+\draw[->, thick] (12,1.5) -- (14.5,1.5);
+\end{tikzpicture}
+\end{center}
+
+\begin{center}
+\begin{tikzpicture}[scale=0.4]
+%
+\draw[draw=black] (-0.5,0) rectangle (0,3);
+\draw[draw=black] (0,0) rectangle (3,3);
+\draw[draw=black] (3,0) rectangle (6,3);
+\draw[draw=black] (6,0) rectangle (9,3);
+\draw[draw=black] (9,0) rectangle (12,3);
+\pattern[pattern=north east lines] (-0.5,0)--(-0.5,3)--(0,3)--(0,0)--cycle;
+%
+\draw (-4.5,1.5) node[] {$Indice$};
+\draw (1.5,1.5) node[] {$(1,0)$};
+\draw (4.5,1.5) node[] {$(4,1)$};
+\draw (7.5,1.5) node[] {$(6,2)$};
+\draw (10.5,1.5) node[] {$(8,3)$};
+%
+\draw[draw=black] (-0.5+15,0) rectangle (0+15,3);
+\draw[draw=black] (0+15,0) rectangle (3+15,3);
+\draw[draw=black] (3+15,0) rectangle (6+15,3);
+\draw[draw=black] (6+15,0) rectangle (9+15,3);
+\draw[draw=black] (9+15,0) rectangle (12+15,3);
+\pattern[pattern=north east lines] (-0.5+15,0)--(-0.5+15,3)--(0+15,3)--(0+15,0)--cycle;
+%
+\draw (1.5+15,1.5) node[] {$(9,4)$};
+%
+\draw[->, thick] (12,1.5) -- (14.5,1.5);
+\end{tikzpicture}
+\end{center}
+
+En este tengo dudas, porque no se si al insertar el último registro.
+
+\end{document}
+

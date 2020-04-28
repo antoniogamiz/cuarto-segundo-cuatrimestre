@@ -1,0 +1,34 @@
+\chapter{Prácticas}
+
+Recordemos que todas las contraseñas van a ser \textbf{ABD3oradba}. El usuario que se va a usar como principal durante todo el desarrllo de la parte práctica es \textit{oracle}.
+
+\textbf{Arrancar la base de datos}
+
+\begin{lstlisting}[ language=bash,
+                    deletekeywords={IDENTITY},
+                    deletekeywords={[2]INT},
+                    morekeywords={clustered},
+                    framesep=8pt,
+                    xleftmargin=40pt,
+                    framexleftmargin=40pt,
+                    frame=tb,
+                    framerule=0pt ]
+# arrancar el listener
+lsnrctl start
+# activar el shell de SQL
+sqlplus /nolog
+# nos conectamos como administrador
+connect sys as sysdba
+# levantar la BD
+startup
+\end{lstlisting}
+
+Para consultar una interfaz gráfica puedes navegar a una de las siguientes direcciones:
+
+\begin{itemize}
+\item https://pclab.localdomain:5500/em
+\item https://localhost:5500/em
+\end{itemize}
+
+\textbf{Detener la base de datos}
+

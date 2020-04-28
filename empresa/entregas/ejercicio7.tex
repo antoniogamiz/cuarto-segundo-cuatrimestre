@@ -1,0 +1,119 @@
+\documentclass[11pt]{article}
+ 
+\usepackage[margin=1in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{tikz-cd}
+\usepackage{amsmath}
+\usepackage[shortlabels]{enumitem}
+\usepackage{mathtools}
+
+% cosas entre comillas 
+\usepackage{csquotes}
+\decimalpoint
+\usepackage{tikz}
+
+
+\usepackage{xcolor}
+
+\usepackage{personalcommands}
+
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}[theorem]{Lema}
+\newtheorem{prop}[theorem]{Proposición}
+\newtheorem{coro}[theorem]{Corolario}
+\newtheorem{conj}[theorem]{Conjetura}
+\newtheorem{ejercicio}{Ejercicio}
+\newtheorem*{ejercicio*}{Ejercicio}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definición}
+\newtheorem{example}[theorem]{Ejemplo}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Nota}
+\newtheorem{notacion}[theorem]{Notación}
+
+ 
+
+\begin{document}
+
+\textbf{Autor:} Antonio Gámiz Delgado
+
+\medskip
+
+\textbf{Ejercicio 7. }D. Ceferino Sánchez ha proyectado una inversión que considerando todos los elementos necesarios elevará el activo de su empresa a una cifra de 10.500.000 $u.m$. Esta estructura económica le permitirá trabajar con unos costes fijos de explotación de 900.000 $u.m.$ y unos costes variables unitarios de 200 $u.m./u.f.$ Si las ventas previstas para este primer año de funcionamiento se estiman en 12.000 $u.f.$, el Sr. Sánchez desea saber:
+\begin{enumerate}
+\item El precio que debería cobrar por unidad de producto para obtener una rentabilidad económica del 20\%.
+\item Con el precio estimado en la primera pregunta:
+\begin{enumerate}
+\item ¿Alcanzará el punto muerto en el mes de Abril, si las ventas se distribuyen un 20\% el primer trimestre, 25\% el segundo, 35\% el tercero y el resto en el cuarto trimestre?
+\item Si desea una rentabilidad de sus recursos propios del $39,825\%$, ¿qué cantidad de recursos ajenos deberá utilizar si un banco le ha ofrecido el importe que desee, cobrándole un 9\% de interés por el 40\% del préstamo y un 7\% por el 60\% restante?
+\end{enumerate}
+\end{enumerate}
+
+\underline{\textbf{Apartado 1.}}
+
+Veamos primero que datos nos da el enunciado del problema:
+\begin{itemize}
+\item Costes fijos, $CF=900.000$ u.m.
+\item Costes variables por unidad, $CV=200$ u.m./u.f.
+\item Activo total, $AT=10.500.000$ u.m.
+\item Ventas previstas, $V=12.000$ u.f.
+\end{itemize}
+
+La fórmula de la rentabilidad económica, $RE$, es:
+\[
+RE=\frac{BE}{AT}
+\]
+Si queremos que sea del 20\%, entonces se tiene que dar $BE=0.2AT$, es decir, necesitamos tener unos beneficios económicos de al menos el 20\% de nuestro activo total. Recordando la expresión del beneficio económico:
+\[
+BE=V(P-Cv)-CF
+\]
+Ya ha aparecido la variable que queremos conocer, el precio, $P$. Solo queda despejar y sustuir los valores correspondientes:
+\[
+P=\frac{BE+CF+VCv}{V}=\frac{0.2AT+CF+VCv}{V}=\frac{0.2\cdot 10.500.00+900.000+12000\cdot 200}{12000}=450 \frac{u.m.}{u.f.}
+\]
+Luego tenemos que vender cada unidad, al menos, a 450 unidades monetarias.
+
+\medskip
+
+\underline{\textbf{Apartado 2.a}}
+
+Antes de ver cuándo se alcanza el punto muerto, debemos de calcularlo usando:
+\[
+X_0=\frac{CF}{P-Cv}=\frac{900.000}{450-200}=3600 \;\;u.f.
+\]
+
+Para ver si hemos alcanzado el punto muerto en Abril, tenemos que ver si hemos llegado a ese número de ventas. Para eso, vemos las ventas en cada trimestre:
+\begin{itemize}
+\item Primer trimestre: 2400
+\item Segundo trimestre: 3000
+\item Tercer trimestre: 4200
+\item Cuarto trimestre: 2400
+\end{itemize}
+Dentro del segundo trimestre, suponemos que las ventas se realizan de forma uniforme, es decir, se realizan 1000 ventas por mes. Luego en los primeros cuatro meses, se habrán realizado 3.400 ventas en total, que es inferior al valor del punto muerto, luego no se alcanzará.
+
+\underline{\textbf{Apartado 2.b}}
+
+La rentabilidad de recursos propios es la rentabilidad financiera. Una de sus expresiones es:
+\[
+RF=RE+L(RE-K)
+\]
+El dato que nos interesa es la cantidad de recursos ajenas que necesitaremos, $RA$. La vamos a obtener a partir del ratio de endeudameinto, $L$, que tiene como expresión $L=RA/RP$. Despejando:
+\[
+L=\frac{RF-RE}{RE-K} \Rightarrow RA=\frac{RF-RE}{RE-K}RP
+\]
+Para calcular $K$, necesitamos saber el coste unitario por recurso ajeno. En el enunciado nos dicen el interés que nos cobrarán, luego:
+\[
+K=0.09\cdot0.4+0.07\cdot 0.6=0.078
+\]
+Ya solo queda sustituir:
+\[
+L=\frac{RF-RE}{RE-K}=\frac{0.39825-0.2}{0.2-0.078}=1.625
+\]
+Usando ahora la expresión para los activos totales:
+\[
+AT=RA+RP \Rightarrow 10500000=RA+\frac{RA}{1.625} \Rightarrow RA=\frac{10500000}{1+\frac{1}{1.625}}=6500000
+\]
+
+\end{document}

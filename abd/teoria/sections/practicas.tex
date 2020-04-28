@@ -1,0 +1,310 @@
+\chapter{Prácticas}
+
+Recordemos que todas las contraseñas van a ser \textbf{ABD3oradba}. El usuario que se va a usar como principal durante todo el desarrllo de la parte práctica es \textit{oracle}.
+
+\textbf{Arrancar la base de datos}
+
+\begin{lstlisting}[ language=bash,
+                    deletekeywords={IDENTITY},
+                    deletekeywords={[2]INT},
+                    morekeywords={clustered},
+                    framesep=8pt,
+                    xleftmargin=40pt,
+                    framexleftmargin=40pt,
+                    frame=tb,
+                    framerule=0pt ]
+# arrancar el listener
+lsnrctl start
+# activar el shell de SQL
+sqlplus /nolog
+# nos conectamos como administrador
+connect sys as sysdba
+# levantar la BD
+startup
+\end{lstlisting}
+
+Para consultar una interfaz gráfica puedes navegar a una de las siguientes direcciones:
+
+\begin{itemize}
+\item https://pclab.localdomain:5500/em
+\item https://localhost:5500/em
+\end{itemize}
+
+\textbf{Detener la base de datos}
+
+\begin{lstlisting}[ language=bash,
+                    deletekeywords={IDENTITY},
+                    deletekeywords={[2]INT},
+                    morekeywords={clustered},
+                    framesep=8pt,
+                    xleftmargin=40pt,
+                    framexleftmargin=40pt,
+                    frame=tb,
+                    framerule=0pt ]
+# acceder al shell de SQL
+sqlplus sys as sysdba
+# derribar la BD
+shutdown immediate
+# parar el listener
+lsnrctl stop
+\end{lstlisting}
+
+\section{Componentes de la arquitectura Oracle}
+
+A groso modo, tenemos los usuarios, una aplicación o servidor red y el servidor donde se ejecuta Oracle. Cuando un usuario quiere conectarse a nuestra base de datos, lo hace a través del listener, que crea un proceso en el servidor para atender nuestras consultas. El usuario hace esto a través del \textbf{proceso de usuario} (que es la aplicación que se conecta a la BD). Esta aplicación puede ser o \textit{SQL*Plus}, Oracle Enterprise Manager, etc, e incluya la Interfaz de Programa de Usuario (UPI). Este proceso genera llamadas al servidor Oracle.
+
+El \textbf{proceso del servidor} se ejecut en la máquina que hostea el servidor Oracle. Sirve a un sólo proceso de usuario si está configurado en modo de \textit{servidor dedicado}. Es importante recordar que este proceso usa una \textbf{Program Global Area (PGA)} exclusiva, que no es más que una zona \textit{privada} de memoria que contiene la información relativa a este proceso. Además incluye la \textbf{Interfaz de Programa de Oracle (OPI)} (que no sé lo que es porque en google no me sale). Este proceso es el encargado de procesar las llamadas generadas por el cliente y de devolverle los resultados.
+
+\begin{figure}[H]
+  \center
+  \includegraphics[scale=0.3]{img/p1.png}
+\end{figure}
+
+Una instancia está compuesta por la \textbf{System Global Area} y varios procesos background. El SGA es una estructura básica de memoria de Oracle que sirve para facilitar la transferencia de información entre usuarios y también almacena la información estructural de la base de datos más frecuentemente requerida. La memoria necesaria para esta área es automáticamente reservada por Oracle al levantar una instancia de la BD. A su vez el SGA está formado por varios componentes que veremos en la siguiente sección.
+
+\begin{figure}[H]
+  \center
+  \includegraphics[scale=0.3]{img/p2.png}
+\end{figure}
+
+La base de datos está formada por muchos ficheros diferentes. Parte de esos archivos están fuera de la base de datos porque es necesario consultarlos antes de levantar una instancia. Por ejemplo, los \textit{ficheros de password}, que te dicen que usuarios tienen permisos. A esos archivos sólo pueden acceder el administrador y a lo sumo el mismo usuario.
+
+El \textbf{fichero de parámetros} tiene dos modos: texto y binario. Antes de ser modificado, se pasa de binario a texto, se modifica, y se vuelve a almacenar en binario. Es el primer fichero consultado por la instancia y contiene donde se encuentran los archivos de la base de datos, los ficheros que la componen, el modo en el que va a funcionar, etc. Sólo contiene la información básica para que pueda arrancar. El administrador tiene como tarea hacer backups de este fichero de forma regular. Los \textbf{ficheros redo log} contienen copias de los bloques sucios.
+
+Al levantar la instancia, los ficheros consultados son:
+\begin{itemize}
+\item Fichero password
+\item Fichero parámetros
+\item Ficheros control
+\end{itemize}
+
+Para interactuar con la base de datos, es necesario levantarla, y después, levantar también un listener, que es nuestro medio de comunicación con la BD. Una vez levantado, para poder hacer cosas tenemos que ejecutar el software necesario de Oracle. Por ejemplo, si usamos SQLPlus (nuestro proceso de usuario), éste se conecta con el listener y éste a su vez con la BD. 
+
+Lo más común es levantar la BD en \textit{modo dedicado}, es decir, cada petición que le llega al listener es atendida por un proceso especialmente creado para esa consulta.
+
+\subsection{Shared Pool}
+
+\begin{figure}[H]
+  \center
+  \includegraphics[scale=0.2]{img/p3.png}
+\end{figure}
+
+Este componente puede ser dividido en dos grandes secciones: la \textbf{library cache} y la \textbf{dictionary cache}. Veámoslos:
+\begin{itemize}
+\item Library cache: está diseñada para incrementar la eficiencia del código SQL permitiendo que se compartan entre los usuarios las sentencias tanto SQL como PL/SQL. Aquí se almacenan todas las sentencias SQL parseadas. 
+
+Cuando un usuario ejecuta una sentencia ocurren dos cosas. Primero Oracle verifica si ya existe en la libary cache una sentencia idéntica. Si no se encuentra, la sentencia debe ser parseada y luego alojada en la library cache. Si existiera, se reutiliza el resultado del parseo hehco en su momento.
+
+\item (Data) dictionary cache: el objetivo de este componente es reducir los accesos a disco. Es similarr a la library cache en el sentido de que ambas mantienen información reciente en memoria. El catálogo contiene metadatos de la misma BD, y la dictionary cache se encarga de cacheare esos metadatos. Si Oracle necesita alguno de esos datos, los busca primero aquí y si no los encuentra consulta el catálogo.
+\end{itemize}
+
+El tamaño de este componente puede ser configurado usando \textit{SHARED\_POOL\_SIZE}.
+
+\subsection{Buffer Cache de la BD}
+
+\begin{figure}[H]
+  \center
+  \includegraphics[scale=0.2]{img/p4.png}
+\end{figure}
+
+El \textbf{buffer cache} almacena copias de los \textit{bloques de datos} en memoria. Normalmente, por eficiencia, el tamaño de este buffer es múltiplo del tamaño del bloque de datos. Este buffer está compartido entre todas las sesiones conectadas a la BD. La finalidad principal es mantener los bloques de usados más frecuentemente usados en memoria para mejorar la eficiencia (reduciendo los accesos a disco). Cuando un bloque sucio (ocupado) deja de ser usado, es escrito a disco por el \textit{Database Writer background process}.
+
+La cantidad de buffers puede ser definida usando \textit{DB\_BLOCK\_BUFFERS}. El tamaño del buffer está basado en el parámetro \textit{DB\_BLOCK\_SIZE}.
+
+\subsection{Porgram Global Area (PGA)}
+
+\begin{figure}[H]
+  \center
+  \includegraphics[scale=0.2]{img/p5.png}
+\end{figure}
+
+Es una zona de memoria que contiene datos e información de control para un \textit{Proceso de Servidor}. Esta memoria no es compartida con nadie (excepto el proceso en sí). Es creada por Oracle cuando el proceso arranca. Hay una zona PGA por \textit{cada} proceso de servidor. Los \textbf{background processes} también crean sus propios PGAs.
+
+\subsection{Buffer Redo Log}
+
+\begin{figure}[H]
+  \center
+  \includegraphics[scale=0.2]{img/p6.png}
+\end{figure}
+
+En este área de memoria se almacena información sobre los cambios a la BD, llamados \textit{entradas redo log}. Estas entradas son usadas si la recuperación de la base de datos es necesario (rollback). Contienen la información necesaria para reconstruir los cambios hechos por alguna de las siguientes sentencias: \textit{INSERT}, \textit{UPDATE}, \textit{DELETE}, \textit{CREATE}, \textit{DROP} o \textit{AlTERT}.
+
+Este buffer es circular, es decir, cuando está lleno, las entradas son escritas desde el principio. El proceso LGWR escribe los contenidos de este buffer al correspondiente archivo redo log en disco. El tamaño de este buffer puede ser especificado en el parámetro \textit{LOG\_BUFFER}.
+
+
+\subsection{Database Writer (DBWR)}
+
+\begin{figure}[H]
+  \center
+  \includegraphics[scale=0.2]{img/p7.png}
+\end{figure}
+
+Este proceso es el encargado de escribir los bloques de datos del buffer cache a archivos de datos (\textit{data files}). Los bloques de datos no son inmediatamente escritos a un datafile, los bloques son acumulados para posteriormente escribirlos de golpe en su correspondientes datafiles. Importante, la escritura a disco puede pasar antes o después de hacer un \textit{commit}. Después del commit, la BD escribe seguro los redo buffers en disco, pero no los bloques de datos.
+
+\subsection{Log Writer (LGWR)}
+
+\begin{figure}[H]
+  \center
+  \includegraphics[scale=0.2]{img/p9.png}
+\end{figure}
+
+Es el responsable de la administración de la escritura del buffer redo log (en memoria) a un determinado archivo redo log (en disco). Como el buffer redo log es un buffer circular, sólamente  se pueden escribir nuevas entradas cuando el LGWR ha escrito las que antes había a disco. Normalmente, el LGWR es suficientemente rápido para asegurar que siempre hay espacio disponible para escribir nuevas entradas.
+
+\subsection{Procesamiento de un commit}
+
+\begin{figure}[H]
+  \center
+  \includegraphics[scale=0.2]{img/p8.png}
+\end{figure}
+
+La sentencia \textit{COMMIT} es usada para terminar tu transacción actual y hacer permanentes los cambios llevadas a cabos por ella. Una \textit{transacción} es una sequencia de sentencias SQL que Oracle trata como un única unidad. Esta sentencia también borra todos los puntos de guardado en la transacción y levanta los bloqueos hechos por la transacción. Antes de hacer \textit{COMMIT}, tu puedes ver los datos afectados por tu transacción, pero no otros usuarios que accedan a esos mismos datos.  
+
+Pasos de la fotografía:
+\begin{enumerate}
+\item El proceso de servidor recibe la consulta y escribe las entradas necesarias en el buffer redo log.
+\item El proceso LGWR escribe las entradas redo log que queden pendientes a disco. Este punto se considera el final de la transacción \textit{commit}.
+\item Oracle desbloquea los cerrojos necesarios por la transacción y permite a los usuarios esperando continuar con su trabajoo.
+\item Si se detectan bloques que ya no van a ser usados, se pasan a disco.
+\end{enumerate}
+
+Es importante tener en mente que Oracle siempre ejecuta un \textit{COMMIT} antes y después de ejecutar cualquier sentencia perteneciente al DDL (\textit{Data Definition Language}).
+
+Para tener una imagen más o menos simple de todo lo que hemos visto de Oracle en esta sección:
+
+\begin{figure}[H]
+  \center
+  \includegraphics[scale=0.3]{img/p11.png}
+\end{figure}
+
+\section{Gestión de Red}
+
+Obteivos principales de esta sección:
+\begin{itemize}
+\item Conocer el procedimiento mediante el cual Net establece una conexión con un servidor.
+\item Identificar los componentes fundamentales de la arquitectura Net y como interactúan.
+\end{itemize}
+
+\subsection{Conexión a un servidor}
+
+El componente \textit{Net} nos proporciona tres funciones básicas:
+\begin{itemize}
+\item Operaciones de conexión
+\item Operaciones de transporte de datos
+\item Operaciones de excepción
+\end{itemize}
+La arquitectura \textit{Net} se compone de varias capas, cada una de ellas tiene un único cometido en una sesión de red.
+
+El \textit{Oracle Net Listener} es un proceso separado que se ejecuta en el servidor donde está la BD. Recibe las peticiones entrantes de los clientes y administra el tráfico de estas peticiones al servidor de la BD. 
+
+\underline{\textbf{Conexión al servidor}}
+
+\begin{figure}[H]
+  \center
+  \includegraphics[scale=0.2]{img/p12.png}
+\end{figure}
+
+Para conectarnos desde el cliente a la BD, podemos usar la sentencia:
+
+\begin{lstlisting}[ language=SQL,
+                    deletekeywords={IDENTITY},
+                    deletekeywords={[2]INT},
+                    morekeywords={clustered},
+                    framesep=8pt,
+                    xleftmargin=40pt,
+                    framexleftmargin=40pt,
+                    frame=tb,
+                    framerule=0pt ]
+sqlplus user/pw@DB1
+\end{lstlisting}
+Donde \textit{user} es nuestro usuario y \textit{DB1} es la dirección IP del servidor alojando la BD. Estos parámetros pueden ser específicados por defecto usando: 
+\begin{itemize}
+\item \textit{tsnames.ora}: es un archivo de configuración que contiene nombres de servicios en red mapeados,asignados a ddescriptores a través de los cuáles se nos permite acceder. Está ubicado en los clientes. Algunos parámetros del archivo son:
+\begin{itemize}
+\item HOST: dirección ip del servidor con el que nos queremos conectar.
+\item PORT: puerto donde escucha la base de datos.
+\item SERVICE\_NAME: nombre del servicio de la base de datos al que queremos conectarnos.
+\end{itemize}
+\item \textit{sqlnet.ora}: es un archivo de texto que proporciona al cliente la información básica sobre la red (como el dominio por defecto, encriptación, etc). Este fichero también se encuentra únicamente en el cliente.
+\item \textit{listener.ora}: aquí se encuentran los parámetros de configuración del listener. Tiene un formato en modo texto pero es muy recomendable modificarlo solo a través de la GUI de Oracle Enterprise Manager. Este fichero se encuentra solo en el servidor. Algunos de sus parámetros son:
+\begin{itemize}
+\item \textit{LISTENER}: nombre del listener.
+\item \textit{SID}: nombre de la BD por defecto.
+\item \textit{ADDRESS}: 
+  \begin{itemize}
+    \item \textit{PROTOCOL}: protocolo usado para la comunicación.
+    \item \textit{HOST}: nombre del host.
+    \item \textit{PORT}: puerto donde escuchará el listener.
+  \end{itemize}
+\end{itemize}
+\end{itemize}
+Estos ficheros pueden ser encontrados en $\$ORACLE\_HOME/network/admin$
+
+\underline{\textbf{Desconexión de un servidor}}
+
+Puede ser decidida por el usuario (voluntariamente). El servidor puede producirla si se ha superado un determinado tiempo. O también puede ocurrir por causas anómalas (caíde de red, etc).
+
+\underline{\textbf{Protocolo Bequeath}}
+
+Cuando un cliente hace una petición de conexión a un servidor, el listener creará un proceso de servidor y legará la conexión a ese, o redireccionará la conexión a un proceso de servidor existente.
+
+El protocolo o secuencia \textit{Bequeath} permite a los clientes conectarse a la base de datos sin usar el listener. Internamente, este protocolo levanta un proceso de servidor para cada aplicación cliente. Hace exactamente lo mismo que el listener hace para una conexión local. Este protocolo sólo es usado para conexiones locales donde una alicación cliente (como \textit{SQLPlus}), se comunica con la instancia de la base de datos corriendo en el mismo ordenador. Sólo funcione si el servidor está en modo dedicado (cada petición un proceso de servidor).
+
+Aquí faltaría hablar un poco de la sesión redireccionada, que hay dos casos: la dedicada y la dispatcher.
+
+\subsection{Utilidad lsnrctl}
+
+La utilidad de control del listener es la herramienta para gestionar el listener. Se pueden ejecutar comandos de control desde la línea de comandos o desde el prompt de \textit{lsnrctl}. 
+\begin{lstlisting}[ language=bash,
+                    deletekeywords={IDENTITY},
+                    deletekeywords={[2]INT},
+                    morekeywords={clustered},
+                    framesep=8pt,
+                    xleftmargin=40pt,
+                    framexleftmargin=40pt,
+                    frame=tb,
+                    framerule=0pt ]
+lsnrctl <command>
+\end{lstlisting}
+Las funciones más usadas son las de iniciar y detener el listener:
+\begin{lstlisting}[ language=bash,
+                    deletekeywords={IDENTITY},
+                    deletekeywords={[2]INT},
+                    morekeywords={clustered},
+                    framesep=8pt,
+                    xleftmargin=40pt,
+                    framexleftmargin=40pt,
+                    frame=tb,
+                    framerule=0pt ]
+lsnrctl start
+lsnrctl stop
+\end{lstlisting}
+El modificador \textit{SET} se usa para cambiar parámetros del listener en el entorno del \textit{lsnrctl}:
+\begin{lstlisting}[ language=bash,
+                    deletekeywords={IDENTITY},
+                    deletekeywords={[2]INT},
+                    morekeywords={clustered},
+                    framesep=8pt,
+                    xleftmargin=40pt,
+                    framexleftmargin=40pt,
+                    frame=tb,
+                    framerule=0pt ]
+LSNRCTL> SET trc_level ADMIN
+\end{lstlisting}
+El modificador \textit{SHOW} se usa para visualizar los valores de los parámetros para el listener:
+\begin{lstlisting}[ language=bash,
+                    deletekeywords={IDENTITY},
+                    deletekeywords={[2]INT},
+                    morekeywords={clustered},
+                    framesep=8pt,
+                    xleftmargin=40pt,
+                    framexleftmargin=40pt,
+                    frame=tb,
+                    framerule=0pt ]
+LSNRCTL> SHOW connect_timeout
+\end{lstlisting}
+
+\subsection{Configuración del lado del cliente}
+
+Vamos a establecer una conexión del lado del cliente de Net usando el método \textit{host naming}. Este método no precisa de configuración, a diferencia del \textit{local naming}, que es necesario configurarlo usando la herramiento gráfica \textit{Net manager}.
+
+Esto tengo que completarlo.

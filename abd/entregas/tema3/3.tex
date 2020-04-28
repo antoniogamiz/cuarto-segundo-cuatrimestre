@@ -1,0 +1,162 @@
+\documentclass[12pt]{report}
+ 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\usepackage[margin=1in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage[shortlabels]{enumitem}
+\usepackage{mathtools}
+\usepackage{personalcommands}
+\usepackage{amsfonts}
+\usepackage{float}
+\usepackage{epigraph}
+\usepackage{lipsum}
+\usepackage{parskip}
+\usepackage[spanish]{babel}
+\usepackage{tikz}
+\usetikzlibrary{babel}
+\usepackage{csquotes}
+\usepackage{xcolor}
+\usepackage[framemethod=tikz,xcolor=true]{mdframed}
+\usepackage[new]{old-arrows}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+Sean las relaciones $R$ y $S$ con los siguientes parámetros:
+
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline 
+R(a,b,c) & S(d,e,b) \\ 
+\hline 
+N(R)=1000 & N(S)=5000 \\ 
+\hline 
+Size(a)=20 &   \\ 
+\hline 
+Size(b)=30 & Size(b)=30 \\ 
+\hline 
+Size(c)=100 &   \\ 
+\hline 
+  & Size(d)=20 \\ 
+\hline 
+  & Size(e)=40 \\ 
+\hline 
+V(R,a)=1000 &   \\ 
+\hline 
+V(R,b)=200 & V(S,b)=500 \\ 
+\hline 
+V(R,c)=20 &   \\ 
+\hline 
+  & V(S,d)=5000 \\ 
+\hline 
+  & V(S,e)=40 \\ 
+\hline 
+\end{tabular} 
+\end{center}
+donde $a$ es la llave primaria de $R$ y $d$ es la llave primaria de $S$, y donde \textbf{no} existe una relación de llave externa entre las relaciones $R$ y $S$, aunque ambas tengan un atributo común en nombre y dominio (con valores comunes) $b$.
+
+Teniendo en cuenta que el $B=4KB$, $C=40B$, que se usa \textbf{bloqueo fijo}, que los \textbf{bloques} son \textbf{homogéneos}, que en memoria cabe únicamente un bloque de cada relación o resultado de operación intermedia, y considerando que las operaciones de \textbf{proyección y selección 'no respetan' índices} (es decir, si las relaciones sobre las que se aplica la operación tienen un índice, el resultado de la misma no está indexado).
+
+\textbf{Ejercicio 3.} Propón un plan lógico cuyo plan físico mejore el del Ejercicio 2, justificando numéricamente la mejora.
+
+Podemos adelantar la selección para reducir el número de registros en la unión natural:
+
+\begin{center}
+\begin{tikzpicture}[scale=0.4]
+\draw (0,0) node[anchor=north] {$\Pi_{a,e}$};
+\draw (0,-1.4)-- (0,-3);
+\draw (0,-3) node[anchor=north] {$JOIN$};
+\draw (0,-4.2)-- (-3,-5);
+\draw (-3,-5) node[anchor=north] {$R$};
+\draw (0,-4.2)-- (3,-5);
+\draw (3,-5) node[anchor=north] {$\sigma_{e=e_k}$};
+\draw (3,-6.2)-- (3,-8);
+\draw (3,-8.5) node[anchor=north] {$S$};
+\end{tikzpicture}
+\end{center}
+
+Calculamos la longitud de los registros:
+\[
+L(R)=size(a)+size(b)+size(c)=150B \espacio L(S)=size(b)+size(d)+size(e)=90B
+\]
+El factor de bloqueo:
+\[
+Bfr(R)=\left\lfloor\frac{T(B)-C}{L(R)}\right\rfloor=\left\lfloor\frac{4096B-40B}{150B}\right\rfloor=27
+\]
+\[
+Bfr(S)=\left\lfloor\frac{T(B)-C}{L(S)}\right\rfloor=\left\lfloor\frac{4096B-40B}{90B}\right\rfloor=45
+\]
+El número de bloques de cada tabla:
+\[
+B(R)=\left\lceil\frac{N(R)}{Bfr(R)}\right\rceil=\left\lceil\frac{1000}{27}\right\rceil=38
+\]
+\[
+B(S)=\left\lceil\frac{N(S)}{Bfr(S)}\right\rceil=\left\lceil\frac{5000}{45}\right\rceil=112
+\]
+
+Veamos la selección: $X=\sigma_{e=e_k}(S)$. Como es una selección por igualdad, tomamos:
+\[
+N(X)=\alpha N(S), \text{ donde } \alpha=\frac{1}{V(S,e)}=\frac{1}{40}
+\]
+Quedando:
+\[
+N(X)=\alpha N(S)=\frac{5000}{40}=125
+\]
+\[
+L(X)=L(S)=90B
+\]
+\[
+Bfr(X)=\left\lfloor\frac{T(B)-C}{L(X)}\right\rfloor=\left\lfloor\frac{4096B-40B}{90B}\right\rfloor=45
+\]
+\[
+B(X)=\left\lceil\frac{N(X)}{Bfr(X)}\right\rceil=\left\lceil\frac{125}{45}\right\rceil=3
+\]
+Es decir, necesitamos 112 bloques para leer la relación $S$, y otros 3 para escribir el resultado. En total: 115.
+
+Veamos cuántos registros genera la unión:
+\[
+N(R\;JOIN\;X)=\frac{N(R)N(X)}{\max\{V(R,b),V(X,b)\}}= \frac{1000\cdot 125}{500}=250
+\]
+Y el tamaño de esos registros, factor de bloqueo, número de registros y bloques resultantes:
+\[
+L(R\;JOIN\;X)=L(R)+L(X)-size(b)=150B+90B-30B=210B
+\]
+\[
+N(R\;JOIN\;X)=N(R)N(X)=1000\cdot 125 = 125000
+\]
+\[
+Bfr(R\;JOIN\;X)=\left\lfloor\frac{T(B)-C}{L(R\;JOIN\;X)}\right\rfloor=\left\lfloor\frac{4096B-40B}{210B}\right\rfloor=19
+\]
+\[
+B(R\;JOIN\;X)=\left\lceil\frac{N(R\;JOIN\;X)}{Bfr(R\;JOIN\;X)}\right\rceil=\left\lceil\frac{125000}{19}\right\rceil=6579
+\]
+En resumen, para la unión hemos necesitado: $3$ bloques para leer el resultado de la selección y otros $6579$ para escribir el resultado. En total: $6582$ bloques de E/S.
+
+Por último, la proyección, $P=\Pi_{a,e}(R\;JOIN\;X)$. Al igual que antes, tamaño, factor de bloqueo y bloques resultantes:
+\[
+L(P)=size(a)+size(b)=20B+40B=60B
+\]
+\[
+N(P)=N(R\;JOIN\;X)=125000
+\]
+\[
+Bfr(P)=\left\lfloor\frac{T(B)-C}{L(P)}\right\rfloor=\left\lfloor\frac{4096B-40B}{60B}\right\rfloor=67
+\]
+\[
+B(P)=\left\lceil\frac{N(P)}{Bfr(p)}\right\rceil=\left\lceil\frac{125000}{67}\right\rceil=1866
+\]
+Es decir, necesitamos $6579$ para leer el resultado de la unión y $1866$ para escribir el resultado de la proyección, en total $8445$ bloques de E/S.
+
+Sumando el resultado de las 3 operaciones, nos queda:
+\[
+nºbloques \;\; E/S = 115 + 6582 + 8445 = 15142
+\]
+
+Recordemos que en el \textit{Ejercicio 2} hicieron falta $677586$ bloques para procesar la consulta. Hagamos el cociente entre ambos:
+\[
+\frac{nºbloquesEjer1}{nºbloquesEjer2}=\frac{677586}{15142}\approx 45
+\]
+Luego vemos que con este plan lógico, el plan físico, es decir, el coste en bloques de E/S, se ve reducido unas 45 veces.
+
+\end{document}
+

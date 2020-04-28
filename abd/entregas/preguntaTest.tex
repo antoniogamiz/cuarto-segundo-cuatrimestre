@@ -1,0 +1,71 @@
+\documentclass[11pt]{report}
+ 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\usepackage[margin=1in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage[shortlabels]{enumitem}
+\usepackage{mathtools}
+\usepackage{amsfonts}
+\usepackage{float}
+\usepackage{epigraph}
+\usepackage{lipsum}
+\usepackage{parskip}
+\usepackage[spanish]{babel}
+\usepackage{tikz}
+\usetikzlibrary{babel}
+\usepackage{csquotes}
+\usepackage{xcolor}
+\usepackage[framemethod=tikz,xcolor=true]{mdframed}
+\usepackage[new]{old-arrows}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\hrule
+
+\textbf{Tema en el que se plantea}: Tema 3
+
+\textbf{Transparencia:} 25
+
+\textbf{Respuesta correcta:}  (c)
+
+\textbf{Con respecto a las extensiones, es cierto que: }
+\begin{enumerate}[(a)]
+\item Todas contienen el mismo número de bloques y del mismo tamaño, pero los bloques no tienen por qué estar contiguos en memoria.
+\item Todas contienen el mismo número de bloques y del mismo tamaño, pero los bloques estan contiguos en memoria.
+\item  no tienen por qué tener el mismo número de bloques, ni del mismo tamaño, y los bloques no tienen por qué estar contiguos en memoria.
+\item Todas son falsas.
+\end{enumerate}
+
+\hrule 
+
+\textbf{Tema:} Tema 1
+
+\textbf{Transparencia(s):} 80,81,82 
+
+\textbf{Texto:}  Enuncie tres estrategias diferentes para resolver colisiones en un Archivo de Acceso Directo (AAD). Expliquelas brevemente.
+
+\textbf{Respuesta:} Tenemos varias opciones disponibles:
+\begin{itemize}
+\item Direccionamiento cerrado: el espacio de posiciones consiste de un único archivo. Dos estrategias:
+\begin{itemize}
+\item Búsqueda lineal: una colisión se almacena en una posicición libre del mismo bloque.
+\item Realeatorización: una colisión se almacena en otra posición reaplicando la transformación de clave.
+\end{itemize}
+\item Direccionamiento abierto: el espacio de posiciones se compone de más de un fichero (principal y desbordamiento). Dos estrategias:
+\begin{itemize}
+\item Listas enlazadas: las colisiones se almacenan en un fichero de desbordamiento (ASI).
+\item Bloques de desbordamiento: colisiones en bloques del fichero de desbordamiento.
+\end{itemize}
+\item Hashing dinámico: el espacio de posiciones y la transformación se adaptan dinámicamente.
+\end{itemize}
+
+\[
+\sigma_{c<c_k}\left(\Pi_c(R\;JOIN\;S)\right)
+\]
+\[
+\Pi_c(\sigma_{c<c_k}(R)JOIN\;S)
+\]
+
+\end{document}
+

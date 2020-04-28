@@ -1,0 +1,81 @@
+\documentclass[12pt]{report}
+ 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\usepackage[margin=1in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage[shortlabels]{enumitem}
+\usepackage{mathtools}
+\usepackage{personalcommands}
+\usepackage{amsfonts}
+\usepackage{float}
+\usepackage{epigraph}
+\usepackage{lipsum}
+\usepackage{parskip}
+\usepackage[spanish]{babel}
+\usepackage{tikz}
+\usetikzlibrary{babel}
+\usepackage{csquotes}
+\usepackage{xcolor}
+\usepackage[framemethod=tikz,xcolor=true]{mdframed}
+\usepackage[new]{old-arrows}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+Sean las relaciones $R$ y $S$ con los siguientes parámetros:
+
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline 
+R(a,b,c) & S(a,d,e) \\ 
+\hline 
+N(R)=1000 & N(S)=10000 \\ 
+\hline 
+Size(a)=20 & Size(a)=20 \\ 
+\hline 
+Size(b)=40 &   \\ 
+\hline 
+Size(c)=100 &   \\ 
+\hline 
+  & Size(d)=20 \\ 
+\hline 
+  & Size(e)=40 \\ 
+\hline 
+V(R,a)=1000 & V(S,a)=1000 \\ 
+\hline 
+V(R,b)=200 &   \\ 
+\hline 
+V(R,c)=20 &   \\ 
+\hline 
+  & V(S,d)=??? \\ 
+\hline 
+  & V(S,e)=40 \\ 
+\hline 
+\end{tabular} 
+\end{center}
+donde $a$ es la llave primaria de $R$ y $(a,d)$ es la llave primaria de $S$, y donde el atributo $S.a$ es llave externa a $R.a$.
+
+
+Teniendo en cuenta que $B=4KB$, $C=40B$, que se usa \textbf{bloqueo fijo}, que los \textbf{bloques} son \textbf{homogéneos}, que en memoria cabe únicamente un bloque de cada relación o resultado de operación intermedia, y considerando que las operaciones de \textbf{proyección y selección 'respetan' índices} (es decir, si las relaciones sobre las que se aplica la operación tienen un índice, el resultado de la misma también lo tendrá).
+
+\textbf{Ejercicio 7.} Construye el plan lógico que se generaría para la consulta:
+\[
+\sigma_{a<a_n}\left(\Pi_{a,b,e}\left(R\;JOIN\;S\right)\right)
+\]
+
+\begin{center}
+\begin{tikzpicture}[scale=0.4]
+\draw (0,0) node[anchor=north] {$\sigma_{a<a_n}$};
+\draw (0,-1.1)-- (0,-3);
+\draw (0,-3) node[anchor=north] {$\Pi_{a,b,e}$};
+\draw (0,-4.3)-- (0,-6);
+\draw (0,-6) node[anchor=north] {$JOIN$};
+\draw (0,-7.2)-- (-3,-9);
+\draw (-3,-9) node[anchor=north] {$R$};
+\draw (0,-7.2)-- (3,-9);
+\draw (3,-9) node[anchor=north] {$S$};
+\end{tikzpicture}
+\end{center}
+
+\end{document}
+
