@@ -319,3 +319,172 @@ A partir de esa expresión se deduce la ley de \textit{equilibrio químico}:
 \frac{x^*y^*}{z^*}=\frac{k_{-1}}{k_1}
 \]
 %==================================
+
+%================================== 28/05
+
+\section{Modelo de Michaelis-Menten (1913)}
+
+Se supone una especie de \textit{bacteria}, con el núcleo (en negro) y la membrana citoplasmática. Dentro de esa membrana, hay una serie de enzimas, cuyo único objetivo es coger los nutrientes e introducirlos dentro de la misma.
+
+\begin{center}
+\begin{tikzpicture}[scale=1]
+% celula
+\draw[rotate=45] (0,0) ellipse (40pt and 70pt);
+\draw[black,fill=black] (0,0) circle (2ex);
+% nutrientes
+\node[text width=4cm] at (3,-1.3) {\tiny nutriente absorvido, $P$};
+\draw[red,fill=pink] (1,-1) circle (1ex);
+\node[text width=4cm] at (5,1.3) {\tiny nutriente libre, $S$};
+\draw[fill=blue] (3,1) circle (1ex);
+\node[text width=4cm] at (3.8,0.3) {\tiny receptor ocupado, $SE$};
+\draw[fill=blue] (1.6,0.35) circle (1ex);
+% receptores
+\draw [red,thick,domain=150:270] plot ({2+0.3*cos(\x)}, {0.3*sin(\x)});
+\draw [red,thick,domain=150:270] plot ({1.7+0.3*cos(\x)}, {0.4+0.3*sin(\x)});
+\node[text width=4cm] at (4,-0.3) {\tiny receptor libre, $E$};
+\draw [red,thick,domain=150:270] plot ({1.4+0.3*cos(\x)}, {0.8+0.3*sin(\x)});
+\end{tikzpicture}
+\end{center}
+
+Este intercambio de nutrientes se puede representar por la siguiente reacción química:
+\[
+\ce{S + E <=>[k_1][k_{-1}] SE ->[k_2] E + P } 
+\]
+Si un nutriente libre es atrapado por un receptor, se tiene un receptor ocupado (con constante $k_1$). Este proceso puede deshacerse, es decir, un receptor ocupado puede soltar el nutriente que tenga (esta reacción pasa con constante $k_{-1}$). Si la obsorción tiene éxito, entonces el nutriente se absorve y el receptor vuelve a quedar libre (esto pasa con constante $k_2$). 
+
+Se denota por:
+\begin{itemize}
+\item $s(t)$: cantidad de nutrientes libres.
+\item $e(t)$: concentración de encimas libres.
+\item $c(t)$: concentración de encimas ocupadas.
+\item $p(t)$: concentración de nutrientes absorvidos.
+\end{itemize}
+
+El objetivo es escribir y estudiar la ecuación diferencial que sigue este modelo. Al principio, una parte del sustrato reacciona con la enzima, disminuyendo la cantidad de nutrientes libres, luego se añade $-k_1s(t)e(t)$. Pero como este enlace se puede romper, liberando esos nutrientes, también hay que añadir: $k_{-1}c(t)$. Luego:
+\[
+s'(t)=-k_1s(t)e(t)+k_{-1}c(t)
+\]
+De igual forma se razona con $e'(t)$:
+\[
+e'(t)=k_2c(t)+k_{-1}c(t)-k_1s(t)e(t)
+\]
+donde el primer término es la concentración de receptores que se quedan libres al producirse la absorción, el segundo son los liberados por escape del nutriente y el último son los que pasan a estar ocupados.
+
+Repitiendo el razonamiento, se obtienen las dos ecuaciones restantes:
+\[
+\begin{array}{l}
+c'(t)=k_1s(t)e(t)-k_{-1}c(t)-k_2c(t)\\
+p'(t)=k_2c(t)
+\end{array}
+\]
+En resumen, se tienen cuatro ecuaciones diferenciales distintas:
+\[
+\left\{
+\begin{array}{l}
+s'(t)=-k_1s(t)e(t)+k_{-1}c(t)\\
+e'(t)=\left(k_2+k_{-1}\right)c(t)-k_1s(t)e(t)\\
+c'(t)=k_1s(t)e(t)-\left(k_{-1}+k_2\right)c(t)\\
+p'(t)=k_2c(t)
+\end{array}
+\right.
+\]
+Al sumar la segunda y tercera ecuación, se obtiene que $e'(t)+c'(t)=0$, es decir, el número de enzimas en la membrana es constante, obviamente. Se tiene que la concentración de nutrientes también es constante (sumando la primera y las dos últimas). Estos dos valores se representan por las constantes $T_e$ y $T_n$, respectivamente. Además, si se integra en las dos sumas:
+\[
+\begin{array}{l}
+T_e=e(t)+c(t)\\
+T_n=s(t)+c(t)+p(t)
+\end{array}
+\]
+Ya se tiene el planteamiento del problema, ahora se necesitan los datos iniciales. Se supone que hay nutrientes tanto fuera de la célula como dentro. Además de que en el momento 0 ya hay receptores ocupados y libres, es decir:
+\[
+s(0)=s_0>0, \espacio e(0)=e_0, \espacio c(0)=c_0, \espacio p(0)=p_0, \espacio T_e=e_0+c_0>0
+\]
+Para los siguientes razonamientos se deja de lado la última ecuación (la de $p'(t)$), porque al depender solo de $c(t)$ no va a ser de mucha ayuda en este estudio.
+
+Tomando las dos primeras ecuaciones y sustituyendo $c(t)=T_e-e(t)$ queda:
+\[
+\left\{
+\begin{array}{l}
+s'(t)=-k_1s(t)e(t)+k_{-1}(T_e-e(t))\\
+e'(t)=\left(k_2+k_{-1}\right)(T_e-e(t))-k_1s(t)e(t)\\
+\end{array}
+\right.
+\]
+Que es un sistema de dos ecuaciones diferenciales. Se supone que se tiene una solución maximal $\funcion{s,e}{(w_-,w_+)}{\R}$ y se prueban varias propiedades, que hacen que el modelo tenga sentido:
+\begin{itemize}
+\item $e(t)>0$ $\forall t\in[0,w_+)$
+
+Se tiene que $e(0)=e_0\geq 0$. Si $e_0=0$, entonces $e'(0)=(k_{-1}+k_2)T_e>0$, por lo tanto: $e(t)>0$ en un intervalo $(0,\varepsilon)$.
+
+Si $e_0>0$, existe $\varepsilon>0$ tal que $e(t)>0$ en el intervalo $(0,\varepsilon)$. Por reducción al absurdo, se supone que existe $\bar{t}\in[0,w_+)$ de forma que $e(\bar{t})<0$. Sea $t^*=\inf\{t\in[0,w_+]:e(t)<0\}$. De ahí se deduce que $e(t^*)=0$, puesto que antes de $t^*$, $e(t)$ es positivo y después de $t^*$ es negativo. Al ser $e(t^*)=0$, queda $e'(t^*)=(k_{-1}+k_2)T_e>0$.
+
+\item $e(t)<T_e$ $\forall t\in(0,w_+)$. Este apartado se prueba de forma análoga al anterior. (\textbf{completar})
+\item $s(t)>0$ $\forall t \in[0,w_+)$. Este apartado se prueba de forma análoga al anterior. (\textbf{completar})
+\end{itemize}
+
+Volviendo al sistema de ecuciones general, sean $\funcion{s,e,c,p}{[0,w_+)}{\R}$ son solcuciones maximales. Se ha visto que $s(t)$ y $e(t)$ son positivas. $c(t)$ también lo es ya que se puede expresar como $c(t)=T_e-e(t)$, que siempre es positivo ya que $e(t)<T_e$ para todo $t$.
+
+La expresión $s(t)+e(t)+p(t)=T_n$ indica que todas las soluciones están acotadas por $T_n$, luego la teoría de prolongación de soluciones nos dice que podemos prolongarla hasta el infinito, es decir, $w_+=+\infty$.
+
+\subsection{Comportamiento asintótico}
+
+Ahora se va a proceder al estudio del comportamiento asintótico de estas soluciones. Se tienen dos sistemas (en el apartado anterior se dejó la $p$ aparte):
+\[
+\left\{
+\begin{array}{l}
+s'(t)=-k_1s(t)e(t)+k_{-1}c(t)\\
+e'(t)=\left(k_2+k_{-1}\right)c(t)-k_1s(t)e(t)\\
+c'(t)=k_1s(t)e(t)-\left(k_{-1}+k_2\right)c(t)\\
+\end{array}
+\right.
+\left\{
+\begin{array}{l}
+p(t)=T_n-c(t)-s(t)\\
+p'(t)=k_2c(t)
+\end{array}
+\right.
+\]
+El primer sistema se puede ver como la ecuación diferencial $x'=f(x)$ donde $\funcion{f}{\R^3}{\R^3}$, $f\in\mathcal{C}^{1}$ y $x(t)$ es una solución acotada para $t\geq 0$.
+
+Para demostrar eso se necesita el teorema de \textit{Lasalle}, que requiere mucha terminología. Aquí se va a usar una adpatación. Sea $\funcion{V}{\R^2}{\R}$ una función definida por $V(s,c)=s+c$ y se denota por $\dot{V}(s,c)=\frac{d}{dt}V(s(t),c(t))=-k_{-1}c$ a su derivada. Como $\dot{V}(s,c)\leq 0$, se tiene que $V$ es una función guía de ese problema.
+\medskip
+\begin{theorem}[Teorema de Lassale (adaptación)]
+Sea $V\funcion{V}{\R^N}{\R}$. Si $V(x(t))$ es decreciente (función de Liapunov) y $x(t)$ está positivamente acotada, entonces $\dot{V}(x(t))\longrightarrow 0$.
+\end{theorem}
+
+Luego si se aplica ese teorema a este caso, tenemos que $\dot{V}(x(t))=-k_{-1}c(t)\longrightarrow 0$, por lo tanto, $c(t)\longrightarrow 0$. Como se tenía que $T_e=e(t)+c(t)$, lo anterior implica que $e(t)\longrightarrow T_e$. Esto quiere decir que las enzimas tienden a quedarse todas libres, ya que se ha visto que las ocupadas tienden a 0. 
+
+Además $p(t)$ tiene límite por ser una función acotada y creciente. Con $s(t)$ pasa exactamente lo mismo, $s(t)=T_n-c(t)-p(t)$ y $s(t)\longrightarrow s^*$.
+
+\begin{lemma}
+Si $\funcion{s}{[0,+\infty)}{\R}$ es de clase 1 y existe su límite, es decir:
+\[
+\limitemasinfinito{t}{s(t)\in\R}
+\]
+Entonces $t_n\longrightarrow+\infty$ con $s'(t_n)\longrightarrow 0$.
+\end{lemma}
+
+Aplicando ese lema a $s(t)$, se tiene que:
+\[
+s'(t_n)=k_{-1}c(t_n)-k_1s(t_n)e(t_n)
+\]
+Haciendo ahora $t_n\longrightarrow +\infty$, se obtiene que $s^*T_e=0$. Como $T_e\neq 0$, tiene que ser $s^*=0$ t por lo tanto $p(t)\longrightarrow T_n$.
+
+En definitiva se ha visto que las concentraciones tienden a:
+\[
+\left\{
+\begin{array}{l}
+s(t)\longrightarrow 0\\
+e(t)\longrightarrow T_e\\
+c(t)\longrightarrow 0\\
+p(t)\longrightarrow T_n
+\end{array}
+\right.
+\]
+Lo que significa que todas las enzimas se quedan libres después de haber absorvido todos los nutrientes disponibles.
+
+%================================== 
+
+%================================== 29/05
+
+%================================== 
