@@ -113,7 +113,9 @@ B(X)=\left\lceil\frac{N(X)}{Bfr(X)}\right\rceil=\left\lceil\frac{125}{45}\right\
 \]
 Es decir, necesitamos 112 bloques para leer la relación $S$, y otros 3 para escribir el resultado. En total: 115.
 
-Veamos cuántos registros genera la unión:
+Veamos cuántos registros genera la unión. Como las tuplas de $R$ y las se la selección no están ordenadas por el campo $b$, es necesario ordenarlas para que la reunión sea eficiente. El algoritmo más eficiente require $n\log_2(n)$ bloques, donde $n$ es el número de bloques de la relación, es decir, hacen falta $38\log_2(38)+3\log_2(3)\approx 201$ bloques.
+
+
 \[
 N(R\;JOIN\;X)=\frac{N(R)N(X)}{\max\{V(R,b),V(X,b)\}}= \frac{1000\cdot 125}{500}=250
 \]
@@ -130,7 +132,7 @@ Bfr(R\;JOIN\;X)=\left\lfloor\frac{T(B)-C}{L(R\;JOIN\;X)}\right\rfloor=\left\lflo
 \[
 B(R\;JOIN\;X)=\left\lceil\frac{N(R\;JOIN\;X)}{Bfr(R\;JOIN\;X)}\right\rceil=\left\lceil\frac{125000}{19}\right\rceil=6579
 \]
-En resumen, para la unión hemos necesitado: $3$ bloques para leer el resultado de la selección y otros $6579$ para escribir el resultado. En total: $6582$ bloques de E/S.
+En resumen, para la unión hemos necesitado: $201$ bloques para ordenar las relaciones, $3$ bloques para leer el resultado de la selección y otros $6579$ para escribir el resultado. En total: $6582$ bloques de E/S.
 
 Por último, la proyección, $P=\Pi_{a,e}(R\;JOIN\;X)$. Al igual que antes, tamaño, factor de bloqueo y bloques resultantes:
 \[

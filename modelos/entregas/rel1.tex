@@ -18,7 +18,7 @@
 \usepackage{xcolor}
 
 \usepackage{personalcommands}
-
+\newcommand{\flechita}[1]{\overset{\rightarrow}{ #1 }}
 \newtheorem{theorem}{Teorema}[section]
 \newtheorem{lemma}[theorem]{Lema}
 \newtheorem{prop}[theorem]{Proposición}
@@ -40,74 +40,83 @@
 \newcommand{\fvariaciones}{F(x,y(x),y'(x))}
 
 \begin{document}
+
+\textbf{Antonio Gámiz Delgado}
+
+%=================================================== EJERCICIO 1
+
 \begin{ejercicio}
 Sea $\funcion{F}{\sobolevcero[-1,1]{1}}{\R}$ definido por
 \[
-F(y)=\frac{1}{2}\integral{-1}{1}{y'(x)^2dx}+y_0
+F(y)=\frac{1}{2}\integral{-1}{1}{y'(x)^2dx}+y(0)
 \]
 Encontrar el mínimo de $F$ en $\sobolevcero[-1,1]{1}$.
 \end{ejercicio}
 
-Sea $\funcion{A}{\sobolevcero[-1,1]{1}}{\R}$, definida por $A(u,u)=\frac{1}{2}\integral{-1}{1}{u'(x)^2dx}$. Evidentemente, $A$ es una forma cuadrática y es coerciva:
+%===================================================
+
+Sea $\funcion{A}{\sobolevcero[-1,1]{1}\times \sobolevcero[-1,1]{1}}{\R}$, definida por $A(u,u)=\frac{1}{2}\integral{-1}{1}{u'(x)^2dx}$. Evidentemente, $A$ es una forma cuadrática y es coerciva:
 \[
 A(u,u)\geq \frac{1}{2}\norm{u} \espacio \forall u\in\sobolevcero[-1,1]{1}
 \]
-Ahora sea $\funcion{R}{\sobolevcero[-1,1]{1}}{\R}$, definida por $R(y)=-y(\alpha)=y_0$, con $\alpha\in[-1,1]$. $R$ es una aplicación lineal y continua, luego el funcional $F(y)=A(y,y)-R(y)$, es cuadrático. El teorema de Lax-Milgran nos dice que existe su mínimo absoluto y que debe cumplir:
+Ahora sea $\funcion{R}{\sobolevcero[-1,1]{1}}{\R}$, definida por $R(y)=-y(0)$. $R$ es una aplicación lineal y continua, luego el funcional $F(y)=A(y,y)-R(y)$, es cuadrático. El teorema de Lax-Milgran nos dice que existe su mínimo absoluto y que debe cumplir:
 \[
 A(\phi,y)-R(\phi)=0 \espacio \forall \phi\in\sobolevcero[-1,1]{1}
 \]
 Desarrollando la expresión anterior:
 \[
-\frac{1}{2}\integral{-1}{1}{\phi'(x)y'(x)dx}=R(\phi)=-\phi(\alpha)
+\frac{1}{2}\integral{-1}{1}{\phi'(x)y'(x)dx}=R(\phi)=-\phi(0)
 \]
-Si tomamos $\phi\in \mathcal{D}(-1,\alpha)$, obtenemos que 
+Si tomamos $\phi\in \mathcal{D}(-1,0)$, obtenemos que 
 \[
-\integral{-1}{\alpha}{\phi'(x)y'(x)dx}+\integral{-1}{\alpha}{0\phi(x)dx}=0
+\integral{-1}{0}{\phi'(x)y'(x)dx}+\integral{-1}{0}{0\phi(x)dx}=0
 \]
-Luego $z=y'$ tiene derivada débil 0 en $(-1,\alpha)$, es decir, $z\in\sobolevcero[-1,\alpha]{1}$. Hacemos lo mismo con la parte de la derecha, y obtenemos $z\in\sobolevcero[\alpha,1]{1}$. La función $z\notin\mathcal{C}[-1,1]$, pero se cumple $z\in\mathcal{C}[-1,\alpha]\cap\mathcal{C}[\alpha,1]$ y existen los límites laterales de $z$ en $\alpha$. Volviendo a la fórmula anterior:
+Luego $z=y'$ tiene derivada débil 0 en $(-1,0)$, es decir, $z\in\sobolevcero[-1,0]{1}$. Hacemos lo mismo con la parte de la derecha, y obtenemos $z\in\sobolevcero[0,1]{1}$. La función $z\notin\mathcal{C}[-1,1]$, pero se cumple $z\in\mathcal{C}[-1,0]\cap\mathcal{C}[0,1]$ y existen los límites laterales de $z$ en $0$. Volviendo a la fórmula anterior:
 \[
-\integral{-1}{1}{\phi'(x)z(x)dx}=-2\phi(\alpha)
+\frac{1}{2}\integral{-1}{1}{\phi'(x)z(x)dx}=-\phi(0)
 \]
 Como $z$ no es continua en $(a,b)$, hay que partir la integral en dos:
 \[
-\integral{-1}{1}{\phi'(x)z(x)dx}=\integral{-1}{\alpha}{\phi'(x)z(x)dx}+\integral{\alpha}{1}{\phi'(x)z(x)dx}
+\integral{-1}{1}{\phi'(x)z(x)dx}=\integral{-1}{0}{\phi'(x)z(x)dx}+\integral{0}{1}{\phi'(x)z(x)dx}
 \]
 Desarrollando cada una por separado, usando la regla de la cadena en cada término:
 \[
-\integral{-1}{\alpha}{z(x)\phi'(x)dx}=z(x)\phi(x)\Big|^\alpha_{-1}-\integral{-1}{\alpha}{z'(x)\phi(x)dx}=z(\alpha^-)\phi(\alpha)-\integral{-1}{\alpha}{z'(x)\phi(x)dx}
+\integral{-1}{0}{z(x)\phi'(x)dx}=z(x)\phi(x)\Big|^0_{-1}-\integral{-1}{0}{z'(x)\phi(x)dx}=z(0^-)\phi(0)-\integral{-1}{0}{z'(x)\phi(x)dx}
 \]
 \[
-\integral{\alpha}{1}{z(x)\phi'(x)dx}=z(x)\phi(x)\Big|_\alpha^{1}-\integral{\alpha}{1}{z'(x)\phi(x)dx}=z(\alpha^+)\phi(\alpha)-\integral{\alpha}{1}{z'(x)\phi(x)dx}
+\integral{0}{1}{z(x)\phi'(x)dx}=z(x)\phi(x)\Big|_0^{1}-\integral{0}{1}{z'(x)\phi(x)dx}=-z(0^+)\phi(0)-\integral{0}{1}{z'(x)\phi(x)dx}
 \]
 Sumando ambos resultados y sustituyendo en la expresión del principio:
 \[
-z(\alpha^-)\phi(\alpha)-z(\alpha^+)\phi(\alpha)=-\phi(\alpha)
+z(0^+)\phi(0)-z(0^-)\phi(0)=-\phi(0)
 \]
 Como $\phi$ es arbitraria, podemos tomarla de forma que $\phi(\alpha)=1$, quedando:
 \[
-z(\alpha^-)-z(\alpha^+)=-1
+z(0^+)-z(0^-)=-1
 \]
-
-Ahora con estas condiciones, se puede calcular la expresión de $y$. En los intervalos, $[-1,\alpha),(\alpha,1]$, $y$ es una recta. La recta de la izquierda tiene que pasar por $(-1,0)$ y la de la derecha debe pasar por $(1,0)$. Además, la resta de sus pendientes tiene que ser $-1$. Serán de la forma:
+Ahora con estas condiciones, se puede calcular la expresión de $y$. En los intervalos, $[-1,0),(0,1]$, $y$ es una recta. La recta de la izquierda tiene que pasar por $(-1,0)$ y la de la derecha debe pasar por $(1,0)$. Además, la resta de sus pendientes tiene que ser $-1$. Serán de la forma:
 \[
 y_1(x)=ax+a, \espacio y_2(x)=bx-b, \espacio a,b\in\R
 \]
-Como $y$ debe ser continua en $\alpha$, se tiene que cumplir $y_1(\alpha)=y_2(\alpha)$, luego nos queda el sistema:
+Como $y$ debe ser continua en $\alpha$, se tiene que cumplir $y_1(0)=y_2(0)$, luego nos queda el sistema:
 \[
 \begin{array}{l}
 a\alpha+a=b\alpha+b\\
-a-b=-1
+b-a=-1
 \end{array}
 \]
-Y resolviendo el sistema, obtenemos: $a=\frac{-1+\alpha}{2}$, $b=\frac{1+\alpha}{2}$. Luego la función $y$ buscada es:
+Y resolviendo el sistema, obtenemos: $a=\frac{1}{2}$, $b=\frac{-1}{2}$. Luego la función $y$ buscada es:
 \[
 y(x)=\left\{
 \begin{array}{ll}
-\frac{-1+\alpha}{2}(x+1) & x\in[-1,\alpha]\\
-\frac{1+\alpha}{2}(x-1) & x\in(\alpha,1]
+\frac{1}{2}(x+1) & x\in[-1,0]\\
+-\frac{1}{2}(x-1) & x\in(0,1]
 \end{array}
 \right.
 \]
+
+%=================================================== EJERCICIO 2
+
 \begin{ejercicio}
 Demostrar que el problema de contorno
 \[
@@ -115,6 +124,8 @@ Demostrar que el problema de contorno
 \]
 tiene una única solución.
 \end{ejercicio}
+
+%===================================================
 
 Sean $K(x)=3x$ y $q(x)=-2x$ y el funcional:
 \[
@@ -129,6 +140,8 @@ Llamando $z=y'$, se tiene que la derivada débil de $z$ es: $z'=K(x)y+q(x)$. Lue
 -y''+K(x)y+q(x)=0\Rightarrow -y''+3xy-2x=0
 \]
 Al igual que se hizo en teoría, ahora solo se tiene que encontrar un producto escalar para ver que se tiene un espacio de Hilbert y usar el teorema de representación de Riesz. La proposición $(3.12)$ dice justamente lo que necesitamos.
+
+%=================================================== EJERCICIO 3
 
 \begin{ejercicio}
 Sea
@@ -150,6 +163,52 @@ L(y)=\frac{1}{2}\integral{-3}{2}{p(x)y'(x)^2dx}-\integral{-3}{2}{y(x)dx}
 \end{enumerate}
 \end{ejercicio}
 
+%===================================================
+
+Al igual que se hizo en el ejercicio 1, se toma $\funcion{A}{\sobolevcero[-3,2]{1}\times \sobolevcero[-3,2]{1}}{\R}$ definida por $A(u,v)=\frac{1}{2}\integral{-3}{2}{p(x)u'(x)v'(x)dx}$. Al ser $p(x)>0$ y estar acotada superiormente, $A$ es evidentemente coercivo. Sea $R(y)=\integral{-3}{2}{y(x)dx}$, es un funcional lineal continuo (por las propiedades de la integral). En resumen, $L$ es un funcional cuadrático coercivo cuyo dominio es un espacio de Hilbert, luego el teorema de Lax-Milgram asegura la existe de un único mínimo.
+
+Para ver su expresión, se usa la propiedad que proporciona el teorema de representación de Riesz. Sea $y\in\sobolevcero[-3,2]{1}$ dicha solución:
+\[
+A(\phi,y)-R(\phi)=0 \espacio \forall \phi\in\sobolevcero[-3,0]{1}
+\]
+Desarrollando esa expresión:
+\[
+\integral{-3}{2}{p(x)y'(x)\phi'(x)dx}+\integral{-3}{2}{-\phi(x)dx}=0
+\]
+Luego $\widetilde{z}=py'$ tiene derivada débil -1 en $(-3,2)$. $\widetilde{z}$ admite una extensión continua en $(-3,2)$, $z$. Imponiendo ahora las condiciones que se tienen:
+\[
+z'(x)=-1\Rightarrow z(x)=y'(x)=-x+a
+\]
+Al integrar esa ecuación en $(-3,2)$ y $(0,2)$:
+\[
+\begin{array}{l}
+y_1(x)=-\frac{x^2}{6}+\frac{k}{3}x+b\\
+y_2(x)=-\frac{x^2}{2}+ax+c
+\end{array}
+\]
+Para resolver ese sistema, se usan las condiciones de contorno:
+\[
+\left\{
+\begin{array}{l}
+y_1(-3)=0\\
+y_2(2)=0\\
+y_1(0^-)=y_2(0^+)
+\end{array}
+\right.
+\]
+Resolviendo el sistema resultante, se obtiene: $a=\frac{1}{6}$ y $b=c=\frac{5}{3}$. La expresión del mínimo es, por tanto:
+\[
+y(x)=\left\{
+\begin{array}{ll}
+-\frac{x^2}{6}+\frac{x}{18}+\frac{5}{3} & x\in(-3,0)\\
+-\frac{x^2}{2}+\frac{x}{6}+\frac{5}{3} & x\in(0,2)
+\end{array}
+\right.
+\]
+
+
+%================================================= EJERCICIO 4
+
 \begin{ejercicio}
 Dado
 \[
@@ -157,6 +216,46 @@ E=\{u\in\sobolev[0,1]{1}: \; u(0)=0, \; u(1)=1\}, \espacio L(u)=\integral{0}{1}{
 \]
 Encontrar $\min_{u\in E}L(u)$.
 \end{ejercicio}
+
+%===================================================
+\begin{itemize}
+\item $E$ es un espacio afín embebido en $\sobolevcero[0,1]{1}$.
+
+Sea $\funcion{\overset{\rightarrow}{\cdot}}{E\times E}{\sobolevcero[0,1]{1}}$, definida por $\flechita{uv}=v-u$ y cumple:
+\begin{itemize}
+\item Si $p,q,r\in E$, entonces $\flechita{pq}+\flechita{qr}=\flechita{pr}$. Esta condición se cumple trivialmente.
+\item Dado $p\in E$ y $v\in\sobolevcero[0,1]{1}$, existe un único $p_v$ tal que $\flechita{pp_v}=v$. La unicidad se obtiene por definición ($p_v=v+p$).
+\end{itemize}
+\end{itemize}
+
+Sea $p_v=v+x$ y $x\in E$ fijo. Como $E$ está embebido en $\sobolevcero[0,1]{1}$, buscar el mínimo deseado es equivalente a encontrar el mínimo de $L(v+x)$ en $\sobolevcero[0,1]{1}$, donde:
+\[
+\begin{array}{l}
+L(p_v)=L(v+x)=\integral{0}{1}{(v'(x)+1)^2dx}+\integral{0}{1}{(v(x)+x)dx}=
+\integral{0}{1}{v'(x)^2dx}+2\integral{0}{1}{v'(x)dx}+1+\\
+\integral{0}{1}{v(x)dx}+\integral{0}{1}{xdx}=\integral{0}{1}{(v'(x)+1)^2dx}+\integral{0}{1}{(v(x)+x)dx}=
+\integral{0}{1}{(v'(x))^2dx}+\integral{0}{1}{v(x)dx}+\frac{3}{2}
+\end{array}
+\]
+Minimizar el anterior funcional es equivalente a minimizar:
+\[
+L(v)=\frac{1}{2}A(v,v)-R(v), \;\;
+A(u,v)=2\integral{0}{1}{u'(x)v'(x)dx}, \;\; R(\phi)=-\integral{0}{1}{\phi(x)dx}
+\]
+con $A$ una forma lineal cuadrática y $R$ un funcional lineal. Además, $A$ es evidentemente coercivo, luego también $L$ también lo es.
+
+Ahora ya se tienen las condiciones necearias para aplciar el teorema de Lax-Milgram, el cual asegura la existencia de un único $y\in\sobolevcero[0,1]{1}$, cumpliendo:
+\[
+A(y,\phi)=R(\phi) \Rightarrow \integral{0}{1}{2y'(x)\phi'(x)dx}+\integral{0}{1}{\phi(x)dx}=0
+\]
+Luego la derivada débil de $2y'$ es 1, luego:
+\[
+y''=\frac{1}{2} \Rightarrow y'=\frac{x}{2}+a\Rightarrow y=\frac{x^2}{4}+ax+b
+\]
+Aplicando las condiciones de contornos se obtienen los valores de $a$ y $b$: $a=-\frac{1}{4}$ y $b=0$. Todavía queda sumarle el término $x$ del principio a $y$, luego la solución final del problema es:
+\[
+u(x)=\frac{x^2}{4}-\frac{x}{4}+x=\frac{x^2+3x}{4}
+\]
 
 \begin{ejercicio}
 Sea $E$ un espacio afín embebido en $H$, espacio de Hilbert. Supongamos que $L$ es un funcional cuadrático coercivo y que $E$ es cerrado. Demostrar que el problema 
@@ -166,6 +265,29 @@ Sea $E$ un espacio afín embebido en $H$, espacio de Hilbert. Supongamos que $L$
 tiene una única solución.
 \end{ejercicio}
 
+Como $E$ es un espacio afín embebido en $H$, debe existir una aplicacion $\funcion{\flechita{\cdot}}{E\times E}{H}$ definida por $\flechita{(p,q)}=\flechita{pq}=q-p$. Sea $p\in E$ fijo y $p_v=v+p$. Usando el último ejercicio sobre espacios embebidos se tiene que:
+\[
+\min_{u\in E}L(u)=\min_{v\in H}L(p_v)=\min_{v\in H}L(p+v)
+\]
+Como $\funcion{L}{E}{\R}$ es un coercivo, se expresará como:
+\[
+L(u)=\frac{1}{2}A(u,u)-R(u)
+\]
+donde $\funcion{A}{E\times E}{\R}$ es una forma cuadrática coerciva y $\funcion{R}{E}{\R}$ es un funcional lineal. Ahora, si se define:
+\[
+\overline{L}(p_v)=L(v+p)=\frac{1}{2}A(p+v,p+v)-R(p+v)=
+\]
+\[
+=\frac{1}{2}\left(\underbrace{A(p,p)}_{constante}+2A(p,v)+A(v,v)\right)-\underbrace{R(p)}_{constante}-R(v)
+\]
+Al estar $p$ fijo, esos dos términos son constantes, luego minimizar $\overline{L}$, equivale a minimizar $\widehat{L}$ dado por:
+\[
+\widehat{L}(v)=\frac{1}{2}A(v,v)-(R(v)-A(v,v))
+\]
+El último término es un funcional lineal continuo y $A$ sigue siendo una forma cuadrática coerciva, luego $\widehat{L}$ es coercivo también. La clave ahora es que el dominio de $\widehat{L}$ es $H$, un espacio de Hilbert, es decir, se puede aplicar el teorema de Lax-Milgram que asegura la existencia de un único mínimo. Como todos los problemas de mínimo hasta aquí eran equivalentes, el del principio también tiene una única solución. 
+
+%================================================= EJERCICIO 6
+
 \begin{ejercicio}
 Encontrar $f_n\in\mathcal{D}(\R)$ tales que:
 \[
@@ -173,19 +295,51 @@ f_n'(-1)=1, \; f_n'(1)=1, \; \frac{1}{2}\integral{-1}{1}{f_n^2(x)dx}+\frac{1}{2}
 \]
 \end{ejercicio}
 
+Usando la indicación del ejercicio, sea $f_n(x)=\frac{x^{2n+1}}{2n+1}$. Evidentemente $f_n\in\mathcal{D}(\R)$ y se tiene $f_n'(x)=x^{2n}$ con $f_n'(-1)=f_n'(1)=1$. Para la última condición:
+\[
+\frac{1}{2}\integral{-1}{1}{\left(\frac{1}{2n+1}x^{2n+1}\right)^2dx}+\frac{1}{2}\integral{-1}{1}{x^{4n}dx}=\frac{x^{4n+3}}{2(2n+1)^2(4n+3)}\Big|^1_{-1}+\frac{x^{4n+1}}{2(4n+1)}\Big|^1_{-1}=
+\]
+\[
+= \frac{1}{(2n+1)^2(4n+3)}+\frac{1}{4n+1}\overset{n\to +\infty}{\longrightarrow}0
+\]
+
+Ya solo quedaría multiplifar la función $f_n$ por una función meseta para que $\widetilde{f_n}=f_n\phi_\varepsilon\in\mathcal{D}(\R)$.
+
+%================================================= EJERCICIO 7
+
 \begin{ejercicio}
 Demostrar que el problema de contorno
 \[
--u''+u=0, \; u(-1)=1, \; u(1)=1
+-u''+u=0, \; u'(-1)=1, \; u'(1)=1
 \]
 tiene una única solución.
 \end{ejercicio}
 
+Este apartado puede resolverse fácilmente unando teoría de ecuaciones diferenciales. Se tiene que $u_1(x)=e^x$ y $u_2(x)=e^{-x}$ es una base del espacio de soluciones de la ecuación homogénea: $-u''+u=0$. Luego la solución que se tiene que buscar será de la forma $u(x)=au_1(x)+bu_2(x)$, cumpliendo:
+\[
+\begin{array}{l}
+u'(-1)=ae^{-1}-be=1\\
+u'(1)=ae-be^{-1}=1
+\end{array}
+\]
+Ese sistema tiene solución ya que el determinante de la matriz de coeficientes es distinto de 0. La solución es única por ser un elemento de la base.
+
+%================================================= EJERCICIO 8
+
 \begin{ejercicio}
 Estudia y en su caso calcula:
 \[
-\min\{L(u):u\in E\}
+\min\{L(u):u\in E\}, \espacio L(u)=\frac{1}{2}\integral{-1}{1}{u(x)^2dx}+\frac{1}{2}\integral{-1}{1}{u'(x)^2dx}
 \]
-con $E=\{u\in\sobolev[-1,1]{2}: u'(-1)=u(1)=1\}$
+con $E=\{u\in\sobolev[-1,1]{2}: u'(-1)=u'(1)=1\}$
 \end{ejercicio}
+
+Sea $f_n$ una función cumpliendo las condiciones del ejercico 6. Es trivial comprobar que $f_n\in E$ $\forall n\in\N$ y que $\{L(f_n)\}\longrightarrow 0$ (es de hecho lo que enuncia el ejercicio 6). Como $L(u)\geq 0$ para todo $u\in\sobolev[-1,1]{2}$, se tiene que $\inf\{L(u):u\in E\}=0$. 
+
+¿Es 0 el mínimo también, en caso de existir? Suponiendo que existe $f\in\sobolev[-1,1]{2}$ tal que:
+\[
+L(f)=\frac{1}{2}\integral{-1}{1}{f(x)^2dx}+\frac{1}{2}\integral{-1}{1}{f'(x)^2dx}=0
+\]
+Como es suma de términos cuadráticos, la única opción posible es que ambos sean 0 para casi todo punto. Pero entonces, el representante continuo de $f$ sería la función constante 0, cosa imposible ya que en $-1$ y $1$ debe valer uno. En conclusión, no existe el mínimo.
+
 \end{document}

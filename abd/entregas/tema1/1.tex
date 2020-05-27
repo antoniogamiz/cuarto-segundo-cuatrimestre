@@ -1,0 +1,44 @@
+\documentclass[12pt]{report}
+ 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage[margin=1in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage[shortlabels]{enumitem}
+\usepackage{mathtools}
+\usepackage{amsfonts}
+\usepackage{float}
+\usepackage{epigraph}
+\usepackage{lipsum}
+\usepackage{parskip}
+\usepackage[spanish]{babel}
+\usepackage{tikz}
+\usetikzlibrary{babel}
+\usepackage{csquotes}
+\usepackage{xcolor}
+\usepackage[framemethod=tikz,xcolor=true]{mdframed}
+\usepackage[new]{old-arrows}
+\decimalpoint
+
+\newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\textbf{Ejercicio 1.} Sea una relación con $n=10^6$ tuplas, $B=4KB$, $R=2050B$ y bloqueo fijo. Calcula el factor de bloqueo así como el desperdicio y el porcentaje de utilización de los bloques.
+
+El factor de bloqueo se calcula simplemente aplicando la fórmula correspondiente y sustituyendo los datos del enunciado:
+\[
+Bfr=\floor{\frac{B-C}{R}}=\floor{\frac{4096B}{2050B}}=1
+\]
+
+El espacio desperdiciado es todo aquel que no se usa para almacenar registros. Como en este ejercicio no hay cabecera (lo supongo porque no dice nada en el enunciado sobre su tamaño), el único espacio desperdiciado es aquel donde no ha cabido un registro entero. Como $Bfr=1$, cabe solamente un registro en el bloque, luego el resto del espacio se desperdicia, es decir:
+\[
+W=\frac{B-R}{B}=\frac{2910}{4096}\approx 0.71 \; (71\%)
+\]
+
+Por lo tanto, el porcentaje de utización es del 39\%. Como se ve, el resultado nos dice claramente que aquí hay que usar bloqueo partido porque el pordentaje de desperdicio es enorme.
+
+\end{document}
+

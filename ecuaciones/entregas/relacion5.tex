@@ -1,0 +1,302 @@
+% !TeX root = master.tex
+\documentclass[12pt]{article}
+ 
+\usepackage[margin=1in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{tikz-cd}
+\usepackage{amsmath}
+\usepackage[shortlabels]{enumitem}
+\usepackage{mathtools}
+
+% cosas entre comillas 
+\usepackage{csquotes}
+
+\usepackage{tikz}
+
+\decimalpoint
+\usepackage{xcolor}
+
+\usepackage{personalcommands}
+
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}[theorem]{Lema}
+\newtheorem{prop}[theorem]{Proposición}
+\newtheorem{coro}[theorem]{Corolario}
+\newtheorem{conj}[theorem]{Conjetura}
+\newtheorem{ejercicio}{Ejercicio}
+\newtheorem*{ejercicio*}{Ejercicio}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definición}
+\newtheorem{example}[theorem]{Ejemplo}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Nota}
+\newtheorem{notacion}[theorem]{Notación}
+\newcommand{\continuas}[1][]{C^{ #1 }[a,b]} 
+\newcommand*{\TickSize}{2pt}%
+
+\newcommand*{\AxisMin}{0}%
+\newcommand*{\AxisMax}{0}%
+
+\newcommand*{\DrawHorizontalPhaseLine}[4][]{%
+    % #1 = axis tick labels
+    % #2 = right arrows positions as CSV
+    % #3 = left arrow positions as CSV
+    \gdef\AxisMin{0}%
+    \gdef\AxisMax{0}%
+    \edef\MyList{#2}% Allows for #1 to be both a macro or not
+    \foreach \X in \MyList {
+        \draw  (\X,\TickSize) -- (\X,-\TickSize) node [below] {$\X$};
+        \ifnum\AxisMin>\X
+            \xdef\AxisMin{\X}%
+        \fi
+        \ifnum\AxisMax<\X
+            \xdef\AxisMax{\X}%
+        \fi
+    }
+
+    \edef\MyList{#3}% Allows for #2 to be both a macro or not
+    \foreach \X in \MyList {% Right arrows
+        \draw [->] (\X-0.1,0) -- (\X,0);
+        \ifnum\AxisMin>\X
+            \xdef\AxisMin{\X}%
+        \fi
+        \ifnum\AxisMax<\X
+            \xdef\AxisMax{\X}%
+        \fi
+    }
+
+    \edef\MyList{#4}% Allows for #3 to be both a macro or not
+    \foreach \X in \MyList {% Left arrows
+        \draw [<-] (\X-0.1,0) -- (\X,0);
+        \ifnum\AxisMin>\X
+            \xdef\AxisMin{\X}%
+        \fi
+        \ifnum\AxisMax<\X
+            \xdef\AxisMax{\X}%
+        \fi
+    }
+
+    \draw  (\AxisMin-1,0) -- (\AxisMax+1,0) node [right] {#1};
+}%
+\begin{document}
+
+\textbf{Ejercicio 1.} Sea $\funcion{\varphi}{(\alpha,\omega)}{\R}$ una solución maximal del PVI:
+\[
+\left\{
+\begin{array}{l}
+x'=f(t,x)\\
+x(t_0)=x_0
+\end{array}
+\right.
+\]
+donde $\funcion{f}{\R\times\R}{\R}$ es continua y tal que existen $m,p,r\in\R^+$, con $p>1$:
+\begin{equation}
+\tag{$H_+$}
+f(t,x)\geq mx^p \espacio \forall t\geq t_0, \; \forall x > r
+\end{equation}
+\begin{enumerate}[(a)]
+\item Demuestra que si $x_0>r$ entonces se cumple que $\omega < +\infty$ y 
+\[
+\limite{t}{\omega}{\varphi(t)}=+\infty
+\]
+
+\item De manera análoga prueba que si se cambia la hipótesis ($H_+$) por
+\begin{equation}
+\tag{$H_-$}
+f(t,x)\leq -mx^p \espacio \forall t\geq t_0, \; \forall x < -r
+\end{equation}
+entonces para todo $x_0<-r$ se cumple que $\omega<+\infty$ y
+\[
+\limite{t}{\omega}{\varphi(t)}=-\infty
+\]
+\end{enumerate}
+
+\textbf{Ejercicio 2.} Sea $\funcion{f}{\R}{\R}$ continua y tal que existe $p\in\R^+$, $p>1$ tal que 
+\[
+\liminf_{x\to+\infty}\frac{f(x)}{|x|^p}=L\in(0,+\infty)
+\]
+
+\begin{enumerate}[(a)]
+\item Demuestra que existen constantes $r,m\in\R^+$ para las cuales $f$ verifica la hipótesis $(H_+)$ del problema anterior.
+
+Usando la definición de límite inferior tenemos:
+\[
+\liminf_{x\to+\infty}\frac{f(x)}{|x|^p}=\limitemasinfinito{M}{\inf\left\{\frac{f(x)}{|x|^p}:|x|>M\right\}}=L
+\]
+Luego si tomamos $\varepsilon>0$, debe existir un $\delta>0$ tal que para todo $M>\delta$ se da:
+\[
+L-\inf\left\{\frac{f(x)}{|x|^p}:|x|>M\right\}\leq \left|\inf\left\{\frac{f(x)}{|x|^p}:|x|>M\right\}-L\right|<\varepsilon
+\]
+Por lo tanto:
+\[
+L-\varepsilon\leq \inf\left\{\frac{f(x)}{|x|^p}:|x|>M\right\} \leq \frac{f(x)}{|x|^p} \espacio \forall |x|>M
+\]
+Finalmente, tomando $r=M$ y $m=L-\varepsilon$ se tiene $(H_+)$.
+
+\item Supongamos que existe 
+\[
+\limsup_{x\to-\infty}\frac{f(x)}{|x|^p}=L
+\]
+¿Qué podemos exigir a $L$ para poder asegurar que se verifica la hipótesis $(H_-)$?
+
+De forma análoga al apartado anterior, usando la definición de límite superior se tiene:
+\[
+\limsup_{x\to-\infty}\frac{f(x)}{|x|^p}=\limitemenosinfinito{M}{\sup\left\{\frac{f(x)}{|x|^p}:|x|>|M|\right\}}=L
+\]
+Luego tomando $\varepsilon>0$ debe existir $\delta>0$ tal que si $|M|>\delta$
+\[
+\sup\left\{\frac{f(x)}{|x|^p}:|x|>|M|\right\} < \varepsilon \Rightarrow \frac{f(x)}{|x|^p} \leq \sup\left\{\frac{f(x)}{|x|^p}:|x|>|M|\right\} < \varepsilon + L \espacio \forall |x| > |M| > \delta
+\]
+Como $x\longrightarrow -\infty$:
+\[
+f(x)\leq |x|^p(\varepsilon+L) \espacio \forall x < -\delta
+\]
+Y ya sólo queda tomar $r=\delta$ y $m=L+\varepsilon$. Como $-m$ debe ser positivo, $L$ hay que considerarlo en $\R^-$.
+\end{enumerate}
+
+\textbf{Ejercicio 3.} Represente los diagramas de fases de las siguientes ecuaciones autónomas e indica claramente si los extremos de los intervalos de definición de las soluciones maximales son finitos o infinitos.
+
+En este ejercicio se va a usar la propiedad 4 (aproximación lineal) del tema 2.
+
+\begin{itemize}
+\item $x'=x\sin(\arctan(x))$
+%$f'(x)=\sin(\arctan(x))+x\frac{\cos(\arctan(x))}{1+x^2}$
+
+Sea $f(x)=x\sin(\arctan(x))$. El único punto de equilibrio de $f$ es $x=0$. Usando el diagrama de signos se llega a:
+\begin{center}
+\begin{tikzpicture}[thick]
+    \DrawHorizontalPhaseLine[$x$]{0}{-1,1}{}%
+\end{tikzpicture}
+\end{center}
+
+Para ver donde están definidas las soluciones maximales usamos que $f$ verifica la condición de crecimiento a lo sumo lineal, con $\funcion{m,n}{\R}{\R^+_0}$ definidas por $m(t)=1$ y $n(t)=0$:
+\[
+f(x)=x\sin(\arctan(x))\leq m(t)x+n(t) = x
+\]
+Luego $(\alpha,\beta)=(-\infty,+\infty)=\R$.
+
+\item $x'=x^3-x^2+x-1$
+% $f'(x)=3x^2-2x+1$
+
+Sea $f(x)=x^3-x^2+x-1$. El único punto de equilibrio de $f$ es $x=1$. Usando el diagrama de signos se llega a:
+\begin{center}
+\begin{tikzpicture}[thick]
+    \DrawHorizontalPhaseLine[$x$]{1}{2}{0}%
+\end{tikzpicture}
+\end{center}
+
+Usando reglas típicas de los polinomios, sabemos que deben existir un $r,m\in\R^+_0$ y suficientemente grandes, cumpliéndose:
+\[
+f(x)=x^3-x^3+x-1\leq mx^3 \espacio \forall x > r
+\]
+Luego por el ejercicio  $(1a)$, se tiene que $\omega<+\infty$. Finalmente, tras aplicar la propiedad 11 y luego la 7 (del tema 2) tenemos que $\alpha=-\infty$.
+
+\item $x'=\frac{x^{7/3}+1}{1+x+x^2}$
+% $f'(x)=\frac{\frac{7}{3}x^{4/3}(1+x+x^2)-(x^{7/3}+1)(2x+1)}{(1+x+x^2)^2}$
+
+Sea $f(x)=\frac{x^{7/3}+1}{1+x+x^2}$. El único punto de equilibrio de $f$ es $x=-1$. Usando el diagrama de signos se llega a:
+\begin{center}
+\begin{tikzpicture}[thick]
+    \DrawHorizontalPhaseLine[$x$]{-1}{0}{-2}%
+\end{tikzpicture}
+\end{center}
+\end{itemize}
+Se tiene que
+\[
+\liminf_{x\to-\infty}\frac{f(x)}{x}=0 \espacio \limsup_{x\to+\infty}\frac{f(x)}{x}=0
+\]
+luego $f$ verifica la propiedad de crecimiento a lo sumo lineal y $(\alpha,\beta)=(-\infty,+\infty)=\R$.
+
+\medskip
+
+\textbf{Ejercicio 4.} Si ello es posible, busca funciones guía que nos permitan asegurar que las soluciones de las siguientes ecuaciones diferenciales de segundo orden están \textit{acotadas en el futuro}:
+
+En este ejercicio se van a usar los resultados vistos en lay de disipación y conservación de la energía.
+
+\begin{itemize}
+\item $x''+x-\cos(x)=0$
+
+En este caso, $g(x)=x-\cos(x)$, continua, luego:
+\[
+G(x)=\integral{0}{x}{g(z)dx}=\integral{0}{x}{z-\cos(z)dz}=\frac{x^2}{2}-\sin(x)
+\]
+Como se da $\limite{x}{\pm\infty}{G(x)}=+\infty$, $G$ es coerciva, luego las soluciones de la ecuación están acotadas en el futuro (y en el pasado).
+
+\item $x''+x'+\sinh(x)=0$
+
+En este caso, $g(x)=\sinh(x)$, continua, luego:
+\[
+G(x)=\integral{0}{x}{g(z)dx}=\integral{0}{x}{\sinh(z)dz}=\cosh(x)-1
+\]
+Como se da $\limite{x}{-\infty}{G(x)}=0$, $G$ no es coerciva, luego las soluciones de la ecuación no están acotadas en el futuro.
+
+\item $x''+x|x|=1$
+
+En este caso, $g(x)=x|x|-1$, continua, luego:
+\[
+G(x)=\integral{0}{x}{g(z)dz}=\integral{0}{x}{z|z|-1dz}=\integral{0}{x}{z^2-1dz}=\frac{x^3}{3}-x
+\]
+Como se da $\limite{x}{-\infty}{G(x)}=-\infty$, $G$ no es coerciva, luego las soluciones de la ecuación no están acotadas en el futuro.
+\end{itemize}
+
+\textbf{Ejercicio 5.} Se considera la ecuación de Liénard
+\[
+x''+f(x)x'+g(x)=0
+\]
+donde la incógnita $x(t)\in\R$, $f,g\in\mathcal{C}(\R)$ son localmente lipschitzianas. La ecuación es equivalente al sistema plano de ecuaciones diferenciales:
+\[
+\left\{
+\begin{array}{l}
+x_1'=x_2-F(x_1)\\
+x_2'=-g(x_1)
+\end{array}
+\right.
+\]
+donde $F(x)=\integral{0}{x}{f(z)dz}$.
+\begin{enumerate}[(a)]
+\item Establece condiciones sobre las funciones $f$ y $g$ (o sobre sus primitivas) que nos permitan asegurar que la EDO tiene todas sus soluciones acotadas en el futuro. Para ello, debes usar una función guía coerciva de la forma $V(x_1,x_2)=V(x_1)+V(x_2)$.
+
+Primero imponemos que $V$ sea una función guía, es decir, que $\dot{V}(x,y)\leq 0$.
+\[
+\begin{array}{rl}
+\dot{V}(x,y)= & <\nabla V(x,y), f(t,x)>=V_1'(x_1)(x_2-F(x_1))-V_2'(x_2)g(x_1)=\\
+=& -F(x_1)V_1'(x)+V_1'(x_1)x_2-V_2'(x_2)g(x_1)
+\end{array}
+\]
+Como los dos últimos términos son mixtos, tomando:
+\[
+\left\{
+\begin{array}{l}
+V_1'(x_1)=g(x_1)\\
+V_2'(x_2)=x_2
+\end{array} \Rightarrow \dot{V}(x,y)=-F(x_1)V_1'(x_1)=-F(x_1)g(x_1)
+\right.
+\]
+La función  guía que habría que tomar sería:
+\[
+V(x,y)=\left(\integral{0}{x}{g(z)dz},\frac{y^2}{2}\right)
+\]
+Ahora tenemos que ver qué condiciones deben cumplir $g$ y $F$ para que se cumpla $\dot{V}(x,y)\leq 0$. Encontrar todas las condiciones es complicado, pero así a ojillo si $f$ y $g$ son siempre positivas o siempre negativas (o al menos para $x$ suficientemente grandes), esa desigualdad se cumplirá.
+
+Ojo, también necesitamos que $V$ sea coerciva. Como es una función de dos variables, solo será coerciva si lo es cada una de sus componentes. La segunda componente es una función cuadrática luego es coerciva. Sobre la primera componente no sabemos nada, luego tenemos que imponer la siguiente condición adicional: denotando $G(x)=\integral{0}{x}{g(z)dz}$
+\[
+\limitemasinfinito{|x|}{G(x)}=+\infty
+\]
+\item ¿Se cumplen esas condiciones que has establecido en la ecuación de Van der Pol?
+\[
+x''+\mu(x^2-1)x'+x=0, \espacio \mu > 0
+\]
+\end{enumerate}
+
+Veamos primero la condición sobre $G$. En este caso:
+\[
+G(x)=\integral{0}{x}{zdz}=\frac{x^2}{2} \Longrightarrow \limitemasinfinito{|x|}{G(x)}=+\infty
+\]
+Ahora hay que ver si $-F(x)g(x)\leq 0$:
+\[
+-F(x)g(x)=-\left(\integral{0}{x}{\mu(x^2-1)dx}\right)x=-\mu\left(\frac{x^3}{3}-x\right)x=-\mu\left(\frac{x^4}{3}-x^2\right)
+\]
+Como $\mu>0$ y el término restante es un polinomio de grado par con coeficinte principal positivo, tenemos que ese término va a ser negativo para $|x|$ suficentemente grande. Luego sí, se cumplen las condiciones impuestas.
+\end{document}

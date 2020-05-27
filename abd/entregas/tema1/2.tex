@@ -1,0 +1,58 @@
+\documentclass[12pt]{report}
+ 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage[margin=1in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage[shortlabels]{enumitem}
+\usepackage{mathtools}
+\usepackage{amsfonts}
+\usepackage{float}
+\usepackage{epigraph}
+\usepackage{lipsum}
+\usepackage{parskip}
+\usepackage[spanish]{babel}
+\usepackage{tikz}
+\usetikzlibrary{babel}
+\usepackage{csquotes}
+\usepackage{xcolor}
+\usepackage[framemethod=tikz,xcolor=true]{mdframed}
+\usepackage[new]{old-arrows}
+\decimalpoint
+
+\newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+\newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\textbf{Ejercicio 2.} Sea una relación con $n=10^6$ tuplas, $B=4KB$, $R=120B$, $P=6B$ y $V=8B$. Calcula el número de bloques necesarios para almacenar los datos organizados mediante un archivo secuencial indexado en caso de tratarse de:
+\begin{enumerate}[(a)]
+\item Un índice denso
+
+Primero veamos cuánto ocupa una entrada del índice, denotemos su tamaño por $L$. Como está formado por una pareja clave-puntero, su tamaño será:
+\[
+L=V+P=14B
+\]
+Al ser un índice denso, habrá una entrada en el índice por cada tupla, es decir, habrá $N(I)=10^6$ entradas. Ahora calculamos el factor de bloqueo para el índice:
+\[
+Bfr(I)=\floor{\frac{B}{L}}=\floor{\frac{4096B}{14B}}=292
+\]
+Ya tenemos todos los datos necesarios para clacular el número de bloques:
+\[
+B(I)=\ceil{\frac{N(R)}{Bfr(I)}}=\ceil{\frac{10^6}{292}}=3425
+\]
+\item Un índice no denso
+
+Como es un índice no denso, habrá una entrada en el índice por cada bloque de registros en el fichero principal. Luego primero necesitamos saber cuántos bloques ocupa el fichero de tuplas.
+\[
+Bfr=\floor{\frac{B}{R}}=\floor{\frac{4096B}{120B}}=34 \Rightarrow 
+B=\ceil{\frac{N(R)}{Bfr}}=\ceil{\frac{10^6}{34}}=29412
+\]
+Por lo tanto, el índice tendrá 29412 entradas. Ahora simplemente hay que repetir los cálculos del apartado anterior teniendo en cuanta que el factor de bloqueo del índice no cambia:
+\[
+B(I)=\ceil{\frac{B}{Bfr(I)}}=\ceil{\frac{29412}{292}}=101
+\]
+\end{enumerate}
+\end{document}
+

@@ -1,0 +1,41 @@
+\documentclass{article}
+
+
+%--------------------------------------------------------------------
+%--------------------------------------------------------------------
+\newcounter{choice}
+\renewcommand\thechoice{\Alph{choice}}
+\newcommand\choicelabel{\thechoice.}
+
+\newenvironment{choices}%
+  {\list{\choicelabel}%
+     {\usecounter{choice}\def\makelabel##1{\hss\llap{##1}}%
+       \settowidth{\leftmargin}{W.\hskip\labelsep\hskip 2.5em}%
+       \def\choice{%
+         \item
+       } % choice
+       \labelwidth\leftmargin\advance\labelwidth-\labelsep
+       \topsep=0pt
+       \partopsep=0pt
+     }%
+  }%
+  {\endlist}
+
+%--------------------------------------------------------------------
+
+\begin{document}
+
+\begin{enumerate}
+\item One of these things is not like the others; one of these things
+  is not the same.  Which one doesn't belong?
+  \begin{choices}
+    \choice George
+    \choice Paul
+    \choice John
+    \choice Ringo
+    \choice Socrates
+  \end{choices}
+
+\end{enumerate}
+
+\end{document}

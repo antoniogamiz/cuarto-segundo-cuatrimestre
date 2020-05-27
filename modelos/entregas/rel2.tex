@@ -1,0 +1,195 @@
+\documentclass[12pt]{article}
+ 
+\usepackage[margin=1in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{tikz-cd}
+\usepackage{amsmath}
+\usepackage[shortlabels]{enumitem}
+\usepackage{mathtools}
+
+% cosas entre comillas 
+\usepackage{csquotes}
+
+\usepackage{tikz}
+
+\decimalpoint
+\usepackage{xcolor}
+
+\usepackage{personalcommands}
+\newcommand{\flechita}[1]{\overset{\rightarrow}{ #1 }}
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}[theorem]{Lema}
+\newtheorem{prop}[theorem]{Proposición}
+\newtheorem{coro}[theorem]{Corolario}
+\newtheorem{conj}[theorem]{Conjetura}
+\newtheorem{ejercicio}{Ejercicio}
+\newtheorem*{ejercicio*}{Ejercicio}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definición}
+\newtheorem{example}[theorem]{Ejemplo}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Nota}
+\newtheorem{notacion}[theorem]{Notación}
+\newcommand{\continuas}[1][]{C^{ #1 }[a,b]}
+\newcommand{\continuasabierto}[1][]{C^{ #1 }(a,b)}
+\newcommand{\soportecompacto}{\mathcal{D}(a,b)}
+\newcommand{\xcero}{(a,b)}
+\newcommand{\xcerocerrado}{[a,b]}
+\newcommand{\fvariaciones}{F(x,y(x),y'(x))}
+
+\begin{document}
+
+\textbf{Antonio Gámiz Delgado}
+
+%=================================================== EJERCICIO 1
+
+\textbf{Ejercicio 1.} Consideramos el siguiente sistema de reacciones químicas:
+\[
+A+B\longrightarrow C
+\]
+donde la velocidad de reacción está estudiada a modo de ejemplo en el vídeo 2.
+
+%===================================================
+
+\begin{enumerate}[(a)]
+\item Vamos a suponer que estamos en un recipiente de volumen constante (lo que equivale en términos de concentraciones a considerar un volumen total de un litro) y partimos de una concentración inicial de 0.8 moles por litro de A y 0.6 de moles por litro de B. Si inicialmente no tenemos nada de producto, determina la cantidad tras 20 segundos y tras mucho tiempo.
+
+Tomamos primero:
+\begin{itemize}
+\item $x(t) = $ cantidad restante de A en el instante $t$.
+\item $y(t) = $ cantidad restante de B en el instante $t$.
+\item $z(t) = $ cantidad restante de C en el instante $t$.
+\end{itemize}
+
+Luego $x(0)=0.8$, $y(0)=0.6$ y $z(0)=0$. Recordemos que ecuación de la velocidad de reacción es:
+\[
+V=K[A]^\alpha [B]^\beta \Rightarrow z'(t)=x(t)y(t)^2
+\]
+donde hemos usado los datos del vídeo 2. Ahoar tenemos que calcular mediante reglas de 3, las expresiones de $x(t)$ e $y(t)$.
+\[
+\left.
+\begin{array}{ccc}
+A & \longrightarrow & C\\
+0.8-x(t) & \longrightarrow & z(t)
+\end{array}
+\right\} \Rightarrow x(t)=0.8-z(t)
+\]
+\[
+\left.
+\begin{array}{ccc}
+B & \longrightarrow & C\\
+0.6-y(t) & \longrightarrow & z(t)
+\end{array}
+\right\} \Rightarrow y(t)=0.6-z(t)
+\]
+Ya tenemos nuestra ecuación de velocidad.  Igualandola ahora a una función $g(z)$, podemos estudiarla:
+\[
+z'(t)=(0.8-z(t))(0.6-z(t))^2=g(z(t))
+\]
+Como vemos, es un polinomio de grado 3 con 3 raíces pero una de ellas doble. Las raíces son $\alpha_1=0.6$ y $\alpha_2=0.8$. Tenemos el PVI:
+\[
+\left\{
+\begin{array}{l}
+z'=g(z)\\
+z(0)=0<\alpha_1=0.6
+\end{array}
+\right.
+\]
+Como $g\in\mathcal{C}^1$, entonces $g$ es lipschitziana luego el sistema tiene una única solución. Para ver la cantidad de producto tras 20 segundos segundos, simplemente hay que integrar esa ecuación desde $t=0$ a $t=20$. Usando un integrador numérico obtenemos que la cantidad de producto es aproximadamente $0.4963$ moles.
+
+Para ver la cantidad de producto en $t\longrightarrow+\infty$, tenemos que ver que $z(t)$ tenga límite. 
+
+Primero vemos que $z(t)<\alpha_1$ para todo $t\in(\omega_-,\omega_+)$. Tomo $\bar{t}\in(\omega_-,\omega_+)$ con $z(\bar{t})=\alpha_1$. Pero como $\alpha_1$ es raíz de $g(z)$, entonces sería la solución constante del sistema $z(t)=\alpha_1$ $\forall t\in (\omega_-,\omega_+)$. Luego tenemos una contradicción y se tiene lo que queríamos ya que $z(0)=0<\alpha_1$.
+
+Ahora tenemos que ver que $z'(t)>0$ $\forall t \in (\omega_-,\omega_+)$. Es fácil de ver ya que $z'(t)=g(z(t))>0$ $\forall z \in (-\infty, \alpha_1)$.
+
+Luego hemos visto que $\omega_+=+\infty$ ya que $z(t)$ es estrictamente creciente y $z(l)<\alpha_1$ $\forall t\in(\omega_-,\omega_+)$. Por tanto, existe $\limitemasinfinito{t}{z(t)}=L$. Aplicando ahora el lema visto en teoría, sabemos que existe $t_n\longrightarrow +\infty$ tal que $z'(t_n)\longrightarrow 0$, entonces $z'(t_n)=g(z_n(t_n))\longrightarrow 0$. Como $z(t_n)\longrightarrow L$ se tiene que $g(z(t_n))\longrightarrow g(L)$, luego $g(L)=0$ con $L\leq \alpha_1$. Por tanto, $L=\alpha_1=0.6$. Luego tras mucho tiempo, se producen 0.6 moles de producto.
+\item Supongamos que por la naturaleza de la reacción, hace que no se modifique la concentración de B y se diluya a una concentración ambiente 0.2. Partiendo de una concentración de A de 0.8 mol por litro, ¿cómo sería ahora la ecuación diferencial? En este caso calcula la concentración de C en cada momento. ¿En qué momento se acabará el reactivo A?
+
+En este caso tenemos que $y(t)=0.2$ para todo $t$. De forma análog al aprtado anterior vemos la expresión de la ecuación diferencial:
+\[
+z'(t)=0.04(0.8-z(t))=0.032-0.04z(t)=g(z(t)), \espacio z(0)=0
+\]
+Esta ecuación es sencilla de resolver, su solución es:
+\[
+z(t)=0.8\left(1-e^{-\frac{t}{25}}\right)
+\]
+donde se ha usado la condición inicial para determinar el valor de la constante. Ya tenemos la concentración inical de C en cada momentos.
+
+Esta función $g$ cumple las mismas condiciones que la $g$ del apartado anterior, luego $\limitemasinfinito{t}{z(t)}=\alpha_1=0.8$ y $z(t)<\alpha_1=0.8$ $\forall t\in[0,+\infty)$. Como $x(t)=0.8-z(t)\longrightarrow 0$, A se acabará en el infinito, es decir, su concentración de irá diluyendo poco a poco pero no se acabará en tiempo finito.
+\end{enumerate}
+
+
+\textbf{Ejercicio 2. } Sea la siguiente ecuación de ondas:
+\[
+\left\{
+\begin{array}{ll}
+u_{tt}=u_{xx}+1, & (t,x)\in[0,\infty)\times[0,1]\\
+u(t,0)=u(t,1)=0, & t\in[0,\infty)
+\end{array}
+\right.
+\]
+\begin{enumerate}[(a)]
+\item Busca una solución independiente de $t$.
+
+Si no depende de $t$, entonces se tiene que dar $u_t=0$, luego: 
+\[
+u_{xx}=-1 \Rightarrow u_x=-x+C_1\Rightarrow u(x)=-\frac{x^2}{2}+C_1x+C_2
+\]
+Para determinar las contantes simplemente hay que usar las condiciones iniciales, obteniendo:
+\[
+u(x)=\frac{x}{2}(1-x)
+\]
+
+\item Dado $\funcion{\phi,\psi}{[0,1]}{\R}$, demuestra un principio de unicidad de solución de clase 2 para los datos iniciales:
+\[
+\left\{
+\begin{array}{ll}
+u(0,x)=\phi(x), & x\in[0,1]\\
+u_t(0,x)=\psi(x), & x\in[0,1]
+\end{array}
+\right.
+\]
+
+Por lo menos $\phi\in\mathcal{C}^2[0,1]$ y $\psi\in\mathcal{C}^1[0,1]$. Como $u(t,0)=u(t,1)=0$ para todo $t$, entonces se tiene que dar $\phi(0)=\phi(1)=0$. De igual forma, se da $u_t(t,0)=u_t(t,1)=0$ para todo $t$, $\psi(0)=\psi(1)=0$. Ahora usando que $u_{xx}(0,x)=\phi(x)=u_{tt}(0,x)-1$ y que $u_{tt}(t,0)=u_{tt}(t,1)=0$, obtenemos otra condición $\phi''(0)=\phi''(1)=-1$.
+
+Para la unicidad suponemos que existen $u_1,u_2$ soluciones distintas, luego $v=u_1-u_2$ también será solución del sistema:
+\[
+\left\{
+\begin{array}{ll}
+v_{tt}=v_{xx}, & \forall (t,x)\in[0,+\infty)\times[0,1]\\
+v(t,0)=v(t,1)=0, & \forall t\in[t,+\infty)\\
+v(0,x)=v_t(0,x)=0, & \forall x\in[0,1] 
+\end{array}
+\right.
+\]
+Como $v_{tt}=v_{xx}$, también se tendrá $v_tv_{tt}-v_tv_{xx}=0$, e integrando esa expresión:
+\[
+0=\integral{0}{1}{v_{tt}v_tdx}-\integral{0}{1}{v_{xx}v_tdx}=
+\integral{0}{1}{v_{tt}v_t+v_x v_{tx}dx}=\frac{1}{2}\frac{d}{dt}\integral{0}{1}{v_t^2+v_x^2dx}
+\]
+donde en la segunda igualdad hemos usado integración por partes y hemos anulado los términos. Si llamamos ahora a $E(t)=\frac{1}{2}\integral{0}{1}{v_t^2+v_x^2dx}$, se tiene que $E'(t)=0$ para todo $t$, luego debe de ser constante. Pero como $E(0)=0$, entonces la función es constantemente igual a 0 y se tiene que dar $u_1=u_2$.
+
+
+\item Demuestra que si $\funcion{\phi,\psi}{[0,1]}{\R}$, son de clase 2 y $\phi''(0)=0$ o $\phi''(1)=0$, el problema anterior no tiene solución.
+
+\begin{itemize}
+\item $\phi''(0)=0$. Como $u(0,x)=\phi(x)$, entonces $u_{xx}=\phi''(x)$. En $x=0$, eso vale 0, luego usando que $u_{tt}=u_{xx}+1$ se tiene que $u_{tt}(0,0)=1$. Pero $u(t,0)=0$ para todo $t$, contradicción.
+\item $\psi''(1)=0$. Razonamiento análogo al anterior pero tomando $x=1$.
+\end{itemize}
+\item Busca $\funcion{\phi,\psi}{[0,1]}{\R}$, funciones particulares de clase 2 con $\psi''(0)=0=\psi''(1)$ de forma que el problema anterior tenga solución.
+
+En el apartado $(a)$ hemos encontrado la solución, luego podemos usarla.
+\[
+u(0,x)=\frac{x}{2}(1-x)=\phi(x), \espacio u_t(t,x)=0 \Rightarrow 0=\psi(x) \espacio \forall x\in[0,1]
+\]
+Luego se tiene $\phi\in\mathcal{C}^2[0,1]$ y $\psi\in\mathcal{C}^1[0,1]$. Además se cumple que:
+\[
+\psi(0)=\psi(1)=0, \espacio \phi(0)=\phi(1)=0, \espacio \phi''(0)=\phi''(1)=0, \psi''(0)=\psi''(1)=0
+\]
+Luego el problema tiene una única solución y es la del apartado $(a)$.
+\end{enumerate}
+
+\end{document}

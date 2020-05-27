@@ -16,6 +16,8 @@
 \usepackage{parskip}
 \usepackage[spanish]{babel}
 \usepackage{tikz}
+\usepackage{ textcomp }
+
 \usetikzlibrary{babel}
 \usepackage{caption}
 \usepackage{subcaption}
@@ -44,7 +46,9 @@
 \newtheorem{remark}[theorem]{Nota}
 \newtheorem{notacion}[theorem]{Notación}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-            
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{siunitx}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Titulos
 \makeatletter
@@ -92,11 +96,13 @@
 
 \begin{document}
 
-\tableofcontents
+%\tableofcontents
 
-\include{./sections/tema1_nivel_interno}
-\include{./sections/tema2_optimizacion} 
-\include{./sections/tema3_organizacion}
-
+%\include{./sections/tema1_nivel_interno}
+%\include{./sections/tema2_optimizacion} 
+%\include{./sections/tema3_organizacion}
+%\include{./sections/tema4_seguridad}
+\include{./sections/tema5_concurrencia}
+%\include{./sections/practicas}
 \end{document}
 

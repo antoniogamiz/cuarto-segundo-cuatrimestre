@@ -1,0 +1,59 @@
+\documentclass[12pt]{article}
+ 
+\usepackage[margin=1in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{tikz}
+\usepackage[spanish]{babel}
+\usetikzlibrary{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage[shortlabels]{enumitem}
+\usepackage{personalcommands}
+
+\usepackage{pgfplots} % It is based on tikz!
+
+
+\newtheorem{theorem}{Teorema}
+\newtheorem{ejercicio}[theorem]{Ejercicio}
+\newcommand{\cita}[1]{`` #1 ''}
+
+\begin{document}
+
+\textbf{Ejercicio 10.-} Si $\mathbb{S}^2$ es la esfera de centro $(0,0,0)$ y radio 1, comprueba que la aplicación $\funcion{F}{\mathbb{S}^2}{\mathbb{S}^2}$ dada por $F(x,y,z)=(x,y,-z)$ es un difeomorfismo de $\mathbb{S}^2$. Interprétalo geométricamente. Calcula $(dF)_{(0,0,1)}$ y $(dF)_{\left(\frac{1}{\sqrt{2}},-\frac{1}{\sqrt{2}},0\right)}$.
+
+\medskip
+
+Para ver que $F$ es un difeomorfismo primero tenemos que ver si es diferenciable. Lo es por ser una restricción (a una superficie regular) de la aplicación diferenciable $\funcion{\widetilde{F}}{\R^3}{\R^3}$ dada por $\widetilde{F}(x,y,z)=(x,y,-z)$. 
+
+Sea $(x,y,z)\in \mathbb{S}^2$, se tiene $x^2+y^2+z^2=1$. Si aplicamos $F$ a ese punto, se sigue cumpliendo la condición ya que $F(x,y,z)=(x,y,-z)$, luego $x^2+y^2+(-z)^2=1$. Por lo tanto, $F(\mathbb{S}^2)=\mathbb{S}^2$.
+
+Además podemos ver fácilmente que se da $F\circ F=Id_{\mathbb{S}^2}$, luego $F$ coincide con su inversa, es decir, $F=F^{-1}$. Como $F$ es diferenciable, $F^{-1}$ también lo es y $F$ es biyectiva. Tenemos así que $F$ es un difeomorfismo.
+
+Geométricamente, esta aplicación se puede ver como la simetría respecto al plano $z=0$ o como el giro de $\pi$ radianes respecto del eje Y.
+
+Calculamos ahora $T_p\mathbb{S}^2$ para los puntos que nos piden, ayudándonos de un ejercicio de clase, que nos dice lo siguiente:
+\[
+T_p\mathbb{S}^2=\conjunto{(x,y,z)\in\R^3:<(x,y,z),p>=0}
+\]
+Ahora solo tenemos que sustituir el valor de $p$ por $(0,0,1)$ y $\left(\frac{1}{\sqrt{2}},-\frac{1}{\sqrt{2}},0\right)$:
+\[
+T_{(0,0,1)}\mathbb{S}^2=\conjunto{(x,y,z)\in\R^3: z=0}
+\]
+\[
+T_{\left(\frac{1}{\sqrt{2}},-\frac{1}{\sqrt{2}},0\right)}\mathbb{S}^2=\conjunto{(x,y,z)\in\R^3: x-y=0}
+\]
+
+Como $\widetilde{F}$ es lineal y $F=\widetilde{F}_{|\mathbb{S}^2}\longrightarrow \mathbb{S}^2$, se cumple que $dF_p(w)=\widetilde{F}(w)$ $\forall p\in \mathbb{S}^2$ $\forall w\in T_p\mathbb{S}^2$. Por lo tanto, se puede definir:
+\[
+\begin{array}{ll}
+dF_{(0,0,1)}: & T_{(0,0,1)}\mathbb{S}^2 \longrightarrow T_{(0,0,-1)}\mathbb{S}^2 \\
+              & (x,y,0)   \longrightarrow (x,y,0)
+\end{array}
+\]
+\[
+\begin{array}{ll}
+dF_{\left(\frac{1}{\sqrt{2}},-\frac{1}{\sqrt{2}},0\right)}: & T_{\left(\frac{1}{\sqrt{2}},-\frac{1}{\sqrt{2}},0\right)}\mathbb{S}^2 \longrightarrow T_{\left(\frac{1}{\sqrt{2}},-\frac{1}{\sqrt{2}},0\right)}\mathbb{S}^2 \\
+              & (x,x,0)   \longrightarrow (x,x,-z)
+\end{array}
+\]
+\end{document}

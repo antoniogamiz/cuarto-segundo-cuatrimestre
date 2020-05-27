@@ -24,12 +24,13 @@
 
 \textbf{Ejercicio 5.} Indica si son ciertas o falsas las siguientes afirmaciones y, brevemente, explica por qué:
 \begin{enumerate}[(a)]
-\item El tiempo que se tarda en reorganizar un fichero ASI (Arcihvos Secuenciales Indexados) denso depende únicamente del tiempo necesario para reordenar el fichero de desbordamientoo y de reescribir ordenadamente el nuevo fichero maestro.
+\item El tiempo que se tarda en reorganizar un fichero ASI (Arcihvos Secuenciales Indexados) denso depende únicamente del tiempo necesario para reordenar el fichero de desbordamiento y de reescribir ordenadamente el nuevo fichero maestro.
 
-Falso. Eso sería si fuera un ASL, pero como indica la I de ASI, aquí también juegan los índices. Al reordenar el archivo, es necesario reconstruir el índice, luego también hay que tener en cuenta ese tiempo.
-\item Para consultas por rango, los ASI (Archivos Secuenciales Indexados) son  más adecuados.
+Falso, a parte de depender de esos dos factores, debido a la existencia de un índice, también depende del tiempo que se tarda en generar el índice
 
-Falso también, para que quieres un índice si vas a consultar por rango. Para eso, te ahorras el índice y usas un ASL, que simplemente tienes que encontrar el del principio del rango, el del final, y leer todo lo del medio.
+\item Para consultas por rango, los ASI (Archivos Secuenciales Indexados) son más adecuados.
+
+Verdadero, pero esto sólo ocurre cuando se consulta por el mismo atributo del índice. Si no, es altamente ineficiente.
 \end{enumerate} 
 \end{document}
 

@@ -1,0 +1,102 @@
+\documentclass[11pt]{article}
+ 
+\usepackage[margin=1in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{tikz-cd}
+\usepackage{amsmath}
+\usepackage[shortlabels]{enumitem}
+\usepackage{mathtools}
+
+% cosas entre comillas 
+\usepackage{csquotes}
+\decimalpoint
+\usepackage{tikz}
+
+
+\usepackage{xcolor}
+
+\usepackage{personalcommands}
+
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}[theorem]{Lema}
+\newtheorem{prop}[theorem]{Proposición}
+\newtheorem{coro}[theorem]{Corolario}
+\newtheorem{conj}[theorem]{Conjetura}
+\newtheorem{ejercicio}{Ejercicio}
+\newtheorem*{ejercicio*}{Ejercicio}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definición}
+\newtheorem{example}[theorem]{Ejemplo}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Nota}
+\newtheorem{notacion}[theorem]{Notación}
+
+ 
+
+\begin{document}
+
+\textbf{Autor:} Antonio Gámiz Delgado
+
+\medskip
+
+\textbf{Ejercicio 3. } Tres socios están estudiando la posibilidad de montar una piscifactoria dedicada a la producción y comercialización de truchas de gran calidad y tamaño. El proyecto que están considerando tiene un horizonte temporal de cinco años y un presupuesto de 240000 u.m en concepto de estanques para reproducción y desarrollo, y 66000 u.m. en un edificio destinado al laboratorio de incubación y alevinaje. Los estanques se amortizarán en función de la producción, sin considerar valor residual alguno, durante la vida del proyecto. El laboratorio lo hará por cuates constantes durante una vida útil de 10 años, y estimando un valor residual de 6000 u.m.
+
+Según sus estimaciones, durante este tiempo podrían vender cada kg de trucha a 7 u.m., considerando que el coste variable unitario en el que tendrían que incurrir hasta llegar a un peso mínimo apropiado para la venta, ascendería a 3 u.m./kg. Por otro lado, el mantenimiento de la piscifactoría supondría un coste anual fijo de 25000 u.m., teniendo en cuenta que en el mismo estaría incluida la amortización del laboratorio.
+
+Las estimaciones de producción y ventas de trucha para los cinco años son de 10000 kg., 15000 kg., 25000 kg., el primer, segundo y tercer año, respectivamente, y 35000 kg., cada año, en el cuarto y quinto.
+
+Conociendo que la rentabilidad mínima que se le exige al proyecto es del 4\%, y que al final de la duración del proyecto, los estanques podrán venderse por un 40\% del precio de compra, y el laboratorio por su valor neto contable, se pide:
+
+\begin{enumerate}[(a)]
+\item ¿Qué oferta económica deberían recibir estos socios por el proyecto de la piscifactoría para que estuvieran dispuestos a venderlo y no llevarlo a cabo? ¿Y en el caso de haber construido ya los estanques?
+
+Para vender el proyecto deberían recibir una cantidad mayor o igual que el VAN, luego calculémoslo. El desombolso inicial es $Q_0=240000+66000=306000$ u.m. El laboratorio se mantiene durante 10 años, con un valor residual de 60000 u.m. y por cuotas constantes, luego su amortización anual será de 6000 u.m:
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|}
+ \hline 
+   & Año 1 & Año 2 & Año 3 & Año 4 & Año 5 \\ 
+ \hline 
+ Laboratorios & 6000 & 6000 & 6000 & 6000 & 6000 \\ 
+ \hline 
+ \end{tabular}  
+\end{center}
+
+Ahora ya podemos calcular el valor del flujo neto de caja, FNC. Para la fila de cobros tenemos que multiplicar el precio de cada kg, $7u.m./kg.$, por el número de ventas en cada año. Para la fila de costes variable sólo hay que multiplicar el coste variable, $3u.m./kg.$, por el número de ventas en cada año. También hay que restar las amortizaciones a los costes fijos, en este caso, solo la del laboratorio (la del estanque ya se encuentra incluida). Por último, para el FNC, le restamos los pagos a los cobros:
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline 
+ & Año 1 & Año 2 & Año 3 & Año 4 & Año 5 \\ 
+\hline 
+Cobros & 70000 & 105000 & 175000 & 245000 & 245000 \\ 
+\hline 
+Costes fijo & 19000 & 19000 & 19000 & 19000 & 19000 \\ 
+\hline 
+Costes variable & 30000 & 45000 & 75000 & 105000 & 105000 \\ 
+\hline 
+FNC & 21000 & 41000 & 81000 & 121000 & 121000 \\ 
+\hline 
+\end{tabular} 
+\end{center}
+
+Antes de calcular el VAN, tenemos que tener en cuenta que los estanques se venden al 40\% de su precio de compra, es decir, $240000\cdot 0.4=96000$ u.m. Además el laboratorio de vende por su valor neto contable, como se han amortizado 30000 u.m en los 5 años, se venderá por $66000-30000=36000$ u.m. Ya sí podemos calcular el VAN:
+\[
+VAN=-A_0+\sum_{i=1}^5\frac{FNC_i}{(1+K)^i}+\frac{96000}{(1+0.04)^5}+\frac{36000}{(1+0.04)^5}=135.486,68 \;\; u.m.
+\]
+
+ tenemos que tener en cuenta que se venden por un 40\% del precio de compra en el quinto año, es decir, su amortización será $240000\cdot 0.4=96000$ u.m.
+ 
+Si ya ha construido los estanques no estoy muy seguro de cuánto deberían ofrecerle. Supongo que el VAN más el precio de los estanques, ya que tendría que venderlos porque ya no le hacen falta. O si decide quedárselos pues deberían descontar el precio de construcción del desembolso inicial.
+
+\item ¿Qué cantidad constante deberían recibir durante los próximos cuatro años para vender el proyecto y no llevarlo a cabo?
+
+El valor actual de la cantidad recibidad durante los 4 años debe ser igual al VAN calculado en el apartado anterior, es decir, hay que ver el valor de esos pagos en el momento actual. Denotando por $P$ al pago anual, se tiene que dar:
+\[
+VAN=P+\frac{P}{(1+0.04)}+\frac{P}{(1+0.04)^2}+\frac{P}{(1+0.04)^3} \Rightarrow P=35889,64 \;\; u.m.
+\]
+
+\end{enumerate}
+
+\end{document}

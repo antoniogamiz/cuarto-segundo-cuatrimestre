@@ -93,6 +93,9 @@ B(R)=\left\lceil\frac{N(R)}{Bfr(R)}\right\rceil=\left\lceil\frac{1000}{27}\right
 \[
 B(S)=\left\lceil\frac{N(S)}{Bfr(S)}\right\rceil=\left\lceil\frac{5000}{45}\right\rceil=112
 \]
+
+Como las tuplas de $R$ y $S$ no están ordenadas por el campo $c$, es necesario ordenarlas para que la reunión sea eficiente. El algoritmo más eficiente require $n\log_2(n)$ bloques, donde $n$ es el número de bloques de la relación, es decir, hacen falta $38\log_2(38)+112\log_2(112)\approx 962$ bloques.
+
 Veamos cuantos registros genera la unión:
 \[
 N(R\;JOIN\;S)=\frac{N(R)N(S)}{\max\{V(R,b),V(S,b)\}}= \frac{1000\cdot 5000}{500}=10000
@@ -110,7 +113,7 @@ Bfr(R\;JOIN\;S)=\left\lfloor\frac{T(B)-C}{L(R\;JOIN\;S)}\right\rfloor=\left\lflo
 \[
 B(R\;JOIN\;S)=\left\lceil\frac{N(R\;JOIN\;S)}{Bfr(R\;JOIN\;S)}\right\rceil=\left\lceil\frac{5000000}{19}\right\rceil=263158
 \]
-En resumen, para la unión hemos necesitado: $38+112$ bloques para leer las dos tablas y otros $263158$ para escribir el resultado. En total: $263308$ bloques de E/S.
+En resumen, para la unión hemos necesitado: 962 bloques para ordenar las tablas $38+112$ bloques para leer las dos tablas y otros $263158$ para escribir el resultado. En total: $264270$ bloques de E/S.
 
 Hagamos la proyección ahora. Al igual que antes, tamaño, factor de bloqueo y bloques resultantes (llamando $P=\Pi_{a,e}(R\;JOIN\;S)$):
 \[
@@ -148,7 +151,7 @@ Es decir, necesitamos 74627 bloques para leer el resultado anterior, y otros 186
 
 Sumando el resultado de las 3 operaciones, nos queda:
 \[
-nºbloques \;\; E/S = 263308 + 337785 + 76493=677586
+nºbloques \;\; E/S = 264270 + 337785 + 76493=678548
 \]
 \end{document}
 

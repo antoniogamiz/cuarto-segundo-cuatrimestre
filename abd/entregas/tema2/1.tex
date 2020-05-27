@@ -72,6 +72,11 @@ B(R)=\left\lceil\frac{N(R)}{Bfr(R)}\right\rceil=\left\lceil\frac{5000}{20}\right
 \[
 B(S)=\left\lceil\frac{N(S)}{Bfr(S)}\right\rceil=\left\lceil\frac{200}{33}\right\rceil= 7
 \]
+Para que la unión sea eficiente, $R$ y $S$ deberían estar por el atributo por el que se va a hacer la unión. Eso requiere $n\log_2(n)$ bloques en cada caso:
+\[
+250\log_2(250)+7\log_2(7)\approx 2011
+\]
+
 Ahora, para hacer la unión, necesitamos leer las dos tablas enteras, luego necesitaremos $250+7$ bloques de E/S. Hacemos la unión por $c$. Calculamos el número de registros:
 \[
 N(R\;JOIN\;S)=\frac{N(R)N(S)}{\max\{V(R,c),V(S,c)\}}=\frac{5000\cdot 200}{\max\{5,5)\}}=200000
@@ -100,7 +105,7 @@ B(P)=\left\lceil\frac{N(P)}{Bfr(P)}\right\rceil=\left\lceil\frac{200000}{33}\rig
 \]
 Luego necesitamos 6061 bloques E/S para escribir el resultado de la proyección. En total:
 \[
-250+7+14286+6061=20604
+2011+2(250+7)+2\cdot 14286+6061=37158
 \]
 \end{document}
 

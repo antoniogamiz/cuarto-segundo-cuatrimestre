@@ -1,0 +1,45 @@
+\documentclass[12pt]{report}
+ 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage[margin=1in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage[shortlabels]{enumitem}
+\usepackage{mathtools}
+\usepackage{amsfonts}
+\usepackage{float}
+\usepackage{epigraph}
+\usepackage{lipsum}
+\usepackage{parskip}
+\usepackage[spanish]{babel}
+\usepackage{tikz}
+\usetikzlibrary{babel}
+\usepackage{csquotes}
+\usepackage{xcolor}
+\usepackage[framemethod=tikz,xcolor=true]{mdframed}
+\usepackage[new]{old-arrows}
+\decimalpoint
+
+\newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+\newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\textbf{Ejercicio 8.} Se tienen registros con un nombre que es un varchar (29), una dirección que es un varchar (255), una fecha que ocupa 10B, un valor para sexo que es un lógico y ocupa 1B, y un tamaño de bloque $B=4B$. Calcula el factor de bloqueo y el porcentaje de utilización en caso de tratarse de bloqueo fijo. Si el bloque contiene 10B de cabecera y un directorio de entradas en el bloque.
+
+Calculamos lo que ocupa un registro:
+\[
+R=29B+255B+10B+1B=295B
+\]
+Calculamos el factor de bloqueo:
+\[
+Bfr=\floor{\frac{B-C}{R}}=\floor{\frac{4096B-10B}{295B}}=13
+\]
+El porcentaje de utiliación es el complementario del desperdicio, luego:
+\[
+\% utilizacion = 1-W = 1-\frac{B-13*R-10B}{B}=0.9387 \; (93.87\%)
+\]
+
+\end{document}
+

@@ -1,0 +1,44 @@
+\documentclass[12pt]{report}
+ 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage[margin=1in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage[shortlabels]{enumitem}
+\usepackage{mathtools}
+\usepackage{amsfonts}
+\usepackage{float}
+\usepackage{epigraph}
+\usepackage{lipsum}
+\usepackage{parskip}
+\usepackage[spanish]{babel}
+\usepackage{tikz}
+\usetikzlibrary{babel}
+\usepackage{csquotes}
+\usepackage{xcolor}
+\usepackage[framemethod=tikz,xcolor=true]{mdframed}
+\usepackage[new]{old-arrows}
+\decimalpoint
+
+\newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+\newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\textbf{Ejercicio 6.} Indice por qué mejorran las consultas mediante índices:
+\begin{enumerate}[(a)]
+\item El número de bloques del índice es menor
+
+Como es menor, es menos costoso consultar el índice que el fichero de datos (menos accesos a disco).
+
+\item Las claves están ordenadas por valor de clave en el índice
+
+Al estar ordenados, podemos hacer consultas por rango y búsquedas de forma muy eficiente, porque en lugar de tener que recorrer todo el fichero de datos simplemente necesitamos hacer esas búsquedas entre los valores de clave del índice.
+
+\item Si son suficientemente pequeños están en memoria
+
+Si caben en memoria, se pueden traer de disco directamente y consultarlo de forma mucho más rápida. Esto implica que si queremos hacer una búsqueda por valor de clave, simplemente consultamos el índice en memoria y después nos traemos explicitamente el bloque que contiene ese registro.
+\end{enumerate}
+\end{document}
+

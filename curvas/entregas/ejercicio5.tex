@@ -1,0 +1,94 @@
+\documentclass[12pt]{article}
+ 
+\usepackage[margin=1in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{tikz}
+\usepackage[spanish]{babel}
+\usetikzlibrary{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage[shortlabels]{enumitem}
+\usepackage{personalcommands}
+
+\usepackage{pgfplots} % It is based on tikz!
+
+
+\newtheorem{theorem}{Teorema}
+\newtheorem{ejercicio}[theorem]{Ejercicio}
+\newcommand{\cita}[1]{`` #1 ''}
+
+\begin{document}
+
+\textbf{Ejercicio 5.-} Prueba que la superficie $S=\{(x,y,z)\in\R^3:z=x^2+y^2\}$ (paraboloide elíptico), es difeomorfa con la supercie $C=\{(x,y,z)\in\R^3:y=x^3\}$.
+
+\medskip\medskip
+
+Para ver si $C$ y $S$ son difeomorfas, necesitamos encontrar una difeomorfismo $\funcion{F}{S}{C}$, es decir, que $F$ sea diferenciable y biyectiva con $\funcion{F^ {-1}}{S_2}{S_1}$ diferenciable.
+
+\begin{tikzpicture}
+\begin{axis}[
+    title={$x^2+y^2=z$}, 
+    xlabel=$x$, ylabel=$y$,
+	small,colormap={custom}{color(0)=(cyan) color(1)=(orange)}
+]
+\addplot3[
+	surf,
+	domain=-5:5,
+	domain y=-5:5,
+	opacity=0.7,shader=interp
+] 
+	{x^2+y^2};
+\end{axis}
+
+\draw (6.7,2.2) node[] {$F$};
+\draw [->, line width =0.3mm] (5.6,2) -- (7.6,2);
+
+\hspace{8.3cm}
+
+\begin{axis}[
+    title={$y=x^3$}, 
+    xlabel=$x$, ylabel=$y$,
+	small,colormap={custom}{color(0)=(cyan) color(1)=(orange)}
+]
+\addplot3[
+	surf,
+	domain=-5:5,
+	domain y=-5:5,
+	opacity=0.7,shader=interp
+] 
+	(x,x^3,y);
+\end{axis}
+
+\end{tikzpicture}
+
+Para encontrar $F$, usamos una parametrización de cada una de las superficies:
+\[
+\funcion{\widetilde{x_1}}{\R^2}{S}, \espacio \widetilde{x_1}(u,v)=(u,v,u^2+v^2) 
+\]
+\[
+\funcion{\widetilde{x_2}}{\R^2}{C}, \espacio \widetilde{x_2}(u,v)=(u,u^3,v) 
+\]
+
+$\widetilde{x_1}$ y $\widetilde{x_2}$ son parametrizaciones y son diferenciables (por serlo todas sus componentes) y sus diferenciales son inyectivas porque:
+\[
+rango\left(
+\begin{array}{cc}
+1 & 0\\
+0 & 1\\
+2u & 2v
+\end{array}
+\right)=2,
+\espacio rango\left(
+\begin{array}{cc}
+1 & 0\\
+3u^2 & 0\\
+0 & 1
+\end{array}
+\right)=2, \espacio \forall (u,v)\in\R^2
+\]
+
+
+El candidato a difeomorfismo será: $F=\widetilde{x_2}\circ\widetilde{x_1}^{-1}$ con $F(x,y,z)=(u,u^3,v)$. Queda comprobar que $F$ sea efectivamente un difeomorfismo. Como la extensión de $F$ a $\R^3$, $\funcion{\widetilde{F}}{\R^3}{\R^3}$, es evidentemente diferenciable, tenemos que $F=\widetilde{F}_{|S}$ también lo es. Con un argumento análogo, se ve que $\funcion{F^{-1}}{C}{S}$, definida por $F^{-1}(x,y,z)=(x,y,x^2+y^2)$, también lo es.
+
+Para ver que $\funcion{F}{S}{C}$ es biyectiva solo hay que comprobar que sea inyectiva ya que $F(S)=C$: si $\widetilde{x_1}(u_1,v_1)=\widetilde{x_2}(u_2,v_2)$, entonces $(u_1,v_1,u_1^2+v_1^2)=(u_2,v_2,u_2^2+v_2^2)$, luego $(u_1,v_1)=(u_2,v_2)$. Por lo tanto, $F$ es un difeomorfismo. También se podría haber argumentado usando que $\widetilde{x_1}$ y $\widetilde{x_2}$ son difeomorfismos ya que la composición de difeomorfismos también es un difeomorfismo.
+\end{document}

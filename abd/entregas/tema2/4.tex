@@ -1,0 +1,61 @@
+\documentclass[12pt]{report}
+ 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\usepackage[margin=1in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage[shortlabels]{enumitem}
+\usepackage{mathtools}
+\usepackage{personalcommands}
+\usepackage{amsfonts}
+\usepackage{float}
+\usepackage{epigraph}
+\usepackage{lipsum}
+\usepackage{parskip}
+\usepackage[spanish]{babel}
+\usepackage{tikz}
+\usetikzlibrary{babel}
+\usepackage{csquotes}
+\usepackage{xcolor}
+\usepackage[framemethod=tikz,xcolor=true]{mdframed}
+\usepackage[new]{old-arrows}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\textbf{Ejercicio 4.} Propón dos planes lógicos para la siguiente consulta e indica de qué dependerá que se escoja uno u otro de sus planes físicos asociados:
+\[
+\Pi_{C}\left(\sigma_{A=a\wedge B=b}(R)\right)
+\]
+Dos planes lógicos posibles podrían ser
+
+\begin{tikzpicture}[scale=0.4]
+\hspace{5cm}
+\draw (0,0) node[anchor=north] {$\Pi_{C}$};
+\draw (0,-1.3)-- (0,-3);
+\draw (0,-3) node[anchor=north] {$\sigma_{A=a}$};
+\draw (0,-4.3)-- (0,-6);
+\draw (0,-6) node[anchor=north] {$\sigma_{B=b}$};
+\draw (0,-7.3)-- (0,-9);
+\draw (0,-9) node[anchor=north] {$R$};
+
+\hspace{3cm}
+
+\draw (0,0) node[anchor=north] {$\Pi_{C}$};
+\draw (0,-1.3)-- (0,-3);
+\draw (0,-3) node[anchor=north] {$\sigma_{B=b}$};
+\draw (0,-4.3)-- (0,-6);
+\draw (0,-6) node[anchor=north] {$\sigma_{A=a}$};
+\draw (0,-7.3)-- (0,-9);
+\draw (0,-9) node[anchor=north] {$R$};
+\end{tikzpicture}
+
+La relación $R$ es la misma para ambas consultas (es decir, mismo número de tuplas, tamaño, etc). La diferencia estará en la primera selección y el criterio de elección dependerá del tamaño de la relación intermedia resultando de la primera selección en cada plan.
+
+Luego podemos saber cuál se escogerá comparando el número de registros resultantes:
+\[
+N_1=\frac{N(R)}{V(R,A)}, \espacio N_2=\frac{N(R)}{V(R,B)}
+\]
+Se escogerá aquel plan que minimize el número de tuplas en la primera selección, como $V(R,A)$ y $V(R,B)$ se encuentran en el denominador, se escogerá aquel que sea mayor.
+
+\end{document}
+

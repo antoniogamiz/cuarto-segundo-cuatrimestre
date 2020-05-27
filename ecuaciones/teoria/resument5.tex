@@ -1,0 +1,251 @@
+% !TeX root = master.tex
+\documentclass[12pt]{article}
+ 
+\usepackage[margin=1in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{tikz-cd}
+\usepackage{amsmath}
+\usepackage[shortlabels]{enumitem}
+\usepackage{mathtools}
+
+% cosas entre comillas 
+\usepackage{csquotes}
+
+\usepackage{tikz}
+
+\decimalpoint
+\usepackage{xcolor}
+
+\usepackage{personalcommands}
+
+\newtheorem{theorem}{Teorema}
+\newtheorem{lemma}[theorem]{Lema}
+\newtheorem{prop}[theorem]{Proposición}
+\newtheorem{coro}[theorem]{Corolario}
+\newtheorem{conj}[theorem]{Conjetura}
+\newtheorem{ejercicio}{Ejercicio}
+\newtheorem*{ejercicio*}{Ejercicio}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definición}
+\newtheorem{example}[theorem]{Ejemplo}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Nota}
+\newtheorem{notacion}[theorem]{Notación}
+\newcommand{\continuas}[1][]{C^{ #1 }[a,b]} 
+\newcommand*{\TickSize}{2pt}%
+
+\newcommand*{\AxisMin}{0}%
+\newcommand*{\AxisMax}{0}%
+
+\newcommand*{\DrawHorizontalPhaseLine}[4][]{%
+    % #1 = axis tick labels
+    % #2 = right arrows positions as CSV
+    % #3 = left arrow positions as CSV
+    \gdef\AxisMin{0}%
+    \gdef\AxisMax{0}%
+    \edef\MyList{#2}% Allows for #1 to be both a macro or not
+    \foreach \X in \MyList {
+        \draw  (\X,\TickSize) -- (\X,-\TickSize) node [below] {$\X$};
+        \ifnum\AxisMin>\X
+            \xdef\AxisMin{\X}%
+        \fi
+        \ifnum\AxisMax<\X
+            \xdef\AxisMax{\X}%
+        \fi
+    }
+
+    \edef\MyList{#3}% Allows for #2 to be both a macro or not
+    \foreach \X in \MyList {% Right arrows
+        \draw [->] (\X-0.1,0) -- (\X,0);
+        \ifnum\AxisMin>\X
+            \xdef\AxisMin{\X}%
+        \fi
+        \ifnum\AxisMax<\X
+            \xdef\AxisMax{\X}%
+        \fi
+    }
+
+    \edef\MyList{#4}% Allows for #3 to be both a macro or not
+    \foreach \X in \MyList {% Left arrows
+        \draw [<-] (\X-0.1,0) -- (\X,0);
+        \ifnum\AxisMin>\X
+            \xdef\AxisMin{\X}%
+        \fi
+        \ifnum\AxisMax<\X
+            \xdef\AxisMax{\X}%
+        \fi
+    }
+
+    \draw  (\AxisMin-1,0) -- (\AxisMax+1,0) node [right] {#1};
+}%
+\begin{document}
+
+\section{Conjuntos invariantes y acotación de soluciones}
+
+\subsection{Definiciones}
+
+Sea $\funcion{f}{D}{\R^d}$ con $D=(a,+\infty)\times\R^d$ y continua. Consideramos el problema:
+\begin{equation}
+x'=f(t,x) \tag{*}
+\end{equation}
+
+\begin{definition}
+Diremos que un conjunto $B\subset\R^d$ es \textbf{positivamente invariante} para la ecuación $(*)$ si $\forall x_0\in B$ y $\forall t_0>a$ y para toda solución $\funcion{\varphi}{(\alpha,\beta)}{\R^d}$ de
+\[
+\left\{
+\begin{array}{l}
+x'=f(t,x)\\
+x(t_0)=x_0
+\end{array}
+\right.
+\]
+se verifica que $\varphi(t)\in B \; \forall t \geq t_0$. De forma análoga se puede definir un conjunto \textbf{negativamente invariante}. Diremos que un conjunto es \textbf{invariante} cuando es positiva y negativamente invariante.
+\end{definition}
+
+\begin{definition}
+Diremos que una solución $\funcion{\varphi}{(\alpha,\omega)}{\R^d}$ es \textbf{acotada en el futuro} si:
+\begin{itemize}
+\item $\omega=+\infty$
+\item $\exists M \geq 0$ tal que $\norm{\varphi(t)}\leq M \;\; \forall t \geq t_0 > \alpha$
+\end{itemize}
+\end{definition}
+
+\begin{definition}
+Diremos que la ecuación diferencial $(*)$ es \textbf{estable en el sentido de Lagrange} si todas sus soluciones son acotadas en el futuro.
+\end{definition}
+
+\subsection{Acotación de soluciones de EDO escalares}
+
+Consideramos el conjunto abierto $D=(a,+\infty)\times\R$ donde $a\geq -\infty$ y una función continua $\funcion{f}{D}{\R}$.
+
+\begin{prop}
+Supongamos que la EDO $x'=f(t,x)$ verifica la propiedad de unicidad en el futuro y sean $p_1,p_2\in\R$ ($p_1<p_2$) tales que 
+\[
+f(t,p_1)=f(t,p_2)=0 \espacio \forall t\in(a,+\infty)
+\]
+Sea $\funcion{\varphi}{(\alpha,\beta)}{\R}$ una solución maximal de
+\[
+\left\{
+\begin{array}{l}
+x'=f(t,x)\\
+x(t_0)=x_0\in[p_1,p_2]
+\end{array}
+\right.
+\]
+Entonces $\varphi(t)\in[p_1,p_2] \;\; \forall t\in(t_0,\omega)$. Además $\omega=+\infty$.
+\end{prop}
+
+\begin{example}
+Ver página 6 tema 5.1. Importante, para que obtener la unicidad en el futuro, puedes ver que verifica la propiedad  de unicidad global viendo que es localmente lipschitziana. Lo último puedes hacerlo o viendo que es continua, o haciéndolo a mano (encontrar un entorno abierto para todo punto donde puedas acotar $f$).
+\end{example}
+
+\begin{prop}
+Sea $\funcion{\varphi}{(\alpha,\beta)}{\R}$ una solución maximal de
+\[
+\left\{
+\begin{array}{l}
+x'=f(t,x)\\
+x(t_0)=x_0\in[p_1,p_2]
+\end{array}
+\right.
+\]
+Si existen $p_1,p_2\in\R$ ($p_1<p_2$) tales que 
+\[
+f(t,p_1)>0 \espacio f(t,p_2)<0 \espacio \forall t\geq t_0
+\]
+Entonces $\varphi(t)\in(p_1,p_2) \;\; \forall t\in(t_0,\omega)$. Además $\omega=+\infty$.
+\end{prop}
+\begin{example}
+Esta proposición hay que usarla cuando los ceros son tope tochos difíciles de encontrar. Así que es más fácil probar a mano valores hasta que salga uno positivo y uno negativo. Ver pag9. tema5.1.
+\end{example}
+
+\subsection{Acotación de soluciones de EDO vectoriales}
+
+Consideramos el conjunto abierto $D=(a,+\infty)\times\R^d$ donde $a\geq -\infty$ y una función continua $\funcion{f}{D}{\R^d}$.
+\begin{equation}
+x'=f(t,x) \tag{*}
+\end{equation}
+
+Vamos a denotar por $\funcion{\dot{V}}{D}{\R}$ a la función definida por $\dot{V}(t,f(t,x))=<\nabla V(x),f(t,x))>$.
+\begin{definition}
+Diremos que $V$ es una \textbf{función guía} de la EDO $(*)$ si $\dot{V}\leq 0 \espacio \forall(t,x)\in D$ (o al menos para valores de $x$ suficientemente grandes)
+\end{definition}
+
+\begin{lemma}
+Sea $\funcion{\varphi}{(\alpha,\beta)}{\R^d}$ una solución de $(*)$. Si existe $V\in\mathcal{C}^1(\R^d)$ tal que
+\[
+\dot{V}(t,x)=0 \espacio \forall (t,x)\in D
+\]
+y $r=V(\varphi(t_0))$ entonces $\varphi(t)\in S_r \espacio \forall t\in(\alpha,\omega)$.
+\end{lemma}
+
+\begin{remark}
+Yo el lema 2 que aparece en la pag6.t5.2 no lo entiendo así que no me lo he mirado.
+\end{remark}
+
+\begin{definition}
+Diremos que una función $\funcion{V}{\R}{\R}$ continua es \textbf{coerciva} en $\R$ si y sólo si:
+\[
+\limitemasinfinito{|x|}{V(x)}=+\infty
+\]
+\end{definition}
+
+\begin{example}
+Todos los polinomios de grado par con coeficiente principal positivo son coercivos.
+\end{example}
+
+\begin{definition}[funciones con variables separadas]
+Diremos que una función $\funcion{V}{\R^2}{\R}$ continua, que se expresa como $V(x,y)=V_1(x)+V_2(y)$ es coerciva si $V_1$ y $V_2$ lo son.
+\end{definition}
+\begin{remark}
+Lo anterior se puede generalizar para cualquier número de $V_i$.
+\end{remark}
+\begin{prop}
+Puede pasar que $V$ no sea de variables separadas pero sí sea cuadrática, es decir:
+\[
+V(x,y)=ax^2+bxy+cy^2+dx+ey+r
+\]
+Entonces:
+\[
+V \text{ coerciva } \Longleftrightarrow a,c>0 \espacio b^2<4ac
+\]
+\end{prop}
+
+\begin{theorem}[acotación mediante funciones guía]
+Si existe $V\in\mathcal{C}^1(\R^d)$ coerciva tal que $\dot{V}(t,x)\leq 0 \forall (t,x)\in D$ entonces las soluciones maximales de la EDO $(*)$ están acotadas en el futuro.
+\end{theorem}
+
+\begin{theorem}
+Dada $\funcion{f}{\R\times\R^d}{\R^d}$ continua, si existe $V\in\mathcal{C}^1(\R^2)$ coerciva tal que
+\[
+\dot{V}(t,x)=0 \espacio \forall (t,x)\in\R\times\R^d
+\]
+entonces las soluciones maximales de $(*)$ están acotadas en el futuro y en el pasado.
+\end{theorem}
+\begin{example}
+Importante el ejemplo en la página 6 del tema 5.3.
+\end{example}
+
+\section{Ecuaciones diferenciales de segundo orden}
+
+\begin{enumerate}[(a)]
+\item Ecuaciones conservativas:
+\[
+mx''+g(x)=0
+\]
+\item Ecuaciones disipativas:
+\[
+mx''cx'+g(x)=0 \espacio c>0
+\]
+\end{enumerate}
+
+Esta parte básicamente consiste en coger a $g(x)$, integrarla, y ver si el resultado es coercivo. Por ejemlo, $x''+x'+\sinh(x)=0$
+
+En este caso, $g(x)=\sinh(x)$, continua, luego:
+\[
+G(x)=\integral{0}{x}{g(z)dx}=\integral{0}{x}{\sinh(z)dz}=\cosh(x)-1
+\]
+Como se da $\limite{x}{-\infty}{G(x)}=0$, $G$ no es coerciva, luego las soluciones de la ecuación no están acotadas en el futuro.
+\end{document}

@@ -1,0 +1,118 @@
+% !TeX root = master.tex
+\documentclass[12pt]{article}
+ 
+\usepackage[margin=1in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{tikz-cd}
+\usepackage{amsmath}
+\usepackage[shortlabels]{enumitem}
+\usepackage{mathtools}
+
+% cosas entre comillas 
+\usepackage{csquotes}
+
+\usepackage{tikz}
+
+
+\usepackage{xcolor}
+
+\usepackage{personalcommands}
+
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{lemma}[theorem]{Lema}
+\newtheorem{prop}[theorem]{Proposición}
+\newtheorem{coro}[theorem]{Corolario}
+\newtheorem{conj}[theorem]{Conjetura}
+\newtheorem{ejercicio}{Ejercicio}
+\newtheorem*{ejercicio*}{Ejercicio}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definición}
+\newtheorem{example}[theorem]{Ejemplo}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Nota}
+\newtheorem{notacion}[theorem]{Notación}
+\newcommand{\continuas}[1][]{C^{ #1 }[a,b]}
+\newcommand{\continuasabierto}[1][]{C^{ #1 }(a,b)}
+\newcommand{\soportecompacto}{\mathcal{D}(a,b)}
+\newcommand{\xcero}{(a,b)}
+\newcommand{\xcerocerrado}{[a,b]}
+\newcommand{\fvariaciones}{F(x,y(x),y'(x))}
+
+\usepackage{float}
+\usepackage{pdfpages}
+
+\newcommand{\ejercicioo}[1]{
+\textbf{Ejercicio #1 }
+
+\begin{figure}[H]
+\center
+\includegraphics[scale=0.5]{img/#1.png}
+\end{figure}
+
+}
+
+\begin{document}
+
+\ejercicioo{1}
+
+Es esta, ya que se cumple $b^2<4ac$ y $a,c>0$.
+
+\medskip
+
+\ejercicioo{2}
+
+\begin{enumerate}[(a)]
+\item $f(x,y)=\arctan(xy)$ Esta acotada en $\R$ luego lo verifica.
+\item $f(x)=\frac{3x^4}{x^3+x+1}$ Luego esta no lo verifica.
+\item $f(x)=\ln(x^2+1)$ Globalmente lipschitziana por tener derivada acotada en $\R$, luego lo verifica.
+\item $f(x,y)=\sqrt{1+(2x+3y)^2}$ 
+\end{enumerate}
+
+\medskip
+
+\ejercicioo{3}
+
+\[
+\dot{V}(x,y)=<(V_1'(x),V_2'(y)),f(x,y))>=-V_1'(x)x^3-V_1'(x)y^3+V_2'(y)x^5-V_2'(y)y^7
+\]
+Haciendo los dos términos del medio igual a 0:
+\[
+V_1'(x)y^3=V_2'(y)x^5
+\]
+Luego $V_1(x)=\frac{x^6}{6}$ y $V_2(y)=\frac{y^6}{6}$. Vemos que si multiplicamos $V_1$ y $V_2$ por 6, la desigualdad anterior se sigue cumpliendo.
+
+\medskip
+
+\ejercicioo{4}
+
+\medskip
+
+\ejercicioo{5}
+
+Este tipo de ecuación es conservativa con $g(x)=x+\cos(x)-1$, integrando:
+\[
+G(x)=\integral{0}{x}{g(z)dz}=\frac{x^2}{2}+\sin(x)-x
+\]
+Y la función guía para las ecuaciones conservativas era:
+\[
+V(x,y)=G(x)+\frac{y^2}{2}
+\]
+Luego es la opción $(D)$.
+
+\medskip
+
+\ejercicioo{6}
+
+Esta es la A pero no se por qué.
+
+\medskip
+
+\ejercicioo{7}
+
+La $B$ es disipativa, luego su función guía no va a cumplir $\dot{V}(x,y)=0$. Las otras, al ser conservativas, como mínimo su función $G$ asociada tiene que ser coerciva, cosa que no pasa ni en $A$, ni en $E$, ni en $F$, ni en $C$. 
+
+Luego es la $D$.
+
+\end{document}

@@ -308,3 +308,491 @@ LSNRCTL> SHOW connect_timeout
 Vamos a establecer una conexión del lado del cliente de Net usando el método \textit{host naming}. Este método no precisa de configuración, a diferencia del \textit{local naming}, que es necesario configurarlo usando la herramiento gráfica \textit{Net manager}.
 
 Esto tengo que completarlo.
+
+\section{Manejo de una instancia Oracle}
+
+Una instancia de Oracle presenta la siguiente estructura: 
+
+\begin{figure}[H]
+  \center
+  \includegraphics[scale=0.3]{img/p13.png}
+\end{figure}
+
+En la BD hay dos usuarios administradores \textbf{SYS} y \textbf{SYSTEM}. Son creados automáticamente y se les asigna el rol \textbf{SYSDBA}.
+\begin{itemize}
+\item \underline{SYS}: Su contraseña es asignada durante el proceso de instalación de la BD. Es el propietario de los datos del diccionario de la BD.
+\item \underline{SYSTEM}: Su contraseña es asignada durante el proceso de instalación de la BD. Propietario de tablas internas adicionales usadas por Herramientas Oracle.
+\end{itemize}
+
+Hay diferentes métodos de autenticación, a través del fichero \textit{password} o a través del SO:
+
+\begin{figure}[H]
+  \center
+  \includegraphics[scale=0.3]{img/p13.png}
+\end{figure}
+
+Para crear el fichero de \textit{password} usando la utilidad de \textit{password}, se usa el siguiente comando:
+\begin{lstlisting}[ language=bash,
+                    deletekeywords={IDENTITY},
+                    deletekeywords={[2]INT},
+                    morekeywords={clustered},
+                    framesep=8pt,
+                    xleftmargin=40pt,
+                    framexleftmargin=40pt,
+                    frame=tb,
+                    framerule=0pt ]
+$ orapwd file=$ORACLE_HOME/dbs/orapworadba entries=5
+\end{lstlisting}
+
+Para decirle a la instancia si usar un fichero \textit{password} o no, se usa el parámetro \textit{REMOTE\_LOGIN\_PASSWORDFILE}. El valor de este parámetro se especifica durante el proceso de instlación de la base de dtos. Tiene 3 valores distintos:
+\begin{itemize}
+\item \textit{shared}: una o varias bases de datos pueden usar el archivo \textit{password}.
+\item \textit{exclusive}: el archivo solo puede ser usado por una base de datos.
+\item \textit{none}: el archivo \textit{password} es ignorado completamente, luego los usuarios se deben autenticar usando el sistema operativo.
+\end{itemize}
+Para conectarse a la base de datos:
+\begin{lstlisting}[ language=bash,
+                    deletekeywords={IDENTITY},
+                    deletekeywords={[2]INT},
+                    morekeywords={clustered},
+                    framesep=8pt,
+                    xleftmargin=40pt,
+                    framexleftmargin=40pt,
+                    frame=tb,
+                    framerule=0pt ]
+CONNECT sys/ABD3oradba as sysdba
+\end{lstlisting}
+
+\subsection{Fichero de parámetros del servidor, SPFILE}
+
+El archivo \textit{SPFILE} no se puede modificar directamente porque puede producir graves inconsistencias. Para modificarlo, hay que obtener un \textit{PFILE} a partir del \textit{SPFILE} actual:
+\begin{lstlisting}[ language=bash,
+                    deletekeywords={IDENTITY},
+                    deletekeywords={[2]INT},
+                    morekeywords={clustered},
+                    framesep=8pt,
+                    xleftmargin=40pt,
+                    framexleftmargin=40pt,
+                    frame=tb,
+                    framerule=0pt ]
+CREATE PFILE="/databases/app/oracle/admin/oradba/pfile/init.ora" FROM SPFILE="/databases/app/oracle/product/12.2.0.1/db_1/dbs/spfileoradba.ora";
+\end{lstlisting}
+Una vez creado este archivo, se cambian los atributos que se quieran y se guarda el archivo. Ahora hay que detener la instancia y arrancarla con el nuevo \textit{PFILE}. Si se ha terminado de modificar el archivo, se crea un nuevo \textit{SPFILE} a partir de ese archivo y se inicia la BD de nuevo (sin usar la cláusula \textit{PFILE}).
+\begin{lstlisting}[ language=bash,
+                    deletekeywords={IDENTITY},
+                    deletekeywords={[2]INT},
+                    morekeywords={clustered},
+                    framesep=8pt,
+                    xleftmargin=40pt,
+                    framexleftmargin=40pt,
+                    frame=tb,
+                    framerule=0pt ]
+SHUTDOWN IMMEDIATE;
+STARTUP;
+\end{lstlisting}
+Muchos de los parámetros de la BD se pueden almacenar directamente en la base de datos, por esa razón el \textit{SPFILE} solo incluye los parámetros necesarios para iniciar la instancia. Esto facilita el cambio dinámico de parámetros de la instancia. El primer \textit{SPFILE} es creado automáticamente a partir de los parámetros proporcionados en el Asistente de Instalación. Se puede crear un \textit{SPFILE} con el siguiente comando:
+\begin{lstlisting}[ language=bash,
+                    deletekeywords={IDENTITY},
+                    deletekeywords={[2]INT},
+                    morekeywords={clustered},
+                    framesep=8pt,
+                    xleftmargin=40pt,
+                    framexleftmargin=40pt,
+                    frame=tb,
+                    framerule=0pt ]
+CREATE SPFILE="/databases/app/oracle/product/12.2.0.1/db_1/dbs/spfileoradba.ora" FROM PFILE="/databases/app/oracle/admin/oradba/pfile/copia_init.ora";
+\end{lstlisting}
+
+Para iniciar una instancia usando el fichero \textit{PFILE}:
+
+\begin{lstlisting}[ language=SQL,
+                    deletekeywords={IDENTITY},
+                    deletekeywords={[2]INT},
+                    morekeywords={clustered},
+                    framesep=8pt,
+                    xleftmargin=40pt,
+                    framexleftmargin=40pt,
+                    frame=tb,
+                    framerule=0pt ]
+STARTUP PFILE="/databases/app/oracle/admin/oradba/pfile/init.ora";
+\end{lstlisting}
+
+Para iniciarla usando el \textit{SPFILE}:
+\begin{lstlisting}[ language=SQL,
+                    deletekeywords={IDENTITY},
+                    deletekeywords={[2]INT},
+                    morekeywords={clustered},
+                    framesep=8pt,
+                    xleftmargin=40pt,
+                    framexleftmargin=40pt,
+                    frame=tb,
+                    framerule=0pt ]
+STARTUP;
+\end{lstlisting}
+
+\subsection{Fases del inicio y la detención}
+
+\begin{figure}[H]
+  \center
+  \includegraphics[scale=0.3]{img/p15.png}
+\end{figure}
+
+\subsection{Opciones de shutdown}
+
+\begin{tabular}{|c|c|c|c|c|}
+\hline 
+Modo shutdown & Abort & Immediate & Transactional & Normal \\ 
+\hline 
+Permite nuevas conexiones & \texttimes & \texttimes & \texttimes & \texttimes \\ 
+\hline 
+Espera a que termine las conexiones actuales & \texttimes & \texttimes & \texttimes & \checkmark \\ 
+\hline 
+Espera a que terminen las transacciones actuales & \texttimes & \texttimes & \checkmark & \checkmark \\ 
+\hline 
+Fuerza un checkpoint y cierra ficheros & \texttimes & \checkmark & \checkmark & \checkmark \\ 
+\hline 
+\end{tabular}
+
+Dependiendo de que opción se use para apagar la instancia tardará más o menos tiempo. La más rápida es abort y la más lenta el apagado normal.
+
+\subsection{Vistas dinámicas de rendimiento}
+
+Son vistas mantenidas por el servidor Oracle y son constantemente actualizadas. Contienen datos sobre estructuras de disco y memoria, además de datos útiles para el ajuste del rendimiento. Tienen sinónimos públicos con el prefijo $V\$$.
+
+Dependiendo del estado en el que esté la instancia, las vistas dinámicas cambian:
+
+\begin{figure}[H]
+  \center
+  \includegraphics[scale=0.25]{img/p16.png}
+\end{figure}
+
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline 
+Se consulta en & Parámetro \\ 
+\hline 
+ \multirow{7}{*}{SGA} & V\$PARAMETER \\ 
+  & V\$SGA \\ 
+  & V\$OPTION \\ 
+  & V\$PROCESS \\ 
+  & V\$SESSION \\ 
+  & V\$VERSION \\ 
+  & V\$INSTANCE \\ 
+\hline 
+\multirow{6}{*}{Control file}& V\$THREAD \\ 
+  & V\$CONTROLFILE \\ 
+  & V\$DATABASE \\ 
+  & V\$DATAFILE \\ 
+  & V\$DATAFILE\_HEADER \\ 
+  & V\$LOGFILE \\ 
+\hline 
+\end{tabular} 
+\end{center}
+
+Para consultar alguno de esos parámetros, se pueden ejecutar consultas como la siguiente:
+\begin{lstlisting}[ language=SQL,
+                    deletekeywords={IDENTITY},
+                    deletekeywords={[2]INT},
+                    morekeywords={clustered},
+                    framesep=8pt,
+                    xleftmargin=40pt,
+                    framexleftmargin=40pt,
+                    frame=tb,
+                    framerule=0pt ]
+SELECT name FROM v$parameter WHERE name LIKE "%control%";
+\end{lstlisting}
+Además, algunos parámetros de inicialización pueden ser modificados mientras la instancia está ejecutándose:
+\begin{lstlisting}[ language=SQL,
+                    deletekeywords={IDENTITY},
+                    deletekeywords={[2]INT},
+                    morekeywords={clustered},
+                    framesep=8pt,
+                    xleftmargin=40pt,
+                    framexleftmargin=40pt,
+                    frame=tb,
+                    framerule=0pt ]
+ALTER SESSION SET SQL_TRACE=true;
+ALTER SYSTEM SET TIMED_STATISTICS=true;
+ALTER SYSTEM SET SORT_AREA_SIZE=131072 DEFERRED;
+\end{lstlisting}
+
+\subsection{Manejo de sesiones}
+
+Usar el comando \textit{STARTUP} para restringir el acceso a la base de datos:
+\begin{lstlisting}[ language=SQL,
+                    deletekeywords={IDENTITY},
+                    deletekeywords={[2]INT},
+                    morekeywords={clustered},
+                    framesep=8pt,
+                    xleftmargin=40pt,
+                    framexleftmargin=40pt,
+                    frame=tb,
+                    framerule=0pt ]
+STARTUP RESTRICT;
+\end{lstlisting}
+Usar el comando \textit{ALTER SYSTEM} para poner una instancia en modo restringido:
+\begin{lstlisting}[ language=SQL,
+                    deletekeywords={IDENTITY},
+                    deletekeywords={[2]INT},
+                    morekeywords={clustered},
+                    framesep=8pt,
+                    xleftmargin=40pt,
+                    framexleftmargin=40pt,
+                    frame=tb,
+                    framerule=0pt ]
+ALTER SYSTEM ENABLE RESTRICTED SESSION;
+\end{lstlisting}
+Para finalizar sesiones hay que seguir una serie de pasos:
+\begin{enumerate}
+\item Identificar la sesión a finalizar con la vista dinámica de rendimiento $v\$session$:
+\begin{lstlisting}[ language=SQL,
+                    deletekeywords={IDENTITY},
+                    deletekeywords={[2]INT},
+                    morekeywords={clustered},
+                    framesep=8pt,
+                    xleftmargin=40pt,
+                    framexleftmargin=40pt,
+                    frame=tb,
+                    framerule=0pt ]
+SELECT sid, serial# FROM v$session WHERE username="SYS";
+\end{lstlisting}
+\item Ejecutar el comando \textit{ALTER SYSTEM}:
+\begin{lstlisting}[ language=SQL,
+                    deletekeywords={IDENTITY},
+                    deletekeywords={[2]INT},
+                    morekeywords={clustered},
+                    framesep=8pt,
+                    xleftmargin=40pt,
+                    framexleftmargin=40pt,
+                    frame=tb,
+                    framerule=0pt ]
+ALTER SYSTEM KILL SESSION "7,15";
+\end{lstlisting}
+\end{enumerate}
+
+\subsection{Ficheros de traza}
+
+Los ficheros de traza pueden ser escritos por el servidor y por los procesos \textit{background}. Oracle vuelca información acerca de errores en los ficheros de traza. El fichero \textit{ALERT} contiene una secuencia cronológica de mensajes y errores. La traza del proceso del servidor se puede habilitar y deshabilitar mediante el comando \textit{ALTER SESSION} o el parámetro \textit{SQL\_TRACE TRUE,FALSE}.
+\begin{figure}[H]
+  \center
+  \includegraphics[scale=0.25]{img/p17.png}
+\end{figure}
+Se recomienda consultar estos ficheros periódicamente para detectar errores internos y errores de corrupción, monitorizar operaciones sobre la base de datos y visualiar los parámetros de inicialización no establecidos por defecto.
+
+\section{Creación de una base de datos}
+
+\begin{figure}[H]
+  \center
+  \includegraphics[scale=0.25]{img/p18.png}
+\end{figure}
+Normalmente esto lo hace el \textit{Asistente de Oracle}, pero ¿qué pasa si el asistente no funciona? El asistente simplemente traduce las opciones que le pasamos a órdenes que ejecuta en una línea de comandos.
+
+Son necesarios unos prerequisitos mínimos para crear una base de datos:
+\begin{itemize}
+\item Una cuenta con privilegios autentificada de alguna de las siguientes formas:
+\begin{itemize}
+\item Por el sistema operativo.
+\item Por el fichero de password.
+\end{itemize}
+\item Memoria para iniciar la instancia.
+\item Espacio de disco suficiente para la base de datos planificada.
+\end{itemize}
+
+Con respecto a la planificación de la localización de los ficheros de la BD es necesario:
+\begin{itemize}
+\item Mantener al menos dos copias activas de los ficheros de control de la base de datos en diferentes discos. De hecho, la propia sentencia de creación de bases de datos no admite que solo le pases un fichero de control como parámetro. Sin embargo, si admite que los dos estén en el mismo disco.
+\item Multiplexar los ficheros redo log y poner los miembros (archivos redo log) de los grupos en discos diferentes (duplicarlos). Un grupo es un conjunto de copias del mismo fichero redo log (miembro) en discos diferentes.
+\item Separar los ficheros de datos cuyos datos:
+\begin{itemize}
+\item Puedan producir congestión en el almacenamiento secundario. Estos habría que distribuirlos en varios discos.
+\item Presenten una duración permanente, es decir, hay que diferenciar entre temporales y permanentes.
+\item Tengan características de administración diferentes.
+\end{itemize}
+\end{itemize}
+
+\subsection{Localización del software Oracle}
+
+
+\begin{figure}[H]
+  \center
+  \includegraphics[scale=0.25]{img/p19.png}
+\end{figure}
+
+A la ruta \textit{/databases/app/oracle} se le llama \textit{ORACLE\_BASE} y a \textit{/product/11.2.0.1/db\_1} y \textit{/product/10.2.0/dbhome\_1} se les llama \textit{ORACLE\_HOME}.
+
+\begin{figure}[H]
+  \center
+  \includegraphics[scale=0.25]{img/p20.png}
+\end{figure}
+
+En \textit{admin} se mete toda la información relativa a la administración de Oracle. Hay una subcarpeta (\textit{db01} y \textit{db02}) para cada BD existente en el sistema. Esto implica que no podemos tener dos BD con el mismo nombre aún ejecutando cada una de ellas en versiones diferentes de Oracle.
+
+La carpeta \textit{oradata} normalmente se encuentra distribuida en varios discos (como muestra la siguiente imagen) o incluso replicada en diferentes discos:
+\begin{figure}[H]
+  \center
+  \includegraphics[scale=0.25]{img/p21.png}
+\end{figure}
+Esto nos permite hacer la multiplexación que se comentó antes de los redo logs y los control files.
+
+\subsection{Creación manual}
+
+Para la creación manual de una base de datos hay que seguir una serie de pasos. Antes de realizar estos pasos se recomienda clonar la máquina virtual para evitar romper la instalación sin querer.
+
+\begin{itemize}
+\item Determinar un nombre único para la instancia y la BD. Además hay que elegir un conjunto de caracteres.
+\item Establecer las variables del sistema operativo:
+
+\begin{lstlisting}[ language=bash,
+                    deletekeywords={IDENTITY},
+                    deletekeywords={[2]INT},
+                    morekeywords={clustered},
+                    framesep=8pt,
+                    xleftmargin=40pt,
+                    framexleftmargin=40pt,
+                    frame=tb,
+                    framerule=0pt ]
+echo $ORACLE_BASE;
+echo $ORACLE_HOME;
+# PATH deberia tener incluida las rutas de oracle
+echo $PATH;
+# el sid es el identificador de la base de datos
+# esta variable la consulta SQLPlus para saber a que BD 
+# debe conectarse
+echo $ORACLE_SID;
+ORACLE_SID=prueba
+export ORACLE_SID;
+echo $ORACLE_SID;
+\end{lstlisting}
+La variable \textit{ORACLE\_SID} da problemas al crear una nueva base de datos porque cuando se intenta crear algo usando las herramientas de Oracle, estas consultarán esa variable para saber a qué BD modificar. Luego lo primero que se debe hacer es cambiar esa variable.
+\item Crear un fichero de password (recomendado):
+\begin{lstlisting}[ language=bash,
+                    deletekeywords={IDENTITY},
+                    deletekeywords={[2]INT},
+                    morekeywords={orapwd},
+                    framesep=8pt,
+                    xleftmargin=40pt,
+                    framexleftmargin=40pt,
+                    frame=tb,
+                    framerule=0pt]
+# nos vamos al directorio donde se va a crear el fichero
+# para poder verlo
+cd $ORACLE_HOME/dbs
+orapwd file=$ORACLE_HOME/dbs/orapwprueba entries=5
+\end{lstlisting}
+\item Preparar el fichero de parámetros. Esto es bastante lioso así que lo único que se va a hacer es copiar el fichero existente de la otra base de datos.
+\begin{lstlisting}[ language=bash,
+                    deletekeywords={IDENTITY},
+                    deletekeywords={[2]INT},
+                    morekeywords={mkdir, gedit,cp,df},
+                    framesep=8pt,
+                    xleftmargin=40pt,
+                    framexleftmargin=40pt,
+                    frame=tb,
+                    framerule=0pt]
+cp $ORACLE_BASE/admin/oradba/pfile/init.ora $ORACLE_HOME/dbs/initprueba.ora
+# reemplazar todas las apariciones de 'oradba' por 'prueba'
+gedit $ORACLE_HOME/dbs/initprueba.ora
+# carpeta para los ficheros de control
+mkdir $ORACLE_BASE/oradata/prueba
+# carpeta para auditorias
+mkdir $ORACLE_BASE/admin/prueba
+mkdir $ORACLE_BASE/admin/prueba/adump
+# comprobar espacio disponible para los pasos que quedan
+cd $ORACLE_HOME/dbs
+df -h
+\end{lstlisting}
+\item Iniciar la instancia.
+\begin{lstlisting}[ language=bash,
+                    deletekeywords={IDENTITY},
+                    deletekeywords={[2]INT},
+                    morekeywords={mkdir, gedit,cp,sqlplus},
+                    framesep=8pt,
+                    xleftmargin=40pt,
+                    framexleftmargin=40pt,
+                    frame=tb,
+                    framerule=0pt]
+sqlplus /nolog
+connect sys as sysdba
+STARTUP NOMOUNT PFILE='$ORACLE_HOME/dbs/initprueba.ora'
+\end{lstlisting}
+\item Crear la base de datos (se crea vacía, sin el diccionario de datos incluso).
+\begin{lstlisting}[ language=sql,
+                    deletekeywords={IDENTITY},
+                    deletekeywords={[2]INT},
+                    morekeywords={mkdir, gedit,cp,sqlplus},
+                    framesep=8pt,
+                    xleftmargin=5pt,
+                    framexleftmargin=20pt,
+                    frame=tb,
+                    framerule=0pt]
+create database prueba user sys identified by "ABD3,oradba"
+user system identified by "ABD3,oradba"
+logfile
+group 1 ('/databases/app/oracle/oradata/prueba/redo01.log') size 10M,
+group 2 ('/databases/app/oracle/oradata/prueba/redo02.log') size 10M,
+group 3 ('/databases/app/oracle/oradata/prueba/redo03.log') size 10M
+maxlogfiles 5
+maxlogmembers 5
+maxloghistory 1
+maxdatafiles 100
+maxinstances 1
+character set us7ascii
+national character set al16utf16
+datafile '/databases/app/oracle/oradata/prueba/system01.dbf' size 350M reuse
+extent management local
+sysaux datafile '/databases/app/oracle/oradata/prueba/sysaux01.dbf' size 100M reuse 
+default temporary tablespace temp
+tempfile '/databases/app/oracle/oradata/prueba/temp01.dbf' size 20M reuse
+undo tablespace undotbs1
+datafile '/databases/app/oracle/oradata/prueba/undotbs1g01.dbf' size 50m reuse autoextend on next 5120k maxsize unlimited;
+\end{lstlisting}
+Ese archivo sql se puede bajar desde \url{https://decsai.ugr.es/~iblanco/scriptBD.sql}. Para ejecutarlo:
+\begin{lstlisting}[ language=bash,
+                    deletekeywords={IDENTITY},
+                    deletekeywords={[2]INT},
+                    morekeywords={mkdir, gedit,cp,sqlplus},
+                    framesep=8pt,
+                    xleftmargin=40pt,
+                    framexleftmargin=40pt,
+                    frame=tb,
+                    framerule=0pt]
+@/home/oracle/Descargas/scriptBD.sql
+\end{lstlisting}
+\item Ejecutar los "scripts" para generar el diccionario de datos, los paquetes almacenados y demás procesos de poscreación. posteriores.
+
+Ver siguiente sección.
+\end{itemize}
+
+\subsection{Creación de vistas de diccionario y paquetes}
+
+Lo primero que hay que hacer es crear las denominadas \textit{tablas base}. Son tablas muy normalizadas, es decir, la información en ellas está muy dividida para que no haya que mantenerlas. A continuación se crean las \textit{vistas del diccionario de datos}, que consultan las tablas base para mostrar la información relativa a un usario, etc. Para generarlas: 
+\begin{lstlisting}[ language=bash,
+                    deletekeywords={IDENTITY},
+                    deletekeywords={[2]INT},
+                    morekeywords={mkdir, gedit,cp,SQLPlus},
+                    framesep=8pt,
+                    xleftmargin=40pt,
+                    framexleftmargin=40pt,
+                    frame=tb,
+                    framerule=0pt]
+# crea las vistas de diccionario habitualmente usadas
+SQLPlus> @$ORACLE_BASE/product/12.2.0.1/db_1/rdbms/admin/catalog.sql
+# ejecuta todos los scripts para ejecutar PL/SQL en el servidor
+SQLPlus> @$ORACLE_BASE/product/12.2.0.1/db_1/rdbms/admin/catproc.sql
+\end{lstlisting}
+Estos dos scripts necesitan bastante tiempo para terminar de ejecutarse, asi que ten paciencia! Una vez que terminen, ya se habrá creado la base de datos.
+
+\subsection{Vistas del diccionario de datos}
+
+\begin{figure}[H]
+  \center
+  \includegraphics[scale=0.25]{img/p23.png}
+  \caption{Esquema del diccionario de datos}
+\end{figure}
+\begin{figure}[H]
+  \center
+  \includegraphics[scale=0.2]{img/p24.png}
+  \caption{Ejemplos de vistos y categorías}
+  \includegraphics[scale=0.2]{img/p25.png}
+  \caption{Más ejemplos}
+\end{figure}

@@ -1,0 +1,75 @@
+\documentclass[12pt]{report}
+ 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\usepackage[margin=1in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage[shortlabels]{enumitem}
+\usepackage{mathtools}
+\usepackage{personalcommands}
+\usepackage{amsfonts}
+\usepackage{float}
+\usepackage{epigraph}
+\usepackage{lipsum}
+\usepackage{booktabs}
+\usepackage{parskip}
+
+\usepackage[spanish]{babel}
+\usepackage{tikz}
+\usetikzlibrary{babel}
+\usepackage{csquotes}
+\usepackage{xcolor}
+\usepackage[framemethod=tikz,xcolor=true]{mdframed}
+\usepackage[new]{old-arrows}
+\usepackage{ctable} % for \specialrule command
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline 
+$T_i$ & Estado & Operación & Dato & V antiguo & V nuevo \\ 
+\hline 
+$T_1$ & start &   &   &   &   \\ 
+\hline 
+$T_2$ & start &   &   &   &   \\ 
+\hline 
+$T_1$ &  & update & A & 10 & 20 \\ 
+\hline 
+$T_1$ & commit &  &  &  &  \\ 
+\hline 
+$T_3$ & start &  &  &  &  \\ 
+\hline 
+$T_2$ &  & update & A & 20 & 30 \\ 
+\hline 
+ & savepoint &  &  &  &  \\ 
+\hline 
+$T_3$ &  & update & B & 0 & 15 \\ 
+\hline 
+$T_3$ &  & update & D & 8 & 25 \\ 
+\specialrule{.2em}{.2em}{.2em}
+$T_3$ & commit &  &  &  &  \\ 
+\hline
+$T_2$ &  & update  & E & 35 & 35 \\ 
+\hline 
+$T_2$ & commit &  &  &  &  \\ 
+\hline 
+\end{tabular} 
+\end{center}
+
+\textbf{Ejercicio 5.} Si ocurriera un \textbf{fallo donde se muestra la doble línea} de la tabla de modificaciones, ¿qué haría el sistema después de recuperarse con cada una de las transacciones y cuáles serían los valores de los datos después de la recuperación?
+
+Si hay un error del sistema, las tres últimas entradas de la tabla de modificaciones no estarían ahí, así que suponemos que no están.
+
+Primeramente vemos que pasa con $T_1$. $T_1$ empieza y hace commit de sus cambios, luego la transacción se ha completado entera. Como el bloque podría haber estado en memoria y no haberse volcado a disco, puede que el valor nuevo de $A$ no haya sido salvado. Por suerte, antes del fallo hay un \textit{savepoint}, luego podemos asegurar que el sistema ha volcado a disco los bloques actualizados de memoria. 
+
+Con $T_2$ y $T_3$ pasa lo mismo, no ha dado tiempo a hacer \textit{commit} antes de la caída del sistema, luego debemos hacer una operación UNDO, es decir, traer los bloques de disco y sobreescribir los valores que haya por los valores antiguos de la tabla de modificaciones.
+
+Dicho esto, los valores tras la recuperación serían:
+\[
+A=20, \espacio B=0, \espacio D=8, \espacio E=35, \espacio
+\]
+
+\end{document}
+

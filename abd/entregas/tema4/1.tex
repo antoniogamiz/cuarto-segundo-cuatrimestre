@@ -1,0 +1,96 @@
+\documentclass[12pt]{report}
+ 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\usepackage[margin=1in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage[shortlabels]{enumitem}
+\usepackage{mathtools}
+\usepackage{personalcommands}
+\usepackage{amsfonts}
+\usepackage{float}
+\usepackage{epigraph}
+\usepackage{lipsum}
+\usepackage{parskip}
+\usepackage[spanish]{babel}
+\usepackage{tikz}
+\usetikzlibrary{babel}
+\usepackage{csquotes}
+\usepackage{xcolor}
+\usepackage[framemethod=tikz,xcolor=true]{mdframed}
+\usepackage[new]{old-arrows}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+Considera el plan de ejecución de transacciones entrelazadas:
+
+Lee (T3, C), Lee (T1, A), Lee (T2, B), Escribe (T3, B),
+Lee (T1, B), Escribe (T1, A), Escribe (T3, C), Escribe (T2, B)
+
+Suponiendo que:
+\begin{itemize}
+\item el plan de ejecución resulta en una serialización de las transacciones en el orden T3, T2 y T1
+(es decir, que se ejecuta primero la transacción 3 completa, después la transacción 2
+completa y, por último la transacción 1 completa), 
+\item antes de la primera operación de cada transacción se inicia la misma, que justo después de la última operación de cada transacción se realiza el commit de la misma, 
+\item los valores iniciales de los datos son $A=100$, $B=50$, $C=150$.
+\end{itemize}
+
+\textbf{Ejercicio 1.} Indica el contenido de la tabla de modificaciones.
+
+El plan de ejecución, según las suposiciones hechas, sería:
+
+\begin{center}
+\begin{tabular}{|c|}
+\hline 
+Lee(T3,C) \\ 
+\hline 
+Escribe(T3,B) \\ 
+\hline 
+Escribe(T3,C) \\ 
+\hline 
+Lee(T2,B) \\ 
+\hline 
+Escribe(T2,B) \\ 
+\hline 
+Lee(T1,A) \\ 
+\hline 
+Lee(T1,B) \\ 
+\hline 
+Escribe(T1,A) \\ 
+\hline 
+\end{tabular} 
+\end{center}
+
+La tabla de modificaciones quedaría:
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline 
+$T_i$ & Estado & Operación & Dato & V antiguo & V nuevo \\ 
+\hline 
+3 & activa &   &   &   &   \\ 
+\hline 
+3 &   & update & B & 50 & 50 \\ 
+\hline 
+3 &   & update & C & 150 & 150 \\ 
+\hline 
+3 & commit &   &   &   &   \\ 
+\hline 
+2 & activa &   &   &   &   \\ 
+\hline 
+2 &   & update & B & 50 & 50 \\ 
+\hline 
+2 & commit &   &   &   &   \\ 
+\hline 
+1 & activa &   &   &   &   \\ 
+\hline 
+1 &   & update & A & 100 & 100 \\ 
+\hline 
+1 & commit &  &  &  &  \\ 
+\hline 
+\end{tabular} 
+\end{center}
+
+
+\end{document}
+
